@@ -1,4 +1,9 @@
 #pragma once
+
+// Warning disabled ---
+#pragma warning( disable : 4577 ) // Warning that exceptions are disabled
+#pragma warning( disable : 4530 ) // Warning that exceptions are disabled
+
 #include <windows.h>
 #include <stdio.h>
 
@@ -31,4 +36,4 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "Hydro Engine"
+#define TITLE "3D Physics Playground"

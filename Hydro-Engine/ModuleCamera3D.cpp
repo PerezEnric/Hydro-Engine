@@ -35,28 +35,25 @@ bool ModuleCamera3D::CleanUp()
 }
 
 // -----------------------------------------------------------------
-update_status ModuleCamera3D::Update()
+update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
+	// Now we can make this movememnt frame rate independant!
 
-	// TODO 3: Make the camera go up/down when pressing R (up) F(down)
 	vec3 newPos(0,0,0);
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += 0.01f;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= 0.01f;
+	float speed = 3.0f * dt;
+	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		speed = 8.0f * dt;
 
-	// TODO 4: Make the camera go forward (w) and backward with (s)
-	// Note that the vectors X/Y/Z contain the current axis of the camera
-	// you can read them to modify Position
+	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * 0.01f;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * 0.01f;
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-	// TODO 5: Make the camera go left (a) and right with (d)
-	// Note that the vectors X/Y/Z contain the current axis of the camera
-	// you can read them to modify Position
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * 0.01f;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * 0.01f;
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
 	Position += newPos;
 	Reference += newPos;
@@ -65,13 +62,9 @@ update_status ModuleCamera3D::Update()
 
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		// TODO (Homework): Rotate the camera with the mouse
-
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-
-		// Ricard's version ----------->
 		float Sensitivity = 0.25f;
 
 		Position -= Reference;
@@ -100,29 +93,6 @@ update_status ModuleCamera3D::Update()
 		}
 
 		Position = Reference + Z * length(Position);
-		// --------------> Ricard's version
-
-		// Carlos' version ----------->
-
-		//// Applying horizontal orbit
-		//vec3 ref_pos = Position - Reference;
-		//ref_pos = rotate(ref_pos, dx * 0.5f, vec3(0.0f, 1.0f, 0.0f));
-
-		//// Applying vertical orbit
-		//vec3 ref_pos_dy = rotate(ref_pos, dy * 0.5f, X);
-
-		//// We check the vertical orbit to not do a complete orbit
-		//float dotProd = dot(normalize(ref_pos_dy), vec3(0.0f, 1.0f, 0.0f));
-		//if (dotProd > -0.95f && dotProd < 0.95f)
-		//	ref_pos = ref_pos_dy;
-
-		//// Moving camera position orbiting
-		//Position = Reference + ref_pos;
-
-		//// Finally, we look to the reference
-		//LookAt(Reference);
-
-		// --------------> Carlos' version
 	}
 
 	// Recalculate matrix -------------
