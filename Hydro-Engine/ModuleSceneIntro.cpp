@@ -38,6 +38,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+	ImGui::Text("Hello, world %d", 123);
+	if (ImGui::Button("Save"))
+	{
+		// do stuff
+	}
+	
+
+
 	return UPDATE_CONTINUE;
 }
 
