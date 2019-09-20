@@ -3,12 +3,12 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
-#include "imconfig.h"
-#include "imgui.h"
-#include "imgui_internal.h"
-#include "imstb_rectpack.h"
-#include "imstb_textedit.h"
-#include "imstb_truetype.h"
+#include "ImGui/imconfig.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_internal.h"
+#include "ImGui/imstb_rectpack.h"
+#include "ImGui/imstb_textedit.h"
+#include "ImGui/imstb_truetype.h"
 
 #define MAX_SNAKE 8
 
