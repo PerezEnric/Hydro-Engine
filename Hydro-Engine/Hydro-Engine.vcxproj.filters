@@ -20,7 +20,7 @@
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\ImGui">
-      <UniqueIdentifier>{54ab1937-f190-4678-9ef4-7d3cc9aae1b5}</UniqueIdentifier>
+      <UniqueIdentifier>{49b491b5-d333-413e-a1ad-ec86da6a7f58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +87,7 @@
     <ClInclude Include="ImGui\imgui.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl2.h">
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_sdl.h">
@@ -164,7 +164,7 @@
     <ClCompile Include="ImGui\imgui_draw.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_opengl2.cpp">
+    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
