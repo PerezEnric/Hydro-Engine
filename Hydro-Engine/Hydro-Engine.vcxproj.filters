@@ -39,13 +39,7 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="p2DynArray.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="p2List.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="glmath.h">
@@ -71,9 +65,6 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePhysics3D.h">
-      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="PhysBody3D.h">
       <Filter>Sources\Helpers</Filter>
@@ -142,9 +133,6 @@
     </ClCompile>
     <ClCompile Include="ModuleSceneIntro.cpp">
       <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePhysics3D.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="PhysBody3D.cpp">
       <Filter>Sources\Helpers</Filter>

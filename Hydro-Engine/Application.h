@@ -9,7 +9,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
 
 
 
@@ -21,7 +20,6 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
 
 private:
 
