@@ -114,12 +114,12 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
-	std::list<Module*>::iterator item = list_modules.end();
+	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
 
-	while(item != list_modules.end() && ret == true)
+	while(item != list_modules.rend() && ret == true)
 	{
 		ret = (*item)->CleanUp();
-		item--;
+		item++;
 	}
 	return ret;
 }
