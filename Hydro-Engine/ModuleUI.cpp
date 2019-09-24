@@ -28,6 +28,8 @@ bool ModuleUI::Start()
 	
 	ImGui::CreateContext();
 	ImGui_ImplOpenGL3_Init();
+	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
+	ImGuiIO& io = ImGui::GetIO();
 	ImGui::StyleColorsDark();
 
 	return true;
@@ -48,11 +50,11 @@ update_status ModuleUI::Update(float dt)
 	{
 		if (ImGui::BeginMenu("Menu"))
 		{
-			if(ImGui::MenuItem("New")){}
+			if (ImGui::MenuItem("New")) {
+			}
 			ImGui::EndMenu();
 		}
 	}
-
 
 	return UPDATE_CONTINUE;
 }
