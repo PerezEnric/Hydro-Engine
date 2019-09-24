@@ -26,6 +26,23 @@ bool ModuleSceneIntro::Start()
 
 	/*App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));*/
+	math::Sphere s1({ 0, 0, 0 }, 2);
+	math::Sphere s2({ 1, 1, 0 }, 2);
+
+	bool is_inter = false;
+
+	s1.Intersects(s2);
+
+	
+
+	math::LCG rn = math::LCG();
+	int test;
+	test = rn.Int(5, 15);
+
+	if (s1.Intersects(s2))
+	{
+		is_inter = true;
+	}
 
 	
 	return ret;
@@ -55,6 +72,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	/*Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();*/
+	
+
+
 
 
 
