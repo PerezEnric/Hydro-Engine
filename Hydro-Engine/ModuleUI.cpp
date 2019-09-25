@@ -46,7 +46,7 @@ update_status ModuleUI::PreUpdate(float dt)
 
 update_status ModuleUI::Update(float dt)
 {
-	if (ImGui::BeginMainMenuBar)
+	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("Menu"))
 		{
@@ -54,7 +54,11 @@ update_status ModuleUI::Update(float dt)
 			}
 			ImGui::EndMenu();
 		}
+
+		ImGui::EndMainMenuBar();
 	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
