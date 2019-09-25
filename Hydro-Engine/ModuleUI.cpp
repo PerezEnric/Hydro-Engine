@@ -46,21 +46,56 @@ update_status ModuleUI::PreUpdate(float dt)
 
 update_status ModuleUI::Update(float dt)
 {
+	CreateMainMenuBar();
+	
+
+	return UPDATE_CONTINUE;
+}
+
+void ModuleUI::CreateMainMenuBar()
+{
 	if (ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::BeginMenu("Menu"))
+		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("New")) {
 			}
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("View"))
+		{
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("Gui Demo"))
+			{
+				show_demo_window = true;
+			}
+
+			if (ImGui::MenuItem("Documentation"))
+			{
+
+			}
+			if (ImGui::MenuItem("Download latest"))
+			{
+
+			}
+			if (ImGui::MenuItem("Report a bug"))
+			{
+				
+			}
+			if (ImGui::MenuItem("About..."))
+			{
+			}
+
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMainMenuBar();
 	}
-
-	
-
-	return UPDATE_CONTINUE;
 }
 
 update_status ModuleUI::PostUpdate(float dt)

@@ -14,6 +14,8 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	void CreateMainMenuBar();
+
 	bool CleanUp();
 
 private:
