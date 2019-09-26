@@ -4,9 +4,9 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 
-#include "MathGeoLib/include/MathGeoLib.h"
-#include "MathGeoLib/include/MathBuildConfig.h"
-#include "MathGeoLib/include/MathGeoLibFwd.h"
+//#include "MathGeoLib/include/MathGeoLib.h"
+//#include "MathGeoLib/include/MathBuildConfig.h"
+//#include "MathGeoLib/include/MathGeoLibFwd.h"
 
 
 
@@ -25,8 +25,8 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	/*App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));*/
-	math::Sphere s1({ 0, 0, 0 }, 2);
+	/*App->camera->LookAt(vec3(0, 0, 0));*/
+	/*math::Sphere s1({ 0, 0, 0 }, 2);
 	math::Sphere s2({ 1, 1, 0 }, 2);
 
 	bool is_inter = false;
@@ -42,7 +42,7 @@ bool ModuleSceneIntro::Start()
 	if (s1.Intersects(s2))
 	{
 		is_inter = true;
-	}
+	}*/
 
 	
 	return ret;
@@ -69,9 +69,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	/*Plane p(0, 1, 0, 0);
+	Plane p(0, 1, 0, 0);
 	p.axis = true;
-	p.Render();*/
+	p.Render();
 	
 
 
