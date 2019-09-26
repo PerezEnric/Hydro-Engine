@@ -54,6 +54,8 @@ update_status ModuleUI::Update(float dt)
 
 void ModuleUI::CreateMainMenuBar()
 {
+	bool open_popup = false;
+
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -72,23 +74,29 @@ void ModuleUI::CreateMainMenuBar()
 		{
 			if (ImGui::MenuItem("Gui Demo"))
 			{
-				show_demo_window = true;
+				ImGui::ShowDemoWindow();
 			}
 
 			if (ImGui::MenuItem("Documentation"))
 			{
-
+				App->RequestBrowser("https://github.com/PerezEnric/Hydro-Engine/wiki");
 			}
 			if (ImGui::MenuItem("Download latest"))
 			{
-
+				App->RequestBrowser("https://github.com/PerezEnric/Hydro-Engine/releases");
 			}
 			if (ImGui::MenuItem("Report a bug"))
 			{
-				
+				App->RequestBrowser("https://github.com/PerezEnric/Hydro-Engine/issues");
 			}
-			if (ImGui::MenuItem("About..."))
+			if (ImGui::Button("About..."))
 			{
+				ImGui::OpenPopup("PopUp");
+			}
+			if (ImGui::BeginPopup("PopUp"))
+			{
+				ImGui::Text("Lalala");
+				ImGui::EndPopup();
 			}
 
 			ImGui::EndMenu();
