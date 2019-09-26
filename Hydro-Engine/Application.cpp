@@ -128,6 +128,11 @@ bool Application::CleanUp()
 	return ret;
 }
 
+void Application::RequestBrowser(const char* url)
+{
+	ShellExecute(GetActiveWindow(), "open", url, nullptr, nullptr, SW_SHOWNORMAL);
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
