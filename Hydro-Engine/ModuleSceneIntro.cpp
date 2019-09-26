@@ -3,6 +3,10 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
+#include "Json/json.hpp"
+#include <fstream>
+#include <istream>
+#include <string>
 
 //#include "MathGeoLib/include/MathGeoLib.h"
 //#include "MathGeoLib/include/MathBuildConfig.h"
@@ -43,8 +47,22 @@ bool ModuleSceneIntro::Start()
 	{
 		is_inter = true;
 	}*/
+	nlohmann::json j;
 
+	std::ifstream i("Config.json");
+	if (!i) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		i >> j;
+	}
+
+	std::string name;
+	name = j["App"]["Name"].get<std::string>();
+	App->window->SetTitle(name.c_str());
 	
+
 	return ret;
 }
 

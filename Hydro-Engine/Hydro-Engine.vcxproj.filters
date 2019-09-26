@@ -165,4 +165,7 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Config.json" />
+  </ItemGroup>
 </Project>

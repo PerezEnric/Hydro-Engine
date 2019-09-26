@@ -1,7 +1,23 @@
 #include <stdlib.h>
 #include "Application.h"
 #include "Globals.h"
-#include "Json/json.hpp"
+
+/*
+nlohmann::json j;
+
+std::ifstream i("Config.json");
+if (!i) {
+	LOG("Could not open config_file");
+}
+else {
+	LOG("Config_file succesfully loaded");
+	i >> j;
+}
+
+int cancer = j["App"]["MaxFramerate"].get<int>();
+if (cancer != 0)
+	LOG("error");
+*/
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -25,6 +41,8 @@ int main(int argc, char ** argv)
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
 	Application* App = NULL;
+
+	
 
 	while (state != MAIN_EXIT)
 	{
@@ -50,6 +68,7 @@ int main(int argc, char ** argv)
 				state = MAIN_UPDATE;
 				LOG("-------------- Application Update --------------");
 			}
+			
 
 			break;
 

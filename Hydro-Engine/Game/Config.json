@@ -1,0 +1,9 @@
+{
+  "App": {
+    "Name": "Hydro Engine",
+
+    "Organization": "UPC CITM",
+    "MaxFramerate": 32
+  }
+
+}
