@@ -54,8 +54,7 @@ update_status ModuleUI::Update(float dt)
 
 void ModuleUI::CreateMainMenuBar()
 {
-	bool open_popup = false;
-
+	bool show = true;
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -67,6 +66,16 @@ void ModuleUI::CreateMainMenuBar()
 
 		if (ImGui::BeginMenu("View"))
 		{
+			if (ImGui::MenuItem("Console"))
+			{
+				CreateConsole();
+			}
+
+			if (ImGui::MenuItem("Configuration"))
+			{
+				CreateConfigWindow();
+			}
+
 			ImGui::EndMenu();
 		}
 
@@ -74,7 +83,7 @@ void ModuleUI::CreateMainMenuBar()
 		{
 			if (ImGui::MenuItem("Gui Demo"))
 			{
-				ImGui::ShowDemoWindow();
+				ImGui::ShowDemoWindow(&show);
 			}
 
 			if (ImGui::MenuItem("Documentation"))
@@ -104,6 +113,24 @@ void ModuleUI::CreateMainMenuBar()
 
 		ImGui::EndMainMenuBar();
 	}
+}
+
+void ModuleUI::CreateConfigWindow()
+{
+
+	if (ImGui::Begin("Configuration"))
+	{
+		if (ImGui::CollapsingHeader("Configuration"))
+		{
+			
+			
+		}
+		ImGui::End();
+	}
+}
+
+void ModuleUI::CreateConsole()
+{
 }
 
 update_status ModuleUI::PostUpdate(float dt)

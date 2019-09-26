@@ -15,12 +15,14 @@ public:
 	update_status PostUpdate(float dt);
 
 	void CreateMainMenuBar();
+	void CreateConfigWindow();
+	void CreateConsole();
 
 	bool CleanUp();
 
 private:
 
-	bool show_demo_window = false;
+	bool show_demo_window = true;
 };
 
 #endif
