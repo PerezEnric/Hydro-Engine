@@ -22,7 +22,9 @@ public:
 
 private:
 
-	bool show_demo_window = true;
+	bool show_config_window = false;
+	bool show_console = false;
+	SDL_WindowFlags window_flags;
 };
 
 #endif

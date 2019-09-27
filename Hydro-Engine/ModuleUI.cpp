@@ -41,20 +41,28 @@ update_status ModuleUI::PreUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
+	CreateMainMenuBar();
+
+	ImGui::ShowDemoWindow();
+
+	if (show_config_window)
+		CreateConfigWindow();
+
+	if (show_console)
+		CreateConsole();
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleUI::Update(float dt)
 {
-	CreateMainMenuBar();
-	
 
 	return UPDATE_CONTINUE;
 }
 
 void ModuleUI::CreateMainMenuBar()
 {
-	bool show = true;
+
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -66,15 +74,9 @@ void ModuleUI::CreateMainMenuBar()
 
 		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Console"))
-			{
-				CreateConsole();
-			}
-
-			if (ImGui::MenuItem("Configuration"))
-			{
-				CreateConfigWindow();
-			}
+			ImGui::MenuItem("Console", NULL, &show_console);
+			ImGui::MenuItem("Configuration", NULL, &show_config_window);
+			
 
 			ImGui::EndMenu();
 		}
@@ -83,7 +85,7 @@ void ModuleUI::CreateMainMenuBar()
 		{
 			if (ImGui::MenuItem("Gui Demo"))
 			{
-				ImGui::ShowDemoWindow(&show);
+				ImGui::ShowDemoWindow();
 			}
 
 			if (ImGui::MenuItem("Documentation"))
@@ -118,15 +120,17 @@ void ModuleUI::CreateMainMenuBar()
 void ModuleUI::CreateConfigWindow()
 {
 
-	if (ImGui::Begin("Configuration"))
+	if (ImGui::Begin("Configuration", &show_config_window), window_flags)
 	{
+		ImGui::SetWindowPos(ImVec2{ 600, 20 }, ImGuiCond_FirstUseEver);
+		ImGui::SetWindowSize(ImVec2{ 600, 600 }, ImGuiCond_FirstUseEver);
 		if (ImGui::CollapsingHeader("Configuration"))
 		{
-			
 			
 		}
 		ImGui::End();
 	}
+
 }
 
 void ModuleUI::CreateConsole()
