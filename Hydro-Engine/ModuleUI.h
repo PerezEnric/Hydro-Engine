@@ -17,6 +17,7 @@ public:
 	void CreateMainMenuBar();
 	void CreateConfigWindow();
 	void CreateConsole();
+	void CreateAbout();
 
 	bool CleanUp();
 
@@ -24,6 +25,7 @@ private:
 
 	bool show_config_window = false;
 	bool show_console = false;
+	bool show_about = false;
 	SDL_WindowFlags window_flags;
 };
 

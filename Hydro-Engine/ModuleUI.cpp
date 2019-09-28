@@ -2,6 +2,9 @@
 #include "ModuleUI.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "Json/json.hpp"
+#include <fstream>
+#include <string>
 
 #include "ImGui/imconfig.h"
 #include "ImGui/imgui.h"
@@ -52,6 +55,9 @@ update_status ModuleUI::PreUpdate(float dt)
 	if (show_console)
 		CreateConsole();
 
+	if (show_about)
+		CreateAbout();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -101,16 +107,7 @@ void ModuleUI::CreateMainMenuBar()
 			{
 				App->RequestBrowser("https://github.com/PerezEnric/Hydro-Engine/issues");
 			}
-			if (ImGui::Button("About..."))
-			{
-				ImGui::OpenPopup("PopUp");
-			}
-			if (ImGui::BeginPopup("PopUp"))
-			{
-				ImGui::Text("Lalala");
-				ImGui::EndPopup();
-			}
-
+			ImGui::MenuItem("About...", NULL, &show_about);
 			ImGui::EndMenu();
 		}
 
@@ -138,6 +135,30 @@ void ModuleUI::CreateConsole()
 {
 	ImGuiConsole console;
 	console.Draw("console", &show_console);
+}
+
+void ModuleUI::CreateAbout()
+{
+	ImGui::OpenPopup("PopUp");
+
+	if (ImGui::BeginPopup("PopUp"))
+	{
+		nlohmann::json j;
+
+		std::ifstream i("Config.json");
+		if (!i) {
+			LOG("Could not open config_file");
+		}
+		else {
+			LOG("Config_file succesfully loaded");
+			i >> j;
+		}
+
+		std::string name;
+		name = j["App"]["Name"].get<std::string>();
+		ImGui::Text(name.c_str());
+		ImGui::EndPopup();
+	}
 }
 
 update_status ModuleUI::PostUpdate(float dt)
