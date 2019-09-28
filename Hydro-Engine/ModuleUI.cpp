@@ -152,7 +152,7 @@ void ModuleUI::CreateAbout()
 		file >> j;
 	}
 
-	if (ImGui::BeginPopup("PopUp"))
+	if (ImGui::BeginPopupModal("PopUp"))
 	{
 		ImGui::Text("About...");
 		ImGui::Separator();
@@ -166,6 +166,12 @@ void ModuleUI::CreateAbout()
 		ImGui::Text(libraries.c_str());
 		license = j["App"]["License"].get<std::string>();
 		ImGui::Text(license.c_str());
+		ImGui::NewLine();
+		if (ImGui::Button("Close"))
+		{
+			ImGui::CloseCurrentPopup();
+			show_about = false;
+		}
 		ImGui::EndPopup();
 	}
 }
