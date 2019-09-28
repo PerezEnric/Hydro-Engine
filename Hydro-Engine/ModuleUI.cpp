@@ -152,14 +152,26 @@ void ModuleUI::CreateAbout()
 		file >> j;
 	}
 
-	if (ImGui::BeginPopup("PopUp"))
+	if (ImGui::BeginPopupModal("PopUp"))
 	{
+		ImGui::Text("About...");
+		ImGui::Separator();
 		engine_name = j["App"]["Name"].get<std::string>();
 		ImGui::Text(engine_name.c_str());
 		description = j["App"]["Description"].get<std::string>();
 		ImGui::Text(description.c_str());
 		authors = j["App"]["Authors"].get<std::string>();
 		ImGui::Text(authors.c_str());
+		libraries = j["App"]["Libraries"].get<std::string>();
+		ImGui::Text(libraries.c_str());
+		license = j["App"]["License"].get<std::string>();
+		ImGui::Text(license.c_str());
+		ImGui::NewLine();
+		if (ImGui::Button("Close"))
+		{
+			ImGui::CloseCurrentPopup();
+			show_about = false;
+		}
 		ImGui::EndPopup();
 	}
 }

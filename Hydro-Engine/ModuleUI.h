@@ -31,6 +31,8 @@ private:
 	std::string engine_name;
 	std::string description;
 	std::string authors;
+    std::string libraries;
+	std::string license;
 	SDL_WindowFlags window_flags;
 };
 
