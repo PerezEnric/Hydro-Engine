@@ -129,7 +129,48 @@ void ModuleUI::CreateConfigWindow()
 
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
-
+			ImGui::Text("SDL version: %i.%i.%i", App->system_info.sdl_version.major, App->system_info.sdl_version.minor, App->system_info.sdl_version.patch);
+			ImGui::Separator();
+			ImGui::Text("System Ram: %.2f GB", App->system_info.ram);
+			ImGui::Text("CPUs: %i (Cache: %i KB)", App->system_info.cpus, App->system_info.cpu_cache);
+			ImGui::Text("Caps:");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX)
+				ImGui::Text("AVX");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX2)
+				ImGui::Text("AVX2");
+			ImGui::SameLine();
+			if (App->system_info.has_AltiVec)
+				ImGui::Text("AltiVec");
+			ImGui::SameLine();
+			if (App->system_info.has_MMX)
+				ImGui::Text("MMX");
+			ImGui::SameLine();
+			if (App->system_info.has_RDSTC)
+				ImGui::Text("RDSTC");
+			ImGui::SameLine();
+			if (App->system_info.has_3DNow)
+				ImGui::Text("3DNow");
+			ImGui::SameLine();
+			if (App->system_info.has_SSE)
+				ImGui::Text("SSE");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX)
+				ImGui::Text("SSE2");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX)
+				ImGui::Text("SSE3");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX)
+				ImGui::Text("SSE41");
+			ImGui::SameLine();
+			if (App->system_info.has_AVX)
+				ImGui::Text("SSE42");
+			ImGui::Separator();
+			ImGui::Text("GPU vendor: %s", App->system_info.vendor);
+			ImGui::Text("GPU brand: %s", App->system_info.renderer);
+			ImGui::Text("GPU version: %s", App->system_info.version);
 		}
 		ImGui::End();
 	}

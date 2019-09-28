@@ -9,10 +9,31 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleUI.h"
+#include "Glew/include/glew.h"
 #include <list>
 #include <shellapi.h>
 
-
+struct HardwareInfo
+{
+	SDL_version sdl_version;
+	int cpus = 0;
+	int cpu_cache = 0;
+	float ram = 0.0f;
+	bool has_3DNow = false;
+	bool has_AVX = false;
+	bool has_AVX2 = false;
+	bool has_AltiVec = false;
+	bool has_MMX = false;
+	bool has_RDSTC = false;
+	bool has_SSE = false;
+	bool has_SSE2 = false;
+	bool has_SSE3 = false;
+	bool has_SSE41 = false;
+	bool has_SSE42 = false;
+	const GLubyte* vendor = nullptr;
+	const GLubyte* renderer = nullptr;
+	const GLubyte* version = nullptr;
+};
 class Application
 {
 public:
@@ -35,10 +56,15 @@ public:
 	~Application();
 
 	bool Init();
+	void GetSystemInfo();
 	update_status Update();
 	bool CleanUp();
 
 	void RequestBrowser(const char* url);
+
+public:
+
+	HardwareInfo system_info;
 
 private:
 

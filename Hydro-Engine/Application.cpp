@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "SDL/include/SDL_cpuinfo.h"
 #include <list>
 
 
@@ -65,6 +66,8 @@ bool Application::Init()
 		item++;
 	}
 	
+	GetSystemInfo();
+
 	ms_timer.Start();
 	return ret;
 }
@@ -136,4 +139,28 @@ void Application::RequestBrowser(const char* url)
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+void Application::GetSystemInfo()
+{
+	SDL_GetVersion(&system_info.sdl_version);
+	system_info.cpus = SDL_GetCPUCount();
+	system_info.cpu_cache = SDL_GetCPUCacheLineSize();
+	system_info.ram = SDL_GetSystemRAM() * 0.001;
+
+	system_info.has_AVX = SDL_HasAVX();
+	system_info.has_AVX2 = SDL_HasAVX2();
+	system_info.has_AltiVec = SDL_HasAltiVec();
+	system_info.has_MMX = SDL_HasMMX();
+	system_info.has_3DNow = SDL_Has3DNow();
+	system_info.has_RDSTC = SDL_HasRDTSC();
+	system_info.has_SSE = SDL_HasSSE();
+	system_info.has_SSE2 = SDL_HasSSE2();
+	system_info.has_SSE3 = SDL_HasSSE3();
+	system_info.has_SSE41 = SDL_HasSSE41();
+	system_info.has_SSE42 = SDL_HasSSE42();
+
+	system_info.vendor = glGetString(GL_VENDOR);
+	system_info.renderer = glGetString(GL_RENDERER);
+	system_info.version = glGetString(GL_VERSION);
 }
