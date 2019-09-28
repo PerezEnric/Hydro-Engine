@@ -126,6 +126,11 @@ void ModuleUI::CreateConfigWindow()
 		{
 			
 		}
+
+		if (ImGui::CollapsingHeader("Hardware"))
+		{
+
+		}
 		ImGui::End();
 	}
 
@@ -156,16 +161,16 @@ void ModuleUI::CreateAbout()
 	{
 		ImGui::Text("About...");
 		ImGui::Separator();
-		engine_name = j["App"]["Name"].get<std::string>();
-		ImGui::Text(engine_name.c_str());
-		description = j["App"]["Description"].get<std::string>();
-		ImGui::Text(description.c_str());
-		authors = j["App"]["Authors"].get<std::string>();
-		ImGui::Text(authors.c_str());
-		libraries = j["App"]["Libraries"].get<std::string>();
-		ImGui::Text(libraries.c_str());
-		license = j["App"]["License"].get<std::string>();
-		ImGui::Text(license.c_str());
+		about_features.engine_name = j["App"]["Name"].get<std::string>();
+		ImGui::Text(about_features.engine_name.c_str());
+		about_features.description = j["App"]["Description"].get<std::string>();
+		ImGui::Text(about_features.description.c_str());
+		about_features.authors = j["App"]["Authors"].get<std::string>();
+		ImGui::Text(about_features.authors.c_str());
+		about_features.libraries = j["App"]["Libraries"].get<std::string>();
+		ImGui::Text(about_features.libraries.c_str());
+		about_features.license = j["App"]["License"].get<std::string>();
+		ImGui::Text(about_features.license.c_str());
 		ImGui::NewLine();
 		if (ImGui::Button("Close"))
 		{

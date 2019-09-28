@@ -4,6 +4,15 @@
 #include "Module.h"
 #include <string>
 
+struct AboutFeatures
+{
+	std::string engine_name;
+	std::string description;
+	std::string authors;
+	std::string libraries;
+	std::string license;
+};
+
 class ModuleUI : public Module
 {
 public:
@@ -28,11 +37,7 @@ private:
 	bool show_console = false;
 	bool show_about = false;
 
-	std::string engine_name;
-	std::string description;
-	std::string authors;
-    std::string libraries;
-	std::string license;
+	AboutFeatures about_features;
 	SDL_WindowFlags window_flags;
 };
 
