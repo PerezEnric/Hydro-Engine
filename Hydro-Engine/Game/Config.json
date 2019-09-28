@@ -1,9 +1,11 @@
 {
   "App": {
     "Name": "Hydro Engine",
-
+	"Description": "Make your games flow",
+	"Authors": "By Guillem Sanchez and Enric Perez",
+  
     "Organization": "UPC CITM",
     "MaxFramerate": 32
   }
-
+ 
 }

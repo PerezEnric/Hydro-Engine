@@ -141,22 +141,25 @@ void ModuleUI::CreateAbout()
 {
 	ImGui::OpenPopup("PopUp");
 
+	nlohmann::json j;
+
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
 	if (ImGui::BeginPopup("PopUp"))
 	{
-		nlohmann::json j;
-
-		std::ifstream i("Config.json");
-		if (!i) {
-			LOG("Could not open config_file");
-		}
-		else {
-			LOG("Config_file succesfully loaded");
-			i >> j;
-		}
-
-		std::string name;
-		name = j["App"]["Name"].get<std::string>();
-		ImGui::Text(name.c_str());
+		engine_name = j["App"]["Name"].get<std::string>();
+		ImGui::Text(engine_name.c_str());
+		description = j["App"]["Description"].get<std::string>();
+		ImGui::Text(description.c_str());
+		authors = j["App"]["Authors"].get<std::string>();
+		ImGui::Text(authors.c_str());
 		ImGui::EndPopup();
 	}
 }
