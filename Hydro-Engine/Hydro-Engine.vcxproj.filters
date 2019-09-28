@@ -102,6 +102,9 @@
     <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
       <Filter>Sources\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="ImGuiConsole.h">
+      <Filter>Sources\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">

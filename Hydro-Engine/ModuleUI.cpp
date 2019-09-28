@@ -5,6 +5,7 @@
 
 #include "ImGui/imconfig.h"
 #include "ImGui/imgui.h"
+#include "ImGuiConsole.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl3.h"
 #include "Glew/include/glew.h"
@@ -135,6 +136,8 @@ void ModuleUI::CreateConfigWindow()
 
 void ModuleUI::CreateConsole()
 {
+	ImGuiConsole console;
+	console.Draw("console", &show_console);
 }
 
 update_status ModuleUI::PostUpdate(float dt)
