@@ -34,6 +34,8 @@ struct HardwareInfo
 	const GLubyte* renderer = nullptr;
 	const GLubyte* version = nullptr;
 };
+
+
 class Application
 {
 public:
@@ -64,7 +66,20 @@ public:
 
 public:
 
+	// HARDWARE
 	HardwareInfo system_info;
+
+	// FPS
+
+	int frame_count = 0;
+	int last_sec_frame_count = 0;
+	float avg_fps = 0.0f;
+	int prev_last_sec_frame_count = 0;
+	int frames_on_last_update = 0;
+
+	Timer frame_time;
+	Timer last_sec_frame_time;
+	Timer startup_time;
 
 private:
 

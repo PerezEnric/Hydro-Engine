@@ -38,4 +38,16 @@ Uint32 Timer::Read()
 	}
 }
 
+float Timer::ReadSec()
+{
+
+	if (running == true)
+	{
+		return (float)(SDL_GetTicks() - started_at) / 1000.0f;
+	}
+
+	else
+		return 0.0f;
+}
+
 
