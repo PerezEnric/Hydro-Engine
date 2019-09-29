@@ -68,6 +68,7 @@ bool Application::Init()
 	
 	GetSystemInfo();
 
+	startup_time.Start();
 	ms_timer.Start();
 	return ret;
 }
@@ -93,11 +94,11 @@ void Application::FinishUpdate()
 		last_sec_frame_count = 0;
 	}
 
-	avg_fps = frame_count / startup_time.ReadSec();
+	int avg_fps = (float)frame_count / startup_time.ReadSec();
 	int last_frame_ms = frame_time.Read();
 	frames_on_last_update = prev_last_sec_frame_count;
 
-	LOG("%i", frames_on_last_update);
+	LOG("%i", avg_fps);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
