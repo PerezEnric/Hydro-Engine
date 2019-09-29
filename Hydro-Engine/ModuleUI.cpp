@@ -117,6 +117,16 @@ void ModuleUI::CreateMainMenuBar()
 
 void ModuleUI::CreateConfigWindow()
 {
+	nlohmann::json j;
+
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
 
 	if (ImGui::Begin("Configuration", &show_config_window), window_flags)
 	{
@@ -125,6 +135,18 @@ void ModuleUI::CreateConfigWindow()
 		if (ImGui::CollapsingHeader("Configuration"))
 		{
 			
+		}
+
+		if (ImGui::CollapsingHeader("Application"))
+		{
+			ImGui::Text("App Name: ");
+			ImGui::SameLine();
+			about_features.engine_name = j["App"]["Name"].get<std::string>();
+			ImGui::Text(about_features.engine_name.c_str());
+			ImGui::Text("Organization: ");
+			ImGui::SameLine();
+			about_features.org = j["App"]["Organization"].get<std::string>();
+			ImGui::Text(about_features.org.c_str());
 		}
 
 		if (ImGui::CollapsingHeader("Hardware"))

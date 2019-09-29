@@ -11,6 +11,7 @@ struct AboutFeatures
 	std::string authors;
 	std::string libraries;
 	std::string license;
+	std::string org;
 };
 
 class ModuleUI : public Module
