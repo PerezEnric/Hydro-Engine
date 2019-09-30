@@ -147,6 +147,17 @@ void ModuleUI::CreateConfigWindow()
 			ImGui::SameLine();
 			about_features.org = j["App"]["Organization"].get<std::string>();
 			ImGui::Text(about_features.org.c_str());
+
+			//FPS and Ms Historigrams
+
+			FillFPSVector();
+			FillMsVector();
+
+			char title[25];
+			sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+			ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+			sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
+			ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		}
 
 		if (ImGui::CollapsingHeader("Hardware"))
@@ -242,6 +253,34 @@ void ModuleUI::CreateAbout()
 		}
 		ImGui::EndPopup();
 	}
+}
+
+void ModuleUI::FillFPSVector()
+{
+	if (fps_log.size() < 100)
+	{
+		for (uint i = 0; fps_log.size() < 100; i++)
+		{
+			fps_log.push_back(App->GetFPS());
+		}
+	}
+
+	else
+		fps_log.erase(fps_log.begin());
+}
+
+void ModuleUI::FillMsVector()
+{
+	if (ms_log.size() < 100)
+	{
+		for (uint i = 0; ms_log.size() < 100; i++)
+		{
+			ms_log.push_back(App->GetMs());
+		}
+	}
+
+	else
+		ms_log.erase(ms_log.begin());
 }
 
 update_status ModuleUI::PostUpdate(float dt)

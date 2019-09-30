@@ -52,6 +52,19 @@ private:
 	float	dt;
 	std::list<Module*> list_modules;
 
+	// FPS
+
+	int frame_count = 0;
+	int last_sec_frame_count = 0;
+	int prev_last_sec_frame_count = 0;
+	int frames_on_last_update = 0;
+	float framerate_cap = 0.0f;
+
+
+	Timer frame_time;
+	Timer last_sec_frame_time;
+	Timer startup_time;
+
 public:
 
 	Application();
@@ -64,22 +77,14 @@ public:
 
 	void RequestBrowser(const char* url);
 
+	int GetFPS() { return frames_on_last_update - 1; }
+	float GetMs() { return frame_time.Read(); }
+	
+
 public:
 
 	// HARDWARE
 	HardwareInfo system_info;
-
-	// FPS
-
-	int frame_count = 0;
-	int last_sec_frame_count = 0;
-	int prev_last_sec_frame_count = 0;
-	int frames_on_last_update = 0;
-	float framerate_cap = 0.0f;
-
-	Timer frame_time;
-	Timer last_sec_frame_time;
-	Timer startup_time;
 
 private:
 
