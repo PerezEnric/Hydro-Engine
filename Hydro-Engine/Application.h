@@ -73,9 +73,9 @@ public:
 
 	int frame_count = 0;
 	int last_sec_frame_count = 0;
-	//float avg_fps = 0.0f;
 	int prev_last_sec_frame_count = 0;
 	int frames_on_last_update = 0;
+	float framerate_cap = 0.0f;
 
 	Timer frame_time;
 	Timer last_sec_frame_time;

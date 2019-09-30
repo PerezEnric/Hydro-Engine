@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "SDL/include/SDL_cpuinfo.h"
+#include "Json/json.hpp"
+#include <fstream>
 #include <list>
 
 
@@ -87,6 +89,21 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	nlohmann::json j;
+
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
+	int cap = j["App"]["Framerate cap"].get<int>();
+
+	framerate_cap = 1000 / cap;
+
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -97,6 +114,11 @@ void Application::FinishUpdate()
 	int avg_fps = (float)frame_count / startup_time.ReadSec();
 	int last_frame_ms = frame_time.Read();
 	frames_on_last_update = prev_last_sec_frame_count;
+
+	if (framerate_cap > 0 && last_frame_ms < framerate_cap)
+	{
+		SDL_Delay(framerate_cap - last_frame_ms);
+	}
 
 	LOG("%i", avg_fps);
 }
