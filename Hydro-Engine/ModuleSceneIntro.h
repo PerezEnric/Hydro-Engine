@@ -28,6 +28,7 @@ public:
 	bool show_demo_window = false;
 
 	uint my_id = 0;
+	uint my_indices = 0;
 	float vertices[108] = { 
 		0.f, 0.f, 0.f, //FRONT
 		2.f, 0.f, 0.f,
@@ -86,7 +87,7 @@ public:
 
 		4, 6, 5,  6, 7, 5, //BACK
 
-		0, 6, 2,  6, 7, 2, //LEFT
+		6, 0, 7,  0, 2, 7, //LEFT
 
 		2, 3, 7,  3, 5, 7, //TOP
 
