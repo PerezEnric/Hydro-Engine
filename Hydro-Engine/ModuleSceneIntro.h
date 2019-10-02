@@ -26,4 +26,10 @@ public:
 public:
 	
 	bool show_demo_window = false;
+
+	uint my_id = 0;
+	int vertexs[9] = { 
+		0, 0, 0, 
+		2, 0, 0,
+		0, 2, 0 };
 };
