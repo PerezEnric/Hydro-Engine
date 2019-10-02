@@ -152,14 +152,26 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glEnd();
 
+	//glGenBuffers(1, (GLuint*) & (my_id));
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertexs), vertexs, GL_STATIC_DRAW);
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glDrawArrays(GL_TRIANGLES, 0, sizeof(vertexs));
+	//glDisableClientState(GL_VERTEX_ARRAY);
+
 	glGenBuffers(1, (GLuint*) & (my_id));
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexs), vertexs, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108*3, vertices, GL_STATIC_DRAW);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawArrays(GL_TRIANGLES, 0, sizeof(vertexs));
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// deactivate vertex arrays after drawing
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 
