@@ -16,7 +16,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-
+	void EnableRenderSettings(int render_set, bool active);
 	void OnResize(int width, int height);
 
 public:
@@ -25,4 +25,12 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool gl_depth_test = false;
+	bool gl_cull_face = false;
+	bool gl_lighting = true;
+	bool gl_color_material = true;
+	bool gl_texture_2D = false;
+	bool gl_blend = false;
+	bool is_wireframe = false;
 };

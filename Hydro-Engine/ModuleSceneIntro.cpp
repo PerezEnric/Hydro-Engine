@@ -90,7 +90,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 	
-	
 	//glBegin(GL_TRIANGLES);
 
 	////FRONT

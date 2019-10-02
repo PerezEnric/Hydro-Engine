@@ -160,6 +160,35 @@ void ModuleUI::CreateConfigWindow()
 			ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		}
 
+		if (ImGui::CollapsingHeader("Render Settings"))
+		{
+			if (ImGui::Checkbox("Depth Test", &App->renderer3D->gl_depth_test))
+				App->renderer3D->EnableRenderSettings(GL_DEPTH_TEST, App->renderer3D->gl_depth_test);
+
+			if(ImGui::Checkbox("Cull Face", &App->renderer3D->gl_cull_face))
+				App->renderer3D->EnableRenderSettings(GL_CULL_FACE, App->renderer3D->gl_cull_face);
+
+			if(ImGui::Checkbox("Lighting", &App->renderer3D->gl_lighting))
+				App->renderer3D->EnableRenderSettings(GL_LIGHTING, App->renderer3D->gl_lighting);
+
+			if (ImGui::Checkbox("Color Material", &App->renderer3D->gl_color_material))
+				App->renderer3D->EnableRenderSettings(GL_COLOR_MATERIAL, App->renderer3D->gl_color_material);
+
+			if (ImGui::Checkbox("Texture 2D", &App->renderer3D->gl_texture_2D))
+				App->renderer3D->EnableRenderSettings(GL_TEXTURE_2D, App->renderer3D->gl_texture_2D);
+
+			if (ImGui::Checkbox("Blend", &App->renderer3D->gl_blend))
+				App->renderer3D->EnableRenderSettings(GL_BLEND, App->renderer3D->gl_blend);
+
+			if (ImGui::Checkbox("Wireframe", &App->renderer3D->is_wireframe))
+			{
+				if (App->renderer3D->is_wireframe)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				else
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+		}
+
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
 			ImGui::Text("SDL version: %i.%i.%i", App->system_info.sdl_version.major, App->system_info.sdl_version.minor, App->system_info.sdl_version.patch);

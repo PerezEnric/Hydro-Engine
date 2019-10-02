@@ -137,6 +137,14 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+void ModuleRenderer3D::EnableRenderSettings(int render_set, bool active)
+{
+	if (active)
+		glEnable(render_set);
+	else
+		glDisable(render_set);
+}
+
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
