@@ -105,6 +105,9 @@
     <ClInclude Include="ImGuiConsole.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -165,6 +168,9 @@
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ModuleUI.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>

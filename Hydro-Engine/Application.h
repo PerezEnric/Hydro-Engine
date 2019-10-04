@@ -9,6 +9,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleUI.h"
+#include "ModuleFileSystem.h"
 #include "Glew/include/glew.h"
 #include <list>
 #include <shellapi.h>
@@ -45,6 +46,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleUI* ui;
+	ModuleFileSystem* file_system;
 
 private:
 
