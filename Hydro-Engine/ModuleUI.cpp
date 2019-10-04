@@ -251,7 +251,7 @@ void ModuleUI::CreateAbout()
 
 	nlohmann::json j;
 
-	std::ifstream file("Config.json");
+	std::ifstream file("About.json");
 	if (!file) {
 		LOG("Could not open config_file");
 	}
@@ -264,17 +264,18 @@ void ModuleUI::CreateAbout()
 	{
 		ImGui::Text("About...");
 		ImGui::Separator();
-		about_features.engine_name = j["App"]["Name"].get<std::string>();
+		about_features.engine_name = j["About"]["Name"].get<std::string>();
 		ImGui::Text(about_features.engine_name.c_str());
-		about_features.description = j["App"]["Description"].get<std::string>();
+		about_features.description = j["About"]["Description"].get<std::string>();
 		ImGui::Text(about_features.description.c_str());
-		about_features.authors = j["App"]["Authors"].get<std::string>();
+		about_features.authors = j["About"]["Authors"].get<std::string>();
 		ImGui::Text(about_features.authors.c_str());
-		about_features.libraries = j["App"]["Libraries"].get<std::string>();
+		about_features.libraries = j["About"]["Libraries"].get<std::string>();
 		ImGui::Text(about_features.libraries.c_str());
-		about_features.license = j["App"]["License"].get<std::string>();
+		about_features.license = j["About"]["License"].get<std::string>();
 		ImGui::Text(about_features.license.c_str());
 		ImGui::NewLine();
+
 		if (ImGui::Button("Close"))
 		{
 			ImGui::CloseCurrentPopup();
