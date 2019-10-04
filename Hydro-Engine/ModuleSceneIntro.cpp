@@ -154,7 +154,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glGenBuffers(1, (GLuint*) & (my_id));
 	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108*3, vertices, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(float)*36*3, vertices, GL_STATIC_DRAW);
 
 	//glEnableClientState(GL_VERTEX_ARRAY);
 	//glVertexPointer(3, GL_FLOAT, 0, NULL);
