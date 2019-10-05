@@ -159,8 +159,8 @@ void ModuleUI::CreateConfigWindow()
 
 		if (ImGui::CollapsingHeader("Window Settings"))
 		{
-			static float i1 = 0;
-			ImGui::SliderFloat("Brightness", &i1, 0, 1);
+			ImGui::SliderFloat("Brightness", &App->window->brightness, 0, 1);
+			SDL_SetWindowBrightness(App->window->window, App->window->brightness);
 			ImGui::SliderInt("Width", &App->window->width, 640, 1920);
 			ImGui::SliderInt("Height", &App->window->height, 480, 1080);
 			SDL_SetWindowSize(App->window->window, App->window->width, App->window->height);

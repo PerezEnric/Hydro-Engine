@@ -33,6 +33,7 @@ public:
 	bool is_borderless = false;
 	bool is_full_desktop = false;
 
+	float brightness = 1.0f;
 	int width;
 	int height;
 };
