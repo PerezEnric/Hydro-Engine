@@ -32,6 +32,9 @@ public:
 	bool is_resizable = true;
 	bool is_borderless = false;
 	bool is_full_desktop = false;
+
+	int width;
+	int height;
 };
 
 #endif // __ModuleWindow_H__

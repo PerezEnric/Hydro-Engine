@@ -4,7 +4,8 @@
 	
 	"Framerate cap": 60,
   
-    "MaxFramerate": 32
+    "Width": 1280,
+	"Height": 1024
   }
  
 }

@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include <fstream>
+#include "Json/json.hpp"
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -16,6 +18,17 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
+	nlohmann::json j;
+
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -27,8 +40,9 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+		width = j["App"]["Width"].get<int>() * SCREEN_SIZE;
+		height = j["App"]["Height"].get<int>() * SCREEN_SIZE;
+		
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
