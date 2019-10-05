@@ -162,9 +162,8 @@ void ModuleUI::CreateConfigWindow()
 			static float i1 = 0;
 			ImGui::SliderFloat("Brightness", &i1, 0, 1);
 			ImGui::SliderInt("Width", &App->window->width, 640, 1920);
-
-
 			ImGui::SliderInt("Height", &App->window->height, 480, 1080);
+			SDL_SetWindowSize(App->window->window, App->window->width, App->window->height);
 
 			if (ImGui::Checkbox("Fullscreen", &App->window->is_fullscreen))
 				App->window->WindowSettings(SDL_WINDOW_FULLSCREEN, App->window->is_fullscreen);
