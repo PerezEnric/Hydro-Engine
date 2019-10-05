@@ -35,22 +35,22 @@ bool ModuleWindow::Init()
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(WIN_FULLSCREEN == true)
+		if(is_fullscreen)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		if(WIN_RESIZABLE == true)
+		if(is_resizable)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(WIN_BORDERLESS == true)
+		if(is_borderless)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
-		if(WIN_FULLSCREEN_DESKTOP == true)
+		if(is_full_desktop)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
@@ -91,4 +91,30 @@ bool ModuleWindow::CleanUp()
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+void ModuleWindow::WindowSettings(int win_setting, bool active_set)
+{
+	if (active_set)
+	{
+		if(win_setting == SDL_WINDOW_FULLSCREEN_DESKTOP)
+			SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+		if(win_setting == SDL_WINDOW_FULLSCREEN)
+			SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN);
+
+		if (win_setting == SDL_WINDOW_BORDERLESS)
+			SDL_SetWindowBordered(App->window->window, (SDL_bool)false);
+
+		if (win_setting == SDL_WINDOW_RESIZABLE)
+			SDL_SetWindowResizable(window, (SDL_bool)true);
+	}
+
+	else
+	{
+		SDL_SetWindowBordered(App->window->window, (SDL_bool)true);
+		SDL_SetWindowResizable(window, (SDL_bool)false);
+		SDL_SetWindowFullscreen(window, 0);
+	}
+		
 }

@@ -2,6 +2,7 @@
 #include "ModuleUI.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleWindow.h"
 #include "Json/json.hpp"
 #include <fstream>
 #include <string>
@@ -119,7 +120,7 @@ void ModuleUI::CreateConfigWindow()
 {
 	nlohmann::json j;
 
-	std::ifstream file("Config.json");
+	std::ifstream file("About.json");
 	if (!file) {
 		LOG("Could not open config_file");
 	}
@@ -132,20 +133,16 @@ void ModuleUI::CreateConfigWindow()
 	{
 		ImGui::SetWindowPos(ImVec2{ 600, 20 }, ImGuiCond_FirstUseEver);
 		ImGui::SetWindowSize(ImVec2{ 600, 600 }, ImGuiCond_FirstUseEver);
-		if (ImGui::CollapsingHeader("Configuration"))
-		{
-			
-		}
 
 		if (ImGui::CollapsingHeader("Application"))
 		{
 			ImGui::Text("App Name: ");
 			ImGui::SameLine();
-			about_features.engine_name = j["App"]["Name"].get<std::string>();
+			about_features.engine_name = j["About"]["Name"].get<std::string>();
 			ImGui::Text(about_features.engine_name.c_str());
 			ImGui::Text("Organization: ");
 			ImGui::SameLine();
-			about_features.org = j["App"]["Organization"].get<std::string>();
+			about_features.org = j["About"]["Organization"].get<std::string>();
 			ImGui::Text(about_features.org.c_str());
 
 			//FPS and Ms Historigrams
@@ -158,6 +155,22 @@ void ModuleUI::CreateConfigWindow()
 			ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 			sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
 			ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		}
+
+		if (ImGui::CollapsingHeader("Window Settings"))
+		{
+			if (ImGui::Checkbox("Fullscreen", &App->window->is_fullscreen))
+				App->window->WindowSettings(SDL_WINDOW_FULLSCREEN, App->window->is_fullscreen);
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Resizable", &App->window->is_resizable))
+				App->window->WindowSettings(SDL_WINDOW_RESIZABLE, App->window->is_resizable);
+
+			if (ImGui::Checkbox("Borderless", &App->window->is_borderless))
+				App->window->WindowSettings(SDL_WINDOW_BORDERLESS, App->window->is_borderless);
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Fullscreen Desktop", &App->window->is_full_desktop))
+				App->window->WindowSettings(SDL_WINDOW_FULLSCREEN_DESKTOP, App->window->is_full_desktop);
+
 		}
 
 		if (ImGui::CollapsingHeader("Render Settings"))
@@ -180,6 +193,7 @@ void ModuleUI::CreateConfigWindow()
 			if (ImGui::Checkbox("Blend", &App->renderer3D->gl_blend))
 				App->renderer3D->EnableRenderSettings(GL_BLEND, App->renderer3D->gl_blend);
 
+			//TODO2: Make wireframe work
 			if (ImGui::Checkbox("Wireframe", &App->renderer3D->is_wireframe))
 			{
 				if (App->renderer3D->is_wireframe)

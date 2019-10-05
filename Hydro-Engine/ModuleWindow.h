@@ -19,6 +19,7 @@ public:
 	bool CleanUp();
 
 	void SetTitle(const char* title);
+	void WindowSettings(int win_setting, bool active_set);
 
 public:
 	//The window we'll be rendering to
@@ -26,6 +27,11 @@ public:
 
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
+
+	bool is_fullscreen = false;
+	bool is_resizable = true;
+	bool is_borderless = false;
+	bool is_full_desktop = false;
 };
 
 #endif // __ModuleWindow_H__
