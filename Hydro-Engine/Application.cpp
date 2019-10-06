@@ -53,6 +53,14 @@ bool Application::Init()
 	// Call Init() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 	
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> json_frames;
+	}
 
 	while(item != list_modules.end() && ret == true)
 	{
@@ -91,18 +99,8 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
-	nlohmann::json j;
 
-	std::ifstream file("Config.json");
-	if (!file) {
-		LOG("Could not open config_file");
-	}
-	else {
-		LOG("Config_file succesfully loaded");
-		file >> j;
-	}
-
-	int cap = j["App"]["Framerate cap"].get<int>();
+	int cap = json_frames["App"]["Framerate cap"].get<int>();
 
 	framerate_cap = 1000 / cap;
 

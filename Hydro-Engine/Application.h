@@ -67,6 +67,8 @@ private:
 	Timer last_sec_frame_time;
 	Timer startup_time;
 
+	nlohmann::json json_frames;
+
 public:
 
 	Application();

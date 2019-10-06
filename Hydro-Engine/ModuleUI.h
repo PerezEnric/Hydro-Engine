@@ -4,6 +4,8 @@
 #include "Module.h"
 #include <string>
 #include <vector>
+#include "Json/json.hpp"
+#include <fstream>
 
 struct AboutFeatures
 {
@@ -46,6 +48,10 @@ private:
 
 	AboutFeatures about_features;
 	SDL_WindowFlags window_flags;
+
+	nlohmann::json j;
+
+	std::ifstream file;
 };
 
 #endif

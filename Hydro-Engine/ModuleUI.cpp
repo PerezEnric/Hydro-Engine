@@ -37,6 +37,15 @@ bool ModuleUI::Start()
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::StyleColorsDark();
 
+	std::ifstream file("About.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
 	return true;
 }
 
@@ -118,16 +127,6 @@ void ModuleUI::CreateMainMenuBar()
 
 void ModuleUI::CreateConfigWindow()
 {
-	nlohmann::json j;
-
-	std::ifstream file("About.json");
-	if (!file) {
-		LOG("Could not open config_file");
-	}
-	else {
-		LOG("Config_file succesfully loaded");
-		file >> j;
-	}
 
 	if (ImGui::Begin("Configuration", &show_config_window), window_flags)
 	{
