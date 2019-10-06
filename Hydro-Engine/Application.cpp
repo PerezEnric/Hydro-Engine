@@ -14,6 +14,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	file_system = new ModuleFileSystem(this, ASSETS_FOLDER);
+	importer = new ModuleImporter(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -24,6 +25,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(file_system);
+	AddModule(importer);
 	
 	// Scenes
 	AddModule(scene_intro);
