@@ -40,8 +40,8 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		width = j["App"]["Width"].get<int>() * SCREEN_SIZE;
-		height = j["App"]["Height"].get<int>() * SCREEN_SIZE;
+		width = j["Config"]["Window"]["Width"].get<int>() * SCREEN_SIZE;
+		height = j["Config"]["Window"]["Height"].get<int>() * SCREEN_SIZE;
 		
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 

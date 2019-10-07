@@ -1,1 +1,15 @@
-{"App":{"Framerate cap":60,"Height":1024,"Name":"Hydro Engine","Width":1280}}
+{
+	"Config":
+	{
+		"App":
+		{
+			"Framerate cap":60,
+			"Name":"Hydro Engine"
+		},
+		"Window":
+		{
+			"Height":1024,
+			"Width":895
+		}
+	}	
+}

@@ -102,7 +102,7 @@ void Application::PrepareUpdate()
 void Application::FinishUpdate()
 {
 
-	int cap = json_frames["App"]["Framerate cap"].get<int>();
+	int cap = json_frames["Config"]["App"]["Framerate cap"].get<int>();
 
 	framerate_cap = 1000 / cap;
 
@@ -219,12 +219,7 @@ void Application::SaveConfig() const
 		file >> j;
 	}
 
-	j["App"]["Width"] = window->width;
-
-	//for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end(); ++item)
-	//{
-	//	(*item)->
-	//}
+	j["Config"]["Window"]["Width"] = window->width;
 
 	std::ofstream of("Config.json");
 	of << j;
@@ -244,5 +239,5 @@ void Application::LoadConfig()
 		LOG("Config_file succesfully loaded");
 		file >> j;
 	}
-	window->width = j["App"]["Width"].get<int>();
+	window->width = j["Config"]["Window"]["Width"].get<int>();
 }
