@@ -164,15 +164,15 @@ update_status ModuleSceneIntro::Update(float dt)
 	//// deactivate vertex arrays after drawing
 	//glDisableClientState(GL_VERTEX_ARRAY);
 
-	glGenBuffers(1, (GLuint*) & (my_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
+	//glGenBuffers(1, (GLuint*) & (my_indices));
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices2);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glVertexPointer(3, GL_FLOAT, 0, vertices2);
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
 	return UPDATE_CONTINUE;
 }

@@ -31,7 +31,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename)
 	Assimp::Importer Importer;
 
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
-
+	//const aiScene* aScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	if (pScene) {
 		Ret = SceneToMesh(pScene);
 	}
@@ -77,7 +77,35 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 				memcpy(&SceneMesh.index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
 	}
-	scene_meshesh_xd.push_back(&SceneMesh);
+	scene_meshesh_xd.push_back(SceneMesh);
+}
+
+void ModuleImporter::RenderAll()
+{
+	for (uint i = 0; i < scene_meshesh_xd.size(); i++) {
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+
+		glGenBuffers(1, &scene_meshesh_xd[i].id_vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, scene_meshesh_xd[i].id_vertex);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * scene_meshesh_xd[i].num_vertex * 3, scene_meshesh_xd[i].vertex, GL_STATIC_DRAW);
+
+
+		glGenBuffers(1, &scene_meshesh_xd[i].id_index);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, scene_meshesh_xd[i].id_index);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (scene_meshesh_xd[i].num_index), scene_meshesh_xd[i].index, GL_STATIC_DRAW);
+
+		
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glDrawElements(GL_TRIANGLES, scene_meshesh_xd[i].num_index*3, GL_UNSIGNED_INT, NULL);
+		glDisableClientState(GL_VERTEX_ARRAY);
+
+	}
+
+
+
+
 }
 
 update_status ModuleImporter::PreUpdate(float dt)
@@ -87,11 +115,13 @@ update_status ModuleImporter::PreUpdate(float dt)
 
 update_status ModuleImporter::Update(float dt)
 {
+	
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)
 {
+	RenderAll();
 	return UPDATE_CONTINUE;
 }
 

@@ -38,13 +38,15 @@ public:
 	// Esta es la funcion de carga de meshes, tenemos ademas el scene_meshes_xd que es donde guardaremos cada una de las meshes para luego pintarlas.
 	void InitMesh(uint Index, const aiMesh* sMesh);
 
+	void RenderAll();
+
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
 	bool CleanUp();
 private:
-	std::vector<Mesh*> scene_meshesh_xd;
+	std::vector<Mesh> scene_meshesh_xd;
 };
 
 
