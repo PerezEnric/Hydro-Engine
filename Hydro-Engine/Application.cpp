@@ -3,7 +3,7 @@
 #include "Json/json.hpp"
 #include <fstream>
 #include <list>
-
+#include <iostream>
 
 Application::Application()
 {
@@ -204,4 +204,45 @@ void Application::GetSystemInfo()
 	system_info.vendor = glGetString(GL_VENDOR);
 	system_info.renderer = glGetString(GL_RENDERER);
 	system_info.version = glGetString(GL_VERSION);
+}
+
+void Application::SaveConfig() const
+{
+
+	nlohmann::json j;
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
+	j["App"]["Width"] = window->width;
+
+	//for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end(); ++item)
+	//{
+	//	(*item)->
+	//}
+
+	std::ofstream of("Config.json");
+	of << j;
+
+	LOG("WINDOW WITH: %i", window->width);
+
+}
+
+void Application::LoadConfig()
+{
+	nlohmann::json j;
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+	window->width = j["App"]["Width"].get<int>();
 }

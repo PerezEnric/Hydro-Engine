@@ -84,7 +84,12 @@ void ModuleUI::CreateMainMenuBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("New")) {
+			if (ImGui::MenuItem("Save")) {
+				App->SaveConfig();
+			}
+
+			if (ImGui::MenuItem("Load")) {
+				App->LoadConfig();
 			}
 			ImGui::EndMenu();
 		}

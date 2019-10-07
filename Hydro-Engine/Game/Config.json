@@ -1,11 +1,1 @@
-{
-  "App": {
-    "Name": "Hydro Engine",
-	
-	"Framerate cap": 60,
-  
-    "Width": 1280,
-	"Height": 1024
-  }
- 
-}
+{"App":{"Framerate cap":60,"Height":1024,"Name":"Hydro Engine","Width":1280}}
