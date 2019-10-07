@@ -220,6 +220,7 @@ void Application::SaveConfig() const
 	}
 
 	j["Config"]["Window"]["Width"] = window->width;
+	j["Config"]["Window"]["Height"] = window->height;
 
 	std::ofstream of("Config.json");
 	of << j;
@@ -240,4 +241,5 @@ void Application::LoadConfig()
 		file >> j;
 	}
 	window->width = j["Config"]["Window"]["Width"].get<int>();
+	window->height = j["Config"]["Window"]["Height"].get<int>();
 }
