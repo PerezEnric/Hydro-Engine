@@ -98,7 +98,7 @@ void ModuleImporter::RenderAll()
 		
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-		glDrawElements(GL_TRIANGLES, scene_meshesh_xd[i].num_index*3, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, scene_meshesh_xd[i].num_index, GL_UNSIGNED_INT, NULL);
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 	}
