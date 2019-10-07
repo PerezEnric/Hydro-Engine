@@ -15,6 +15,7 @@
 #include <list>
 #include <shellapi.h>
 
+
 struct HardwareInfo
 {
 	SDL_version sdl_version;
@@ -82,6 +83,8 @@ public:
 	bool CleanUp();
 
 	void RequestBrowser(const char* url);
+	void SaveConfig() const;
+	void LoadConfig();
 
 	int GetFPS() { return frames_on_last_update - 1; }
 	float GetMs() { return frame_time.Read(); }

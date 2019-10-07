@@ -18,7 +18,7 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
-	nlohmann::json j;
+	
 
 	std::ifstream file("Config.json");
 	if (!file) {
@@ -40,8 +40,13 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		width = j["App"]["Width"].get<int>() * SCREEN_SIZE;
-		height = j["App"]["Height"].get<int>() * SCREEN_SIZE;
+		width = j["Config"]["Window"]["Width"].get<int>() * SCREEN_SIZE;
+		height = j["Config"]["Window"]["Height"].get<int>() * SCREEN_SIZE;
+
+		is_fullscreen = j["Config"]["Window"]["Flags"]["Fullscreen"].get<bool>();
+		is_resizable = j["Config"]["Window"]["Flags"]["Resizable"].get<bool>();
+		is_borderless = j["Config"]["Window"]["Flags"]["Borderless"].get<bool>();
+		is_full_desktop = j["Config"]["Window"]["Flags"]["Fulldesktop"].get<bool>();
 		
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 

@@ -58,7 +58,7 @@ bool ModuleSceneIntro::Start()
 	}
 
 	std::string name;
-	name = j["App"]["Name"].get<std::string>();
+	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
 	
 

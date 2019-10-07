@@ -3,7 +3,7 @@
 #include "Json/json.hpp"
 #include <fstream>
 #include <list>
-
+#include <iostream>
 
 Application::Application()
 {
@@ -102,7 +102,7 @@ void Application::PrepareUpdate()
 void Application::FinishUpdate()
 {
 
-	int cap = json_frames["App"]["Framerate cap"].get<int>();
+	int cap = json_frames["Config"]["App"]["Framerate cap"].get<int>();
 
 	framerate_cap = 1000 / cap;
 
@@ -204,4 +204,51 @@ void Application::GetSystemInfo()
 	system_info.vendor = glGetString(GL_VENDOR);
 	system_info.renderer = glGetString(GL_RENDERER);
 	system_info.version = glGetString(GL_VERSION);
+}
+
+void Application::SaveConfig() const
+{
+
+	nlohmann::json j;
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+
+	j["Config"]["Window"]["Width"] = window->width;
+	j["Config"]["Window"]["Height"] = window->height;
+
+	j["Config"]["Window"]["Flags"]["Fullscreen"] = window->is_fullscreen;
+	j["Config"]["Window"]["Flags"]["Resizable"] = window->is_resizable;
+	j["Config"]["Window"]["Flags"]["Borderless"] = window->is_borderless;
+	j["Config"]["Window"]["Flags"]["Fulldesktop"] = window->is_full_desktop;
+
+	std::ofstream of("Config.json");
+	of << j;
+
+	LOG("WINDOW WITH: %i", window->width);
+}
+
+void Application::LoadConfig()
+{
+	nlohmann::json j;
+	std::ifstream file("Config.json");
+	if (!file) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		file >> j;
+	}
+	window->width = j["Config"]["Window"]["Width"].get<int>();
+	window->height = j["Config"]["Window"]["Height"].get<int>();
+
+	window->is_fullscreen = j["Config"]["Window"]["Flags"]["Fullscreen"].get<bool>();
+	window->is_resizable = j["Config"]["Window"]["Flags"]["Resizable"].get<bool>();
+	window->is_borderless = j["Config"]["Window"]["Flags"]["Borderless"].get<bool>();
+	window->is_full_desktop = j["Config"]["Window"]["Flags"]["Fulldesktop"].get<bool>();
 }

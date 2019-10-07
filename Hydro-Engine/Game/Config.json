@@ -1,11 +1,1 @@
-{
-  "App": {
-    "Name": "Hydro Engine",
-	
-	"Framerate cap": 60,
-  
-    "Width": 1280,
-	"Height": 1024
-  }
- 
-}
+{"Config":{"App":{"Framerate cap":60,"Name":"Hydro Engine"},"Window":{"Flags":{"Borderless":false,"Fulldesktop":false,"Fullscreen":false,"Resizable":true},"Height":977,"Width":1190}}}

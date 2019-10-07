@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
+#include "Json/json.hpp"
+#include <fstream>
 
 class Application;
 
@@ -36,6 +38,9 @@ public:
 	float brightness = 1.0f;
 	int width;
 	int height;
+
+private: 	
+	nlohmann::json j;
 };
 
 #endif // __ModuleWindow_H__
