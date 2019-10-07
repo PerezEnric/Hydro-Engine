@@ -222,11 +222,15 @@ void Application::SaveConfig() const
 	j["Config"]["Window"]["Width"] = window->width;
 	j["Config"]["Window"]["Height"] = window->height;
 
+	j["Config"]["Window"]["Flags"]["Fullscreen"] = window->is_fullscreen;
+	j["Config"]["Window"]["Flags"]["Resizable"] = window->is_resizable;
+	j["Config"]["Window"]["Flags"]["Borderless"] = window->is_borderless;
+	j["Config"]["Window"]["Flags"]["Fulldesktop"] = window->is_full_desktop;
+
 	std::ofstream of("Config.json");
 	of << j;
 
 	LOG("WINDOW WITH: %i", window->width);
-
 }
 
 void Application::LoadConfig()
@@ -242,4 +246,9 @@ void Application::LoadConfig()
 	}
 	window->width = j["Config"]["Window"]["Width"].get<int>();
 	window->height = j["Config"]["Window"]["Height"].get<int>();
+
+	window->is_fullscreen = j["Config"]["Window"]["Flags"]["Fullscreen"].get<bool>();
+	window->is_resizable = j["Config"]["Window"]["Flags"]["Resizable"].get<bool>();
+	window->is_borderless = j["Config"]["Window"]["Flags"]["Borderless"].get<bool>();
+	window->is_full_desktop = j["Config"]["Window"]["Flags"]["Fulldesktop"].get<bool>();
 }
