@@ -62,6 +62,10 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 	memcpy(SceneMesh.vertex, sMesh->mVertices, sizeof(float) * SceneMesh.num_vertex * 3); // Lo multiplicamos por el sizeof(float) yaque el memcpy trabaja en malditos bits.
 	
 
+	glGenBuffers(1, &SceneMesh.id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, SceneMesh.id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * SceneMesh.num_vertex * 3, SceneMesh.vertex, GL_STATIC_DRAW);
+
 	 // copy faces
 	if (sMesh->HasFaces())
 	{
@@ -73,8 +77,14 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 			{
 				LOG("WARNING, geometry face with != 3 indices!");
 			}
-			else
+			else 
+			{
 				memcpy(&SceneMesh.index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+				glGenBuffers(1, &SceneMesh.id_index);
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, SceneMesh.id_index);
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (SceneMesh.num_index), SceneMesh.index, GL_STATIC_DRAW);
+			}
+			
 		}
 	}
 	scene_meshesh_xd.push_back(SceneMesh);
@@ -86,14 +96,10 @@ void ModuleImporter::RenderAll()
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 
-		glGenBuffers(1, &scene_meshesh_xd[i].id_vertex);
 		glBindBuffer(GL_ARRAY_BUFFER, scene_meshesh_xd[i].id_vertex);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * scene_meshesh_xd[i].num_vertex * 3, scene_meshesh_xd[i].vertex, GL_STATIC_DRAW);
-
-
-		glGenBuffers(1, &scene_meshesh_xd[i].id_index);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, scene_meshesh_xd[i].id_index);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (scene_meshesh_xd[i].num_index), scene_meshesh_xd[i].index, GL_STATIC_DRAW);
+
+		
 
 		
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
