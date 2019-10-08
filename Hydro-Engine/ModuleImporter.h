@@ -20,7 +20,7 @@ struct Mesh {
 	uint num_vertex = 0;
 	float* vertex = nullptr;
 
-	
+	float* normal;
 
 };
 
@@ -39,6 +39,7 @@ public:
 	void InitMesh(uint Index, const aiMesh* sMesh);
 
 	void RenderAll();
+	void RenderNormals();
 
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
