@@ -19,7 +19,7 @@ bool ModuleImporter::Start()
 	aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	LoadFBX("Assets/warrior.FBX");
+	//LoadFBX("Assets/warrior.FBX");
 
 	return true;
 }
