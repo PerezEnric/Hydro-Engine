@@ -174,12 +174,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
 
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	return UPDATE_CONTINUE;
 }
 
