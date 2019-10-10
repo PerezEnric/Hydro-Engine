@@ -9,6 +9,7 @@
 
 struct PhysBody3D;
 
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -27,8 +28,9 @@ public:
 	
 	bool show_demo_window = false;
 
-	uint my_id = 0;
-	uint my_indices = 0;
+	uint m_id = 0;
+	uint m_indices = 0;
+	Cube c;
 	float vertices[108] = { 
 		0.f, 0.f, 0.f, //FRONT
 		2.f, 0.f, 0.f,

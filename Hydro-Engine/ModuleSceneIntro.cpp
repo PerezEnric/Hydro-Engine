@@ -6,8 +6,7 @@
 #include <fstream>
 #include <istream>
 #include <string>
-#define PAR_SHAPES_IMPLEMENTATION
-#include "ParShapes/par_shapes.h"
+
 
 
 //#include "MathGeoLib/include/MathGeoLib.h"
@@ -92,9 +91,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	//Plane p(0, 1, 0, 0);
+	//p.axis = true;
+	//p.Render();
 	
 	//glBegin(GL_TRIANGLES);
 
@@ -170,8 +169,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	//// deactivate vertex arrays after drawing
 	//glDisableClientState(GL_VERTEX_ARRAY);
 
-	//glGenBuffers(1, (GLuint*) & (my_indices));
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	//glGenBuffers(1, (GLuint*) & (m_indices));
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indices);
 	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
 
 	//glEnableClientState(GL_VERTEX_ARRAY);
@@ -179,10 +178,11 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
+	c.Render();
 	
-	par_shapes_mesh* cube = par_shapes_create_cube();
-	par_shapes_translate(cube, 1, 0, 0.5);
-	par_shapes_free_mesh(cube);
+	//par_shapes_mesh* cube = par_shapes_create_cube();
+	//par_shapes_translate(cube, 1, 0, 0.5);
+	//par_shapes_free_mesh(cube);
 
 	return UPDATE_CONTINUE;
 }
