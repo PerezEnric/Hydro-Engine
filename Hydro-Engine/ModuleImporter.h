@@ -40,6 +40,10 @@ public:
 
 	void RenderAll();
 	void RenderNormals();
+	void RenderFaceNormals();
+
+	//AKA cross product;
+	vec3 OrthogonalVect(const vec3 a, const vec3 b);
 
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
@@ -47,7 +51,7 @@ public:
 
 	bool CleanUp();
 private:
-	std::vector<Mesh> scene_meshesh_xd;
+	std::vector<Mesh> _amesh;
 };
 
 
