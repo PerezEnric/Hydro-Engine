@@ -30,7 +30,7 @@ public:
 
 	uint m_id = 0;
 	uint m_indices = 0;
-	Cube c;
+	Primitive c;
 	float vertices[108] = { 
 		0.f, 0.f, 0.f, //FRONT
 		2.f, 0.f, 0.f,

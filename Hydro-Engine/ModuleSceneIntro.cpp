@@ -82,7 +82,6 @@ bool ModuleSceneIntro::CleanUp()
 	LOG("Unloading Intro scene");
 
 
-
 	return true;
 }
 
@@ -178,11 +177,9 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
-	c.Render();
-	
-	//par_shapes_mesh* cube = par_shapes_create_cube();
-	//par_shapes_translate(cube, 1, 0, 0.5);
-	//par_shapes_free_mesh(cube);
+
+	c.CreatePrimitive(PrimitiveTypes::P_CUBE);
+
 
 	return UPDATE_CONTINUE;
 }
