@@ -9,12 +9,6 @@
 
 
 
-//#include "MathGeoLib/include/MathGeoLib.h"
-//#include "MathGeoLib/include/MathBuildConfig.h"
-//#include "MathGeoLib/include/MathGeoLibFwd.h"
-
-
-
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -28,8 +22,6 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
-	
 
 	/*App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	/*App->camera->LookAt(vec3(0, 0, 0));*/
@@ -51,7 +43,7 @@ bool ModuleSceneIntro::Start()
 		is_inter = true;
 	}*/
 	nlohmann::json j;
-
+	
 	std::ifstream i("Config.json");
 	if (!i) {
 		LOG("Could not open config_file");
@@ -177,8 +169,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
-
-	c.CreatePrimitive(PrimitiveTypes::P_CUBE);
+	float a = 0.0f;
+	c.CreatePrimitive(PrimitiveTypes::P_CUBE, &a);
 
 
 	return UPDATE_CONTINUE;

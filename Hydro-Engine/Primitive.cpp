@@ -16,8 +16,9 @@ PrimitiveTypes Primitive::GetType() const
 }
 
 // ------------------------------------------------------------
-void Primitive::CreatePrimitive(PrimitiveTypes p_type)
+void Primitive::CreatePrimitive(PrimitiveTypes p_type, const float* axis, math::float3 t_vector, float radians, math::float3 s_vector)
 {
+
 	switch (p_type)
 	{
 	case PrimitiveTypes::P_CUBE:
@@ -50,6 +51,11 @@ void Primitive::CreatePrimitive(PrimitiveTypes p_type)
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawElements(GL_TRIANGLES, mesh->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+	par_shapes_translate(mesh, t_vector.x, t_vector.y, t_vector.z);
+	par_shapes_rotate(mesh, radians, axis);
+	par_shapes_scale(mesh, s_vector.x, s_vector.y, s_vector.z);
+
 
 	par_shapes_free_mesh(mesh);
 }

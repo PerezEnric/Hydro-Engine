@@ -51,7 +51,7 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-
+	
 	// Call Init() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 	

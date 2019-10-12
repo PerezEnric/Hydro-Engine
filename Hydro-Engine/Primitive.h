@@ -4,6 +4,9 @@
 #include "Color.h"
 
 #include "ParShapes/par_shapes.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "MathGeoLib/include/MathBuildConfig.h"
+#include "MathGeoLib/include/MathGeoLibFwd.h"
 
 enum PrimitiveTypes
 {
@@ -20,7 +23,7 @@ public:
 
 	Primitive();
 
-	virtual void	CreatePrimitive(PrimitiveTypes p_type);
+	virtual void	CreatePrimitive(PrimitiveTypes p_type, const float* axis, math::float3 t_vector = { 0.0f , 0.0f, 0.0f }, float radians = 0.0f, math::float3 s_vector = { 1.0f , 1.0f, 1.0f });
 	PrimitiveTypes	GetType() const;
 
 public:
@@ -32,5 +35,8 @@ public:
 
 protected:
 	PrimitiveTypes type;
+	//math::float3 t_vector; //translation vector
+	//math::float3 r_vector; //rotation vector
+	//math::float3 s_vector; //scale vector
 };
 
