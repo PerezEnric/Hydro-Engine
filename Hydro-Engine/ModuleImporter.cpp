@@ -3,10 +3,7 @@
 #include "Globals.h"
 #include "ModuleInput.h"
 
-#include "glmath.h"
-//#include "MathGeoLib/include/MathGeoLib.h"
-//#include "MathGeoLib/include/MathBuildConfig.h"
-//#include "MathGeoLib/include/MathGeoLibFwd.h"
+
 
 
 
@@ -35,7 +32,6 @@ bool ModuleImporter::LoadFBX(const std::string & Filename)
 	Assimp::Importer Importer;
 
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
-	//const aiScene* aScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	if (pScene) {
 		Ret = SceneToMesh(pScene);
 	}
@@ -191,6 +187,7 @@ void ModuleImporter::RenderFaceNormals()
 			glVertex3f(tri_cen.x, tri_cen.y, tri_cen.z);
 			glVertex3f(tri_cen.x - orth_vec.x, tri_cen.y - orth_vec.y, tri_cen.z - orth_vec.z);
 			glEnd();
+			glColor3f(1, 1, 1);
 
 
 		}
