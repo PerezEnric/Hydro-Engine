@@ -116,9 +116,9 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 	
 	if (sMesh->HasTextureCoords(0))
 	{
-		SceneMesh.text_info.size = sMesh->mNumVertices * 2;
+		SceneMesh.text_info.size = sMesh->mNumVertices * 3;
 		SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
-		memcpy(SceneMesh.text_info.text_uvs, sMesh->mTextureCoords, SceneMesh.text_info.size * sizeof(float));
+		memcpy(SceneMesh.text_info.text_uvs, sMesh->mTextureCoords[0], SceneMesh.text_info.size * sizeof(float));
 		glGenBuffers(1, (GLuint*) & (SceneMesh.text_info.id_uvs));
 		glBindBuffer(GL_ARRAY_BUFFER, SceneMesh.text_info.id_uvs);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * SceneMesh.text_info.size, SceneMesh.text_info.text_uvs, GL_STATIC_DRAW);
@@ -149,11 +149,10 @@ void ModuleImporter::LoadTexture(const std::string & Filename)
 		_tex.id_texture = ilutGLBindTexImage(); // guillem: Esto se supone que ya hace el bind de la textura y la genera, además tambien hace la cosa rara de /glTexImage2D		_tex.height = ilGetInteger(IL_IMAGE_WIDTH);		_tex.widht = ilGetInteger(IL_IMAGE_HEIGHT);		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		glBindTexture(GL_TEXTURE_2D, 0);
 		Lenna = _tex;
-
-
 	}
 	
 
@@ -176,7 +175,7 @@ void ModuleImporter::RenderAll()
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, _amesh[i].text_info.id_uvs);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, _amesh[i].id_vertex);
