@@ -6,13 +6,6 @@
 #include <fstream>
 #include <istream>
 #include <string>
-#define PAR_SHAPES_IMPLEMENTATION
-#include "ParShapes/par_shapes.h"
-
-
-//#include "MathGeoLib/include/MathGeoLib.h"
-//#include "MathGeoLib/include/MathBuildConfig.h"
-//#include "MathGeoLib/include/MathGeoLibFwd.h"
 
 
 
@@ -29,8 +22,6 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
-	
 
 	/*App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	/*App->camera->LookAt(vec3(0, 0, 0));*/
@@ -52,7 +43,7 @@ bool ModuleSceneIntro::Start()
 		is_inter = true;
 	}*/
 	nlohmann::json j;
-
+	
 	std::ifstream i("Config.json");
 	if (!i) {
 		LOG("Could not open config_file");
@@ -65,6 +56,7 @@ bool ModuleSceneIntro::Start()
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
+
 	
 	//MakeChecker();
 
@@ -78,12 +70,12 @@ bool ModuleSceneIntro::Start()
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imagewidht, imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 
 
+
 	return ret;
 }
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
-	
 
 	return UPDATE_CONTINUE;
 }
@@ -93,7 +85,7 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
-
+	c_mesh = nullptr;
 
 	return true;
 }
@@ -103,11 +95,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+
+	
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, texName);
+
+	//Plane p(0, 1, 0, 0);
+	//p.axis = true;
+	//p.Render();
+	
+
 	//glBegin(GL_TRIANGLES);
 
 
@@ -223,11 +220,17 @@ update_status ModuleSceneIntro::Update(float dt)
 	glBindTexture(GL_TEXTURE_2D, texName);
 	
 
+
 	
 	
 	glGenBuffers(1, (GLuint*) & (my_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
+
+	//glGenBuffers(1, (GLuint*) & (m_indices));
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indices);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
+
 
 	glGenBuffers(1, (GLuint*) & (my_id));
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
@@ -236,6 +239,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	glGenBuffers(1, (GLuint*) & (my_tex));
 	glBindBuffer(GL_ARRAY_BUFFER, my_tex);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, textures, GL_STATIC_DRAW);
+
 
 	
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -263,12 +267,16 @@ update_status ModuleSceneIntro::Update(float dt)
 	par_shapes_translate(cube, 1, 0, 0.5);
 	par_shapes_free_mesh(cube);*/
 
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
-	
+
 
 	return UPDATE_CONTINUE;
 }

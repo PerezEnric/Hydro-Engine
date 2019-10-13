@@ -11,6 +11,7 @@
 
 struct PhysBody3D;
 
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -28,9 +29,13 @@ public:
 public:
 	
 	bool show_demo_window = false;
+
 	uint my_tex = 0;
 	uint my_id = 0;
 	uint my_indices = 0;
+
+	Primitive c;
+
 	float vertices[108] = { 
 		0.f, 0.f, 0.f, //FRONT
 		2.f, 0.f, 0.f,
@@ -108,6 +113,7 @@ public:
 		0.f, 2.f, -2.f, //H->7
 	};
 
+
 	//float textures[16] = {
 	//	0.0f, 0.0f,
 	//	1.0f, 0.0f,
@@ -126,5 +132,8 @@ public:
 	GLubyte checkImage[64][64][4];
 
 	GLuint texName;
+
+
+	par_shapes_mesh* c_mesh;
 
 };
