@@ -119,6 +119,10 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 		SceneMesh.text_info.size = sMesh->mNumVertices * 2;
 		SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
 		memcpy(SceneMesh.text_info.text_uvs, sMesh->mTextureCoords, SceneMesh.text_info.size * sizeof(float));
+		glGenBuffers(1, (GLuint*) & (SceneMesh.text_info.id_uvs));
+		glBindBuffer(GL_ARRAY_BUFFER, SceneMesh.text_info.id_uvs);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * SceneMesh.text_info.size, SceneMesh.text_info.text_uvs, GL_STATIC_DRAW);
+
 	}
 
 	_amesh.push_back(SceneMesh);
@@ -147,6 +151,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		glBindTexture(GL_TEXTURE_2D, 0);
+		Lenna = _tex;
 
 
 	}
@@ -163,20 +168,33 @@ void ModuleImporter::LoadTexture(const std::string & Filename)
 void ModuleImporter::RenderAll()
 {
 	for (uint i = 0; i < _amesh.size(); i++) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, Lenna.id_texture);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, _amesh[i].text_info.id_uvs);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
 
 		glBindBuffer(GL_ARRAY_BUFFER, _amesh[i].id_vertex);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _amesh[i].id_index);
 
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		
 
 		glDrawElements(GL_TRIANGLES, _amesh[i].num_index, GL_UNSIGNED_INT, NULL);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisable(GL_TEXTURE_2D);
 	}
 
 	//RenderNormals();
-	RenderFaceNormals();
+	//RenderFaceNormals();
 
 
 

@@ -16,6 +16,7 @@ struct Texture {
 	uint height = 0;
 	uint size = 0;
 	float* text_uvs = nullptr;
+	uint id_uvs = 0;
 
 };
 
@@ -65,6 +66,7 @@ public:
 	bool CleanUp();
 private:
 	std::vector<Mesh> _amesh;
+	Texture Lenna;
 };
 
 
