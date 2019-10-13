@@ -3,6 +3,14 @@
 #include "Globals.h"
 #include "ModuleInput.h"
 
+#include "DevIL/include/IL/il.h"
+#include "DevIL/include/IL/ilu.h"
+#include "DevIL/include/IL/ilut.h"
+
+#pragma comment (lib, "DevIL/libx86/DevIL.lib")
+#pragma comment (lib, "DevIL/libx86/ILU.lib")
+#pragma comment (lib, "DevIL/libx86/ILUT.lib")
+
 
 
 
@@ -21,7 +29,8 @@ bool ModuleImporter::Start()
 	//debugger
 	aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-
+	ilInit();
+	
 	return true;
 }
 
@@ -44,12 +53,19 @@ bool ModuleImporter::LoadFBX(const std::string & Filename)
 
 bool ModuleImporter::SceneToMesh(const aiScene * FBXScene)
 {
-	//mNumMeshes sirve para entrar en el tamaño, y mMeshes sirve para entrar en la array de meshes de la escena.
-	// Para ir una por una y separar las diversas meshes.
+	
 	for (uint i = 0; i < FBXScene->mNumMeshes; i++) {
 		const aiMesh* sMesh = FBXScene->mMeshes[i];
 		InitMesh(i, sMesh);
+		
 	}
+	/*for (uint i = 0; i < FBXScene->mNumMaterials; i++) {
+		const aiMaterial* sMaterial = FBXScene->mMaterials[i];
+		aiTextureType cancer;
+		uint index;
+		sMaterial->GetTexture(cancer,);
+
+	}*/
 	return true;
 }
 
@@ -97,8 +113,51 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 	}
 
 
-	// Normals.
+	//
+	//if (sMesh->HasTextureCoords(0))
+	//{
+	//	SceneMesh.text_info.size = sMesh->mNumVertices * 2;
+	//	SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
+	//	memcpy(&SceneMesh.text_info.text_uvs, sMesh->mTextureCoords, SceneMesh.text_info.size);
+	//}
+
 	_amesh.push_back(SceneMesh);
+}
+
+void ModuleImporter::LoadTexture(const std::string & Filename)
+{
+	ilutRenderer(ILUT_OPENGL);
+
+	Texture _tex;
+
+	ILuint text_nm = 0;
+
+	ilGenImages(1, &text_nm);
+	ilBindImage(text_nm);
+
+	if (ilLoadImage(Filename.c_str()) == IL_FALSE)
+	{
+		ILenum er = ilGetError();
+		LOG("ERROR: %s", iluErrorString(er));
+	}
+	else
+	{
+		_tex.id_texture = ilutGLBindTexImage(); // guillem: Esto se supone que ya hace el bind de la textura y la genera, además tambien hace la cosa rara de /glTexImage2D		_tex.height = ilGetInteger(IL_IMAGE_WIDTH);		_tex.widht = ilGetInteger(IL_IMAGE_HEIGHT);		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	}
+	
+
+
+	ilDeleteImages(1, &text_nm);
+
+
+
+
 }
 
 void ModuleImporter::RenderAll()
@@ -125,11 +184,13 @@ void ModuleImporter::RenderAll()
 
 void ModuleImporter::RenderNormals()
 {
+	int lenght = 2;
+
 	for (uint z = 0; z < _amesh.size(); z++) {
 
 	glColor3f(0.2f, 1.f, 0.25f);
 	uint j = 0;
-	float lenght = 2;
+	
 
 		for (uint i = 0; i < _amesh[z].num_vertex * 3; i += 3)
 		{
@@ -188,8 +249,6 @@ void ModuleImporter::RenderFaceNormals()
 			glVertex3f(tri_cen.x - orth_vec.x, tri_cen.y - orth_vec.y, tri_cen.z - orth_vec.z);
 			glEnd();
 			glColor3f(1, 1, 1);
-
-
 		}
 		
 	}
@@ -216,13 +275,14 @@ update_status ModuleImporter::PreUpdate(float dt)
 
 update_status ModuleImporter::Update(float dt)
 {
-	
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		LoadTexture("Assets/Lenna.dds");
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)
 {
-	
 	RenderAll();
 	return UPDATE_CONTINUE;
 }

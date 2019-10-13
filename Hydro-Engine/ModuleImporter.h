@@ -6,9 +6,18 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
+#include "Assimp/include/material.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+struct Texture {
+	GLuint id_texture = 0;
+	uint widht = 0;
+	uint height = 0;
+	uint size = 0;
+	float* text_uvs = nullptr;
+
+};
 
 struct Mesh {
 
@@ -21,8 +30,10 @@ struct Mesh {
 	float* vertex = nullptr;
 
 	float* normal;
-
+	Texture text_info;
 };
+
+
 
 class ModuleImporter : public Module
 {
@@ -37,6 +48,8 @@ public:
 	bool SceneToMesh(const aiScene* FBXScene);
 	// Esta es la funcion de carga de meshes, tenemos ademas el scene_meshes_xd que es donde guardaremos cada una de las meshes para luego pintarlas.
 	void InitMesh(uint Index, const aiMesh* sMesh);
+
+	void LoadTexture(const std::string& Filename);
 
 	void RenderAll();
 	void RenderNormals();
