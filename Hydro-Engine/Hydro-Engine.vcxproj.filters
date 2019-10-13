@@ -25,6 +25,9 @@
     <Filter Include="Sources\MathGeoLib">
       <UniqueIdentifier>{9db0f868-e4a5-4089-b6ea-33f8abdaf658}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\ParShapes">
+      <UniqueIdentifier>{92caca4b-a7cb-40b4-b20d-6c1e168e8351}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ParShapes\par_shapes.h">
+      <Filter>Sources\ParShapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -178,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="par_shapes.cpp">
+      <Filter>Sources\ParShapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

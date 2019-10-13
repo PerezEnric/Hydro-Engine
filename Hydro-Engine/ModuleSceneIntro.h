@@ -9,6 +9,7 @@
 
 struct PhysBody3D;
 
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -27,8 +28,9 @@ public:
 	
 	bool show_demo_window = false;
 
-	uint my_id = 0;
-	uint my_indices = 0;
+	uint m_id = 0;
+	uint m_indices = 0;
+	Primitive c;
 	float vertices[108] = { 
 		0.f, 0.f, 0.f, //FRONT
 		2.f, 0.f, 0.f,
@@ -105,5 +107,5 @@ public:
 		0.f, 0.f, -2.f, //G->6
 		0.f, 2.f, -2.f, //H->7
 	};
-
+	par_shapes_mesh* c_mesh;
 };

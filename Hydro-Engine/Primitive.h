@@ -3,14 +3,18 @@
 #include "glmath.h"
 #include "Color.h"
 
+#include "ParShapes/par_shapes.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "MathGeoLib/include/MathBuildConfig.h"
+#include "MathGeoLib/include/MathGeoLibFwd.h"
+
 enum PrimitiveTypes
 {
-	Primitive_Point,
-	Primitive_Line,
-	Primitive_Plane,
-	Primitive_Cube,
-	Primitive_Sphere,
-	Primitive_Cylinder
+	P_PLANE,
+	P_CUBE,
+	P_SPHERE,
+	P_CYLINDER,
+	P_NONE
 };
 
 class Primitive
@@ -19,77 +23,18 @@ public:
 
 	Primitive();
 
-	virtual void	Render() const;
-	virtual void	InnerRender() const;
-	void			SetPos(float x, float y, float z);
-	void			SetRotation(float angle, const vec3 &u);
-	void			Scale(float x, float y, float z);
+	virtual void	CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, const float* axis = nullptr, 
+					math::float3 t_vector = { 0.0f , 0.0f, 0.0f }, float radians = 0.0f, math::float3 s_vector = { 1.0f , 1.0f, 1.0f });
+
 	PrimitiveTypes	GetType() const;
 
 public:
 	
 	Color color;
-	mat4x4 transform;
-	bool axis,wire;
+	uint m_vertices = 0;
+	uint m_indices = 0;
 
 protected:
 	PrimitiveTypes type;
 };
 
-// ============================================
-class Cube : public Primitive
-{
-public :
-	Cube();
-	Cube(float sizeX, float sizeY, float sizeZ);
-	void InnerRender() const;
-public:
-	vec3 size;
-};
-
-// ============================================
-class Sphere : public Primitive
-{
-public:
-	Sphere();
-	Sphere(float radius);
-	void InnerRender() const;
-public:
-	float radius;
-};
-
-// ============================================
-class Cylinder : public Primitive
-{
-public:
-	Cylinder();
-	Cylinder(float radius, float height);
-	void InnerRender() const;
-public:
-	float radius;
-	float height;
-};
-
-// ============================================
-class Line : public Primitive
-{
-public:
-	Line();
-	Line(float x, float y, float z);
-	void InnerRender() const;
-public:
-	vec3 origin;
-	vec3 destination;
-};
-
-// ============================================
-class Plane : public Primitive
-{
-public:
-	Plane();
-	Plane(float x, float y, float z, float d);
-	void InnerRender() const;
-public:
-	vec3 normal;
-	float constant;
-};
