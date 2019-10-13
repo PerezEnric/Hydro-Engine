@@ -2,6 +2,7 @@
 #define __ModuleUI_H__
 
 #include "Module.h"
+#include "Primitive.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
@@ -52,6 +53,8 @@ private:
 	nlohmann::json j;
 
 	std::ifstream file;
+	par_shapes_mesh* _mesh = nullptr;
+	Primitive c;
 };
 
 #endif

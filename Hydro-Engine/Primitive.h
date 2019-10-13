@@ -23,7 +23,9 @@ public:
 
 	Primitive();
 
-	virtual void	CreatePrimitive(PrimitiveTypes p_type, const float* axis, math::float3 t_vector = { 0.0f , 0.0f, 0.0f }, float radians = 0.0f, math::float3 s_vector = { 1.0f , 1.0f, 1.0f });
+	virtual void	CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, const float* axis = nullptr, 
+					math::float3 t_vector = { 0.0f , 0.0f, 0.0f }, float radians = 0.0f, math::float3 s_vector = { 1.0f , 1.0f, 1.0f });
+
 	PrimitiveTypes	GetType() const;
 
 public:
@@ -31,12 +33,8 @@ public:
 	Color color;
 	uint m_vertices = 0;
 	uint m_indices = 0;
-	par_shapes_mesh* mesh = nullptr;
 
 protected:
 	PrimitiveTypes type;
-	//math::float3 t_vector; //translation vector
-	//math::float3 r_vector; //rotation vector
-	//math::float3 s_vector; //scale vector
 };
 

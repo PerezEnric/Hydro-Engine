@@ -56,14 +56,12 @@ bool ModuleSceneIntro::Start()
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
-	
 
 	return ret;
 }
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
-	
 
 	return UPDATE_CONTINUE;
 }
@@ -73,6 +71,7 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
+	c_mesh = nullptr;
 
 	return true;
 }
@@ -169,16 +168,13 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
-	float a = 0.0f;
-	c.CreatePrimitive(PrimitiveTypes::P_CUBE, &a);
-
 
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
-	
+
 
 	return UPDATE_CONTINUE;
 }

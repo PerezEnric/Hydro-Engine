@@ -107,5 +107,5 @@ public:
 		0.f, 0.f, -2.f, //G->6
 		0.f, 2.f, -2.f, //H->7
 	};
-
+	par_shapes_mesh* c_mesh;
 };
