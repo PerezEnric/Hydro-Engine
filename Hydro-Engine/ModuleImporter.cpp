@@ -25,8 +25,6 @@ bool ModuleImporter::Start()
 	aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	//LoadFBX("Assets/warrior.FBX");
-
 	return true;
 }
 
@@ -120,7 +118,6 @@ void ModuleImporter::RenderAll()
 
 		glDrawElements(GL_TRIANGLES, _amesh[i].num_index, GL_UNSIGNED_INT, NULL);
 		glDisableClientState(GL_VERTEX_ARRAY);
-
 	}
 
 	//RenderNormals();

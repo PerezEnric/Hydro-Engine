@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "Glew/include/glew.h"
+
 #include <string>
 
 
@@ -26,7 +28,7 @@ public:
 public:
 	
 	bool show_demo_window = false;
-
+	uint my_tex = 0;
 	uint my_id = 0;
 	uint my_indices = 0;
 	float vertices[108] = { 
@@ -105,5 +107,24 @@ public:
 		0.f, 0.f, -2.f, //G->6
 		0.f, 2.f, -2.f, //H->7
 	};
+
+	//float textures[16] = {
+	//	0.0f, 0.0f,
+	//	1.0f, 0.0f,
+	//	0.0f, 1.0f,
+	//	1.0f, 1.0f,
+	//	1.0f, 0.0f,
+	//	1.0f, 1.0f,
+	//	0.0f, 1.0f,
+	//	0.0f, 0.0f,
+	//};
+
+	void MakeChecker();
+
+	uint imagewidht = 64;
+	uint imageheight = 64;
+	GLubyte checkImage[64][64][4];
+
+	GLuint texName;
 
 };

@@ -66,6 +66,17 @@ bool ModuleSceneIntro::Start()
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
 	
+	//MakeChecker();
+
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	//glGenTextures(1, &texName);
+	//glBindTexture(GL_TEXTURE_2D, texName);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imagewidht, imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
 
 	return ret;
 }
@@ -95,94 +106,162 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-	
+	//glEnable(GL_TEXTURE_2D);
+	//glBindTexture(GL_TEXTURE_2D, texName);
 	//glBegin(GL_TRIANGLES);
 
+
 	////FRONT
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, 0.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, 0.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, 0.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, 0.f);
 
 	////RIGHT
 
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, 0.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, 0.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, 0.f);
 
 	////BACK
 
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, -2.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, -2.f);
 
 	////LEFT
 
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, -2.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, 0.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, -2.f);
 
 	////TOP
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(0.f, 2.f, 0.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 2.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, -2.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 2.f, 0.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(2.f, 2.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 2.f, -2.f);
 
 	////BOTTOM
-
+	//glTexCoord2f(0.0f, 0.0f);
 	//glVertex3f(0.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, -2.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 0.f, 0.f);
 
+	//glTexCoord2f(1.0f, 0.0f);
 	//glVertex3f(2.f, 0.f, -2.f);
+	//glTexCoord2f(1.0f, 1.0f);
 	//glVertex3f(2.f, 0.f, 0.f);
+	//glTexCoord2f(0.0f, 1.0f);
 	//glVertex3f(0.f, 0.f, 0.f);
 
 	//glEnd();
+	//
 
 	//glGenBuffers(1, (GLuint*) & (my_id));
 	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(float)*36*3, vertices, GL_STATIC_DRAW);
-
+	//
 	//glEnableClientState(GL_VERTEX_ARRAY);
 	//glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	//glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glDisable(GL_TEXTURE_2D);
 
-	//// deactivate vertex arrays after drawing
+	////// deactivate vertex arrays after drawing
 	//glDisableClientState(GL_VERTEX_ARRAY);
-
-	//glGenBuffers(1, (GLuint*) & (my_indices));
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
-
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glVertexPointer(3, GL_FLOAT, 0, vertices2);
-
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	/*glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texName);
 	
-	par_shapes_mesh* cube = par_shapes_create_cube();
+
+	
+	
+	glGenBuffers(1, (GLuint*) & (my_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 36, indices, GL_STATIC_DRAW);
+
+	glGenBuffers(1, (GLuint*) & (my_id));
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 24, vertices2, GL_STATIC_DRAW);
+
+	glGenBuffers(1, (GLuint*) & (my_tex));
+	glBindBuffer(GL_ARRAY_BUFFER, my_tex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, textures, GL_STATIC_DRAW);
+
+	
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, my_tex);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glFlush();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+
+	
+
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
+	*/
+	/*par_shapes_mesh* cube = par_shapes_create_cube();
 	par_shapes_translate(cube, 1, 0, 0.5);
-	par_shapes_free_mesh(cube);
+	par_shapes_free_mesh(cube);*/
 
 	return UPDATE_CONTINUE;
 }
@@ -196,5 +275,21 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+}
+
+void ModuleSceneIntro::MakeChecker()
+{
+	int i, j, c;
+
+	for (i = 0; i < imageheight; i++) {
+		for (j = 0; j < imagewidht; j++) {
+			c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
 }
 
