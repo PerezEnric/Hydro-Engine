@@ -1,6 +1,11 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl.h"
+
+#include "DevIL/include/IL/il.h"
+
 
 #define MAX_KEYS 300
 
@@ -88,6 +93,9 @@ update_status ModuleInput::PreUpdate(float dt)
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
+		
+		ImGui_ImplSDL2_ProcessEvent(&e);
+		
 		switch(e.type)
 		{
 			case SDL_MOUSEWHEEL:
@@ -106,6 +114,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				dropped_filedir = e.drop.file;
 				App->importer->LoadFBX(dropped_filedir);
 
+				if (ilLoadImage(dropped_filedir) != 0)
+				{
+					App->importer->LoadTexture(dropped_filedir);
+				}		
 				SDL_free(dropped_filedir);
 				LOG("IS DROPPED!");
 				break;
