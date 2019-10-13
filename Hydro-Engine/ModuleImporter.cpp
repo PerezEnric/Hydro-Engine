@@ -113,13 +113,13 @@ void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
 	}
 
 
-	//
-	//if (sMesh->HasTextureCoords(0))
-	//{
-	//	SceneMesh.text_info.size = sMesh->mNumVertices * 2;
-	//	SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
-	//	memcpy(&SceneMesh.text_info.text_uvs, sMesh->mTextureCoords, SceneMesh.text_info.size);
-	//}
+	
+	if (sMesh->HasTextureCoords(0))
+	{
+		SceneMesh.text_info.size = sMesh->mNumVertices * 2;
+		SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
+		memcpy(SceneMesh.text_info.text_uvs, sMesh->mTextureCoords, SceneMesh.text_info.size * sizeof(float));
+	}
 
 	_amesh.push_back(SceneMesh);
 }
