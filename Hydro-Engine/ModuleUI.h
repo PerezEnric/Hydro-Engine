@@ -3,10 +3,14 @@
 
 #include "Module.h"
 #include "Primitive.h"
+#include "PanelConfig.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
 #include <fstream>
+
+class Panel;
+class PanelConfig;
 
 struct AboutFeatures
 {
@@ -30,7 +34,6 @@ public:
 	update_status PostUpdate(float dt);
 
 	void CreateMainMenuBar();
-	void CreateConfigWindow();
 	void CreateConsole();
 	void CreateAbout();
 	void FillFPSVector();
@@ -38,9 +41,12 @@ public:
 
 	bool CleanUp();
 
+public:
+	PanelConfig* p_config = nullptr;
+	std::vector<Panel*> vector_panels;
+
 private:
 
-	bool show_config_window = false;
 	bool show_console = false;
 	bool show_about = false;
 
@@ -48,7 +54,6 @@ private:
 	std::vector<float> ms_log;
 
 	AboutFeatures about_features;
-	SDL_WindowFlags window_flags;
 
 	nlohmann::json j;
 

@@ -13,7 +13,7 @@ public:
 	void ChangeActive();
 
 public:
-	bool is_active = true;
+	bool is_active = false;
 	std::string name;
 
 };

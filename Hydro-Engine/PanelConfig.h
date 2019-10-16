@@ -6,7 +6,6 @@
 #include "Json/json.hpp"
 #include <fstream>
 
-
 class PanelConfig :public Panel
 {
 public:
@@ -31,6 +30,10 @@ private:
 	std::string organization;
 
 	nlohmann::json j;
+	//SDL_WindowFlags window_flags;
+
+public:
+	bool show_config_window = false;
 };
 
 

@@ -36,11 +36,11 @@ void PanelConfig::ConfigApplication()
 {
 	ImGui::Text("App Name: ");
 	ImGui::SameLine();
-	engine_name = j["App"]["Name"].get<std::string>();
+	engine_name = j["Config"]["App"]["Name"].get<std::string>();
 	ImGui::Text(engine_name.c_str());
 	ImGui::Text("Organization: ");
 	ImGui::SameLine();
-	organization = j["App"]["Organization"].get<std::string>();
+	organization = j["Config"]["App"]["Organization"].get<std::string>();
 	ImGui::Text(organization.c_str());
 
 	//FPS and Ms Historigrams
@@ -182,6 +182,33 @@ void PanelConfig::FillMsVector()
 bool PanelConfig::Update()
 {
 	bool ret = true;
+
+	if (ImGui::Begin("Configuration", &is_active))
+	{
+		ImGui::SetWindowPos(ImVec2{ 600, 20 }, ImGuiCond_FirstUseEver);
+		ImGui::SetWindowSize(ImVec2{ 600, 600 }, ImGuiCond_FirstUseEver);
+
+		if (ImGui::CollapsingHeader("Application"))
+		{
+			ConfigApplication();
+		}
+
+		if (ImGui::CollapsingHeader("Window Settings"))
+		{
+			WindowSettings();
+		}
+
+		if (ImGui::CollapsingHeader("Render Settings"))
+		{
+			RenderSettings();
+		}
+
+		if (ImGui::CollapsingHeader("Hardware"))
+		{
+			HardwareInfo();
+		}
+		ImGui::End();
+	}
 
 	return ret;
 }
