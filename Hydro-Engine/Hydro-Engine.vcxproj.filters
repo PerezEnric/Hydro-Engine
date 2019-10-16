@@ -28,6 +28,9 @@
     <Filter Include="Sources\ParShapes">
       <UniqueIdentifier>{92caca4b-a7cb-40b4-b20d-6c1e168e8351}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\UI">
+      <UniqueIdentifier>{9ef29e28-bb89-41f1-861d-7e1b4cfe7a81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -117,6 +120,15 @@
     <ClInclude Include="ParShapes\par_shapes.h">
       <Filter>Sources\ParShapes</Filter>
     </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelAbout.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelConfig.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -187,6 +199,15 @@
     </ClCompile>
     <ClCompile Include="par_shapes.cpp">
       <Filter>Sources\ParShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelAbout.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelConfig.cpp">
+      <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
