@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Primitive.h"
 #include "PanelConfig.h"
+#include "PanelAbout.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
@@ -11,16 +12,7 @@
 
 class Panel;
 class PanelConfig;
-
-struct AboutFeatures
-{
-	std::string engine_name;
-	std::string description;
-	std::string authors;
-	std::string libraries;
-	std::string license;
-	std::string org;
-};
+class PanelAbout;
 
 class ModuleUI : public Module
 {
@@ -35,29 +27,17 @@ public:
 
 	void CreateMainMenuBar();
 	void CreateConsole();
-	void CreateAbout();
-	void FillFPSVector();
-	void FillMsVector();
 
 	bool CleanUp();
 
 public:
 	PanelConfig* p_config = nullptr;
+	PanelAbout* p_about = nullptr;
 	std::vector<Panel*> vector_panels;
 
 private:
 
 	bool show_console = false;
-	bool show_about = false;
-
-	std::vector<float> fps_log;
-	std::vector<float> ms_log;
-
-	AboutFeatures about_features;
-
-	nlohmann::json j;
-
-	std::ifstream file;
 	par_shapes_mesh* _mesh = nullptr;
 	Primitive c;
 };

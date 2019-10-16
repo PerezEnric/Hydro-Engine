@@ -37,16 +37,8 @@ bool ModuleUI::Start()
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::StyleColorsDark();
 
-	std::ifstream file("About.json");
-	if (!file) {
-		LOG("Could not open config_file");
-	}
-	else {
-		LOG("Config_file succesfully loaded");
-		file >> j;
-	}
-
 	vector_panels.push_back(p_config = new PanelConfig("Configuration"));
+	vector_panels.push_back(p_about = new PanelAbout("About"));
 
 	return true;
 }
@@ -68,8 +60,8 @@ update_status ModuleUI::PreUpdate(float dt)
 	if (show_console)
 		CreateConsole();
 
-	if (show_about)
-		CreateAbout();
+	if (p_about->show_about)
+		p_about->is_active;
 
 	return UPDATE_CONTINUE;
 }
@@ -130,7 +122,7 @@ void ModuleUI::CreateMainMenuBar()
 			{
 				App->RequestBrowser("https://github.com/PerezEnric/Hydro-Engine/issues");
 			}
-			ImGui::MenuItem("About...", NULL, &show_about);
+			ImGui::MenuItem("About...", NULL, &p_about->is_active);
 			ImGui::EndMenu();
 		}
 
@@ -144,74 +136,6 @@ void ModuleUI::CreateConsole()
 	console.Draw("console", &show_console);
 }
 
-void ModuleUI::CreateAbout()
-{
-	ImGui::OpenPopup("PopUp");
-
-	nlohmann::json j;
-
-	std::ifstream file("About.json");
-	if (!file) {
-		LOG("Could not open config_file");
-	}
-	else {
-		LOG("Config_file succesfully loaded");
-		file >> j;
-	}
-
-	if (ImGui::BeginPopupModal("PopUp"))
-	{
-		ImGui::Text("About...");
-		ImGui::Separator();
-		about_features.engine_name = j["About"]["Name"].get<std::string>();
-		ImGui::Text(about_features.engine_name.c_str());
-		about_features.description = j["About"]["Description"].get<std::string>();
-		ImGui::Text(about_features.description.c_str());
-		about_features.authors = j["About"]["Authors"].get<std::string>();
-		ImGui::Text(about_features.authors.c_str());
-		about_features.libraries = j["About"]["Libraries"].get<std::string>();
-		ImGui::Text(about_features.libraries.c_str());
-		about_features.license = j["About"]["License"].get<std::string>();
-		ImGui::Text(about_features.license.c_str());
-		ImGui::NewLine();
-
-		if (ImGui::Button("Close"))
-		{
-			ImGui::CloseCurrentPopup();
-			show_about = false;
-		}
-		ImGui::EndPopup();
-	}
-}
-
-void ModuleUI::FillFPSVector()
-{
-	if (fps_log.size() < 100)
-	{
-		for (uint i = 0; fps_log.size() < 100; i++)
-		{
-			fps_log.push_back(App->GetFPS());
-		}
-	}
-
-	else
-		fps_log.erase(fps_log.begin());
-}
-
-void ModuleUI::FillMsVector()
-{
-	if (ms_log.size() < 100)
-	{
-		for (uint i = 0; ms_log.size() < 100; i++)
-		{
-			ms_log.push_back(App->GetMs());
-		}
-	}
-
-	else
-		ms_log.erase(ms_log.begin());
-}
-
 update_status ModuleUI::PostUpdate(float dt)
 {
 	ImGui::Render();
@@ -222,12 +146,24 @@ update_status ModuleUI::PostUpdate(float dt)
 
 bool ModuleUI::CleanUp()
 {
+
+	for (std::vector<Panel*>::iterator it = vector_panels.begin(); it != vector_panels.end(); ++it)
+	{
+		if (*it != nullptr)
+		{
+			delete *it;
+			*it = nullptr;
+		}
+	}
+	vector_panels.clear();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
 
 	SDL_GL_DeleteContext(App->renderer3D->context);
 	SDL_DestroyWindow(App->window->window);
+
 	SDL_Quit();
 	return true;
 }
