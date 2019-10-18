@@ -3,20 +3,18 @@
 
 #include "Module.h"
 #include "Primitive.h"
+#include "PanelConfig.h"
+#include "PanelAbout.h"
+#include "PanelConsole.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
 #include <fstream>
 
-struct AboutFeatures
-{
-	std::string engine_name;
-	std::string description;
-	std::string authors;
-	std::string libraries;
-	std::string license;
-	std::string org;
-};
+class Panel;
+class PanelConfig;
+class PanelAbout;
+class PanelConsole;
 
 class ModuleUI : public Module
 {
@@ -30,29 +28,19 @@ public:
 	update_status PostUpdate(float dt);
 
 	void CreateMainMenuBar();
-	void CreateConfigWindow();
 	void CreateConsole();
-	void CreateAbout();
-	void FillFPSVector();
-	void FillMsVector();
 
 	bool CleanUp();
 
+public:
+	PanelConfig* p_config = nullptr;
+	PanelAbout* p_about = nullptr;
+	PanelConsole* p_console = nullptr;
+	std::vector<Panel*> vector_panels;
+
 private:
 
-	bool show_config_window = false;
 	bool show_console = false;
-	bool show_about = false;
-
-	std::vector<float> fps_log;
-	std::vector<float> ms_log;
-
-	AboutFeatures about_features;
-	SDL_WindowFlags window_flags;
-
-	nlohmann::json j;
-
-	std::ifstream file;
 	par_shapes_mesh* _mesh = nullptr;
 	Primitive c;
 };
