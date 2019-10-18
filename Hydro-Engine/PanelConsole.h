@@ -11,8 +11,11 @@ public:
 
 	bool Update() override;
 
-	void Clear();
+	void ClearLog();
 	void AddLog(const char* entry);
-
+	static char* m_Strdup(const char* str);
+private:
+	ImVector<char*> items;
+	bool ScrollToBottom = true;
 };
 

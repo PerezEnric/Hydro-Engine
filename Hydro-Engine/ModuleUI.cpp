@@ -30,7 +30,7 @@ ModuleUI::~ModuleUI()
 bool ModuleUI::Start()
 {
 	glewInit();
-	
+
 	ImGui::CreateContext();
 	ImGui_ImplOpenGL3_Init();
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
