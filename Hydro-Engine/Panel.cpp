@@ -1,6 +1,6 @@
 #include "Panel.h"
 
-Panel::Panel(std::string name) :name(name)
+Panel::Panel()
 {
 
 }

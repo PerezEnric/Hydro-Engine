@@ -18,7 +18,7 @@ struct AboutFeatures
 class PanelAbout :public Panel
 {
 public:
-	PanelAbout(std::string name);
+	PanelAbout();
 	~PanelAbout();
 
 	bool Update() override;

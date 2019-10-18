@@ -9,7 +9,7 @@
 class PanelConfig :public Panel
 {
 public:
-	PanelConfig(std::string name);
+	PanelConfig();
 	~PanelConfig();
 
 	bool Update() override;

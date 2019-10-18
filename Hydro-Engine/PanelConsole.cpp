@@ -5,7 +5,7 @@
 
 
 // ---------------------------------------------------------
-PanelConsole::PanelConsole() : Panel("Console")
+PanelConsole::PanelConsole() : Panel()
 {
 
 }

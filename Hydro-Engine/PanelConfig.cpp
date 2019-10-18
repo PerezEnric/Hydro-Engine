@@ -15,7 +15,7 @@
 
 #pragma comment (lib, "Glew/lib/glew32.lib")
 
-PanelConfig::PanelConfig(std::string name): Panel("Configuration")
+PanelConfig::PanelConfig(): Panel()
 {
 	std::ifstream file("Config.json");
 	if (!file) {

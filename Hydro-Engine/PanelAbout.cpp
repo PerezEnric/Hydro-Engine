@@ -13,7 +13,7 @@
 
 #pragma comment (lib, "Glew/lib/glew32.lib")
 
-PanelAbout::PanelAbout(std::string name): Panel("About")
+PanelAbout::PanelAbout(): Panel()
 {
 	std::ifstream file("About.json");
 	if (!file) {

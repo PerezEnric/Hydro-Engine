@@ -37,8 +37,8 @@ bool ModuleUI::Start()
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::StyleColorsDark();
 
-	vector_panels.push_back(p_config = new PanelConfig("Configuration"));
-	vector_panels.push_back(p_about = new PanelAbout("About"));
+	vector_panels.push_back(p_config = new PanelConfig());
+	vector_panels.push_back(p_about = new PanelAbout());
 	vector_panels.push_back(p_console = new PanelConsole());
 
 	return true;

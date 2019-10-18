@@ -5,7 +5,7 @@
 class Panel
 {
 public:
-	Panel(std::string name);
+	Panel();
 	virtual ~Panel();
 
 	virtual bool Update() { return true; };
