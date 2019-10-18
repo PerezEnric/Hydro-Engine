@@ -39,6 +39,7 @@ bool ModuleUI::Start()
 
 	vector_panels.push_back(p_config = new PanelConfig("Configuration"));
 	vector_panels.push_back(p_about = new PanelAbout("About"));
+	vector_panels.push_back(p_console = new PanelConsole());
 
 	return true;
 }
@@ -58,7 +59,7 @@ update_status ModuleUI::PreUpdate(float dt)
 
 
 	if (show_console)
-		CreateConsole();
+		p_console->is_active;
 
 	if (p_about->show_about)
 		p_about->is_active;
@@ -96,7 +97,7 @@ void ModuleUI::CreateMainMenuBar()
 
 		if (ImGui::BeginMenu("View"))
 		{
-			ImGui::MenuItem("Console", NULL, &show_console);
+			ImGui::MenuItem("Console", NULL, &p_console->is_active);
 			ImGui::MenuItem("Configuration", NULL, &p_config->is_active);
 			
 

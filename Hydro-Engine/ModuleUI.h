@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include "PanelConfig.h"
 #include "PanelAbout.h"
+#include "PanelConsole.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
@@ -13,6 +14,7 @@
 class Panel;
 class PanelConfig;
 class PanelAbout;
+class PanelConsole;
 
 class ModuleUI : public Module
 {
@@ -33,6 +35,7 @@ public:
 public:
 	PanelConfig* p_config = nullptr;
 	PanelAbout* p_about = nullptr;
+	PanelConsole* p_console = nullptr;
 	std::vector<Panel*> vector_panels;
 
 private:
