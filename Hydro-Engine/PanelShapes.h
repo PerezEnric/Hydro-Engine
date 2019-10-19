@@ -12,8 +12,9 @@ public:
 	bool Update() override;
 
 private:
-	Primitive cube;
-	Primitive sphere;
-	Primitive cylinder;
-	Primitive plane;
+	Primitive prim;
+	par_shapes_mesh* p_mesh;
+	bool is_created = false;
+public:
+	bool show_shapes = false;
 };

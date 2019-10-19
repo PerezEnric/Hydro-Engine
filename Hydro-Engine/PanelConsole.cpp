@@ -45,7 +45,7 @@ char* PanelConsole::m_Strdup(const char* str)
 // ---------------------------------------------------------
 bool PanelConsole::Update()
 {
-	ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
+	ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
 	ImGui::Begin("Console", &is_active, flags);
 
 	ImGui::SetWindowPos(ImVec2(0, 765));

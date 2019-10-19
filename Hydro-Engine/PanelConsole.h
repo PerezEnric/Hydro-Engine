@@ -17,5 +17,8 @@ public:
 private:
 	ImVector<char*> items;
 	bool ScrollToBottom = true;
+
+public:
+	bool show_console = false;
 };
 

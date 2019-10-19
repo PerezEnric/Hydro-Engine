@@ -40,6 +40,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_config = new PanelConfig());
 	vector_panels.push_back(p_about = new PanelAbout());
 	vector_panels.push_back(p_console = new PanelConsole());
+	vector_panels.push_back(p_shapes = new PanelShapes());
 
 	return true;
 }
@@ -57,9 +58,11 @@ update_status ModuleUI::PreUpdate(float dt)
 	if (p_config->show_config_window)
 		p_config->is_active;
 
-
-	if (show_console)
+	if (p_console->show_console)
 		p_console->is_active;
+
+	if (p_shapes->show_shapes)
+		p_shapes->is_active;
 
 	if (p_about->show_about)
 		p_about->is_active;
@@ -104,6 +107,12 @@ void ModuleUI::CreateMainMenuBar()
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Create"))
+		{
+			ImGui::MenuItem("Primitives", NULL, &p_shapes->is_active);
+			ImGui::EndMenu();
+		}
+
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Gui Demo"))
@@ -129,12 +138,6 @@ void ModuleUI::CreateMainMenuBar()
 
 		ImGui::EndMainMenuBar();
 	}
-}
-
-void ModuleUI::CreateConsole()
-{
-	ImGuiConsole console;
-	console.Draw("console", &show_console);
 }
 
 update_status ModuleUI::PostUpdate(float dt)
