@@ -132,6 +132,9 @@
     <ClInclude Include="PanelConsole.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PanelShapes.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -213,6 +216,9 @@
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
     <ClCompile Include="PanelConsole.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelShapes.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
