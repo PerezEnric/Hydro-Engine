@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "Globals.h"
 
 
 
@@ -16,6 +17,8 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(
 
 		GO->actual_mesh++;
 	}
+	else
+		LOG("Error creating meshcomponent");
 }
 
 Component_Mesh::Component_Mesh()
@@ -24,7 +27,6 @@ Component_Mesh::Component_Mesh()
 
 void Component_Mesh::Load_Mesh()
 {
-	
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
 }
 
@@ -36,9 +38,15 @@ bool Component_Mesh::Update()
 
 void Component_Mesh::Draw()
 {
-	
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
+	glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
+	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
@@ -47,6 +55,8 @@ void Component_Mesh::Draw()
 
 	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
 	
 }
 

@@ -13,6 +13,7 @@
 
 #include "GameObject.h"
 #include "Component_Mesh.h"
+#include "Component_Texture.h"
 
 
 
@@ -33,6 +34,7 @@ bool ModuleImporter::Start()
 	aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 	ilInit();
+	local_doc.assign("Assets/");
 	
 	return true;
 }
@@ -114,6 +116,20 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		}
 
+		if (pScene->HasMaterials())
+		{
+			aiMaterial* material = pScene->mMaterials[sMesh->mMaterialIndex];
+			uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
+
+			aiString path;
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+
+			Ret->GO->texture_path = path.C_Str();
+
+			Ret->GO->CreateComponent(TEXTURE);
+
+		}
+
 	}
 	else {
 		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
@@ -125,27 +141,27 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 
 
-void ModuleImporter::LoadTexture(const std::string & Filename)
+void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex)
 {
 	ilutRenderer(ILUT_OPENGL);
+	std::string R_Filename = local_doc + Filename;
 
-	Texture _tex;
 
 	ILuint text_nm = 0;
 
 	ilGenImages(1, &text_nm);
 	ilBindImage(text_nm);
 
-	if (ilLoadImage(Filename.c_str()) == IL_FALSE)
+	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
 	{
 		ILenum er = ilGetError();
 		LOG("ERROR: %s", iluErrorString(er));
 	}
 	else
 	{
-		_tex.id_texture = ilutGLBindTexImage(); // guillem: Esto se supone que ya hace el bind de la textura y la genera, además tambien hace la cosa rara de /glTexImage2D
-		_tex.height = ilGetInteger(IL_IMAGE_WIDTH);
-		_tex.widht = ilGetInteger(IL_IMAGE_HEIGHT);
+		tex->id_texture = ilutGLBindTexImage();
+		tex->height = ilGetInteger(IL_IMAGE_WIDTH);
+		tex->widht = ilGetInteger(IL_IMAGE_HEIGHT);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -153,17 +169,11 @@ void ModuleImporter::LoadTexture(const std::string & Filename)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
-		Lenna = _tex;
-	}
-	
 
+	}
 
 	ilDeleteImages(1, &text_nm);
-
-
-
 
 }
 
@@ -295,8 +305,7 @@ update_status ModuleImporter::PreUpdate(float dt)
 
 update_status ModuleImporter::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		LoadTexture("Assets/Lenna.dds");
+	
 
 	return UPDATE_CONTINUE;
 }

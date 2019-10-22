@@ -3,17 +3,10 @@
 #include "Globals.h"
 #include "Component.h"
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/Importer.hpp"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/material.h"
-
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
-
 #include <string>
 #include <vector>
+
+class Component_Texture;
 
 class GameObject
 {
@@ -25,11 +18,6 @@ public:
 	void Update();
 	Component* CreateComponent(COMPONENT_TYPE type);
 
-
-
-
-	
-
 public:
 
 
@@ -39,6 +27,9 @@ public:
 	int actual_mesh = 0;
 	bool texture = false;
 	std::string path;
+	std::string texture_path;
+
+	Component_Texture* my_tex = nullptr;
 
 
 

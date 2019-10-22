@@ -14,6 +14,7 @@
 #include "glmath.h"
 
 class Component_Mesh;
+class Component_Texture;
 
 
 struct Texture {
@@ -53,7 +54,7 @@ public:
 	
 	bool LoadFBX(const std::string& Filename, uint index, Component_Mesh* Ret);
 
-	void LoadTexture(const std::string& Filename);
+	void LoadTexture(const std::string& Filename, Component_Texture* tex);
 
 	void RenderAll();
 	void RenderNormals();
@@ -70,6 +71,8 @@ public:
 private:
 	std::vector<Mesh> _amesh;
 	Texture Lenna;
+
+	std::string local_doc;
 };
 
 

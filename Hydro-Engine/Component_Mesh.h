@@ -3,15 +3,8 @@
 #include "Component.h"
 #include "Globals.h"
 #include <string>
+#include "Component_Texture.h"
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/Importer.hpp"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/material.h"
-
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 
 
@@ -42,6 +35,8 @@ public:
 	uint size = 0;
 	float* text_uvs = nullptr;
 	uint id_uvs = 0;
+
+
 
 
 

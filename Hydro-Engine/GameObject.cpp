@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Component_Mesh.h"
+#include "Component_Texture.h"
 #include "ModuleImporter.h"
 #include "Application.h"
 
@@ -20,7 +21,7 @@ GameObject::GameObject(const std::string & name, const std::string & Filename)
 
 
 	for (int i = 0; i < mesh_array; i++)
-		components.push_back(CreateComponent(MESH));
+		CreateComponent(MESH);
 }
 
 GameObject::~GameObject()
@@ -44,7 +45,11 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 	case MESH:
 		my_comp = new Component_Mesh(this, type);
 		break;
+	case TEXTURE:
+		my_comp = new Component_Texture(this, type);
+		break;
 	}
+	components.push_back(my_comp);
 
 	return my_comp;
 }
