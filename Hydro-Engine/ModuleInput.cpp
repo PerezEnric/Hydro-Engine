@@ -112,7 +112,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 				dropped_filedir = e.drop.file;
-				App->importer->LoadFBX(dropped_filedir);
+				//App->importer->LoadFBX(dropped_filedir, 0);
 
 				if (ilLoadImage(dropped_filedir) != 0)
 				{

@@ -8,7 +8,7 @@
 
 
 #define MAX_SNAKE 8
-
+class GameObject;
 struct PhysBody3D;
 
 
@@ -26,8 +26,17 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void CreateGameObject(const std::string & name, const std::string & Filename);
+
+
+
 public:
-	
+	// Game Objects.
+	std::vector<GameObject*> root;
+
+
+
+
 	bool show_demo_window = false;
 
 	uint my_tex = 0;

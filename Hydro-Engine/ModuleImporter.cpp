@@ -11,6 +11,9 @@
 #pragma comment (lib, "DevIL/libx86/ILU.lib")
 #pragma comment (lib, "DevIL/libx86/ILUT.lib")
 
+#include "GameObject.h"
+#include "Component_Mesh.h"
+
 
 
 
@@ -34,99 +37,93 @@ bool ModuleImporter::Start()
 	return true;
 }
 
-bool ModuleImporter::LoadFBX(const std::string & Filename)
+int ModuleImporter::HowManyMeshes(const std::string & Filename)
 {
-	bool Ret = true;
+	int ret = 0;
+	Assimp::Importer Importer;
+
+	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
+	if (pScene) {
+		ret = pScene->mNumMeshes;
+	}
+	else {
+		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
+	}
+	return ret;
+}
+
+bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component_Mesh* Ret)
+{
+	
 	
 	Assimp::Importer Importer;
 
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
 	if (pScene) {
-		Ret = SceneToMesh(pScene);
+		const aiMesh* sMesh = pScene->mMeshes[index];
+		//Lets start?
+		Ret->num_vertex = sMesh->mNumVertices;
+		Ret->vertex = new float[Ret->num_vertex * 3]; 
+		memcpy(Ret->vertex, sMesh->mVertices, sizeof(float) * Ret->num_vertex * 3); 
+
+
+		glGenBuffers(1, &Ret->id_vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, Ret->id_vertex);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->num_vertex * 3, Ret->vertex, GL_STATIC_DRAW);
+
+
+
+		// copy faces
+		if (sMesh->HasFaces())
+		{
+			Ret->num_index = sMesh->mNumFaces * 3;
+			Ret->index = new uint[Ret->num_index]; 
+			for (uint i = 0; i < sMesh->mNumFaces; ++i)
+			{
+				if (sMesh->mFaces[i].mNumIndices != 3)
+				{
+					LOG("WARNING, geometry face with != 3 indices!");
+				}
+				else
+				{
+					memcpy(&Ret->index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					glGenBuffers(1, &Ret->id_index);
+					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Ret->id_index);
+					glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Ret->num_index), Ret->index, GL_STATIC_DRAW);
+				}
+
+			}
+		}
+
+		if (sMesh->HasNormals())
+		{
+			Ret->normal = new float[sMesh->mNumVertices * 3];
+			memcpy(Ret->normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
+		}
+
+
+
+		if (sMesh->HasTextureCoords(0))
+		{
+			Ret->size = sMesh->mNumVertices * 3;
+			Ret->text_uvs = new float[Ret->size];
+			memcpy(Ret->text_uvs, sMesh->mTextureCoords[0], Ret->size * sizeof(float));
+			glGenBuffers(1, (GLuint*) & (Ret->id_uvs));
+			glBindBuffer(GL_ARRAY_BUFFER, Ret->id_uvs);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->size, Ret->text_uvs, GL_STATIC_DRAW);
+
+		}
+
 	}
 	else {
 		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
 	}
 
-	return Ret;
-}
-
-bool ModuleImporter::SceneToMesh(const aiScene * FBXScene)
-{
-	
-	for (uint i = 0; i < FBXScene->mNumMeshes; i++) {
-		const aiMesh* sMesh = FBXScene->mMeshes[i];
-		InitMesh(i, sMesh);
-		
-	}
-	/*for (uint i = 0; i < FBXScene->mNumMaterials; i++) {
-		const aiMaterial* sMaterial = FBXScene->mMaterials[i];
-		aiTextureType cancer;
-		uint index;
-		sMaterial->GetTexture(cancer,);
-
-	}*/
 	return true;
 }
 
-void ModuleImporter::InitMesh(uint Index, const aiMesh * sMesh)
-{
-	Mesh SceneMesh;
-
-	SceneMesh.num_vertex = sMesh->mNumVertices;
-	SceneMesh.vertex = new float[SceneMesh.num_vertex * 3]; // Lo multiplicamos por 3 porque hay 3 valores por vertice
-	memcpy(SceneMesh.vertex, sMesh->mVertices, sizeof(float) * SceneMesh.num_vertex * 3); // Lo multiplicamos por el sizeof(float) yaque el memcpy trabaja en malditos bits.
-	
-
-	glGenBuffers(1, &SceneMesh.id_vertex);
-	glBindBuffer(GL_ARRAY_BUFFER, SceneMesh.id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * SceneMesh.num_vertex * 3, SceneMesh.vertex, GL_STATIC_DRAW);
-
-	
-
-	 // copy faces
-	if (sMesh->HasFaces())
-	{
-		SceneMesh.num_index = sMesh->mNumFaces * 3;
-		SceneMesh.index = new uint[SceneMesh.num_index]; // assume each face is a triangle // Que esto a la vez ya lo hacemos antes al cargar el fbx.
-		for (uint i = 0; i < sMesh->mNumFaces; ++i)
-		{
-			if (sMesh->mFaces[i].mNumIndices != 3)
-			{
-				LOG("WARNING, geometry face with != 3 indices!");
-			}
-			else 
-			{
-				memcpy(&SceneMesh.index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
-				glGenBuffers(1, &SceneMesh.id_index);
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, SceneMesh.id_index);
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (SceneMesh.num_index), SceneMesh.index, GL_STATIC_DRAW);
-			}
-			
-		}
-	}
-
-	if (sMesh->HasNormals())
-	{
-		SceneMesh.normal = new float[sMesh->mNumVertices*3];
-		memcpy(SceneMesh.normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
-	}
 
 
-	
-	if (sMesh->HasTextureCoords(0))
-	{
-		SceneMesh.text_info.size = sMesh->mNumVertices * 3;
-		SceneMesh.text_info.text_uvs = new float[SceneMesh.text_info.size];
-		memcpy(SceneMesh.text_info.text_uvs, sMesh->mTextureCoords[0], SceneMesh.text_info.size * sizeof(float));
-		glGenBuffers(1, (GLuint*) & (SceneMesh.text_info.id_uvs));
-		glBindBuffer(GL_ARRAY_BUFFER, SceneMesh.text_info.id_uvs);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * SceneMesh.text_info.size, SceneMesh.text_info.text_uvs, GL_STATIC_DRAW);
-
-	}
-
-	_amesh.push_back(SceneMesh);
-}
 
 void ModuleImporter::LoadTexture(const std::string & Filename)
 {
@@ -146,12 +143,18 @@ void ModuleImporter::LoadTexture(const std::string & Filename)
 	}
 	else
 	{
-		_tex.id_texture = ilutGLBindTexImage(); // guillem: Esto se supone que ya hace el bind de la textura y la genera, además tambien hace la cosa rara de /glTexImage2D		_tex.height = ilGetInteger(IL_IMAGE_WIDTH);		_tex.widht = ilGetInteger(IL_IMAGE_HEIGHT);		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		_tex.id_texture = ilutGLBindTexImage(); // guillem: Esto se supone que ya hace el bind de la textura y la genera, además tambien hace la cosa rara de /glTexImage2D
+		_tex.height = ilGetInteger(IL_IMAGE_WIDTH);
+		_tex.widht = ilGetInteger(IL_IMAGE_HEIGHT);
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		glBindTexture(GL_TEXTURE_2D, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 		Lenna = _tex;
 	}
 	
@@ -250,7 +253,7 @@ void ModuleImporter::RenderFaceNormals()
 			tri_cen.y = (a.y + b.y + c.y) / 3; // El centro del triangulo lo calculamos sumando todos sus puntos y diviendolo entre 3.
 			tri_cen.z = (a.z + b.z + c.z) / 3;
 			// Calculo del centro del triangulo. --------------------------------------------------------
-
+			
 			// Calculo del plano atraves de 2 vectores. -------------------------------------------------
 			vec3 a_cen = a - tri_cen;
 			vec3 b_cen = b - tri_cen; 

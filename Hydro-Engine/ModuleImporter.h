@@ -10,6 +10,12 @@
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+#include "Glew/include/glew.h"
+#include "glmath.h"
+
+class Component_Mesh;
+
+
 struct Texture {
 	GLuint id_texture = 0;
 	uint widht = 0;
@@ -43,12 +49,9 @@ public:
 	~ModuleImporter();
 
 	bool Start();
-	// Con esta funcion cargamos el FBX.
-	bool LoadFBX(const std::string& Filename);
-	// Una vez esta cargado el fbx (FBXScene) la descomprimimos en las diferentes meshes y las cargamos una a una.
-	bool SceneToMesh(const aiScene* FBXScene);
-	// Esta es la funcion de carga de meshes, tenemos ademas el scene_meshes_xd que es donde guardaremos cada una de las meshes para luego pintarlas.
-	void InitMesh(uint Index, const aiMesh* sMesh);
+	int HowManyMeshes(const std::string& Filename);
+	
+	bool LoadFBX(const std::string& Filename, uint index, Component_Mesh* Ret);
 
 	void LoadTexture(const std::string& Filename);
 

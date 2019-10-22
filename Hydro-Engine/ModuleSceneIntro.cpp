@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "Json/json.hpp"
+#include "GameObject.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -96,7 +97,8 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+		CreateGameObject("test", "Assets/cube.fbx");
 	
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, texName);
@@ -277,13 +279,30 @@ update_status ModuleSceneIntro::Update(float dt)
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
-
+	if (!root.empty()) {
+		for (uint i = 0; i < root.size(); i++)
+			root[i]->Update();
+	}
 
 	return UPDATE_CONTINUE;
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+}
+
+void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::string & Filename)
+{
+	const std::string helper("test");
+	GameObject* GO = nullptr;
+
+	if (name.empty())
+		GO = new GameObject(helper, Filename);
+	else
+		GO = new GameObject(name, Filename);
+
+
+	root.push_back(GO);
 }
 
 void ModuleSceneIntro::MakeChecker()

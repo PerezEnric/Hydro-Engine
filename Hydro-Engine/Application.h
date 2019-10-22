@@ -48,8 +48,9 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleUI* ui;
-	ModuleFileSystem* file_system;
 	ModuleImporter* importer;
+	ModuleFileSystem* file_system;
+	
 
 private:
 
