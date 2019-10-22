@@ -35,10 +35,4 @@ public:
 	uint size = 0;
 	float* text_uvs = nullptr;
 	uint id_uvs = 0;
-
-
-
-
-
-	
 };

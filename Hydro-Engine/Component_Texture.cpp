@@ -15,7 +15,6 @@ Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type) : Com
 
 Component_Texture::Component_Texture()
 {
-
 }
 
 void Component_Texture::Load_Texture()

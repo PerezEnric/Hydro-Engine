@@ -56,22 +56,14 @@ public:
 
 	void LoadTexture(const std::string& Filename, Component_Texture* tex);
 
-	void RenderAll();
 	void RenderNormals();
 	void RenderFaceNormals();
 
 	//AKA cross product;
 	vec3 OrthogonalVect(const vec3 a, const vec3 b);
 
-	update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);
-
 	bool CleanUp();
 private:
-	std::vector<Mesh> _amesh;
-	Texture Lenna;
-
 	std::string local_doc;
 };
 
