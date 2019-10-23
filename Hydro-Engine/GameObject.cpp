@@ -32,7 +32,8 @@ void GameObject::Update()
 {
 	for (uint i = 0; i < components.size(); i++)
 	{
-		components[i]->Update();
+		if (components[i]->active)
+			components[i]->Update();
 	}
 }
 
@@ -52,4 +53,8 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 	components.push_back(my_comp);
 
 	return my_comp;
+}
+
+void GameObject::Cleanup()
+{
 }

@@ -17,6 +17,7 @@ public:
 
 	void Update();
 	Component* CreateComponent(COMPONENT_TYPE type);
+	void Cleanup();
 
 public:
 
