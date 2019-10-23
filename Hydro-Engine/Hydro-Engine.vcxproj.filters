@@ -135,6 +135,10 @@
     <ClInclude Include="PanelConsole.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
+
+    <ClInclude Include="PanelShapes.h">
+      <Filter>Sources\Modules\UI</Filter>
+
     <ClInclude Include="GameObject.h">
       <Filter>Sources\GameObjects</Filter>
     </ClInclude>
@@ -146,6 +150,7 @@
     </ClInclude>
     <ClInclude Include="Component_Texture.h">
       <Filter>Sources\GameObjects</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +235,10 @@
     <ClCompile Include="PanelConsole.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
+
+    <ClCompile Include="PanelShapes.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObjects</Filter>
     </ClCompile>
@@ -238,6 +247,7 @@
     </ClCompile>
     <ClCompile Include="Component_Texture.cpp">
       <Filter>Sources\GameObjects</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
