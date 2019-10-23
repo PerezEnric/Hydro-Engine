@@ -305,6 +305,20 @@ void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::str
 	root.push_back(GO);
 }
 
+void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape)
+{
+	const std::string helper("test");
+	GameObject* GO = nullptr;
+
+	if (name.empty())
+		GO = new GameObject(helper, p_shape);
+	else
+		GO = new GameObject(name, p_shape);
+
+
+	root.push_back(GO);
+}
+
 void ModuleSceneIntro::MakeChecker()
 {
 	int i, j, c;

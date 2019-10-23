@@ -8,6 +8,8 @@
 #include "MathGeoLib/include/MathBuildConfig.h"
 #include "MathGeoLib/include/MathGeoLibFwd.h"
 
+class Component_Mesh;
+
 enum PrimitiveTypes
 {
 	P_PLANE,
@@ -23,7 +25,7 @@ public:
 
 	Primitive();
 
-	virtual void	CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, const float* axis = nullptr, 
+	virtual void	CreatePrimitive(PrimitiveTypes p_type, Component_Mesh* Ret, const float* axis = nullptr, 
 					math::float3 t_vector = { 0.0f , 0.0f, 0.0f }, float radians = 0.0f, math::float3 s_vector = { 1.0f , 1.0f, 1.0f });
 
 	PrimitiveTypes	GetType() const;

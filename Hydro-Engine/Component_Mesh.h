@@ -19,6 +19,7 @@ public:
 	void Draw();
 	void DrawVertexNormals();
 	void DrawFaceNormals();
+	void Load_P_Shape();
 
 public:
 

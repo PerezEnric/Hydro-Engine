@@ -4,21 +4,27 @@
 #include "Application.h"
 #include "ModuleImporter.h"
 #include "Globals.h"
+#include "Primitive.h"
 
 
 
 
 Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(GO, type)
 {
-	if (GO->actual_mesh < GO->mesh_array)
-	{
-		Load_Mesh();
+	if (GO->p_type == PrimitiveTypes::P_NONE) {
+		if (GO->actual_mesh < GO->mesh_array)
+		{
+			Load_Mesh();
 
 
-		GO->actual_mesh++;
+			GO->actual_mesh++;
+		}
+		else
+			LOG("Error creating meshcomponent");
 	}
 	else
-		LOG("Error creating meshcomponent");
+		Load_P_Shape();
+	
 }
 
 Component_Mesh::Component_Mesh()
@@ -39,7 +45,8 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+	if (GO->my_tex != nullptr)
+		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -53,7 +60,10 @@ void Component_Mesh::Draw()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
-	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+	if (GO->p_type == PrimitiveTypes::P_NONE)
+		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+	else
+		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_SHORT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
@@ -67,4 +77,11 @@ void Component_Mesh::DrawVertexNormals()
 
 void Component_Mesh::DrawFaceNormals()
 {
+}
+
+void Component_Mesh::Load_P_Shape()
+{
+	Primitive P;
+	P.CreatePrimitive(GO->p_type,this);
+
 }

@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "PanelShapes.h"
 #include "ImGui/imgui.h"
+#include "ModuleSceneIntro.h"
 
 PanelShapes::PanelShapes() : Panel()
 {
@@ -21,21 +22,21 @@ bool PanelShapes::Update()
 
 		if (ImGui::Button("Cube"))
 		{
-			prim.CreatePrimitive(p_mesh, PrimitiveTypes::P_CUBE);
+			App->scene_intro->CreateGameObjectPS("cube", PrimitiveTypes::P_CUBE);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Sphere"))
 		{
-			prim.CreatePrimitive(p_mesh, PrimitiveTypes::P_SPHERE);
+			App->scene_intro->CreateGameObjectPS("sphere", PrimitiveTypes::P_SPHERE);
 		}
 		if (ImGui::Button("Cylinder"))
 		{
-			prim.CreatePrimitive(p_mesh, PrimitiveTypes::P_CYLINDER);
+			App->scene_intro->CreateGameObjectPS("cylinder", PrimitiveTypes::P_CYLINDER);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Plane"))
 		{
-			prim.CreatePrimitive(p_mesh, PrimitiveTypes::P_PLANE);
+			App->scene_intro->CreateGameObjectPS("plane", PrimitiveTypes::P_PLANE);
 		}
 
 

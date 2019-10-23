@@ -2,6 +2,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "Primitive.h"
 
 #include <string>
 #include <vector>
@@ -13,6 +14,7 @@ class GameObject
 public:
 	GameObject(const std::string& name);
 	GameObject(const std::string& name, const std::string& Filename);
+	GameObject(const std::string& name, PrimitiveTypes type);
 	~GameObject();
 
 	void Update();
@@ -29,6 +31,9 @@ public:
 	bool texture = false;
 	std::string path;
 	std::string texture_path;
+
+	PrimitiveTypes p_type = P_NONE;
+
 
 	Component_Texture* my_tex = nullptr;
 

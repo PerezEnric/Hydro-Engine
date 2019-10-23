@@ -3,6 +3,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Primitive.h"
+#include "Component_Mesh.h"
 
 
 // ------------------------------------------------------------
@@ -16,8 +17,9 @@ PrimitiveTypes Primitive::GetType() const
 }
 
 // ------------------------------------------------------------
-void Primitive::CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, const float* axis, math::float3 t_vector, float radians, math::float3 s_vector)
+void Primitive::CreatePrimitive(PrimitiveTypes p_type, Component_Mesh* Ret, const float* axis, math::float3 t_vector, float radians, math::float3 s_vector)
 {
+	par_shapes_mesh* p_mesh = nullptr;
 
 	switch (p_type)
 	{
@@ -38,14 +40,25 @@ void Primitive::CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, 
 		break;
 	}
 
-	glGenBuffers(1, (GLuint*) & (m_vertices));
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * p_mesh->npoints * 3, p_mesh->points, GL_STATIC_DRAW);
-	glGenBuffers(1, &(m_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * p_mesh->ntriangles * 3, p_mesh->triangles, GL_STATIC_DRAW);
+	//Vertex
+	Ret->num_vertex = p_mesh->npoints;
+	Ret->vertex = new float[Ret->num_vertex * 3];
+	memcpy(Ret->vertex, p_mesh->points, Ret->num_vertex * sizeof(float) * 3);
+	glGenBuffers(1, (GLuint*) & (Ret->id_vertex));
+	glBindBuffer(GL_ARRAY_BUFFER, Ret->id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->num_vertex * 3, Ret->vertex, GL_STATIC_DRAW);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
+
+	//Index
+	Ret->num_index = p_mesh->ntriangles * 3;
+	Ret->index = new uint[Ret->num_index];
+	memcpy(Ret->index, p_mesh->triangles, Ret->num_index * sizeof(PAR_SHAPES_T));
+	glGenBuffers(1, &(Ret->id_index));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Ret->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * Ret->num_index, Ret->index, GL_STATIC_DRAW);
+
+
+	/*glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -62,5 +75,5 @@ void Primitive::CreatePrimitive(par_shapes_mesh* p_mesh, PrimitiveTypes p_type, 
 	par_shapes_scale(p_mesh, s_vector.x, s_vector.y, s_vector.z);
 
 
-	par_shapes_free_mesh(p_mesh);
+	par_shapes_free_mesh(p_mesh);*/
 }

@@ -24,6 +24,15 @@ GameObject::GameObject(const std::string & name, const std::string & Filename)
 		CreateComponent(MESH);
 }
 
+GameObject::GameObject(const std::string & name, PrimitiveTypes type)
+{
+	this->name = name;
+	this->p_type = type;
+
+	CreateComponent(MESH);
+
+}
+
 GameObject::~GameObject()
 {
 }

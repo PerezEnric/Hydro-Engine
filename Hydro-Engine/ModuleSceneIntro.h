@@ -28,6 +28,8 @@ public:
 
 	void CreateGameObject(const std::string & name, const std::string & Filename);
 
+	void CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape);
+
 
 
 public:
