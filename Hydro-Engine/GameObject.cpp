@@ -48,7 +48,7 @@ void GameObject::Update()
 
 Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 {
-	Component* my_comp;
+	Component* my_comp = nullptr;
 
 	switch (type)
 	{
@@ -56,10 +56,12 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 		my_comp = new Component_Mesh(this, type);
 		break;
 	case TEXTURE:
-		my_comp = new Component_Texture(this, type);
+		if (!texture)
+			my_comp = new Component_Texture(this, type);
 		break;
 	}
-	components.push_back(my_comp);
+	if (my_comp != nullptr)
+		components.push_back(my_comp);
 
 	return my_comp;
 }
