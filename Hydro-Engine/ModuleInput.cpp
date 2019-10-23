@@ -111,12 +111,12 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				dropped_filedir = e.drop.file;
-				App->importer->LoadFBX(dropped_filedir);
+				dropped_filedir = e.drop.file; //Todo Guillem: Tocar todo esto.
+				//App->importer->LoadFBX(dropped_filedir, 0);
 
 				if (ilLoadImage(dropped_filedir) != 0)
 				{
-					App->importer->LoadTexture(dropped_filedir);
+					//App->importer->LoadTexture(dropped_filedir);
 				}		
 				SDL_free(dropped_filedir);
 				LOG("IS DROPPED!");
