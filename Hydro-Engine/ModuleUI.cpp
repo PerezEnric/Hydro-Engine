@@ -41,6 +41,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_about = new PanelAbout());
 	vector_panels.push_back(p_console = new PanelConsole());
 	vector_panels.push_back(p_shapes = new PanelShapes());
+	vector_panels.push_back(p_hierarchy = new PanelHierarchy());
 
 	return true;
 }
@@ -54,6 +55,9 @@ update_status ModuleUI::PreUpdate(float dt)
 	CreateMainMenuBar();
 
 	ImGui::ShowDemoWindow();
+
+	if (p_hierarchy->show_hierarchy)
+		p_hierarchy->is_active;
 
 	if (p_config->show_config_window)
 		p_config->is_active;

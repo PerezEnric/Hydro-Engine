@@ -98,7 +98,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-		CreateGameObject("test", "Assets/BakerHouse.fbx");
+		CreateGameObject("house", "Assets/BakerHouse.fbx");
 	
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, texName);

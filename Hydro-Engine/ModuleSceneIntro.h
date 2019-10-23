@@ -35,7 +35,7 @@ public:
 public:
 	// Game Objects.
 	std::vector<GameObject*> root;
-
+	int selected = -1;
 
 
 
