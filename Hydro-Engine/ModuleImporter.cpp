@@ -157,6 +157,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		ILenum er = ilGetError();
 		/*LOG("ERROR: %s", iluErrorString(er));*/
 	}
+
 	else
 	{
 		tex->id_texture = ilutGLBindTexImage();

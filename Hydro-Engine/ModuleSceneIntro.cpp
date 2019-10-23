@@ -99,6 +99,11 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
 		CreateGameObject("house", "Assets/BakerHouse.fbx");
+
+
+	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+		CreateGameObject("tet", "Assets/warrior.fbx");
+
 	
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, texName);
@@ -273,6 +278,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	//glDisableClientState(GL_VERTEX_ARRAY);
 
+	
+
+
 
 	return UPDATE_CONTINUE;
 }
@@ -308,15 +316,15 @@ void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::str
 void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape)
 {
 	const std::string helper("test");
-	GameObject* GO = nullptr;
+	GameObject* GP = nullptr;
 
 	if (name.empty())
-		GO = new GameObject(helper, p_shape);
+		GP = new GameObject(helper, p_shape);
 	else
-		GO = new GameObject(name, p_shape);
+		GP = new GameObject(name, p_shape);
 
 
-	root.push_back(GO);
+	root.push_back(GP);
 }
 
 void ModuleSceneIntro::MakeChecker()

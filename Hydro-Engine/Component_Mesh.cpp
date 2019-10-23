@@ -48,11 +48,14 @@ void Component_Mesh::Draw()
 	if (GO->my_tex != nullptr)
 		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
-	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+	if (GO->my_tex != nullptr) {
+		glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
+		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+	}
+	
 
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -64,6 +67,9 @@ void Component_Mesh::Draw()
 		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
 	else
 		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_SHORT, NULL);
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
