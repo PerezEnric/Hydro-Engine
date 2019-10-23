@@ -301,16 +301,24 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::string & Filename)
 {
+	int nMeshes = App->importer->HowManyMeshes(Filename);
 	const std::string helper("test");
-	GameObject* GO = nullptr;
 
-	if (name.empty())
-		GO = new GameObject(helper, Filename);
-	else
-		GO = new GameObject(name, Filename);
+	for (uint i = 0; i < nMeshes; i++) {
+
+		GameObject* GO = nullptr;
+
+		if (name.empty())
+			GO = new GameObject(helper, Filename, i);
+		else
+			GO = new GameObject(name, Filename, i);
+
+		root.push_back(GO);
+	}
+	
 
 
-	root.push_back(GO);
+	
 }
 
 void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape)

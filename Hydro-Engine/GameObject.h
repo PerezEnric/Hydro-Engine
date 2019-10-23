@@ -13,7 +13,7 @@ class GameObject
 {
 public:
 	GameObject(const std::string& name);
-	GameObject(const std::string& name, const std::string& Filename);
+	GameObject(const std::string& name, const std::string& Filename, int index);
 	GameObject(const std::string& name, PrimitiveTypes type);
 	~GameObject();
 

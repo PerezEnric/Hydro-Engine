@@ -12,16 +12,16 @@ GameObject::GameObject(const std::string & name)
 
 }
 
-GameObject::GameObject(const std::string & name, const std::string & Filename)
+GameObject::GameObject(const std::string & name, const std::string & Filename, int index)
 {
 	// Mesh CX.
 	this->name = name;
 	this->path = Filename;
-	mesh_array = App->importer->HowManyMeshes(Filename);
+	this->actual_mesh = index;
+	/*mesh_array = App->importer->HowManyMeshes(Filename);*/
 
-
-	for (int i = 0; i < mesh_array; i++)
-		CreateComponent(MESH);
+	//for (int i = 0; i < mesh_array; i++)
+	CreateComponent(MESH);
 }
 
 GameObject::GameObject(const std::string & name, PrimitiveTypes type)

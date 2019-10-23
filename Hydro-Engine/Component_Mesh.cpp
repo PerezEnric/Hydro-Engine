@@ -12,15 +12,13 @@
 Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(GO, type)
 {
 	if (GO->p_type == PrimitiveTypes::P_NONE) {
-		if (GO->actual_mesh < GO->mesh_array)
+		Load_Mesh();
+		/*if (GO->actual_mesh < GO->mesh_array)
 		{
-			Load_Mesh();
-
-
 			GO->actual_mesh++;
 		}
 		else
-			LOG("Error creating meshcomponent");
+			LOG("Error creating meshcomponent");*/
 	}
 	else
 		Load_P_Shape();
