@@ -155,7 +155,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
 	{
 		ILenum er = ilGetError();
-		LOG("ERROR: %s", iluErrorString(er));
+		//LOG("ERROR: %s", iluErrorString(er));
 	}
 	else
 	{

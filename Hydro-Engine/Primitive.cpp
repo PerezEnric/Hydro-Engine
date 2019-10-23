@@ -64,8 +64,9 @@ void Primitive::CreatePrimitive(PrimitiveTypes p_type, Component_Mesh* Ret, cons
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawElements(GL_TRIANGLES, p_mesh->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	*/
 
-	par_shapes_translate(p_mesh, t_vector.x, t_vector.y, t_vector.z);
+	/*par_shapes_translate(p_mesh, t_vector.x, t_vector.y, t_vector.z);
 
 	if (axis != nullptr)
 	{
@@ -73,7 +74,7 @@ void Primitive::CreatePrimitive(PrimitiveTypes p_type, Component_Mesh* Ret, cons
 	}
 
 	par_shapes_scale(p_mesh, s_vector.x, s_vector.y, s_vector.z);
+	*/
 
-
-	par_shapes_free_mesh(p_mesh);*/
+	par_shapes_free_mesh(p_mesh);
 }
