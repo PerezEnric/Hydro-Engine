@@ -144,8 +144,11 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex)
 {
 	ilutRenderer(ILUT_OPENGL);
-	std::string R_Filename = local_doc + Filename;
-
+	std::string R_Filename;
+	if (Filename.size() <= 35)
+		R_Filename = local_doc + Filename;
+	else
+		R_Filename = Filename;
 
 	ILuint text_nm = 0;
 
@@ -155,6 +158,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
 	{
 		ILenum er = ilGetError();
+		tex->GO->texture = false;
 		/*LOG("ERROR: %s", iluErrorString(er));*/
 	}
 

@@ -4,6 +4,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ModuleSceneIntro.h"
+#include "GameObject.h"
 
 #include "DevIL/include/IL/il.h"
 
@@ -114,12 +115,24 @@ update_status ModuleInput::PreUpdate(float dt)
 			case SDL_DROPFILE:
 				dropped_filedir = e.drop.file; //Todo Guillem: Tocar todo esto.
 				char name[32];
+
 				sprintf(name, "GO-%d", currentGO);
 				App->scene_intro->CreateGameObject(name, dropped_filedir);
 				currentGO++;
 
 				if (ilLoadImage(dropped_filedir) != 0)
 				{
+					if (App->scene_intro->selected != -1)
+					{
+						if (!App->scene_intro->root[App->scene_intro->selected]->texture)
+						{
+							App->scene_intro->root[App->scene_intro->selected]->texture_path = dropped_filedir;
+							App->scene_intro->root[App->scene_intro->selected]->CreateComponent(TEXTURE);
+							LOG("TEXTURE IS DROPPED!");
+						}
+						
+					}
+						
 					//App->importer->LoadTexture(dropped_filedir);
 				}		
 				SDL_free(dropped_filedir);

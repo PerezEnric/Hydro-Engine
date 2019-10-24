@@ -19,7 +19,7 @@ Component_Texture::Component_Texture()
 
 void Component_Texture::Load_Texture()
 {
-	App->importer->LoadTexture(GO->texture_path, this);
 	GO->texture = true;
+	App->importer->LoadTexture(GO->texture_path, this);
 	GO->my_tex = this;
 }
