@@ -43,13 +43,13 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	if (GO->my_tex != nullptr)
+	if (GO->p_type == PrimitiveTypes::P_NONE)
 		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	if (GO->my_tex != nullptr) {
+	if (GO->p_type == PrimitiveTypes::P_NONE) {
 		glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
 		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 	}
