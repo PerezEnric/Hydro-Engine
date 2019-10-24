@@ -8,6 +8,7 @@
 #include "PanelConsole.h"
 #include "PanelShapes.h"
 #include "PanelHierarchy.h"
+#include "PanelInspector.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
@@ -19,6 +20,7 @@ class PanelAbout;
 class PanelConsole;
 class PanelShapes;
 class PanelHierarchy;
+class PanelInspector;
 
 class ModuleUI : public Module
 {
@@ -41,6 +43,7 @@ public:
 	PanelConsole* p_console = nullptr;
 	PanelShapes* p_shapes = nullptr;
 	PanelHierarchy* p_hierarchy = nullptr;
+	PanelInspector* p_inspector = nullptr;
 	std::vector<Panel*> vector_panels;
 
 private:

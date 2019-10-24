@@ -42,7 +42,9 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_console = new PanelConsole());
 	vector_panels.push_back(p_shapes = new PanelShapes());
 	vector_panels.push_back(p_hierarchy = new PanelHierarchy());
+	vector_panels.push_back(p_inspector = new PanelInspector());
 	p_console->is_active = true;
+	p_inspector->is_active = true;
 
 	return true;
 }
@@ -71,6 +73,9 @@ update_status ModuleUI::PreUpdate(float dt)
 
 	if (p_about->show_about)
 		p_about->is_active;
+
+	if (p_inspector->show_inspector)
+		p_inspector->is_active;
 
 	return UPDATE_CONTINUE;
 }
@@ -107,7 +112,8 @@ void ModuleUI::CreateMainMenuBar()
 		{
 			ImGui::MenuItem("Console", NULL, &p_console->is_active);
 			ImGui::MenuItem("Configuration", NULL, &p_config->is_active);
-			
+			ImGui::MenuItem("Hierarchy", NULL, &p_hierarchy->is_active);
+			ImGui::MenuItem("Inspector", NULL, &p_inspector->is_active);
 
 			ImGui::EndMenu();
 		}

@@ -10,9 +10,15 @@ public:
 	Component_Transform(GameObject* GO, COMPONENT_TYPE type);
 	Component_Transform();
 
+	float3 GetPosition();
+	float3 GetRotation();
+	float3 GetScale();
 
-public:
+private:
 	
+	float3 GO_position = { 0, 0, 0 };
+	float3 GO_rotation = { 0, 0, 0 };
+	float3 GO_scale = { 1, 1, 1 };
 };
 
 
