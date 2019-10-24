@@ -5,6 +5,7 @@
 #include "ModuleImporter.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "ImGui/imgui.h"
 
 
 
@@ -120,4 +121,18 @@ Component_Mesh * Component_Mesh::GetThis()
 
 void Component_Mesh::ShowInfo()
 {
+	ImGui::Text("Mesh Vertices: %i", num_vertex);
+	ImGui::Text("Mesh Indices: %i", num_index);
+	ImGui::Text("Mesh Triangles: %i", num_index / 3);
+
+	if (ImGui::Checkbox("Face Normals", &show_face_normals))
+	{
+		DrawFaceNormals();
+	}
+
+	if (ImGui::Checkbox("Vertices Normals", &show_vertex_normals))
+	{
+		DrawVertexNormals();
+	}
+
 }

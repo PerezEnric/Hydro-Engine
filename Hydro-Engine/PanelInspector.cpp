@@ -1,4 +1,10 @@
+#include "Application.h"
+#include "ModuleSceneIntro.h"
 #include "PanelInspector.h"
+#include "Component_Mesh.h"
+#include "Component_Texture.h"
+#include "Component_Transform.h"
+#include "GameObject.h"
 #include "ImGui/imgui.h"
 
 PanelInspector::PanelInspector()
@@ -18,10 +24,41 @@ bool PanelInspector::Update()
 		ImGui::SetWindowPos(ImVec2{ 880, 20 }, ImGuiCond_Once);
 		ImGui::SetWindowSize(ImVec2{ 310, 745 }, ImGuiCond_Once);
 
+		if (App->scene_intro->selected != -1)
+		{
+			if (ImGui::CollapsingHeader("Transform"))
+			{
+				TransformWindow();
+			}
 
+			if (ImGui::CollapsingHeader("Mesh"))
+			{
+				MeshWindow();
+			}
+
+			if (ImGui::CollapsingHeader("Texture"))
+			{
+				TextureWindow();
+			}
+		}
 
 		ImGui::End();
 	}
 
 	return ret;
+}
+
+void PanelInspector::TransformWindow()
+{
+	App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TRANSFORM);
+}
+
+void PanelInspector::MeshWindow()
+{
+	App->scene_intro->root[App->scene_intro->selected]->ShowInfo(MESH);
+}
+
+void PanelInspector::TextureWindow()
+{
+	App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TEXTURE);
 }

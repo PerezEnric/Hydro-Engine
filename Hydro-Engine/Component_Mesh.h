@@ -42,4 +42,7 @@ public:
 	uint size = 0;
 	float* text_uvs = nullptr;
 	uint id_uvs = 0;
+
+	bool show_face_normals = false;
+	bool show_vertex_normals = false;
 };

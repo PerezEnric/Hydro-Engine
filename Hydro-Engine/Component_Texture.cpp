@@ -29,10 +29,6 @@ Component_Texture * Component_Texture::GetThis()
 	return this;
 }
 
-void Component_Texture::ShowInfo()
-{
-}
-
 void Component_Texture::CleanUp()
 {
 	glDeleteBuffers(1, &(id_texture));
@@ -43,5 +39,15 @@ void Component_Texture::CleanUp()
 	GO->texture_path.clear();
 	GO->texture = false;
 	GO->my_tex = nullptr;
-	
+}
+
+void Component_Texture::ShowInfo()
+{
+	ImGui::Text("Texture path: %s", GO->texture_path.c_str());
+	ImGui::Text("Texture Size: %ix%i pixels", widht, height);
+
+	if (ImGui::Button("Delete Texture"))
+	{
+		GO->EliminateComponent(TEXTURE);
+	}
 }

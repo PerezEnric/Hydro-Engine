@@ -20,9 +20,9 @@ public:
 
 private:
 	
-	float3 GO_position = { 0, 0, 0 };
-	float3 GO_rotation = { 0, 0, 0 };
-	float3 GO_scale = { 1, 1, 1 };
+	float3 GO_position = float3(0, 0, 0);
+	float3 GO_rotation = float3(0, 0, 0);
+	float3 GO_scale = float3(1.0f, 1.0f, 1.0f);
 };
 
 
