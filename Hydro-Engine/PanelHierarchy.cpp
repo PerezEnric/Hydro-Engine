@@ -18,10 +18,10 @@ bool PanelHierarchy::Update()
 {
 	bool ret = true;
 
-	if (ImGui::Begin("Hierarchy", &is_active))
+	if (ImGui::Begin("Hierarchy", &is_active, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
 	{
 		ImGui::SetWindowPos(ImVec2{ 0, 20 }, ImGuiCond_Once);
-		ImGui::SetWindowSize(ImVec2{ 200, 600 }, ImGuiCond_Once);
+		ImGui::SetWindowSize(ImVec2{ 200, 745 }, ImGuiCond_Once);
 
 		CreateNode();
 
