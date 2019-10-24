@@ -24,6 +24,11 @@ void Component_Texture::Load_Texture()
 	GO->my_tex = this;
 }
 
+Component_Texture * Component_Texture::GetThis()
+{
+	return this;
+}
+
 void Component_Texture::CleanUp()
 {
 	glDeleteBuffers(1, &(id_texture));

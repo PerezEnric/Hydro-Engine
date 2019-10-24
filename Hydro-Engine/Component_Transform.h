@@ -14,6 +14,8 @@ public:
 	float3 GetRotation();
 	float3 GetScale();
 
+	Component_Transform* GetThis();
+
 private:
 	
 	float3 GO_position = { 0, 0, 0 };

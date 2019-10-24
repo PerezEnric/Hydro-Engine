@@ -23,3 +23,8 @@ float3 Component_Transform::GetScale()
 {
 	return float3(GO_scale.x, GO_scale.y, GO_scale.z);
 }
+
+Component_Transform * Component_Transform::GetThis()
+{
+	return this;
+}

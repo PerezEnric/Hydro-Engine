@@ -14,6 +14,8 @@ public:
 	Component_Texture(GameObject* GO, COMPONENT_TYPE type);
 	Component_Texture();
 	void Load_Texture();
+
+	Component_Texture* GetThis();
 	
 	void CleanUp();
 public:

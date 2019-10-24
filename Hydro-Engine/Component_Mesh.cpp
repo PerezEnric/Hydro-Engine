@@ -112,3 +112,8 @@ void Component_Mesh::CleanUp()
 
 
 }
+
+Component_Mesh * Component_Mesh::GetThis()
+{
+	return this;
+}

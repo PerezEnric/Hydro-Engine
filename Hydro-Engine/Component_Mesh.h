@@ -23,6 +23,8 @@ public:
 
 	void CleanUp();
 
+	Component_Mesh* GetThis();
+
 public:
 
 	uint id_index = 0; // index in VRAM
