@@ -43,6 +43,10 @@ public:
 		return true;
 	}
 
+	virtual void ShowInfo() {
+
+	}
+
 	virtual void CleanUp() {}
 
 	GameObject* GO;

@@ -23,6 +23,8 @@ public:
 
 	void EliminateComponent(COMPONENT_TYPE type);
 
+	void ShowInfo(COMPONENT_TYPE type);
+
 public:
 
 

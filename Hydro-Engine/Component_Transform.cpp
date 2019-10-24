@@ -28,3 +28,7 @@ Component_Transform * Component_Transform::GetThis()
 {
 	return this;
 }
+
+void Component_Transform::ShowInfo()
+{
+}

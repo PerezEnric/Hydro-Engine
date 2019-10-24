@@ -25,6 +25,8 @@ public:
 
 	Component_Mesh* GetThis();
 
+	void ShowInfo();
+
 public:
 
 	uint id_index = 0; // index in VRAM

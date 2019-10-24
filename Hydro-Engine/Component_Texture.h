@@ -16,6 +16,8 @@ public:
 	void Load_Texture();
 
 	Component_Texture* GetThis();
+
+	void ShowInfo();
 	
 	void CleanUp();
 public:

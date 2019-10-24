@@ -103,3 +103,16 @@ void GameObject::EliminateComponent(COMPONENT_TYPE type)
 
 
 }
+
+void GameObject::ShowInfo(COMPONENT_TYPE type)
+{
+	for (uint i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type)
+		{
+			components[i]->ShowInfo();
+		}
+	}
+
+
+}

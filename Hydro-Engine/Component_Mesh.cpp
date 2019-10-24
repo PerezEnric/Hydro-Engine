@@ -117,3 +117,7 @@ Component_Mesh * Component_Mesh::GetThis()
 {
 	return this;
 }
+
+void Component_Mesh::ShowInfo()
+{
+}

@@ -16,6 +16,8 @@ public:
 
 	Component_Transform* GetThis();
 
+	void ShowInfo();
+
 private:
 	
 	float3 GO_position = { 0, 0, 0 };

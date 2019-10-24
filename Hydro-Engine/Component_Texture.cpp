@@ -29,6 +29,10 @@ Component_Texture * Component_Texture::GetThis()
 	return this;
 }
 
+void Component_Texture::ShowInfo()
+{
+}
+
 void Component_Texture::CleanUp()
 {
 	glDeleteBuffers(1, &(id_texture));
