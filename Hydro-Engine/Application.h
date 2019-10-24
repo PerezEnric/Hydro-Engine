@@ -65,6 +65,7 @@ private:
 	int prev_last_sec_frame_count = 0;
 	int frames_on_last_update = 0;
 	float framerate_cap = 0.0f;
+	float last_time_ms = 0.0f;
 
 
 	Timer frame_time;
@@ -88,7 +89,7 @@ public:
 	void LoadConfig();
 
 	int GetFPS() { return frames_on_last_update - 1; }
-	float GetMs() { return frame_time.Read(); }
+	float GetMs() { return last_time_ms; }
 	
 
 public:

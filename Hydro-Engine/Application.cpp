@@ -121,6 +121,8 @@ void Application::FinishUpdate()
 	{
 		SDL_Delay(framerate_cap - last_frame_ms);
 	}
+
+	last_time_ms = (float)ms_timer.Read();
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
