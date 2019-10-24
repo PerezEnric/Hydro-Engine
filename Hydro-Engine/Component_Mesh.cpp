@@ -43,7 +43,7 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	if (GO->p_type == PrimitiveTypes::P_NONE && GO->my_tex != nullptr)
+	if (GO->p_type == PrimitiveTypes::P_NONE && GO->my_tex != nullptr) // the second parametre is for when the gameobject doesnt have a tex and its not a P_SHAPE.
 		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);

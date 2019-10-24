@@ -10,7 +10,7 @@
 GameObject::GameObject(const std::string & name)
 {
 	this->name = name;
-
+	CreateComponent(TRANSFORM);
 }
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, int index)
@@ -19,6 +19,7 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, i
 	this->name = name;
 	this->path = Filename;
 	this->actual_mesh = index;
+	CreateComponent(TRANSFORM);
 	/*mesh_array = App->importer->HowManyMeshes(Filename);*/
 
 	//for (int i = 0; i < mesh_array; i++)
@@ -31,7 +32,7 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 	this->p_type = type;
 
 	CreateComponent(MESH);
-
+	CreateComponent(TRANSFORM);
 }
 
 GameObject::~GameObject()
@@ -92,7 +93,7 @@ void GameObject::EliminateComponent(COMPONENT_TYPE type)
 
 	for (uint i = 0; i < components.size(); i++)
 	{
-		if (components[i]->type = type)
+		if (components[i]->type == type)
 		{
 			components[i]->CleanUp();
 			components.erase(components.begin()+i);	
