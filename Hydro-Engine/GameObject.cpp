@@ -42,8 +42,13 @@ void GameObject::Update()
 {
 	for (uint i = 0; i < components.size(); i++)
 	{
+		if (my_tex != nullptr && !texture)
+			EliminateComponent(TEXTURE);
+
 		if (components[i]->active)
 			components[i]->Update();
+
+		
 	}
 }
 
@@ -78,7 +83,7 @@ void GameObject::Cleanup()
 	}
 	components.clear();
 
-	name = nullptr;
+	name.clear();
 	
 }
 

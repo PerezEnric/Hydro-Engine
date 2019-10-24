@@ -30,7 +30,9 @@ void Component_Texture::CleanUp()
 	widht = 0;
 	height = 0;
 	
+	
+	GO->texture_path.clear();
 	GO->texture = false;
-	GO->texture_path = nullptr;
 	GO->my_tex = nullptr;
+	
 }

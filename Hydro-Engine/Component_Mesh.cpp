@@ -43,13 +43,13 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	if (GO->p_type == PrimitiveTypes::P_NONE)
+	if (GO->p_type == PrimitiveTypes::P_NONE && GO->my_tex != nullptr)
 		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	if (GO->p_type == PrimitiveTypes::P_NONE) {
+	if (GO->p_type == PrimitiveTypes::P_NONE && size != 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
 		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 	}
@@ -103,11 +103,12 @@ void Component_Mesh::CleanUp()
 	index = nullptr;
 	vertex = nullptr;
 	text_uvs = nullptr;
+	normal = nullptr;
 
 	GO->mesh_array = 0;
 	GO->actual_mesh = 0;
-	GO->path = nullptr;
 	GO->p_type = P_NONE;
+	GO->path.clear();
 
 
 }
