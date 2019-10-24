@@ -89,3 +89,25 @@ void Component_Mesh::Load_P_Shape()
 	P.CreatePrimitive(GO->p_type,this);
 
 }
+
+void Component_Mesh::CleanUp()
+{
+	glDeleteBuffers(1, &(id_index));
+	glDeleteBuffers(1, &(id_vertex));
+	if (GO->p_type != P_NONE)
+		glDeleteBuffers(1, &(id_uvs));
+
+	num_index = 0;
+	num_vertex = 0;
+	size = 0;
+	index = nullptr;
+	vertex = nullptr;
+	text_uvs = nullptr;
+
+	GO->mesh_array = 0;
+	GO->actual_mesh = 0;
+	GO->path = nullptr;
+	GO->p_type = P_NONE;
+
+
+}

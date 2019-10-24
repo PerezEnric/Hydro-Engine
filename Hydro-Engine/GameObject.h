@@ -21,6 +21,8 @@ public:
 	Component* CreateComponent(COMPONENT_TYPE type);
 	void Cleanup();
 
+	void EliminateComponent(COMPONENT_TYPE type);
+
 public:
 
 

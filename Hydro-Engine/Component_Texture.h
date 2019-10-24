@@ -15,7 +15,7 @@ public:
 	Component_Texture();
 	void Load_Texture();
 	
-
+	void CleanUp();
 public:
 
 	uint id_texture = 0;

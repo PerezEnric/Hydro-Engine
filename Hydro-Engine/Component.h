@@ -43,6 +43,8 @@ public:
 		return true;
 	}
 
+	virtual void CleanUp() {}
+
 	GameObject* GO;
 	bool active;
 	COMPONENT_TYPE type = NONE;

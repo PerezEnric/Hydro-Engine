@@ -86,6 +86,12 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 bool ModuleSceneIntro::CleanUp()
 {
 	//LOG("Unloading Intro scene");
+	if (!root.empty()) {
+		for (uint i = 0; i < root.size(); i++)
+			root[i]->Cleanup();
+	}
+	root.clear();
+
 
 	c_mesh = nullptr;
 

@@ -21,6 +21,8 @@ public:
 	void DrawFaceNormals();
 	void Load_P_Shape();
 
+	void CleanUp();
+
 public:
 
 	uint id_index = 0; // index in VRAM

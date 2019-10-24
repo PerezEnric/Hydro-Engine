@@ -23,3 +23,14 @@ void Component_Texture::Load_Texture()
 	App->importer->LoadTexture(GO->texture_path, this);
 	GO->my_tex = this;
 }
+
+void Component_Texture::CleanUp()
+{
+	glDeleteBuffers(1, &(id_texture));
+	widht = 0;
+	height = 0;
+	
+	GO->texture = false;
+	GO->texture_path = nullptr;
+	GO->my_tex = nullptr;
+}

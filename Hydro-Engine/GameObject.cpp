@@ -72,5 +72,28 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 
 void GameObject::Cleanup()
 {
+	for (uint i = 0; i < components.size(); i++)
+	{
+		components[i]->CleanUp();
+	}
+	components.clear();
+
+	name = nullptr;
+	
+}
+
+void GameObject::EliminateComponent(COMPONENT_TYPE type)
+{
+
+	for (uint i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type = type)
+		{
+			components[i]->CleanUp();
+			components.erase(components.begin()+i);	
+		}
+	}
+	
+
 
 }

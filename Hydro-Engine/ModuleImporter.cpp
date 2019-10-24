@@ -159,6 +159,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	{
 		ILenum er = ilGetError();
 		tex->GO->texture = false;
+		LOG("Error in the parsing of the string of the texture");
 		/*LOG("ERROR: %s", iluErrorString(er));*/
 	}
 
