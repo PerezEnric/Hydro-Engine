@@ -68,4 +68,5 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 
 void GameObject::Cleanup()
 {
+
 }

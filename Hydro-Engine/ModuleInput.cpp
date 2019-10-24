@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
+#include "ModuleSceneIntro.h"
 
 #include "DevIL/include/IL/il.h"
 
@@ -112,7 +113,10 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 				dropped_filedir = e.drop.file; //Todo Guillem: Tocar todo esto.
-				//App->importer->LoadFBX(dropped_filedir, 0);
+				char name[32];
+				sprintf(name, "GO-%d", currentGO);
+				App->scene_intro->CreateGameObject(name, dropped_filedir);
+				currentGO++;
 
 				if (ilLoadImage(dropped_filedir) != 0)
 				{

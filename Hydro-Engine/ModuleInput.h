@@ -67,5 +67,6 @@ private:
 	int mouse_x_motion;
 	int mouse_y_motion;
 	char* dropped_filedir = nullptr;
+	int currentGO = 0;
 	//int mouse_z_motion;
 };
