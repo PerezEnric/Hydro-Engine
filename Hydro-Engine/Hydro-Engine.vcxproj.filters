@@ -93,6 +93,9 @@
     <ClCompile Include="PanelHierarchy.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Component_Transform.cpp">
+      <Filter>Modules\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="PanelHierarchy.h">
       <Filter>Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Transform.h">
+      <Filter>Modules\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

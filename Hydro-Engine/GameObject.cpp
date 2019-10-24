@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Component_Mesh.h"
 #include "Component_Texture.h"
+#include "Component_Transform.h"
 #include "ModuleImporter.h"
 #include "Application.h"
 
@@ -58,6 +59,9 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 	case TEXTURE:
 		if (!texture)
 			my_comp = new Component_Texture(this, type);
+		break;
+	case TRANSFORM:
+		my_comp = new Component_Transform(this, type);
 		break;
 	}
 	if (my_comp != nullptr)

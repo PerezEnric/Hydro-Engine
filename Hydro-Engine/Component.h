@@ -10,7 +10,6 @@ enum COMPONENT_TYPE
 	TEXTURE,
 	TRANSFORM,
 
-
 	NONE
 };
 
