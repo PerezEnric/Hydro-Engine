@@ -42,6 +42,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_console = new PanelConsole());
 	vector_panels.push_back(p_shapes = new PanelShapes());
 	vector_panels.push_back(p_hierarchy = new PanelHierarchy());
+	p_console->is_active = true;
 
 	return true;
 }

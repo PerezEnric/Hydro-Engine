@@ -12,13 +12,13 @@ public:
 	bool Update() override;
 
 	void ClearLog();
-	void AddLog(const char* entry);
+	void AddLog(const char* entry, ...) IM_FMTARGS(2);
 	static char* m_Strdup(const char* str);
 private:
 	ImVector<char*> items;
 	bool ScrollToBottom = true;
 
 public:
-	bool show_console = false;
+	bool show_console = true;
 };
 

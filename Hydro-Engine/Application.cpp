@@ -71,7 +71,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	LOG("-------------- Application Start --------------");
 	item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
@@ -121,8 +121,6 @@ void Application::FinishUpdate()
 	{
 		SDL_Delay(framerate_cap - last_frame_ms);
 	}
-
-	LOG("%i", avg_fps);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
