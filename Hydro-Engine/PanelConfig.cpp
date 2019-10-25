@@ -12,6 +12,7 @@
 
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_opengl.h"
+#include "mmgr/mmgr.h"
 
 #pragma comment (lib, "Glew/lib/glew32.lib")
 
@@ -45,14 +46,31 @@ void PanelConfig::ConfigApplication()
 
 	//FPS and Ms Historigrams
 
+	sMStats stats = m_getMemoryStatistics();
+
 	FillFPSVector();
 	FillMsVector();
+	FillMemVector();
+
 
 	char title[25];
 	sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
 	ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 	sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
 	ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+
+	ImGui::PlotHistogram("##memory", &mem_log[0], mem_log.size(), 0, "Memory Consumption", 0.0f, (float)stats.peakReportedMemory * 1.2f, ImVec2(310, 100));
+	
+	ImGui::Text("Total Reported Mem: %u", stats.totalReportedMemory);
+	ImGui::Text("Total Actual Mem: %u", stats.totalActualMemory);
+	ImGui::Text("Peak Reported Mem: %u", stats.peakReportedMemory);
+	ImGui::Text("Peak Actual Mem: %u", stats.peakActualMemory);
+	ImGui::Text("Accumulated Reported Mem: %u", stats.accumulatedReportedMemory);
+	ImGui::Text("Accumulated Actual Mem: %u", stats.accumulatedActualMemory);
+	ImGui::Text("Accumulated Alloc Unit Count: %u", stats.accumulatedAllocUnitCount);
+	ImGui::Text("Total Alloc Unit Count: %u", stats.totalAllocUnitCount);
+	ImGui::Text("Peak Alloc Unit Count: %u", stats.peakAllocUnitCount);
+
 }
 
 void PanelConfig::WindowSettings()
@@ -177,6 +195,22 @@ void PanelConfig::FillMsVector()
 
 	else
 		ms_log.erase(ms_log.begin());
+}
+
+void PanelConfig::FillMemVector()
+{
+	sMStats stats = m_getMemoryStatistics();
+
+	if (mem_log.size() < 100)
+	{
+		for (uint i = 0; mem_log.size() < 100; i++)
+		{
+			mem_log.push_back((float)stats.totalReportedMemory);
+		}
+	}
+	else
+		mem_log.erase(mem_log.begin());
+
 }
 
 bool PanelConfig::Update()

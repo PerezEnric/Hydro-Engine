@@ -99,6 +99,9 @@
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>mmgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -222,6 +225,12 @@
     <ClInclude Include="PanelInspector.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json" />
@@ -253,6 +262,9 @@
     </Filter>
     <Filter Include="Modules\Game\GameObjects">
       <UniqueIdentifier>{287c39eb-bb1c-42af-b33f-fab53f60440f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mmgr">
+      <UniqueIdentifier>{d5468040-2afd-409f-8874-ec024470c5a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
