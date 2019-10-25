@@ -317,7 +317,13 @@ void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::str
 		if (name.empty())
 			GO = new GameObject(helper, Filename, i);
 		else
-			GO = new GameObject(name, Filename, i);
+		{
+			char helper_2[32];
+			sprintf(helper_2, "_%d", i);
+			std::string fin = name + helper_2;
+			GO = new GameObject(fin, Filename, i);
+		}
+			
 
 		root.push_back(GO);
 	}

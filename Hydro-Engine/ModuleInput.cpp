@@ -5,6 +5,7 @@
 #include "ImGui/imgui_impl_sdl.h"
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
+#include "ModuleImporter.h"
 
 #include "DevIL/include/IL/il.h"
 
