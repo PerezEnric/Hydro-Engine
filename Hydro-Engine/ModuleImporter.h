@@ -56,11 +56,8 @@ public:
 
 	void LoadTexture(const std::string& Filename, Component_Texture* tex);
 
-	void RenderNormals();
-	void RenderFaceNormals();
 
-	//AKA cross product;
-	vec3 OrthogonalVect(const vec3 a, const vec3 b);
+	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
 
 	bool CleanUp();
 private:
