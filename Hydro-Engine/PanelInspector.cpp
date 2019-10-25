@@ -26,6 +26,7 @@ bool PanelInspector::Update()
 
 		if (App->scene_intro->selected != -1)
 		{
+			ImGui::Text(App->scene_intro->root[App->scene_intro->selected]->name.c_str());
 			if (ImGui::CollapsingHeader("Transform"))
 			{
 				TransformWindow();

@@ -46,6 +46,13 @@ void Component_Texture::ShowInfo()
 	ImGui::Text("Texture path: %s", GO->texture_path.c_str());
 	ImGui::Text("Texture Size: %ix%i pixels", widht, height);
 
+	if (id_texture == 0) {
+		ImGui::Image((ImTextureID)id_texture, ImVec2(150, 150));
+	}
+	else {
+		ImGui::Image((ImTextureID)id_texture, ImVec2(150, 150));
+	}
+
 	if (ImGui::Button("Delete Texture"))
 	{
 		GO->EliminateComponent(TEXTURE);
