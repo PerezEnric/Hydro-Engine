@@ -24,6 +24,8 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(
 	else
 		Load_P_Shape();
 	
+
+	MakeChecker();
 }
 
 Component_Mesh::Component_Mesh()
@@ -50,8 +52,14 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	if (GO->p_type == PrimitiveTypes::P_NONE && GO->my_tex != nullptr) // the second parametre is for when the gameobject doesnt have a tex and its not a P_SHAPE.
-		glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+	if (GO->p_type == PrimitiveTypes::P_NONE) // the second parametre is for when the gameobject doesnt have a tex and its not a P_SHAPE.
+	{
+		if (cheker_tex)
+			glBindTexture(GL_TEXTURE_2D, texName);
+		if (!cheker_tex && GO->my_tex != nullptr)
+			glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+	}
+		
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -198,4 +206,31 @@ void Component_Mesh::ShowInfo()
 	{
 	}
 
+	if (ImGui::Checkbox("checkers texture", &cheker_tex))
+	{
+	}
+}
+
+void Component_Mesh::MakeChecker()
+{
+	int i, j, c;
+
+	for (i = 0; i < imageheight; i++) {
+		for (j = 0; j < imagewidht; j++) {
+			c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &texName);
+	glBindTexture(GL_TEXTURE_2D, texName);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imagewidht, imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 }

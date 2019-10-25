@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include <string>
 #include "Component_Texture.h"
+#include "Glew/include/glew.h"
 
 
 
@@ -45,4 +46,14 @@ public:
 
 	bool show_face_normals = false;
 	bool show_vertex_normals = false;
+
+	bool cheker_tex = false;
+
+	void MakeChecker();
+
+	uint imagewidht = 64;
+	uint imageheight = 64;
+	GLubyte checkImage[64][64][4];
+
+	GLuint texName;
 };
