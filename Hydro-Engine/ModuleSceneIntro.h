@@ -30,6 +30,8 @@ public:
 
 	void CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape);
 
+	void DeleteGameObject(int to_delete);
+
 
 
 public:

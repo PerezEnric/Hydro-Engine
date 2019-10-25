@@ -40,6 +40,10 @@ bool PanelInspector::Update()
 			{
 				TextureWindow();
 			}
+			if (ImGui::Button("DeleteGameObject"))
+			{
+				App->scene_intro->DeleteGameObject(App->scene_intro->selected);
+			}
 		}
 
 		ImGui::End();

@@ -25,6 +25,8 @@ public:
 
 	void ShowInfo(COMPONENT_TYPE type);
 
+	
+
 public:
 
 
