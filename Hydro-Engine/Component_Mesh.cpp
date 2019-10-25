@@ -38,8 +38,12 @@ void Component_Mesh::Load_Mesh()
 bool Component_Mesh::Update()
 {
 	Draw();
-	if (show_vertex_normals)
+	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
+
+	if (show_face_normals && GO->p_type == P_NONE)
+		DrawFaceNormals();
+
 	return true;
 }
 
@@ -102,13 +106,54 @@ void Component_Mesh::DrawVertexNormals()
 
 void Component_Mesh::DrawFaceNormals()
 {
+	int l = 2;
+	
+	for (uint i = 0; i < num_index; i += 3) {
+		// Calculo de vectores. ----------------------------------------------------------------------------------
+		uint c_i = index[i]*3; // Dentro de la mesh y dentro del cuadrado en la que estamos cojemos el primer indice del cuadrado.
+		// Estas son las coordenadas del primer vector.
+		float3 a(vertex[c_i], vertex[c_i+1], vertex[c_i+2]);
+			
+		c_i = index[i + 1]*3; // aqui hacemos que el current index apunte al segundo indice del cuadrado;
+
+		float3 b(vertex[c_i], vertex[c_i + 1], vertex[c_i + 2]);
+
+		c_i = index[i + 2]*3; // aqui hacemos que el current index apunte al tercer indice del cuadrado;
+
+		float3 c(vertex[c_i], vertex[c_i + 1], vertex[c_i + 2]);
+		//	Calculo de vectores. ----------------------------------------------------------------------------------
+			
+		// Calculo del centro del triangulo. -------------------------------------------------------
+		float3 tri_cen;
+		tri_cen.x = (a.x + b.x + c.x) / 3;
+		tri_cen.y = (a.y + b.y + c.y) / 3; // El centro del triangulo lo calculamos sumando todos sus puntos y diviendolo entre 3.
+		tri_cen.z = (a.z + b.z + c.z) / 3;
+		// Calculo del centro del triangulo. --------------------------------------------------------
+			
+		// Calculo del plano atraves de 2 vectores. -------------------------------------------------
+		float3 a_cen = a - tri_cen;
+		float3 b_cen = b - tri_cen; 
+		// Ahora tenemos el vector a_cen que va desde el centro hasta el punto "a" y el b_cen que es lo mismo pero con "b".
+		float3 orth_vec = a_cen.Cross(b_cen);
+		// Calculo del plano atraves de 2 vectores. -------------------------------------------------
+		orth_vec.Normalize();
+		orth_vec *= l;
+			
+		glColor3f(1.f, 1.f, 0.25f);
+		glBegin(GL_LINES);
+		glVertex3f(tri_cen.x, tri_cen.y, tri_cen.z);
+		glVertex3f(tri_cen.x + orth_vec.x, tri_cen.y + orth_vec.y, tri_cen.z + orth_vec.z);
+		glEnd();
+		glColor3f(1, 1, 1);
+	}
+
+
 }
 
 void Component_Mesh::Load_P_Shape()
 {
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
-
 }
 
 void Component_Mesh::CleanUp()

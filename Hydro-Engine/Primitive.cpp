@@ -58,6 +58,8 @@ void Primitive::CreatePrimitive(PrimitiveTypes p_type, Component_Mesh* Ret, cons
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * Ret->num_index, Ret->index, GL_STATIC_DRAW);
 
 
+
+
 	/*glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indices);
