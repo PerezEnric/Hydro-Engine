@@ -165,6 +165,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 
 	else
 	{
+
 		tex->id_texture = ilutGLBindTexImage();
 		tex->height = ilGetInteger(IL_IMAGE_WIDTH);
 		tex->widht = ilGetInteger(IL_IMAGE_HEIGHT);

@@ -38,6 +38,8 @@ void Component_Mesh::Load_Mesh()
 bool Component_Mesh::Update()
 {
 	Draw();
+	if (show_vertex_normals)
+		DrawVertexNormals();
 	return true;
 }
 
@@ -77,6 +79,24 @@ void Component_Mesh::Draw()
 
 void Component_Mesh::DrawVertexNormals()
 {
+	int lenght = 2;
+
+
+
+	glColor3f(0.2f, 1.f, 0.25f);
+	uint j = 0;
+
+
+	for (uint i = 0; i < num_vertex * 3; i += 3)
+	{
+
+		glBegin(GL_LINES);
+		glVertex3f(vertex[i], vertex[i + 1], vertex[i + 2]);
+		glVertex3f(vertex[i] + normal[i], vertex[i + 1] + normal[i+1]*lenght, vertex[i + 2] + normal[i + 2]*lenght);
+		++j;
+		glEnd();
+	}
+	glColor3f(1, 1, 1);
 
 }
 
@@ -127,12 +147,10 @@ void Component_Mesh::ShowInfo()
 
 	if (ImGui::Checkbox("Face Normals", &show_face_normals))
 	{
-		DrawFaceNormals();
 	}
 
 	if (ImGui::Checkbox("Vertices Normals", &show_vertex_normals))
 	{
-		DrawVertexNormals();
 	}
 
 }
