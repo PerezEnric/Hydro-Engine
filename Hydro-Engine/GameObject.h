@@ -3,11 +3,13 @@
 #include "Globals.h"
 #include "Component.h"
 #include "Primitive.h"
+#include "Component_Mesh.h"
 
 #include <string>
 #include <vector>
 
 class Component_Texture;
+class Component_Mesh;
 
 class GameObject
 {
@@ -25,7 +27,7 @@ public:
 
 	void ShowInfo(COMPONENT_TYPE type);
 
-	
+	AABB CreateBBox();
 
 public:
 
@@ -42,7 +44,5 @@ public:
 
 
 	Component_Texture* my_tex = nullptr;
-
-
-
+	Component_Mesh my_mesh;
 };

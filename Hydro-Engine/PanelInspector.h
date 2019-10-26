@@ -20,4 +20,5 @@ public:
 
 public:
 	bool show_inspector = true;
+	bool show_bbox = false;
 };

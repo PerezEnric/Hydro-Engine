@@ -5,6 +5,7 @@
 #include <string>
 #include "Component_Texture.h"
 #include "Glew/include/glew.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
 
 
 
@@ -25,6 +26,7 @@ public:
 	void CleanUp();
 
 	Component_Mesh* GetThis();
+	AABB CreateBBox();
 
 	void ShowInfo();
 
@@ -56,4 +58,9 @@ public:
 	GLubyte checkImage[64][64][4];
 
 	GLuint texName;
+
+	bool show_bbox = false;
+
+private:
+	AABB mesh_bbox;
 };

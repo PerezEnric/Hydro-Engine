@@ -23,8 +23,9 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(
 	}
 	else
 		Load_P_Shape();
-	
 
+	//mesh_bbox.SetNegativeInfinity();
+	
 	MakeChecker();
 }
 
@@ -35,6 +36,7 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
+	//CreateBBox();
 }
 
 bool Component_Mesh::Update()
@@ -92,8 +94,6 @@ void Component_Mesh::Draw()
 void Component_Mesh::DrawVertexNormals()
 {
 	int lenght = 2;
-
-
 
 	glColor3f(0.2f, 1.f, 0.25f);
 	uint j = 0;
@@ -192,11 +192,30 @@ Component_Mesh * Component_Mesh::GetThis()
 	return this;
 }
 
+AABB Component_Mesh::CreateBBox()
+{
+	AABB bbox(float3(0, 0, 0), float3(0, 0, 0));
+	mesh_bbox = bbox;
+	float3* vertex_array = new float3[num_vertex];
+
+	for (uint i = 0; i < num_vertex * 3; i += 3)
+		vertex_array[i] = float3(vertex[i], vertex[i + 1], vertex[i + 2]);
+
+	mesh_bbox.Enclose(vertex_array, num_vertex);
+
+	return mesh_bbox;
+}
+
 void Component_Mesh::ShowInfo()
 {
 	ImGui::Text("Mesh Vertices: %i", num_vertex);
 	ImGui::Text("Mesh Indices: %i", num_index);
 	ImGui::Text("Mesh Triangles: %i", num_index / 3);
+
+	if (ImGui::Checkbox("Bounding Box", &show_bbox))
+	{
+		//App->scene_intro->root[App->scene_intro->selected]->CreateBBox();
+	}
 
 	if (ImGui::Checkbox("Face Normals", &show_face_normals))
 	{

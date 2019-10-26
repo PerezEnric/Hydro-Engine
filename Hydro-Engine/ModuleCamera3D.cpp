@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "Component_Mesh.h"
+#include "GameObject.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -46,8 +48,10 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y -= speed;
+	//if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y += speed;
+	//if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		CentreGOView();
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= Z * speed;
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += Z * speed;
@@ -135,15 +139,19 @@ void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool Rota
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const vec3 &Spot)
+void ModuleCamera3D::LookAt( const float3 &Spot)
 {
-	Reference = Spot;
+	//Reference = Spot;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	//Z = normalize(Position - Reference);
+	//X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+	//Y = cross(Z, X);
 
-	CalculateViewMatrix();
+	//CalculateViewMatrix();
+
+	float3 Z = Spot.Normalized();
+	float3 X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
+	float3 Y = math::Cross(Z, X);
 }
 
 
@@ -160,6 +168,21 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 float* ModuleCamera3D::GetViewMatrix()
 {
 	return &ViewMatrix;
+}
+
+void ModuleCamera3D::CentreGOView()
+{
+	if (App->scene_intro->selected != -1)
+	{
+		AABB bbox = App->scene_intro->root[App->scene_intro->selected]->CreateBBox();
+		float3 Reference = float3::zero;
+
+		Reference = bbox.CenterPoint();
+		float3 Position = float3::zero;
+		Position = ((bbox.CenterPoint() + bbox.maxPoint) - bbox.CenterPoint()) * 2;
+
+		App->camera->LookAt(Reference);
+	}
 }
 
 // -----------------------------------------------------------------

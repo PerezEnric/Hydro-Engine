@@ -116,3 +116,17 @@ void GameObject::ShowInfo(COMPONENT_TYPE type)
 
 
 }
+
+AABB GameObject::CreateBBox()
+{
+	AABB bbox;
+
+	for (uint i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == MESH)
+		{
+			bbox = components[i]->CreateBBox();
+		}
+	}
+	return bbox;
+}

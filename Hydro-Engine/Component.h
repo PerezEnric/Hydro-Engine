@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MathGeoLib/include/Geometry/AABB.h"
+
 class GameObject;
 
 
@@ -45,6 +47,11 @@ public:
 
 	virtual void ShowInfo() {
 
+	}
+
+	virtual AABB CreateBBox()
+	{
+		return AABB();
 	}
 
 	virtual void CleanUp() {}
