@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "ImGui/imgui.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
 
 
 
@@ -198,10 +199,11 @@ AABB Component_Mesh::CreateBBox()
 	mesh_bbox = bbox;
 	float3* vertex_array = new float3[num_vertex];
 
-	for (uint i = 0; i < num_vertex * 3; i += 3)
-		vertex_array[i] = float3(vertex[i], vertex[i + 1], vertex[i + 2]);
+	for (uint i = 0; i < num_vertex; i++)
+		vertex_array[i] = float3(vertex[i*3], vertex[i*3 + 1], vertex[i*3 + 2]);
 
 	mesh_bbox.Enclose(vertex_array, num_vertex);
+
 
 	return mesh_bbox;
 }

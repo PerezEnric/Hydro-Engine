@@ -139,19 +139,19 @@ void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool Rota
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const float3 &Spot)
+void ModuleCamera3D::LookAt( const vec3 &Spot)
 {
-	//Reference = Spot;
+	Reference = Spot;
 
-	//Z = normalize(Position - Reference);
-	//X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	//Y = cross(Z, X);
+	Z = normalize(Position - Reference);
+	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+	Y = cross(Z, X);
 
-	//CalculateViewMatrix();
+	CalculateViewMatrix();
 
-	float3 Z = Spot.Normalized();
-	float3 X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
-	float3 Y = math::Cross(Z, X);
+	//float3 Z = Spot.Normalized();
+	//float3 X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
+	//float3 Y = math::Cross(Z, X);
 }
 
 
@@ -175,11 +175,19 @@ void ModuleCamera3D::CentreGOView()
 	if (App->scene_intro->selected != -1)
 	{
 		AABB bbox = App->scene_intro->root[App->scene_intro->selected]->CreateBBox();
-		float3 Reference = float3::zero;
+		float3 reference = float3::zero;
 
-		Reference = bbox.CenterPoint();
-		float3 Position = float3::zero;
-		Position = ((bbox.CenterPoint() + bbox.maxPoint) - bbox.CenterPoint()) * 2;
+		reference = bbox.CenterPoint();
+		float3 position = float3::zero;
+		position = ((bbox.CenterPoint() + bbox.maxPoint) - bbox.CenterPoint()) * 2;
+
+		Position.x = position.x;
+		Position.y = position.y;
+		Position.z = position.z;
+
+		Reference.x = reference.x;
+		Reference.y = reference.y;
+		Reference.z = reference.z;
 
 		App->camera->LookAt(Reference);
 	}
