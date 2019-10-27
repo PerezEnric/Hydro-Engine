@@ -214,11 +214,6 @@ void Component_Mesh::ShowInfo()
 	ImGui::Text("Mesh Indices: %i", num_index);
 	ImGui::Text("Mesh Triangles: %i", num_index / 3);
 
-	if (ImGui::Checkbox("Bounding Box", &show_bbox))
-	{
-		//App->scene_intro->root[App->scene_intro->selected]->CreateBBox();
-	}
-
 	if (ImGui::Checkbox("Face Normals", &show_face_normals))
 	{
 	}
