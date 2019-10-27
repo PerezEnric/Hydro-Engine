@@ -1,12 +1,12 @@
 # Hydro-Engine
 
-Hi everyone, this is hydro engine a game engine that we are developing for a subject of the grade of "Game design and Game development" of UPC/CITM.
+Hi everyone, this is Hydro Engine, a game engine that we are developing for a subject of the grade of "Game design and Game development" of UPC/CITM.
 
 ## Credits:
 
-- Enric Pérez https://github.com/PerezEnric
+- Enric Pérez: https://github.com/PerezEnric
 
-- Guillem Sánchez https://github.com/GuillemSanchez
+- Guillem Sánchez: https://github.com/GuillemSanchez
 
 
 ## Repo:
