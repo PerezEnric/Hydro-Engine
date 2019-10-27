@@ -169,6 +169,19 @@ void PanelConfig::HardwareInfo()
 	ImGui::Text("GPU version: %s", App->system_info.version);
 }
 
+void PanelConfig::InputInfo()
+{
+	ImGui::Text("Mouse position:");
+	ImGui::Text("x: %d", App->input->GetMouseX());
+	ImGui::SameLine();
+	ImGui::Text("y: %d", App->input->GetMouseY());
+
+	ImGui::Text("Mouse motion:");
+	ImGui::Text("x: %d", App->input->GetMouseXMotion());
+	ImGui::SameLine();
+	ImGui::Text("y: %d", App->input->GetMouseYMotion());
+}
+
 void PanelConfig::FillFPSVector()
 {
 	if (fps_log.size() < 100)
@@ -235,6 +248,11 @@ bool PanelConfig::Update()
 		if (ImGui::CollapsingHeader("Render Settings"))
 		{
 			RenderSettings();
+		}
+
+		if (ImGui::CollapsingHeader("Input Information"))
+		{
+			InputInfo();
 		}
 
 		if (ImGui::CollapsingHeader("Hardware"))
