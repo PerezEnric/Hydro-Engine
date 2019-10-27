@@ -17,29 +17,6 @@ class Component_Mesh;
 class Component_Texture;
 
 
-struct Texture {
-	GLuint id_texture = 0;
-	uint widht = 0;
-	uint height = 0;
-	uint size = 0;
-	float* text_uvs = nullptr;
-	uint id_uvs = 0;
-
-};
-
-struct Mesh {
-
-	uint id_index = 0; // index in VRAM
-	uint num_index = 0;
-	uint* index = nullptr;
-
-	uint id_vertex = 0; // unique vertex in VRAM
-	uint num_vertex = 0;
-	float* vertex = nullptr;
-
-	float* normal;
-	Texture text_info;
-};
 
 
 
@@ -58,6 +35,7 @@ public:
 
 
 	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
+	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
 
 	bool CleanUp();
 private:

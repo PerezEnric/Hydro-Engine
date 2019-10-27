@@ -165,7 +165,11 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	if (tex->GO->path != "" && Filename.size() <= 25)
 		R_Filename = SearchTheDoc(Filename, tex);
 	else
-		R_Filename = Filename;
+	{
+
+		R_Filename = CutTheDoc(Filename, tex);
+	}
+		
 
 
 	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
@@ -211,6 +215,21 @@ std::string ModuleImporter::SearchTheDoc(const std::string & Filename, Component
 	doc = tex->GO->path.substr(0,found+1) + Filename;
 
 
+
+	return doc;
+}
+
+std::string ModuleImporter::CutTheDoc(const std::string & Filename, Component_Texture * tex)
+{
+	std::string doc = Filename;
+
+	std::size_t d = Filename.find_first_of("C:");
+	if (d == std::string::npos) 
+	{
+		std::size_t helepr = Filename.find_last_of("/\\");
+		std::size_t found = tex->GO->path.find_last_of("/\\");
+		doc = tex->GO->path.substr(0, found + 1) + Filename.substr(helepr+1);
+	}
 
 	return doc;
 }
