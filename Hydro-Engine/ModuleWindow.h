@@ -29,6 +29,7 @@ public:
 
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
+	SDL_Surface* icon = nullptr;
 
 	bool is_fullscreen = false;
 	bool is_resizable = true;
