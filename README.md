@@ -4,7 +4,7 @@ Hi everyone, this is hydro engine a game engine that we are developing for a sub
 
 ## Credits:
 
-- Enric Pérez 
+- Enric Pérez https://github.com/PerezEnric
 
 - Guillem Sánchez https://github.com/GuillemSanchez
 
