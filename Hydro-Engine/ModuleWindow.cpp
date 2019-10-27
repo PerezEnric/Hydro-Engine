@@ -18,7 +18,7 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
-	
+	icon = SDL_LoadBMP("Assets/hydro_icon.bmp");
 
 	std::ifstream file("Config.json");
 	if (!file) {
@@ -85,6 +85,7 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+			SDL_SetWindowIcon(window, icon);
 		}
 	}
 
@@ -99,6 +100,11 @@ bool ModuleWindow::CleanUp()
 	if(window != NULL)
 	{
 		SDL_DestroyWindow(window);
+	}
+
+	if (icon != NULL)
+	{
+		SDL_FreeSurface(icon);
 	}
 
 	//Quit SDL subsystems
