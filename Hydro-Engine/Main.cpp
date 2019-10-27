@@ -2,28 +2,11 @@
 #include "Application.h"
 #include "Globals.h"
 
-/*
-nlohmann::json j;
-
-std::ifstream i("Config.json");
-if (!i) {
-	LOG("Could not open config_file");
-}
-else {
-	LOG("Config_file succesfully loaded");
-	i >> j;
-}
-
-int cancer = j["App"]["MaxFramerate"].get<int>();
-if (cancer != 0)
-	LOG("error");
-*/
-
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
-#pragma comment( lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#pragma comment( lib, "MathGeoLib/lib_x86/Debug/MathGeoLib.lib")
 
 enum main_states
 {
