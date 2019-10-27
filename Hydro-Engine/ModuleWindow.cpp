@@ -94,7 +94,6 @@ bool ModuleWindow::Init()
 // Called before quitting
 bool ModuleWindow::CleanUp()
 {
-	//LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window
 	if(window != NULL)

@@ -40,9 +40,6 @@ bool ModuleSceneIntro::Start()
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
 
-	
-	//MakeChecker();
-
 	return ret;
 }
 
@@ -59,7 +56,6 @@ bool ModuleSceneIntro::CleanUp()
 			root[i]->Cleanup();
 	}
 	root.clear();
-
 
 	c_mesh = nullptr;
 
@@ -148,6 +144,5 @@ void ModuleSceneIntro::MakeChecker()
 			checkImage[i][j][3] = (GLubyte)255;
 		}
 	}
-
 }
 

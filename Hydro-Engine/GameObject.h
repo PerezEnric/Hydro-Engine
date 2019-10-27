@@ -42,7 +42,6 @@ public:
 
 	PrimitiveTypes p_type = P_NONE;
 
-
 	Component_Texture* my_tex = nullptr;
 	Component_Mesh my_mesh;
 };

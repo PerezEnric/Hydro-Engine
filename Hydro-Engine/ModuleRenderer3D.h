@@ -16,7 +16,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-	void EnableRenderSettings(int render_set, bool active);
+	void EnableRenderSettings(int render_set, bool is_active);
 	void OnResize(int width, int height);
 
 public:
