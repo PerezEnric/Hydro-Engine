@@ -31,7 +31,6 @@ bool ModuleCamera3D::Start()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
-	//LOG("Cleaning camera");
 
 	return true;
 }
@@ -39,17 +38,12 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
 	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	float wheelSpeed = 6.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	//if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y += speed;
-	//if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.y -= speed;
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		CentreGOView();
 
@@ -148,10 +142,6 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 	Y = cross(Z, X);
 
 	CalculateViewMatrix();
-
-	//float3 Z = Spot.Normalized();
-	//float3 X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
-	//float3 Y = math::Cross(Z, X);
 }
 
 
@@ -174,22 +164,19 @@ void ModuleCamera3D::CentreGOView()
 {
 	if (App->scene_intro->selected != -1)
 	{
-		AABB bbox = App->scene_intro->root[App->scene_intro->selected]->CreateBBox();
-		float3 reference = float3::zero;
+		AABB bbox = App->scene_intro->root[App->scene_intro->selected]->CreateBBox(); //we return the bounding box created with the component mesh
+		float3 new_reference = bbox.CenterPoint(); //we define a new reference to look at. It is the center point of the bbox
+		float3 new_position = bbox.CenterPoint() * 5; //we define a new position were the camera will place
 
-		reference = bbox.CenterPoint();
-		float3 position = float3::zero;
-		position = ((bbox.CenterPoint() + bbox.maxPoint) - bbox.CenterPoint()) * 2;
+		Position.x = new_position.x;
+		Position.y = new_position.y;
+		Position.z = new_position.z;
 
-		Position.x = position.x;
-		Position.y = position.y;
-		Position.z = position.z;
+		Reference.x = new_reference.x;
+		Reference.y = new_reference.y;
+		Reference.z = new_reference.z; //we assign all the new values to previous position and reference
 
-		Reference.x = reference.x;
-		Reference.y = reference.y;
-		Reference.z = reference.z;
-
-		App->camera->LookAt(Reference);
+		App->camera->LookAt(Reference); //Finally look at the reference with all the new values
 	}
 }
 

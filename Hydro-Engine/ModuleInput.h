@@ -59,6 +59,7 @@ public:
 	}
 
 private:
+
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];
 	int mouse_x;
@@ -68,5 +69,4 @@ private:
 	int mouse_y_motion;
 	char* dropped_filedir = nullptr;
 	int currentGO = 0;
-	//int mouse_z_motion;
 };

@@ -58,8 +58,8 @@ void PanelConfig::ConfigApplication()
 	ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 	sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
 	ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-
-	ImGui::PlotHistogram("##memory", &mem_log[0], mem_log.size(), 0, "Memory Consumption", 0.0f, (float)stats.peakReportedMemory * 1.2f, ImVec2(310, 100));
+	sprintf_s(title, 25, "Memory Consumption");
+	ImGui::PlotHistogram("##memory", &mem_log[0], mem_log.size(), 0, title, 0.0f, (float)stats.peakReportedMemory * 1.2f, ImVec2(310, 100));
 	
 	ImGui::Text("Total Reported Mem: %u", stats.totalReportedMemory);
 	ImGui::Text("Total Actual Mem: %u", stats.totalActualMemory);
@@ -169,6 +169,19 @@ void PanelConfig::HardwareInfo()
 	ImGui::Text("GPU version: %s", App->system_info.version);
 }
 
+void PanelConfig::InputInfo()
+{
+	ImGui::Text("Mouse position:");
+	ImGui::Text("x: %d", App->input->GetMouseX());
+	ImGui::SameLine();
+	ImGui::Text("y: %d", App->input->GetMouseY());
+
+	ImGui::Text("Mouse motion:");
+	ImGui::Text("x: %d", App->input->GetMouseXMotion());
+	ImGui::SameLine();
+	ImGui::Text("y: %d", App->input->GetMouseYMotion());
+}
+
 void PanelConfig::FillFPSVector()
 {
 	if (fps_log.size() < 100)
@@ -235,6 +248,11 @@ bool PanelConfig::Update()
 		if (ImGui::CollapsingHeader("Render Settings"))
 		{
 			RenderSettings();
+		}
+
+		if (ImGui::CollapsingHeader("Input Information"))
+		{
+			InputInfo();
 		}
 
 		if (ImGui::CollapsingHeader("Hardware"))

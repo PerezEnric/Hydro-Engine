@@ -20,9 +20,6 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, i
 	this->path = Filename;
 	this->actual_mesh = index;
 	CreateComponent(TRANSFORM);
-	/*mesh_array = App->importer->HowManyMeshes(Filename);*/
-
-	//for (int i = 0; i < mesh_array; i++)
 	CreateComponent(MESH);
 }
 
@@ -48,8 +45,6 @@ void GameObject::Update()
 
 		if (components[i]->active)
 			components[i]->Update();
-
-		
 	}
 }
 
@@ -90,7 +85,6 @@ void GameObject::Cleanup()
 
 void GameObject::EliminateComponent(COMPONENT_TYPE type)
 {
-
 	for (uint i = 0; i < components.size(); i++)
 	{
 		if (components[i]->type == type)
@@ -99,9 +93,6 @@ void GameObject::EliminateComponent(COMPONENT_TYPE type)
 			components.erase(components.begin()+i);	
 		}
 	}
-	
-
-
 }
 
 void GameObject::ShowInfo(COMPONENT_TYPE type)
@@ -113,8 +104,6 @@ void GameObject::ShowInfo(COMPONENT_TYPE type)
 			components[i]->ShowInfo();
 		}
 	}
-
-
 }
 
 AABB GameObject::CreateBBox()

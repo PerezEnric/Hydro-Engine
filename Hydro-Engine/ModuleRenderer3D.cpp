@@ -137,9 +137,9 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-void ModuleRenderer3D::EnableRenderSettings(int render_set, bool active)
+void ModuleRenderer3D::EnableRenderSettings(int render_set, bool is_active)
 {
-	if (active)
+	if (is_active)
 		glEnable(render_set);
 	else
 		glDisable(render_set);

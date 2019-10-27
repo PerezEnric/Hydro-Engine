@@ -17,6 +17,7 @@ public:
 	void WindowSettings();
 	void RenderSettings();
 	void HardwareInfo();
+	void InputInfo();
 
 	void FillFPSVector();
 	void FillMsVector();
