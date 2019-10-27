@@ -124,6 +124,10 @@ void ModuleUI::CreateMainMenuBar()
 			if (ImGui::MenuItem("Load")) {
 				App->LoadConfig();
 			}
+
+			if (ImGui::MenuItem("Quit")) {
+				App->input->quit = true;
+			}
 			ImGui::EndMenu();
 		}
 

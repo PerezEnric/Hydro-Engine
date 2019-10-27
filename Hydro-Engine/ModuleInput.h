@@ -69,4 +69,7 @@ private:
 	int mouse_y_motion;
 	char* dropped_filedir = nullptr;
 	int currentGO = 0;
+
+public:
+	bool quit = false;
 };
