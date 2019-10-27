@@ -199,7 +199,7 @@ AABB Component_Mesh::CreateBBox()
 	mesh_bbox = bbox;
 	float3* vertex_array = new float3[num_vertex];
 
-	for (uint i = 0; i < num_vertex; i++)
+	for (uint i = 0; i < num_vertex; i++) //this is like the drawing of the normal faces.
 		vertex_array[i] = float3(vertex[i*3], vertex[i*3 + 1], vertex[i*3 + 2]);
 
 	mesh_bbox.Enclose(vertex_array, num_vertex);
@@ -254,5 +254,5 @@ void Component_Mesh::MakeChecker()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imagewidht, imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	glBindTexture(GL_TEXTURE_2D, NULL); // debind this or get ready to lose the grade.
 }

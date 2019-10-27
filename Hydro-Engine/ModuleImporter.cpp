@@ -63,7 +63,11 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
 	if (pScene) {
 		const aiMesh* sMesh = pScene->mMeshes[index];
-		//Lets start?
+
+
+		// First lets load
+
+		LOG("Loading vertex from ASSIMP:")
 		Ret->num_vertex = sMesh->mNumVertices;
 		Ret->vertex = new float[Ret->num_vertex * 3]; 
 		memcpy(Ret->vertex, sMesh->mVertices, sizeof(float) * Ret->num_vertex * 3); 
@@ -72,12 +76,15 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 		glGenBuffers(1, &Ret->id_vertex);
 		glBindBuffer(GL_ARRAY_BUFFER, Ret->id_vertex);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->num_vertex * 3, Ret->vertex, GL_STATIC_DRAW);
+		
+		LOG("New mesh with %d vertex", Ret->num_vertex);
 
 
 
 		// copy faces
 		if (sMesh->HasFaces())
 		{
+			LOG("Loading Mesh index from ASSIMP");
 			Ret->num_index = sMesh->mNumFaces * 3;
 			Ret->index = new uint[Ret->num_index]; 
 			for (uint i = 0; i < sMesh->mNumFaces; ++i)
@@ -95,6 +102,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 				}
 
 			}
+			LOG("New mesh with %d index", Ret->num_index);
 		}
 
 		if (sMesh->HasNormals())
@@ -107,6 +115,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		if (sMesh->HasTextureCoords(0))
 		{
+			LOG("Loading Texture UVS from ASSIMP");
 			Ret->size = sMesh->mNumVertices * 3;
 			Ret->text_uvs = new float[Ret->size];
 			memcpy(Ret->text_uvs, sMesh->mTextureCoords[0], Ret->size * sizeof(float));
@@ -114,10 +123,12 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 			glBindBuffer(GL_ARRAY_BUFFER, Ret->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->size, Ret->text_uvs, GL_STATIC_DRAW);
 
+			LOG("New mesh with %d texture uvs", Ret->size);
 		}
 
 		if (pScene->HasMaterials())
 		{
+			LOG("Loading Materials from ASSIMP")
 			aiMaterial* material = pScene->mMaterials[sMesh->mMaterialIndex];
 			uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
 
@@ -127,6 +138,8 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 			Ret->GO->texture_path = path.C_Str();
 
 			Ret->GO->CreateComponent(TEXTURE);
+
+			LOG("Mesh texture with path: %s", Ret->GO->texture_path.c_str());
 
 		}
 
@@ -146,11 +159,14 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	ilutRenderer(ILUT_OPENGL);
 	std::string R_Filename;
 
+
 	if (tex->GO->path != "" && Filename.size() <= 25)
 		R_Filename = SearchTheDoc(Filename, tex);
 	else
 		R_Filename = Filename;
 
+
+	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
 	ILuint text_nm = 0;
 
 	ilGenImages(1, &text_nm);
@@ -178,7 +194,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glBindTexture(GL_TEXTURE_2D, 0);
-
+		LOG("Texture correctly loaded %s", R_Filename.c_str());
 	}
 
 	ilDeleteImages(1, &text_nm);
