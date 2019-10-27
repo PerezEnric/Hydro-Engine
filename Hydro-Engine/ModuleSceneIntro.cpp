@@ -49,8 +49,13 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 {
 	if (!house_loaded)
 	{
-		CreateGameObject("house", "Assets/BakerHouse.fbx");
-		house_loaded = true;
+		if (second_cycle)
+		{
+			CreateGameObject("house", "Assets/BakerHouse.fbx");
+			house_loaded = true;
+		}
+		second_cycle = true;
+		
 	}
 	return UPDATE_CONTINUE;
 }

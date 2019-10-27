@@ -58,4 +58,5 @@ public:
 	par_shapes_mesh* c_mesh;
 
 	bool house_loaded = false;
+	bool second_cycle = false;
 };

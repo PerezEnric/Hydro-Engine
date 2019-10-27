@@ -177,7 +177,7 @@ void ModuleUI::CreateMainMenuBar()
 update_status ModuleUI::PostUpdate(float dt)
 {
 	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); // look about cycles Guillem.
 
 	return UPDATE_CONTINUE;
 }
