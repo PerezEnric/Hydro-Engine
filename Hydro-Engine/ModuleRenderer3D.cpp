@@ -23,7 +23,8 @@ bool ModuleRenderer3D::Init()
 	bool ret = true;
 	
 	//Create context
-	context = SDL_GL_CreateContext(App->window->window);
+	context = SDL_GL_CreateContext(App->window->window); 
+	LOG("SDL_context created");
 	if(context == NULL)
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());

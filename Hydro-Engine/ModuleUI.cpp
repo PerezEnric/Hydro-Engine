@@ -27,11 +27,20 @@ ModuleUI::~ModuleUI()
 {
 }
 
+bool ModuleUI::Init()
+{
+	
+
+	
+	return true;
+}
+
 bool ModuleUI::Start()
 {
 	glewInit();
-
+	LOG("Glew Initilizate");
 	ImGui::CreateContext();
+	LOG("IMGUI context created");
 	ImGui_ImplOpenGL3_Init();
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGuiIO& io = ImGui::GetIO();
@@ -45,6 +54,8 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_inspector = new PanelInspector());
 	p_console->is_active = true;
 	p_inspector->is_active = true;
+	
+	
 
 	return true;
 }
@@ -76,6 +87,14 @@ update_status ModuleUI::PreUpdate(float dt)
 
 	if (p_inspector->show_inspector)
 		p_inspector->is_active;
+
+	if (logs_to_do.size() > 0)
+	{
+		for (uint i = 0; i < logs_to_do.size(); i++) {
+			p_console->AddLog(logs_to_do[i].c_str());
+		}
+		logs_to_do.clear();
+	}
 
 	return UPDATE_CONTINUE;
 }

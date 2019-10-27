@@ -27,7 +27,7 @@ class ModuleUI : public Module
 public:
 	ModuleUI(Application* app, bool start_enabled = true);
 	~ModuleUI();
-
+	bool Init();
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
@@ -45,6 +45,8 @@ public:
 	PanelHierarchy* p_hierarchy = nullptr;
 	PanelInspector* p_inspector = nullptr;
 	std::vector<Panel*> vector_panels;
+
+	std::vector<std::string> logs_to_do;
 
 private:
 

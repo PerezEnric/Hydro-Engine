@@ -33,7 +33,9 @@ bool ModuleImporter::Start()
 	//debugger
 	aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	ilInit();
+	LOG("aiAttachLogStream attached correctly the stream");
+	ilInit(); 
+	LOG("devil Inited");
 	local_doc.assign("Assets/");
 	
 	return true;

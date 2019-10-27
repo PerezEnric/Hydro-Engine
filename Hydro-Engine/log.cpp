@@ -16,7 +16,7 @@ void log(const char file[], int line, const char* format, ...)
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	if (App && App->ui->p_console) {
-		App->ui->p_console->AddLog(tmp_string);
+	if (App) {
+		App->ui->logs_to_do.push_back(tmp_string);
 	}
 }
