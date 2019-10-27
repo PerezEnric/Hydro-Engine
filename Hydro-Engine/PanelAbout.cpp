@@ -31,12 +31,10 @@ PanelAbout::~PanelAbout()
 
 bool PanelAbout::Update()
 {
-	ImGui::OpenPopup("PopUp");
+	ImGui::OpenPopup("About...");
 
-	if (ImGui::BeginPopupModal("PopUp"))
+	if (ImGui::BeginPopupModal("About..."))
 	{
-		ImGui::Text("About...");
-		ImGui::Separator();
 		about_features.engine_name = j["About"]["Name"].get<std::string>();
 		ImGui::Text(about_features.engine_name.c_str());
 		about_features.description = j["About"]["Description"].get<std::string>();

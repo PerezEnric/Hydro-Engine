@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json" />
+    <None Include="Game\About.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

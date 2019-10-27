@@ -234,6 +234,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json" />
+    <None Include="Game\About.json">
+      <Filter>Tools</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
