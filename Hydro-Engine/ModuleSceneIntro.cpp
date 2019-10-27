@@ -40,12 +40,18 @@ bool ModuleSceneIntro::Start()
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
 
+	
+
 	return ret;
 }
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
-
+	if (!house_loaded)
+	{
+		CreateGameObject("house", "Assets/BakerHouse.fbx");
+		house_loaded = true;
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -65,13 +71,10 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-		CreateGameObject("house", "Assets/BakerHouse.fbx");
+		
 
 
-	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
-		CreateGameObject("tet", "Assets/warrior.fbx");
-
+	
 	return UPDATE_CONTINUE;
 }
 
