@@ -4,12 +4,14 @@
 #include "Component.h"
 #include "Primitive.h"
 #include "Component_Mesh.h"
+#include "Component_Transform.h"
 
 #include <string>
 #include <vector>
 
 class Component_Texture;
 class Component_Mesh;
+class Component_Transform;
 
 class GameObject
 {
@@ -44,4 +46,9 @@ public:
 
 	Component_Texture* my_tex = nullptr;
 	Component_Mesh my_mesh;
+	Component_Transform transform;
+
+	float3 GO_position = float3(0, 0, 0);
+	float3 GO_rotation = float3(0, 0, 0);
+	float3 GO_scale = float3(1.0f, 1.0f, 1.0f);
 };
