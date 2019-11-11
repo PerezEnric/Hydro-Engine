@@ -97,8 +97,13 @@ void GameObject::Cleanup()
 		components[i]->CleanUp();
 	}
 	components.clear();
-
+	for (uint i = 0; i < childrens.size(); i++)
+	{
+		childrens[i]->Cleanup();
+	}
+	childrens.clear();
 	name.clear();
+
 	
 }
 
