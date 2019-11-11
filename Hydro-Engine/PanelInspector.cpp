@@ -24,9 +24,9 @@ bool PanelInspector::Update()
 		ImGui::SetWindowPos(ImVec2{ 880, 20 }, ImGuiCond_Once);
 		ImGui::SetWindowSize(ImVec2{ 310, 745 }, ImGuiCond_Once);
 
-		if (App->scene_intro->selected != -1)
+		if (App->scene_intro->selected != nullptr)
 		{
-			ImGui::Text(App->scene_intro->root[App->scene_intro->selected]->name.c_str());
+			ImGui::Text(App->scene_intro->selected->name.c_str());
 			if (ImGui::CollapsingHeader("Transform"))
 			{
 				TransformWindow();
@@ -43,7 +43,7 @@ bool PanelInspector::Update()
 			}
 			if (ImGui::Button("DeleteGameObject"))
 			{
-				App->scene_intro->DeleteGameObject(App->scene_intro->selected);
+				App->scene_intro->DeleteGameObject();
 			}
 		}
 
@@ -57,16 +57,16 @@ void PanelInspector::TransformWindow()
 {
 	//App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TRANSFORM);
 
-	if (ImGui::DragFloat3("Position", &App->scene_intro->root[App->scene_intro->selected]->GO_position[3], 0.1f, -10.0f, 10.0f))
-		App->scene_intro->root[App->scene_intro->selected]->transform.SetPosition(App->scene_intro->root[App->scene_intro->selected]->GO_position);
+	/*if (ImGui::DragFloat3("Position", &App->scene_intro->root[App->scene_intro->selected]->GO_position[3], 0.1f, -10.0f, 10.0f))
+		App->scene_intro->root[App->scene_intro->selected]->transform.SetPosition(App->scene_intro->root[App->scene_intro->selected]->GO_position);*/
 }
 
 void PanelInspector::MeshWindow()
 {
-	App->scene_intro->root[App->scene_intro->selected]->ShowInfo(MESH);
+	App->scene_intro->selected->ShowInfo(MESH);
 }
 
 void PanelInspector::TextureWindow()
 {
-	App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TEXTURE);
+	App->scene_intro->selected->ShowInfo(TEXTURE);
 }

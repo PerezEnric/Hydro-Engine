@@ -32,6 +32,8 @@ public:
 
 	void ShowInfo(COMPONENT_TYPE type);
 
+	void QuadTree(int n);
+
 	AABB CreateBBox();
 
 public:

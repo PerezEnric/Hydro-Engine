@@ -32,14 +32,15 @@ public:
 
 	void CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape);
 
-	void DeleteGameObject(int to_delete);
+	void DeleteGameObject();
 
 
 
 public:
 	// Game Objects.
 	std::vector<GameObject*> root;
-	int selected = -1;
+	GameObject* selected = nullptr;
+	
 
 	bool show_demo_window = false;
 

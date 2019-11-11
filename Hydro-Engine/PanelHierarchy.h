@@ -13,4 +13,5 @@ public:
 
 public:
 	bool show_hierarchy = true;
+	int node_clicked = -1;
 };

@@ -145,11 +145,10 @@ void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTyp
 	root.push_back(GP);
 }
 
-void ModuleSceneIntro::DeleteGameObject(int to_delete)
+void ModuleSceneIntro::DeleteGameObject()
 {
-	root[to_delete]->Cleanup();
-	root.erase(root.begin() + to_delete);
-	selected = -1;
+	selected->Cleanup();//todo aqui me falta eliminarlo de la array del padre.
+	selected = nullptr;
 }
 
 void ModuleSceneIntro::MakeChecker()

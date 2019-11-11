@@ -4,6 +4,7 @@
 #include "Component_Transform.h"
 #include "ModuleImporter.h"
 #include "Application.h"
+#include "ImGui/imgui.h""
 
 
 
@@ -61,6 +62,9 @@ void GameObject::Update()
 	{
 		childrens[i]->Update();
 	}
+
+	if (App->scene_intro->selected == nullptr)
+		LOG("I wanna destroy the world");
 }
 
 Component * GameObject::CreateComponent(COMPONENT_TYPE type)
@@ -127,6 +131,33 @@ void GameObject::ShowInfo(COMPONENT_TYPE type)
 		{
 			components[i]->ShowInfo();
 		}
+	}
+}
+
+void GameObject::QuadTree(int n)
+{
+
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	if (App->scene_intro->selected == this)
+	{
+		node_flags |= ImGuiTreeNodeFlags_Selected;
+	}
+		
+
+	bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)n, node_flags, this->name.c_str(), n);
+	n++;
+	if (ImGui::IsItemClicked())
+	{
+		App->scene_intro->selected = this;
+	}
+
+	if (node_open)
+	{
+		for (int i = 0; i < childrens.size(); i++)
+		{
+			childrens[i]->QuadTree(n);
+		}
+		ImGui::TreePop();
 	}
 }
 

@@ -123,12 +123,12 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				if (ilLoadImage(dropped_filedir) != 0)
 				{
-					if (App->scene_intro->selected != -1)
+					if (App->scene_intro->selected != nullptr)
 					{
-						if (!App->scene_intro->root[App->scene_intro->selected]->texture)
+						if (!App->scene_intro->selected->texture)
 						{
-							App->scene_intro->root[App->scene_intro->selected]->texture_path = dropped_filedir;
-							App->scene_intro->root[App->scene_intro->selected]->CreateComponent(TEXTURE);
+							App->scene_intro->selected->texture_path = dropped_filedir;
+							App->scene_intro->selected->CreateComponent(TEXTURE);
 							LOG("TEXTURE IS DROPPED!");
 						}
 						
