@@ -38,12 +38,13 @@ void Component_Transform::SetPosition(float3 position)
 {
 	//App->scene_intro->root[App->scene_intro->selected]->GO_position = position;
 
-	for (uint i = 0; i < App->scene_intro->root[App->scene_intro->selected]->my_mesh.num_vertex * 3; i +=3)
+	for (uint i = 0; i < (App->scene_intro->root[App->scene_intro->selected]->my_mesh.num_vertex * 3); i += 3)
 	{
 		App->scene_intro->root[App->scene_intro->selected]->my_mesh.vertex[i] += position.x;
 		App->scene_intro->root[App->scene_intro->selected]->my_mesh.vertex[i + 1] += position.y;
 		App->scene_intro->root[App->scene_intro->selected]->my_mesh.vertex[i + 2] += position.z;
 	}
+
 
 	LOG("%f", position.x);
 }

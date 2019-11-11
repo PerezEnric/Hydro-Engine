@@ -15,17 +15,10 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(
 {
 	if (GO->p_type == PrimitiveTypes::P_NONE) {
 		Load_Mesh();
-		/*if (GO->actual_mesh < GO->mesh_array)
-		{
-			GO->actual_mesh++;
-		}
-		else
-			LOG("Error creating meshcomponent");*/
 	}
 	else
 		Load_P_Shape();
 
-	//mesh_bbox.SetNegativeInfinity();
 	
 	MakeChecker();
 }
@@ -37,7 +30,6 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
-	//CreateBBox();
 }
 
 bool Component_Mesh::Update()

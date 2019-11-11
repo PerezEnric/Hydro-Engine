@@ -32,6 +32,15 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 	CreateComponent(TRANSFORM);
 }
 
+GameObject::GameObject(const std::string & name, const std::string & Filename)
+{
+	this->name = name;
+	this->path = Filename;
+	
+	CreateComponent(MESH);
+
+}
+
 GameObject::~GameObject()
 {
 }
@@ -81,6 +90,15 @@ void GameObject::Cleanup()
 
 	name.clear();
 	
+}
+
+void GameObject::CreateChildren(const std::string & name, const std::string & Filename, int index)
+{
+	GameObject* Go = nullptr;
+
+	Go = new GameObject(name, Filename, index);
+
+	childrens.push_back(Go);
 }
 
 void GameObject::EliminateComponent(COMPONENT_TYPE type)

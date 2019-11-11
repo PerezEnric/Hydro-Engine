@@ -56,6 +56,39 @@ int ModuleImporter::HowManyMeshes(const std::string & Filename)
 	return ret;
 }
 
+void ModuleImporter::aiParentNode(const std::string & Filename)
+{
+	act_number_meshes = 0;
+	Assimp::Importer Importer;
+
+	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); 
+	if (pScene) {
+		aiNode* root = pScene->mRootNode;
+		App->scene_intro->CreateRootGameObject(root->mName.C_Str(), Filename);
+	}
+	else {
+		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
+	}
+
+}
+
+void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
+{
+	for (uint i = 0; i < parentNod->mNumMeshes; i++)
+	{
+		std::string name;
+		name = parentNod->mName.C_Str() + i;
+		act->CreateChildren(name,act->path, act_number_meshes + i);
+	}
+	act_number_meshes += parentNod->mNumMeshes;
+
+	for (uint i = 0; i < parentNod->mNumChildren; i++)
+	{
+		aiNode* child = parentNod->mChildren[i];
+		NodeIterations(child, act->childrens[0]);
+	}
+}
+
 bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component_Mesh* Ret)
 {
 	
@@ -65,6 +98,8 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
 	if (pScene) {
 		const aiMesh* sMesh = pScene->mMeshes[index];
+		
+		
 
 
 		// First lets load

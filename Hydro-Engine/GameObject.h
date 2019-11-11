@@ -19,11 +19,14 @@ public:
 	GameObject(const std::string& name);
 	GameObject(const std::string& name, const std::string& Filename, int index);
 	GameObject(const std::string& name, PrimitiveTypes type);
+	GameObject(const std::string& name, const std::string& Filename);
 	~GameObject();
 
 	void Update();
 	Component* CreateComponent(COMPONENT_TYPE type);
 	void Cleanup();
+
+	void CreateChildren(const std::string& name, const std::string& Filename, int index);
 
 	void EliminateComponent(COMPONENT_TYPE type);
 
@@ -36,6 +39,8 @@ public:
 
 	std::string name;
 	std::vector<Component*> components;
+	std::vector<GameObject*> childrens;
+
 	int mesh_array = 0;
 	int actual_mesh = 0;
 	bool texture = false;

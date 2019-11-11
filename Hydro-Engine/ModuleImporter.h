@@ -28,6 +28,11 @@ public:
 
 	bool Start();
 	int HowManyMeshes(const std::string& Filename);
+
+	void aiParentNode(const std::string& Filename);
+
+	void NodeIterations(aiNode* parentNod, GameObject* act); //recursive function be carefull
+
 	
 	bool LoadFBX(const std::string& Filename, uint index, Component_Mesh* Ret);
 
@@ -40,6 +45,7 @@ public:
 	bool CleanUp();
 private:
 	std::string local_doc;
+	int act_number_meshes;
 };
 
 

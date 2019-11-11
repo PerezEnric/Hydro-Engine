@@ -99,6 +99,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::string & Filename)
 {
+
+
 	int nMeshes = App->importer->HowManyMeshes(Filename);
 	const std::string helper("test");
 
@@ -117,6 +119,14 @@ void ModuleSceneIntro::CreateGameObject(const std::string & name, const std::str
 		}
 		root.push_back(GO);
 	}
+}
+
+void ModuleSceneIntro::CreateRootGameObject(const std::string & name, const std::string & filename)
+{
+	GameObject* Go = nullptr;
+
+
+
 }
 
 void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape)
