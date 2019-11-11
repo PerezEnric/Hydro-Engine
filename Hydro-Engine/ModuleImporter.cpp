@@ -64,8 +64,6 @@ void ModuleImporter::aiParentNode(const std::string & Filename)
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); 
 	if (pScene) {
 		aiNode* root = pScene->mRootNode;
-		
-
 		App->scene_intro->CreateRootGameObject(root->mName.C_Str(), Filename);
 	}
 	else {
@@ -87,6 +85,12 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 			std::string name;
 			name = child->mName.C_Str() + i;
 			act->CreateChildren(name, act->path, act_number_meshes + i);
+		}
+		if (child->mNumMeshes == 0)
+		{
+			std::string name;
+			name = child->mName.C_Str() + i;
+			act->CreateEmptyChild(name, act->path);
 		}
 		act_number_meshes += child->mNumMeshes;
 		NodeIterations(child, act->childrens[i]);

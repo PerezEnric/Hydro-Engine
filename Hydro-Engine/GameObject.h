@@ -19,7 +19,7 @@ public:
 	GameObject(const std::string& name);
 	GameObject(const std::string& name, const std::string& Filename, int index);
 	GameObject(const std::string& name, PrimitiveTypes type);
-	GameObject(const std::string& name, const std::string& Filename);
+	GameObject(const std::string& name, const std::string& Filename, bool root);
 	~GameObject();
 
 	void Update();
@@ -33,6 +33,8 @@ public:
 	void ShowInfo(COMPONENT_TYPE type);
 
 	void QuadTree(int n);
+
+	void CreateEmptyChild(const std::string & name, const std::string& Filename);
 
 	AABB CreateBBox();
 

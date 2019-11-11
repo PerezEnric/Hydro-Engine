@@ -33,12 +33,12 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 	CreateComponent(TRANSFORM);
 }
 
-GameObject::GameObject(const std::string & name, const std::string & Filename)
+GameObject::GameObject(const std::string & name, const std::string & Filename, bool root)
 {
 	this->name = name;
 	this->path = Filename;
-	
-	App->importer->CreateGO(Filename, this);
+	if (root)
+		App->importer->CreateGO(Filename, this);
 	
 	CreateComponent(TRANSFORM);
 
@@ -159,6 +159,15 @@ void GameObject::QuadTree(int n)
 		}
 		ImGui::TreePop();
 	}
+}
+
+void GameObject::CreateEmptyChild(const std::string & name, const std::string & Filename)
+{
+	GameObject* Go = nullptr;
+
+	Go = new GameObject(name, Filename, false);
+
+	childrens.push_back(Go);
 }
 
 AABB GameObject::CreateBBox()

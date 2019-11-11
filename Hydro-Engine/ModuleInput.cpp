@@ -118,7 +118,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				char name[32];
 
 				sprintf(name, "GO-%d", currentGO);
-				App->scene_intro->CreateGameObject(name, dropped_filedir);
+				App->importer->aiParentNode(dropped_filedir);
 				currentGO++;
 
 				if (ilLoadImage(dropped_filedir) != 0)
