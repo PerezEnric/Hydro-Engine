@@ -33,6 +33,8 @@ public:
 
 	void NodeIterations(aiNode* parentNod, GameObject* act); //recursive function be carefull
 
+	void CreateGO(const std::string & Filename, GameObject* act); // we will call this function in the second assigment.
+
 	
 	bool LoadFBX(const std::string& Filename, uint index, Component_Mesh* Ret);
 

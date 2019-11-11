@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "Json/json.hpp"
 #include "GameObject.h"
+#include "ModuleImporter.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -51,7 +52,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			CreateGameObject("house", "Assets/BakerHouse.fbx");
+			App->importer->aiParentNode("Assets/BakerHouse.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;
@@ -125,7 +126,9 @@ void ModuleSceneIntro::CreateRootGameObject(const std::string & name, const std:
 {
 	GameObject* Go = nullptr;
 
+	Go = new GameObject(name, filename);
 
+	root.push_back(Go);
 
 }
 

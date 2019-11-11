@@ -64,6 +64,8 @@ void ModuleImporter::aiParentNode(const std::string & Filename)
 	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); 
 	if (pScene) {
 		aiNode* root = pScene->mRootNode;
+		
+
 		App->scene_intro->CreateRootGameObject(root->mName.C_Str(), Filename);
 	}
 	else {
@@ -74,18 +76,34 @@ void ModuleImporter::aiParentNode(const std::string & Filename)
 
 void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 {
-	for (uint i = 0; i < parentNod->mNumMeshes; i++)
-	{
-		std::string name;
-		name = parentNod->mName.C_Str() + i;
-		act->CreateChildren(name,act->path, act_number_meshes + i);
-	}
-	act_number_meshes += parentNod->mNumMeshes;
+	
+	
 
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
 	{
 		aiNode* child = parentNod->mChildren[i];
-		NodeIterations(child, act->childrens[0]);
+		for (uint i = 0; i < child->mNumMeshes; i++)
+		{
+			std::string name;
+			name = child->mName.C_Str() + i;
+			act->CreateChildren(name, act->path, act_number_meshes + i);
+		}
+		act_number_meshes += child->mNumMeshes;
+		NodeIterations(child, act->childrens[i]);
+	}
+}
+
+void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
+{
+	Assimp::Importer Importer;
+
+	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality);
+	if (pScene) {
+		aiNode* root = pScene->mRootNode;
+		NodeIterations(root, act);
+	}
+	else {
+		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
 	}
 }
 

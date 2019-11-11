@@ -37,7 +37,9 @@ GameObject::GameObject(const std::string & name, const std::string & Filename)
 	this->name = name;
 	this->path = Filename;
 	
-	CreateComponent(MESH);
+	App->importer->CreateGO(Filename, this);
+	
+	CreateComponent(TRANSFORM);
 
 }
 
@@ -54,6 +56,10 @@ void GameObject::Update()
 
 		if (components[i]->active)
 			components[i]->Update();
+	}
+	for (uint i = 0; i < childrens.size(); i++)
+	{
+		childrens[i]->Update();
 	}
 }
 
