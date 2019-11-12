@@ -37,10 +37,12 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, b
 {
 	this->name = name;
 	this->path = Filename;
+	CreateComponent(TRANSFORM);
+
 	if (root)
 		App->importer->CreateGO(Filename, this);
 	
-	CreateComponent(TRANSFORM);
+
 
 }
 
@@ -111,7 +113,6 @@ void GameObject::Cleanup()
 				break;
 			}
 		}
-		
 	}
 	
 	name.clear();
@@ -150,6 +151,25 @@ void GameObject::ShowInfo(COMPONENT_TYPE type)
 			components[i]->ShowInfo();
 		}
 	}
+}
+
+bool GameObject::DoIhave(COMPONENT_TYPE type)
+{
+	bool ret = false;
+
+
+	for (uint i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type)
+		{
+			ret = true;
+			break;
+		}
+			
+	}
+
+
+	return ret;
 }
 
 void GameObject::QuadTree(int n)

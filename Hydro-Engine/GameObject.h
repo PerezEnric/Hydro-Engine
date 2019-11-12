@@ -32,6 +32,8 @@ public:
 
 	void ShowInfo(COMPONENT_TYPE type);
 
+	bool DoIhave(COMPONENT_TYPE type);
+
 	void QuadTree(int n);
 
 	void CreateEmptyChild(const std::string & name, const std::string& Filename);
@@ -57,8 +59,4 @@ public:
 	Component_Texture* my_tex = nullptr;
 	Component_Mesh my_mesh;
 	Component_Transform transform;
-
-	float3 GO_position = float3(0, 0, 0);
-	float3 GO_rotation = float3(0, 0, 0);
-	float3 GO_scale = float3(1.0f, 1.0f, 1.0f);
 };

@@ -34,6 +34,11 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		Cancer();
+
+	
+	
 	Draw();
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
@@ -41,11 +46,19 @@ bool Component_Mesh::Update()
 	if (show_face_normals && GO->p_type == P_NONE)
 		DrawFaceNormals();
 
+	
 	return true;
 }
 
 void Component_Mesh::Draw()
 {
+	
+	if (GO->DoIhave(TRANSFORM))
+	{
+		glPushMatrix();
+		glMultMatrixf((const GLfloat *)&GO->transform.my_global_matrix);
+	}
+	
 	glEnable(GL_TEXTURE_2D);
 	if (GO->p_type == PrimitiveTypes::P_NONE) // the second parametre is for when the gameobject doesnt have a tex and its not a P_SHAPE.
 	{
@@ -81,7 +94,11 @@ void Component_Mesh::Draw()
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
+
+	CreateBBox();
 	
+	if (GO->DoIhave(TRANSFORM))
+		glPopMatrix();
 }
 
 void Component_Mesh::DrawVertexNormals()
@@ -180,6 +197,16 @@ void Component_Mesh::CleanUp()
 
 }
 
+void Component_Mesh::Cancer()
+{
+	for (uint i = 0; i < num_vertex * 3; i += 3)
+	{
+		
+		vertex[i] += 1;
+		
+	}
+}
+
 Component_Mesh * Component_Mesh::GetThis()
 {
 	return this;
@@ -196,7 +223,7 @@ AABB Component_Mesh::CreateBBox()
 
 	mesh_bbox.Enclose(vertex_array, num_vertex);
 
-
+	
 	return mesh_bbox;
 }
 

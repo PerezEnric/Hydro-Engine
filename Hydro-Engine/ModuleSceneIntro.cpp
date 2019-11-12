@@ -86,6 +86,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
+			
 	if (!root.empty()) {
 		for (uint i = 0; i < root.size(); i++)
 			root[i]->Update();

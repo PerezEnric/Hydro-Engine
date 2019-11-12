@@ -164,7 +164,7 @@ void ModuleCamera3D::CentreGOView()
 {
 	if (App->scene_intro->selected != nullptr)
 	{
-		AABB bbox = App->scene_intro->selected->CreateBBox(); //we return the bounding box created with the component mesh
+		AABB bbox = App->scene_intro->selected->my_mesh.mesh_bbox; //we return the bounding box created with the component mesh
 		float3 new_reference = bbox.CenterPoint(); //we define a new reference to look at. It is the center point of the bbox
 		float3 new_position = bbox.CenterPoint() * 5; //we define a new position were the camera will place
 

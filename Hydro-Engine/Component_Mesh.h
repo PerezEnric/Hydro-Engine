@@ -25,11 +25,13 @@ public:
 
 	void CleanUp();
 
+	void Cancer();
+
 	Component_Mesh* GetThis();
 	AABB CreateBBox();
 
 	void ShowInfo();
-
+	AABB mesh_bbox;
 public:
 
 	uint id_index = 0; // index in VRAM
@@ -62,5 +64,5 @@ public:
 	bool show_bbox = false;
 
 private:
-	AABB mesh_bbox;
+	
 };

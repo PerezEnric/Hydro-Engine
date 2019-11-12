@@ -16,15 +16,25 @@ public:
 
 	void SetPosition(float3 position);
 
+	void NewTransform();
+
 	Component_Transform* GetThis();
 
 	void ShowInfo();
 
+	float4x4 my_current_matrix;
+	float4x4 my_global_matrix;
+
 private:
 
-	//float3 GO_position = float3(0, 0, 0);
-	//float3 GO_rotation = float3(0, 0, 0);
-	//float3 GO_scale = float3(1.0f, 1.0f, 1.0f);
+	float3 l_position = { 0,0,0 };
+
+	float3 l_scale = { 1.0f, 1.0f, 1.0f };
+
+	//rotation is a quat because they are cool.
+	Quat l_rotation = { 0,0,0,0 };
+
+
 };
 
 

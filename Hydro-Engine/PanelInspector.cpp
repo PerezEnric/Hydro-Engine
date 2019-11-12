@@ -56,7 +56,7 @@ bool PanelInspector::Update()
 void PanelInspector::TransformWindow()
 {
 	//App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TRANSFORM);
-
+	App->scene_intro->selected->ShowInfo(TRANSFORM);
 	/*if (ImGui::DragFloat3("Position", &App->scene_intro->root[App->scene_intro->selected]->GO_position[3], 0.1f, -10.0f, 10.0f))
 		App->scene_intro->root[App->scene_intro->selected]->transform.SetPosition(App->scene_intro->root[App->scene_intro->selected]->GO_position);*/
 }
