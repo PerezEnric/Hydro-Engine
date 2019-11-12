@@ -63,8 +63,7 @@ void GameObject::Update()
 		childrens[i]->Update();
 	}
 
-	if (App->scene_intro->selected == nullptr)
-		LOG("I wanna destroy the world");
+	
 }
 
 Component * GameObject::CreateComponent(COMPONENT_TYPE type)
@@ -102,6 +101,19 @@ void GameObject::Cleanup()
 		childrens[i]->Cleanup();
 	}
 	childrens.clear();
+
+	if (parent != nullptr)
+	{
+		for (int i = 0; i < parent->childrens.size(); i++)
+		{
+			if (parent->childrens[i] == this) {
+				parent->childrens.erase(parent->childrens.begin() + i);
+				break;
+			}
+		}
+		
+	}
+	
 	name.clear();
 
 	
@@ -112,6 +124,7 @@ void GameObject::CreateChildren(const std::string & name, const std::string & Fi
 	GameObject* Go = nullptr;
 
 	Go = new GameObject(name, Filename, index);
+	Go->parent = this;
 
 	childrens.push_back(Go);
 }
@@ -171,6 +184,8 @@ void GameObject::CreateEmptyChild(const std::string & name, const std::string & 
 	GameObject* Go = nullptr;
 
 	Go = new GameObject(name, Filename, false);
+
+	Go->parent = this;
 
 	childrens.push_back(Go);
 }

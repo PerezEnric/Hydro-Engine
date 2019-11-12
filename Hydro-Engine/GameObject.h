@@ -44,6 +44,7 @@ public:
 	std::string name;
 	std::vector<Component*> components;
 	std::vector<GameObject*> childrens;
+	GameObject* parent = nullptr;
 
 	int mesh_array = 0;
 	int actual_mesh = 0;
