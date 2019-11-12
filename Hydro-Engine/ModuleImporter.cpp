@@ -91,6 +91,18 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 			std::string name;
 			name = child->mName.C_Str() + i;
 			act->CreateEmptyChild(name, act->path);
+			//aiVector3D translation, scaling;
+			//aiQuaternion rotation;
+			//node->mTransformation.Decompose(scaling, rotation, translation);
+
+			////Get the max value of the three components of the "scaling"
+			//int max_ = max(scaling.x, scaling.y);
+			//max_ = max(max_, scaling.z);
+
+			//float3 pos(translation.x, translation.y, translation.z);
+			//// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
+			//float3 scale(scaling.x / max_, scaling.y / max_, scaling.z / max_);
+			//Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 		}
 		act_number_meshes += child->mNumMeshes;
 		NodeIterations(child, act->childrens[i]);
@@ -201,6 +213,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 			LOG("Mesh texture with path: %s", Ret->GO->texture_path.c_str());
 
 		}
+
 
 	}
 	else {

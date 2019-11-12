@@ -53,11 +53,11 @@ bool Component_Mesh::Update()
 void Component_Mesh::Draw()
 {
 	
-	if (GO->DoIhave(TRANSFORM))
+	/*if (GO->DoIhave(TRANSFORM))
 	{
 		glPushMatrix();
 		glMultMatrixf((const GLfloat *)&GO->transform.my_global_matrix);
-	}
+	}*/
 	
 	glEnable(GL_TEXTURE_2D);
 	if (GO->p_type == PrimitiveTypes::P_NONE) // the second parametre is for when the gameobject doesnt have a tex and its not a P_SHAPE.
@@ -97,8 +97,8 @@ void Component_Mesh::Draw()
 
 	CreateBBox();
 	
-	if (GO->DoIhave(TRANSFORM))
-		glPopMatrix();
+	/*if (GO->DoIhave(TRANSFORM))
+		glPopMatrix();*/
 }
 
 void Component_Mesh::DrawVertexNormals()
