@@ -11,14 +11,15 @@ Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): C
 
 	if (GO->parent != nullptr)
 	{
-		my_global_matrix = GO->parent->transform.my_global_matrix * my_current_matrix; // here we need to see what is our matrix in the world
+		my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix; // here we need to see what is our matrix in the world
 	}
 	else
 		my_global_matrix = my_current_matrix;
 
 	//test
+	GO->transform = this;
 	
-	my_global_matrix = my_current_matrix;
+	//my_global_matrix = my_current_matrix;
 }
 
 Component_Transform::Component_Transform()
@@ -51,7 +52,7 @@ void Component_Transform::NewTransform()
 	if (GO->parent != nullptr)
 	{
 		if (GO->DoIhave(TRANSFORM))
-			my_global_matrix = GO->parent->transform.my_global_matrix * my_current_matrix;
+			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
 		else
 			my_global_matrix = my_current_matrix;
 	}
@@ -62,7 +63,7 @@ void Component_Transform::NewTransform()
 		for (uint i = 0; i < GO->childrens.size(); i++)
 		{
 			if (GO->childrens[i]->DoIhave(TRANSFORM))
-				GO->childrens[i]->transform.NewTransform(); // methods?
+				GO->childrens[i]->transform->NewTransform(); // methods?
 		}
 	}
 
@@ -75,16 +76,23 @@ Component_Transform * Component_Transform::GetThis()
 
 void Component_Transform::ShowInfo()
 {
-	ImGui::Text("Position: %.2f %.2f %.2f", l_position.x,
+	ImGui::Text("Position: %f %f %f", l_position.x,
 		l_position.y,
 		l_position.z);
 
-	ImGui::Text("Rotation: %.2f %.2f %.2f", l_rotation.x,
+	ImGui::Text("Rotation: %f %f %f", l_rotation.x,
 		l_rotation.y,
 		l_rotation.z);
 
-	ImGui::Text("Scale: %.2f %.2f %.2f",
+	ImGui::Text("Scale: %f %f %f",
 		l_scale.x,
 		l_scale.y,
 		l_scale.z);
+}
+
+void Component_Transform::cance(float3 pos, float3 scale, Quat rotation)
+{
+	this->l_position = pos;
+	this->l_scale = scale;
+	this->l_rotation = rotation;
 }

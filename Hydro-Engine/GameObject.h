@@ -58,5 +58,5 @@ public:
 
 	Component_Texture* my_tex = nullptr;
 	Component_Mesh my_mesh;
-	Component_Transform transform;
+	Component_Transform* transform;
 };

@@ -22,17 +22,18 @@ public:
 
 	void ShowInfo();
 
+	void cance(float3 pos, float3 scale, Quat rotation);
+
+public:
+
 	float4x4 my_current_matrix;
 	float4x4 my_global_matrix;
-
-private:
-
-	float3 l_position = { 0,0,0 };
-
-	float3 l_scale = { 1.0f, 1.0f, 1.0f };
-
+	float3 l_position = float3( 0,0,0 );
+	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.
-	Quat l_rotation = { 0,0,0,0 };
+	Quat l_rotation = Quat( 0,0,0,0 );
+
+
 
 
 };

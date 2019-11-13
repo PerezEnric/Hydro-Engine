@@ -74,7 +74,26 @@ void ModuleImporter::aiParentNode(const std::string & Filename)
 
 void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 {
+	aiVector3D translation, scaling;
+	aiQuaternion rotation;
+
+	parentNod->mTransformation.Decompose(scaling, rotation, translation);
+
 	
+	int _max = max(scaling.x, scaling.y);
+	_max = max(_max, scaling.z);
+
+	float3 pos(translation.x, translation.y, translation.z);
+	// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
+	float3 scale(scaling.x / _max, scaling.y / _max, scaling.z / _max);
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+	//act->transform.l_position = pos;
+	//// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
+	//act->transform.l_scale = scale;
+	//act->transform.l_rotation = rot;
+	if(act->DoIhave(TRANSFORM))
+		act->transform->cance(pos, scale, rot);
 	
 
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
@@ -91,18 +110,7 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 			std::string name;
 			name = child->mName.C_Str() + i;
 			act->CreateEmptyChild(name, act->path);
-			//aiVector3D translation, scaling;
-			//aiQuaternion rotation;
-			//node->mTransformation.Decompose(scaling, rotation, translation);
 
-			////Get the max value of the three components of the "scaling"
-			//int max_ = max(scaling.x, scaling.y);
-			//max_ = max(max_, scaling.z);
-
-			//float3 pos(translation.x, translation.y, translation.z);
-			//// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
-			//float3 scale(scaling.x / max_, scaling.y / max_, scaling.z / max_);
-			//Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 		}
 		act_number_meshes += child->mNumMeshes;
 		NodeIterations(child, act->childrens[i]);
