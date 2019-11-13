@@ -210,7 +210,7 @@ void GameObject::CreateEmptyChild(const std::string & name, const std::string & 
 	childrens.push_back(Go);
 }
 
-AABB GameObject::CreateBBox()
+AABB GameObject::CreateAABB()
 {
 	AABB bbox;
 
@@ -218,7 +218,7 @@ AABB GameObject::CreateBBox()
 	{
 		if (components[i]->type == MESH)
 		{
-			bbox = components[i]->CreateBBox();
+			bbox = components[i]->CreateAABB();
 		}
 	}
 	return bbox;

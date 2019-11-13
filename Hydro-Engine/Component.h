@@ -49,7 +49,7 @@ public:
 
 	}
 
-	virtual AABB CreateBBox()
+	virtual AABB CreateAABB()
 	{
 		return AABB();
 	}

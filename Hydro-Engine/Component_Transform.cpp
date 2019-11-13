@@ -104,7 +104,7 @@ void Component_Transform::ShowInfo()
 	if (ImGui::DragFloat3("Rotation", &future_rotation[3], 0.1f))
 		SetRotation(future_rotation);
 
-	if (ImGui::DragFloat3("Scale", &l_scale[3], 0.1f, -0.0f))
+	if (ImGui::DragFloat3("Scale", &l_scale[3], 0.1f))
 		SetRotation(l_scale);
 }
 

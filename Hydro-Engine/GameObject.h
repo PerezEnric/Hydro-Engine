@@ -38,7 +38,7 @@ public:
 
 	void CreateEmptyChild(const std::string & name, const std::string& Filename);
 
-	AABB CreateBBox();
+	AABB CreateAABB();
 
 public:
 

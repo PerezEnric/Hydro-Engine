@@ -26,7 +26,8 @@ public:
 	void CleanUp();
 
 	Component_Mesh* GetThis();
-	AABB CreateBBox();
+	AABB CreateAABB();
+	OBB CreateOBB();
 
 	void ShowInfo();
 	AABB mesh_bbox;

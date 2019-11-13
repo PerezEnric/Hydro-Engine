@@ -196,7 +196,7 @@ Component_Mesh * Component_Mesh::GetThis()
 	return this;
 }
 
-AABB Component_Mesh::CreateBBox()
+AABB Component_Mesh::CreateAABB()
 {
 	AABB bbox(float3(0, 0, 0), float3(0, 0, 0));
 	mesh_bbox = bbox;
@@ -208,6 +208,16 @@ AABB Component_Mesh::CreateBBox()
 	mesh_bbox.Enclose(vertex_array, num_vertex);
 
 	
+	return mesh_bbox;
+}
+
+OBB Component_Mesh::CreateOBB()
+{
+	OBB obb = CreateAABB();
+	obb.Transform(GO->transform->my_global_matrix);
+
+	mesh_bbox.SetNegativeInfinity();
+	mesh_bbox.Enclose(obb);
 	return mesh_bbox;
 }
 
