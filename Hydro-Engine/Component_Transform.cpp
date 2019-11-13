@@ -43,13 +43,31 @@ float3 Component_Transform::GetScale()
 
 void Component_Transform::SetPosition(float3 position)
 {
+	l_position = position;
+	//we calculate The new global matrix after we transform (we will call our childrens matrix)
+	NewTransform();
+}
+
+void Component_Transform::SetRotation(float3 rot)
+{
+	// we will use euler to get the quaternion of rotation.
+	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
+	//we calculate The new global matrix after we transform (we will call our childrens matrix)
+	NewTransform();
+}
+
+void Component_Transform::SetScale(float3 sca)
+{
+	l_scale = sca;
+	//we calculate The new global matrix after we transform (we will call our childrens matrix)
+	NewTransform();
 }
 
 void Component_Transform::NewTransform()
 {
 	my_current_matrix = float4x4::FromTRS(l_position, l_rotation, l_scale);
 
-	if (GO->parent != nullptr)
+	if (GO->parent != nullptr) // Same as last time :D
 	{
 		if (GO->DoIhave(TRANSFORM))
 			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
@@ -76,6 +94,8 @@ Component_Transform * Component_Transform::GetThis()
 
 void Component_Transform::ShowInfo()
 {
+	//gtodo: make that we can swap from 
+
 	ImGui::Text("Position: %f %f %f", l_position.x,
 		l_position.y,
 		l_position.z);

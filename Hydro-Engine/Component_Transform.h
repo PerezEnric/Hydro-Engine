@@ -14,7 +14,10 @@ public:
 	float3 GetRotation();
 	float3 GetScale();
 
-	void SetPosition(float3 position);
+	void SetPosition(float3 pos);
+	void SetRotation(float3 rot);
+	void SetScale(float3 sca);
+
 
 	void NewTransform();
 
