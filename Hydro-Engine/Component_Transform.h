@@ -22,7 +22,7 @@ public:
 
 	void ShowInfo();
 
-	void cance(float3 pos, float3 scale, Quat rotation);
+	void LoadTransform(float3 pos, float3 scale, Quat rotation);
 
 public:
 

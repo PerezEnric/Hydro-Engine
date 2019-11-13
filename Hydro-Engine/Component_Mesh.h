@@ -25,8 +25,6 @@ public:
 
 	void CleanUp();
 
-	void Cancer();
-
 	Component_Mesh* GetThis();
 	AABB CreateBBox();
 

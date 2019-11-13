@@ -34,8 +34,7 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-		Cancer();
+	
 
 	
 	
@@ -197,15 +196,6 @@ void Component_Mesh::CleanUp()
 
 }
 
-void Component_Mesh::Cancer()
-{
-	for (uint i = 0; i < num_vertex * 3; i += 3)
-	{
-		
-		vertex[i] += 1;
-		
-	}
-}
 
 Component_Mesh * Component_Mesh::GetThis()
 {

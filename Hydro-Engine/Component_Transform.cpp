@@ -90,7 +90,7 @@ void Component_Transform::ShowInfo()
 		l_scale.z);
 }
 
-void Component_Transform::cance(float3 pos, float3 scale, Quat rotation)
+void Component_Transform::LoadTransform(float3 pos, float3 scale, Quat rotation)
 {
 	this->l_position = pos;
 	this->l_scale = scale;

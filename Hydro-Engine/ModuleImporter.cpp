@@ -93,7 +93,7 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 	//act->transform.l_scale = scale;
 	//act->transform.l_rotation = rot;
 	if(act->DoIhave(TRANSFORM))
-		act->transform->cance(pos, scale, rot);
+		act->transform->LoadTransform(pos, scale, rot);
 	
 
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
