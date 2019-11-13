@@ -95,21 +95,14 @@ Component_Transform * Component_Transform::GetThis()
 void Component_Transform::ShowInfo()
 {
 	//gtodo: make that we can swap from 
-	/*if (ImGui::DragFloat3("Position", &l_position[3], 0.1f, -10.0f, 10.0f))
-		SetPosition(l_position);*/
+	if (ImGui::DragFloat3("Position", &l_position[3], 0.1f, -10.0f, 10.0f))
+		SetPosition(l_position);
 
-	ImGui::Text("Position: %f %f %f", l_position.x,
-		l_position.y,
-		l_position.z);
+	if (ImGui::DragFloat3("Rotation", &future_rotation[3], 0.1f, 0.0f, 0.0f))
+		SetRotation(future_rotation);
 
-	ImGui::Text("Rotation: %f %f %f", l_rotation.x,
-		l_rotation.y,
-		l_rotation.z);
-
-	ImGui::Text("Scale: %f %f %f",
-		l_scale.x,
-		l_scale.y,
-		l_scale.z);
+	if (ImGui::DragFloat3("Scale", &l_scale[3], 0.1f, 0.0f, 0.0f))
+		SetRotation(l_scale);
 }
 
 void Component_Transform::LoadTransform(float3 pos, float3 scale, Quat rotation)

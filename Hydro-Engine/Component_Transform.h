@@ -35,6 +35,7 @@ public:
 	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.
 	Quat l_rotation = Quat( 0,0,0,0 );
+	float3 future_rotation = float3(0, 0, 0);
 
 
 
