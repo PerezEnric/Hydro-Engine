@@ -34,10 +34,6 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	
-
-	
-	
 	Draw();
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
@@ -55,7 +51,7 @@ void Component_Mesh::Draw()
 	if (GO->DoIhave(TRANSFORM))
 	{
 		glPushMatrix();
-		glMultMatrixf((const GLfloat *)&GO->transform->my_global_matrix);
+		glMultMatrixf((const GLfloat *)&GO->transform->my_global_matrix.Transposed());
 	}
 	
 	glEnable(GL_TEXTURE_2D);

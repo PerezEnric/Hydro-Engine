@@ -92,8 +92,12 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 	//// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
 	//act->transform.l_scale = scale;
 	//act->transform.l_rotation = rot;
-	if(act->DoIhave(TRANSFORM))
+	if (act->DoIhave(TRANSFORM))
+	{
 		act->transform->LoadTransform(pos, scale, rot);
+		//act->transform->NewTransform();
+	}
+		
 	
 
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
