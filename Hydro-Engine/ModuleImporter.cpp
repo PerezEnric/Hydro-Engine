@@ -76,7 +76,7 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 {
 	aiVector3D translation, scaling;
 	aiQuaternion rotation;
-
+	// Transformation ------------
 	parentNod->mTransformation.Decompose(scaling, rotation, translation);
 
 	
@@ -84,20 +84,15 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 	_max = max(_max, scaling.z);
 
 	float3 pos(translation.x, translation.y, translation.z);
-	// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
 	float3 scale(scaling.x / _max, scaling.y / _max, scaling.z / _max);
 	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
-	//act->transform.l_position = pos;
-	//// Divide the scaling by it's max number to set to 1 the scale factor, and keeping the relation
-	//act->transform.l_scale = scale;
-	//act->transform.l_rotation = rot;
 	if (act->DoIhave(TRANSFORM))
 	{
 		act->transform->LoadTransform(pos, scale, rot);
-		//act->transform->NewTransform();
+		act->transform->NewTransform();
 	}
-		
+	// Transformation --------------
 	
 
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
@@ -107,7 +102,7 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 		{
 			std::string name;
 			name = child->mName.C_Str() + i;
-			act->CreateChildren(name, act->path, act_number_meshes + i);
+			act->CreateChildren(name, act->path, act_number_meshes + i); //gtodo: si crea multiples meshes no aplicara la correspondiente transformacion.
 		}
 		if (child->mNumMeshes == 0)
 		{

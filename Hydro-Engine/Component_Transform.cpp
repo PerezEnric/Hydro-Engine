@@ -19,7 +19,7 @@ Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): C
 	//test
 	GO->transform = this;
 	
-	//my_global_matrix = my_current_matrix;
+
 }
 
 Component_Transform::Component_Transform()
@@ -95,8 +95,8 @@ Component_Transform * Component_Transform::GetThis()
 void Component_Transform::ShowInfo()
 {
 	//gtodo: make that we can swap from 
-	if (ImGui::DragFloat3("Position", &l_position[3], 0.1f, -10.0f, 10.0f))
-		SetPosition(l_position);
+	/*if (ImGui::DragFloat3("Position", &l_position[3], 0.1f, -10.0f, 10.0f))
+		SetPosition(l_position);*/
 
 	ImGui::Text("Position: %f %f %f", l_position.x,
 		l_position.y,

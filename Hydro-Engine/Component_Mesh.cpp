@@ -89,8 +89,6 @@ void Component_Mesh::Draw()
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
-
-	CreateBBox();
 	
 	if (GO->DoIhave(TRANSFORM))
 		glPopMatrix();
