@@ -102,6 +102,9 @@
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>mmgr</Filter>
     </ClCompile>
+    <ClCompile Include="Component_Camera.cpp">
+      <Filter>Modules\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Camera.h">
+      <Filter>Modules\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

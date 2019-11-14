@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include "Component_Mesh.h"
 #include "Component_Transform.h"
+#include "Component_Camera.h"
 
 #include <string>
 #include <vector>
@@ -12,6 +13,7 @@
 class Component_Texture;
 class Component_Mesh;
 class Component_Transform;
+class Component_Camera;
 
 class GameObject
 {
@@ -59,4 +61,5 @@ public:
 	Component_Texture* my_tex = nullptr;
 	Component_Mesh my_mesh;
 	Component_Transform* transform;
+	Component_Camera* cam;
 };

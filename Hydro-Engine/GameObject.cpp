@@ -2,6 +2,7 @@
 #include "Component_Mesh.h"
 #include "Component_Texture.h"
 #include "Component_Transform.h"
+#include "Component_Camera.h"
 #include "ModuleImporter.h"
 #include "Application.h"
 #include "ImGui/imgui.h""
@@ -12,6 +13,7 @@ GameObject::GameObject(const std::string & name)
 {
 	this->name = name;
 	CreateComponent(TRANSFORM);
+	CreateComponent(CAMERA);
 }
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, int index)
@@ -22,6 +24,7 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, i
 	this->actual_mesh = index;
 	CreateComponent(TRANSFORM);
 	CreateComponent(MESH);
+	CreateComponent(CAMERA);
 }
 
 GameObject::GameObject(const std::string & name, PrimitiveTypes type)
@@ -30,7 +33,7 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 	this->p_type = type;
 	CreateComponent(TRANSFORM);
 	CreateComponent(MESH);
-	
+	CreateComponent(CAMERA);
 }
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, bool root)
@@ -38,12 +41,11 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, b
 	this->name = name;
 	this->path = Filename;
 	CreateComponent(TRANSFORM);
+	CreateComponent(CAMERA);
 
 	if (root)
 		App->importer->CreateGO(Filename, this);
 	
-
-
 }
 
 GameObject::~GameObject()
@@ -84,6 +86,9 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 	case TRANSFORM:
 		my_comp = new Component_Transform(this, type);
 		break;
+
+	case CAMERA:
+		my_comp = new Component_Camera(this, type);
 	}
 	if (my_comp != nullptr)
 		components.push_back(my_comp);
@@ -114,10 +119,7 @@ void GameObject::Cleanup()
 			}
 		}
 	}
-	
 	name.clear();
-
-	
 }
 
 void GameObject::CreateChildren(const std::string & name, const std::string & Filename, int index)
@@ -157,7 +159,6 @@ bool GameObject::DoIhave(COMPONENT_TYPE type)
 {
 	bool ret = false;
 
-
 	for (uint i = 0; i < components.size(); i++)
 	{
 		if (components[i]->type == type)
@@ -167,7 +168,6 @@ bool GameObject::DoIhave(COMPONENT_TYPE type)
 		}
 			
 	}
-
 
 	return ret;
 }
@@ -181,7 +181,6 @@ void GameObject::QuadTree(int n)
 		node_flags |= ImGuiTreeNodeFlags_Selected;
 	}
 		
-
 	bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)n, node_flags, this->name.c_str(), n);
 	n++;
 	if (ImGui::IsItemClicked())
