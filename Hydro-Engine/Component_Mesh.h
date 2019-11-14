@@ -29,6 +29,7 @@ public:
 	AABB CreateAABB();
 	OBB CreateOBB();
 
+	void DrawBBox();
 	void ShowInfo();
 	AABB mesh_bbox;
 public:

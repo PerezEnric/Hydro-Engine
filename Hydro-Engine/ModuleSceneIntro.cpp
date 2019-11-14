@@ -92,6 +92,11 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 			root[i]->Update();
 	}
 
+	if (selected != nullptr)
+	{
+		selected->my_mesh.DrawBBox();
+	}
+
 	return UPDATE_CONTINUE;
 }
 

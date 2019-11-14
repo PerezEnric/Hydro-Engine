@@ -207,7 +207,6 @@ AABB Component_Mesh::CreateAABB()
 
 	mesh_bbox.Enclose(vertex_array, num_vertex);
 
-	
 	return mesh_bbox;
 }
 
@@ -219,6 +218,21 @@ OBB Component_Mesh::CreateOBB()
 	mesh_bbox.SetNegativeInfinity();
 	mesh_bbox.Enclose(obb);
 	return mesh_bbox;
+}
+
+void Component_Mesh::DrawBBox()
+{
+	glBegin(GL_LINES);
+
+	for (uint i = 0; i <= 7; i++)
+	{
+		glVertex3f(mesh_bbox.CornerPoint(i).x, mesh_bbox.CornerPoint(i).y, mesh_bbox.CornerPoint(i).z);
+		glVertex3f(mesh_bbox.CornerPoint(i+1).x, mesh_bbox.CornerPoint(i+1).y, mesh_bbox.CornerPoint(i+1).z);
+		glVertex3f(mesh_bbox.CornerPoint(i + 2).x, mesh_bbox.CornerPoint(i + 2).y, mesh_bbox.CornerPoint(i + 2).z);
+		glVertex3f(mesh_bbox.CornerPoint(i + 3).x, mesh_bbox.CornerPoint(i + 3).y, mesh_bbox.CornerPoint(i + 3).z);
+	}
+
+	glEnd();
 }
 
 void Component_Mesh::ShowInfo()
