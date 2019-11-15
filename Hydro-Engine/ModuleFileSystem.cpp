@@ -376,7 +376,8 @@ bool ModuleFileSystem::SaveUnique(string& name, const void* buffer, uint size, c
 {
 	char result[250];
 	// gtodo sprintf to guapo.
-	NormalizePath(result);
+	sprintf_s(result, 250, "%s%s.%s", path, prefix, extension);
+	//NormalizePath(result);
 	if (Save(result, buffer, size) > 0)
 	{
 		name = result;

@@ -281,6 +281,8 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glBindTexture(GL_TEXTURE_2D, 0);
 		LOG("Texture correctly loaded %s", R_Filename.c_str());
 
+		ImportTextureOwnFile(Filename.c_str());
+
 	}
 
 	ilDeleteImages(1, &text_nm);
@@ -390,14 +392,38 @@ void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
 
 	std::string filename = name;
 
+	std::string output_file; //gtodo con esto podemos hacer varias cosas.
 
+	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
 
-	App->file_system->GetActualName(filename);
-	App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
-
-
-	delete data;
+	delete[] data;
 }
+
+void ModuleImporter::ImportTextureOwnFile(const char * name)
+{
+
+	ILuint size;
+	char *data;
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+	if (size > 0) {
+		data = new char[size]; // allocate data buffer
+		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+		{
+			std::string filename = name;
+
+			std::string output_file; //gtodo con esto podemos hacer varias cosas.
+
+			App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+			App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, filename.c_str(), "dds");
+		}
+			
+		delete[] data;
+	}
+}
+
+
 
 bool ModuleImporter::CleanUp()
 {

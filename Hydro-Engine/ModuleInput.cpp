@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "ModuleImporter.h"
 
+#include "DevIL/include/IL/il.h"
+
 
 
 #define MAX_KEYS 300
