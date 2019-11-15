@@ -46,11 +46,11 @@ public:
 
 	void ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);
 
-	void ImportTextureOwnFile(const char* name); //gtodo
+	void ImportTextureOwnFile(const char* name); 
 
-	void ExportMeshOwnFile(); //gtodo
+	void ExportMeshOwnFile(const char* pathname, Component_Mesh* Mesh); //gtodo
 
-	void ExportTextureOwnFile(); //gtodo
+	void ExportTextureOwnFile(); //gtodo no se muy bien como hacerlo xd
 
 	bool CleanUp();
 private:
