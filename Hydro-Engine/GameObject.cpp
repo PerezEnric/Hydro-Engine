@@ -84,9 +84,9 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type)
 	case TRANSFORM:
 		my_comp = new Component_Transform(this, type);
 		break;
-
 	case CAMERA:
 		my_comp = new Component_Camera(this, type);
+		break;
 	}
 	if (my_comp != nullptr)
 		components.push_back(my_comp);
@@ -164,9 +164,7 @@ bool GameObject::DoIhave(COMPONENT_TYPE type)
 			ret = true;
 			break;
 		}
-			
 	}
-
 	return ret;
 }
 

@@ -18,6 +18,11 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
 	gameObject->cam = this;
+	this->type = type;
+}
+
+Component_Camera::Component_Camera()
+{
 }
 
 Component_Camera::~Component_Camera()
@@ -46,7 +51,6 @@ void Component_Camera::DrawFrustrum()
 {
 	glBegin(GL_LINES);
 	glLineWidth(5.0f);
-	glColor4f(1.f, 1.f, 0.f, 1.f);
 
 	for (int i = 0; i < 8; ++i) {
 		glVertex3f(frustum.CornerPoint(i).x, frustum.CornerPoint(i).y, frustum.CornerPoint(i).z);
@@ -57,8 +61,7 @@ void Component_Camera::DrawFrustrum()
 
 void Component_Camera::ShowInfo()
 {
-	if (ImGui::Checkbox("DrawFrustum", &show_frustum))
+	if (ImGui::Checkbox("Draw Frustum", &show_frustum))
 	{
-
 	}
 }

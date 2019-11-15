@@ -11,6 +11,7 @@ class Component_Camera : public Component
 {
 public:
 	Component_Camera(GameObject* gameObject, COMPONENT_TYPE type);
+	Component_Camera();
 	~Component_Camera();
 
 	bool Update();
