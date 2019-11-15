@@ -66,8 +66,6 @@ void GameObject::Update()
 	{
 		childrens[i]->Update();
 	}
-
-	
 }
 
 Component * GameObject::CreateComponent(COMPONENT_TYPE type)

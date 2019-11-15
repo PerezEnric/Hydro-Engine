@@ -15,6 +15,7 @@ public:
 	void TransformWindow();
 	void MeshWindow();
 	void TextureWindow();
+	void FrustumWindow();
 
 	bool Update() override;
 

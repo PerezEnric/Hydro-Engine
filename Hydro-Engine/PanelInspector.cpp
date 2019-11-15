@@ -41,6 +41,12 @@ bool PanelInspector::Update()
 			{
 				TextureWindow();
 			}
+
+			if (ImGui::CollapsingHeader("Frustum"))
+			{
+				FrustumWindow();
+			}
+			
 			if (ImGui::Button("DeleteGameObject"))
 			{
 				App->scene_intro->DeleteGameObject();
@@ -69,4 +75,9 @@ void PanelInspector::MeshWindow()
 void PanelInspector::TextureWindow()
 {
 	App->scene_intro->selected->ShowInfo(TEXTURE);
+}
+
+void PanelInspector::FrustumWindow()
+{
+	App->scene_intro->selected->ShowInfo(CAMERA);
 }
