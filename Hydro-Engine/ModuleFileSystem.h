@@ -53,6 +53,16 @@ public:
 	const char* GetWritePath() const;
 	const char* GetReadPaths() const;
 
+
+	//new functions (Above are a spiral of destruction that i barelly understand) xd
+	void GetActualName(std::string& path_name_extension);
+
+	//this function cuts the extension of the filename
+	void CutExtension(std::string& path_name_extension);
+
+	//this function cuts the path of the filename
+	void CutPath(std::string& path_name_extension);
+
 private:
 
 	void CreateAssimpIO();

@@ -44,6 +44,14 @@ public:
 	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
 	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
 
+	void ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);
+
+	void ImportTextureOwnFile(); //gtodo
+
+	void ExportMeshOwnFile(); //gtodo
+
+	void ExportTextureOwnFile(); //gtodo
+
 	bool CleanUp();
 private:
 	std::string local_doc;

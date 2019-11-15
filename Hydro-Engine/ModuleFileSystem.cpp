@@ -375,7 +375,7 @@ uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int s
 bool ModuleFileSystem::SaveUnique(string& name, const void* buffer, uint size, const char* path, const char* prefix, const char* extension)
 {
 	char result[250];
-
+	// gtodo sprintf to guapo.
 	NormalizePath(result);
 	if (Save(result, buffer, size) > 0)
 	{
@@ -427,6 +427,41 @@ const char* ModuleFileSystem::GetReadPaths() const
 	}
 
 	return paths;
+}
+
+void ModuleFileSystem::GetActualName(std::string & path_name_extension)
+{
+	CutExtension(path_name_extension);
+	CutPath(path_name_extension);
+}
+
+void ModuleFileSystem::CutExtension(std::string & path_name_extension)
+{
+	size_t lastdot = path_name_extension.find_last_of(".");
+
+	if (lastdot == std::string::npos)
+	{
+		LOG("This path has no extensions");
+	}
+	else
+	{
+		path_name_extension = path_name_extension.substr(0, lastdot);
+	}
+		
+}
+
+void ModuleFileSystem::CutPath(std::string & path_name_extension)
+{
+	size_t lastbar = path_name_extension.find_last_of("\\/");
+
+	if (lastbar == std::string::npos)
+	{
+		LOG("this path has no path");
+	}
+	else
+	{
+		path_name_extension = path_name_extension.erase(0, lastbar + 1);
+	}
 }
 
 // -----------------------------------------------------

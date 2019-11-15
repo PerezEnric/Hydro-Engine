@@ -185,6 +185,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		if (sMesh->HasNormals())
 		{
+			Ret->Has_normals = true;
 			Ret->normal = new float[sMesh->mNumVertices * 3];
 			memcpy(Ret->normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
 		}
@@ -193,6 +194,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		if (sMesh->HasTextureCoords(0))
 		{
+			Ret->Has_tex_coords = true;
 			LOG("Loading Texture UVS from ASSIMP");
 			Ret->size = sMesh->mNumVertices * 3;
 			Ret->text_uvs = new float[Ret->size];
@@ -278,6 +280,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		LOG("Texture correctly loaded %s", R_Filename.c_str());
+
 	}
 
 	ilDeleteImages(1, &text_nm);
@@ -309,6 +312,91 @@ std::string ModuleImporter::CutTheDoc(const std::string & Filename, Component_Te
 	}
 
 	return doc;
+}
+
+void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
+{
+	// here we create data
+	uint header[4];
+	uint vert_num = 0, ind_num = 0;
+	bool has_normals = false, has_texcoords = false;
+	// ....
+
+	// we load all the data
+	if (Mesh->Has_normals)
+		has_normals = true;
+
+	if (Mesh->Has_tex_coords)
+		has_texcoords = true;
+
+	vert_num = Mesh->num_vertex;
+	ind_num = Mesh->num_index;
+	
+
+	header[0] = vert_num;
+	header[1] = ind_num;
+	header[2] = has_normals;
+	header[3] = has_texcoords;
+
+	// Knowing the size of the file, we can create the buffer in which it all will be stored
+	uint size = sizeof(header);					// header.
+	size += sizeof(uint) * ind_num;				// index.
+	size += sizeof(float) * (vert_num * 3);		// vertices.
+	
+	if (has_normals)
+		size += sizeof(float) * (vert_num * 3); //normals.
+
+	if (has_texcoords)
+		size += sizeof(float) * (vert_num * 3); //texture coords.
+
+	// ....
+
+	char* data = new char[size];
+	char* cursor = data;
+
+	// First we store the header
+	uint bytes = sizeof(header);
+	memcpy(cursor, header, bytes);
+	cursor += bytes;
+
+	// Vertices
+	const float* verti = Mesh->vertex;
+	bytes = sizeof(float) * (vert_num * 3);
+	memcpy(cursor, verti, bytes);
+	cursor += bytes;
+
+	// Index
+	const uint* ind = Mesh->index;
+	bytes = sizeof(uint) * Mesh->num_index;
+	memcpy(cursor, ind, bytes);
+	cursor += bytes;
+
+	// Normals
+	if (has_normals)
+	{
+		const float* normals = Mesh->normal;
+		bytes = sizeof(float) * (vert_num * 3);
+		memcpy(cursor, normals, bytes);
+		cursor += bytes;
+	}
+
+	// Tex coords
+	if (has_texcoords)
+	{
+		const float* tex_coords = Mesh->text_uvs;
+		bytes = sizeof(float) * (vert_num * 3);
+		memcpy(cursor, tex_coords, bytes);
+	}
+
+	std::string filename = name;
+
+
+
+	App->file_system->GetActualName(filename);
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
+
+
+	delete data;
 }
 
 bool ModuleImporter::CleanUp()
