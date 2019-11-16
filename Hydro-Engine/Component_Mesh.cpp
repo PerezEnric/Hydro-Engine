@@ -41,6 +41,8 @@ bool Component_Mesh::Update()
 	if (show_face_normals && GO->p_type == P_NONE)
 		DrawFaceNormals();
 
+	if(show_bbox)
+		DrawBBox();
 	
 	return true;
 }
@@ -224,13 +226,37 @@ void Component_Mesh::DrawBBox()
 {
 	glBegin(GL_LINES);
 
+	glLineWidth(30.0f);
+
 	for (uint i = 0; i <= 7; i++)
 	{
 		glVertex3f(mesh_bbox.CornerPoint(i).x, mesh_bbox.CornerPoint(i).y, mesh_bbox.CornerPoint(i).z);
-		glVertex3f(mesh_bbox.CornerPoint(i+1).x, mesh_bbox.CornerPoint(i+1).y, mesh_bbox.CornerPoint(i+1).z);
-		glVertex3f(mesh_bbox.CornerPoint(i + 2).x, mesh_bbox.CornerPoint(i + 2).y, mesh_bbox.CornerPoint(i + 2).z);
-		glVertex3f(mesh_bbox.CornerPoint(i + 3).x, mesh_bbox.CornerPoint(i + 3).y, mesh_bbox.CornerPoint(i + 3).z);
 	}
+
+	glVertex3f(mesh_bbox.CornerPoint(1).x, mesh_bbox.CornerPoint(1).y, mesh_bbox.CornerPoint(1).z);
+	glVertex3f(mesh_bbox.CornerPoint(3).x, mesh_bbox.CornerPoint(3).y, mesh_bbox.CornerPoint(3).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(3).x, mesh_bbox.CornerPoint(3).y, mesh_bbox.CornerPoint(3).z);
+	glVertex3f(mesh_bbox.CornerPoint(7).x, mesh_bbox.CornerPoint(7).y, mesh_bbox.CornerPoint(7).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(7).x, mesh_bbox.CornerPoint(7).y, mesh_bbox.CornerPoint(7).z);
+	glVertex3f(mesh_bbox.CornerPoint(5).x, mesh_bbox.CornerPoint(5).y, mesh_bbox.CornerPoint(5).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(5).x, mesh_bbox.CornerPoint(5).y, mesh_bbox.CornerPoint(5).z);
+	glVertex3f(mesh_bbox.CornerPoint(1).x, mesh_bbox.CornerPoint(1).y, mesh_bbox.CornerPoint(1).z);
+
+
+	glVertex3f(mesh_bbox.CornerPoint(2).x, mesh_bbox.CornerPoint(2).y, mesh_bbox.CornerPoint(2).z);
+	glVertex3f(mesh_bbox.CornerPoint(6).x, mesh_bbox.CornerPoint(6).y, mesh_bbox.CornerPoint(6).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(6).x, mesh_bbox.CornerPoint(6).y, mesh_bbox.CornerPoint(6).z);
+	glVertex3f(mesh_bbox.CornerPoint(4).x, mesh_bbox.CornerPoint(4).y, mesh_bbox.CornerPoint(4).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(4).x, mesh_bbox.CornerPoint(4).y, mesh_bbox.CornerPoint(4).z);
+	glVertex3f(mesh_bbox.CornerPoint(0).x, mesh_bbox.CornerPoint(0).y, mesh_bbox.CornerPoint(0).z);
+
+	glVertex3f(mesh_bbox.CornerPoint(0).x, mesh_bbox.CornerPoint(0).y, mesh_bbox.CornerPoint(0).z);
+	glVertex3f(mesh_bbox.CornerPoint(2).x, mesh_bbox.CornerPoint(2).y, mesh_bbox.CornerPoint(2).z);
 
 	glEnd();
 }
@@ -250,6 +276,10 @@ void Component_Mesh::ShowInfo()
 	}
 
 	if (ImGui::Checkbox("checkers texture", &cheker_tex))
+	{
+	}
+
+	if (ImGui::Checkbox("Bounding Box", &show_bbox))
 	{
 	}
 }

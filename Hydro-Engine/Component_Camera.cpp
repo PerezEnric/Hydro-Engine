@@ -149,9 +149,9 @@ void Component_Camera::SetFrustumPosition(float3 position)
 
 void Component_Camera::SetFrustumTransform()
 {
-	my_current_matrix = float4x4::FromTRS(frustum.pos, l_rotation, l_scale);
 	future_rotation = l_rotation.ToEulerXYZ(); // we set the quaternion into a float3 so we can use it in SetRotation()
 	future_rotation *= RADTODEG; // the previous function returns the rotation in radians so we put in degrees
+	my_current_matrix = float4x4::FromTRS(frustum.pos, l_rotation, l_scale);
 }
 
 void Component_Camera::SetFrustumRotation(float3 rot)
