@@ -18,6 +18,9 @@ public:
 	void FrustrumLook(const float3& position);
 	void DrawFrustrum();
 	void ShowInfo();
+	void ChangeNearPlaneDist(float distance);
+	void ChangeFarPlaneDist(float distance);
+	
 
 public:
 	Frustum		frustum;
