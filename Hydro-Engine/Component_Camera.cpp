@@ -13,8 +13,8 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	//Common distance between near and far planes
 	frustum.nearPlaneDistance = 0.1f; 
 	frustum.farPlaneDistance = 100.0f;
-
-	frustum.verticalFov = 90.0f * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
+	angle_fov = 90.0f;
+	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
 	gameObject->cam = this;
@@ -103,6 +103,23 @@ void Component_Camera::ShowInfo()
 	{
 		ChangeFarPlaneDist(frustum.farPlaneDistance);
 	}
+
+	ImGui::Separator();
+
+	if (ImGui::DragFloat3("Position", &frustum.pos[3], 0.1f))
+	{
+		SetFrustumPosition(frustum.pos);
+	}
+
+	if (ImGui::DragFloat3("Rotation", &future_rotation[3], 0.1f))
+	{
+		SetFrustumRotation(future_rotation);
+	}
+
+	if (ImGui::DragFloat("FOV", &angle_fov, 0.1f))
+	{
+		ChangeFOV(angle_fov);
+	}
 }
 
 void Component_Camera::ChangeNearPlaneDist(float distance)
@@ -118,7 +135,27 @@ void Component_Camera::ChangeFarPlaneDist(float distance)
 		frustum.farPlaneDistance = distance;
 }
 
+void Component_Camera::ChangeFOV(float angle)
+{
+	frustum.verticalFov = angle * DEGTORAD;
+	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f);
+}
+
 void Component_Camera::SetFrustumPosition(float3 position)
 {
+	frustum.pos = position;
+	SetFrustumTransform();
+}
 
+void Component_Camera::SetFrustumTransform()
+{
+	my_current_matrix = float4x4::FromTRS(frustum.pos, l_rotation, l_scale);
+	future_rotation = l_rotation.ToEulerXYZ(); // we set the quaternion into a float3 so we can use it in SetRotation()
+	future_rotation *= RADTODEG; // the previous function returns the rotation in radians so we put in degrees
+}
+
+void Component_Camera::SetFrustumRotation(float3 rot)
+{
+	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
+	SetFrustumTransform();
 }
