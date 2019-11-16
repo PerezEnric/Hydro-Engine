@@ -20,7 +20,7 @@ public:
 	void ShowInfo();
 	void ChangeNearPlaneDist(float distance);
 	void ChangeFarPlaneDist(float distance);
-	
+	void SetFrustumPosition(float3 position);
 
 public:
 	Frustum		frustum;

@@ -52,37 +52,36 @@ void Component_Camera::DrawFrustrum()
 	glBegin(GL_LINES);
 	glLineWidth(30.0f);
 
-	//for (int i = 0; i < 8; ++i) {
-	//	glVertex3f(frustum.CornerPoint(i).x, frustum.CornerPoint(i).y, frustum.CornerPoint(i).z);
-	//}
-	//glVertex3f(frustum.CornerPoint(0).x, frustum.CornerPoint(0).y, frustum.CornerPoint(0).z);
-	//glVertex3f(frustum.CornerPoint(1).x, frustum.CornerPoint(1).y, frustum.CornerPoint(1).z);
-	//glVertex3f(frustum.CornerPoint(2).x, frustum.CornerPoint(2).y, frustum.CornerPoint(2).z);
-	//glVertex3f(frustum.CornerPoint(3).x, frustum.CornerPoint(3).y, frustum.CornerPoint(3).z);
-	//glVertex3f(frustum.CornerPoint(4).x, frustum.CornerPoint(4).y, frustum.CornerPoint(4).z);
-	//glVertex3f(frustum.CornerPoint(5).x, frustum.CornerPoint(5).y, frustum.CornerPoint(5).z);
-	//glVertex3f(frustum.CornerPoint(6).x, frustum.CornerPoint(6).y, frustum.CornerPoint(6).z);
-	//glVertex3f(frustum.CornerPoint(7).x, frustum.CornerPoint(7).y, frustum.CornerPoint(7).z);
-	//glVertex3f(frustum.CornerPoint(8).x, frustum.CornerPoint(8).y, frustum.CornerPoint(8).z);
-	//glVertex3f(frustum.NearPlane.CornerPoint(0).x, frustum.NearPlane.CornerPoint(0).y, frustum.NearPlane.CornerPoint(0).z);
-	//glVertex3f(frustum.NearPlane.CornerPoint(1).x, frustum.NearPlane.CornerPoint(1).y, frustum.NearPlane.CornerPoint(1).z);
-	//glVertex3f(frustum.NearPlane.CornerPoint(2).x, frustum.NearPlane.CornerPoint(2).y, frustum.NearPlane.CornerPoint(2).z);
-	//glVertex3f(frustum.NearPlane.CornerPoint(3).x, frustum.NearPlane.CornerPoint(3).y, frustum.NearPlane.CornerPoint(3).z);
+	// Diagonals
+	for (int i = 0; i < 8; ++i) {
+		glVertex3f(frustum.CornerPoint(i).x, frustum.CornerPoint(i).y, frustum.CornerPoint(i).z);
+	}
+
+	// Near Plane
 	glVertex3f(frustum.CornerPoint(0).x, frustum.CornerPoint(0).y, frustum.CornerPoint(0).z);
 	glVertex3f(frustum.CornerPoint(2).x, frustum.CornerPoint(2).y, frustum.CornerPoint(2).z);
 
-	glVertex3f(frustum.CornerPoint(0).x, frustum.CornerPoint(0).y, frustum.CornerPoint(0).z);
-	glVertex3f(frustum.CornerPoint(1).x, frustum.CornerPoint(1).y, frustum.CornerPoint(1).z);
-
 	glVertex3f(frustum.CornerPoint(2).x, frustum.CornerPoint(2).y, frustum.CornerPoint(2).z);
-	glVertex3f(frustum.CornerPoint(3).x, frustum.CornerPoint(3).y, frustum.CornerPoint(3).z);
-
-	glVertex3f(frustum.CornerPoint(4).x, frustum.CornerPoint(4).y, frustum.CornerPoint(4).z);
-	glVertex3f(frustum.CornerPoint(5).x, frustum.CornerPoint(5).y, frustum.CornerPoint(5).z);
+	glVertex3f(frustum.CornerPoint(6).x, frustum.CornerPoint(6).y, frustum.CornerPoint(6).z);
 
 	glVertex3f(frustum.CornerPoint(6).x, frustum.CornerPoint(6).y, frustum.CornerPoint(6).z);
+	glVertex3f(frustum.CornerPoint(4).x, frustum.CornerPoint(4).y, frustum.CornerPoint(4).z);
+
+	glVertex3f(frustum.CornerPoint(4).x, frustum.CornerPoint(4).y, frustum.CornerPoint(4).z);
+	glVertex3f(frustum.CornerPoint(0).x, frustum.CornerPoint(0).y, frustum.CornerPoint(0).z);
+
+	// Far Plane
+	glVertex3f(frustum.CornerPoint(1).x, frustum.CornerPoint(1).y, frustum.CornerPoint(1).z);
+	glVertex3f(frustum.CornerPoint(3).x, frustum.CornerPoint(3).y, frustum.CornerPoint(3).z);
+
+	glVertex3f(frustum.CornerPoint(3).x, frustum.CornerPoint(3).y, frustum.CornerPoint(3).z);
 	glVertex3f(frustum.CornerPoint(7).x, frustum.CornerPoint(7).y, frustum.CornerPoint(7).z);
 
+	glVertex3f(frustum.CornerPoint(7).x, frustum.CornerPoint(7).y, frustum.CornerPoint(7).z);
+	glVertex3f(frustum.CornerPoint(5).x, frustum.CornerPoint(5).y, frustum.CornerPoint(5).z);
+
+	glVertex3f(frustum.CornerPoint(5).x, frustum.CornerPoint(5).y, frustum.CornerPoint(5).z);
+	glVertex3f(frustum.CornerPoint(1).x, frustum.CornerPoint(1).y, frustum.CornerPoint(1).z);
 
 	glEnd();
 }
@@ -92,6 +91,8 @@ void Component_Camera::ShowInfo()
 	if (ImGui::Checkbox("Draw Frustum", &show_frustum))
 	{
 	}
+
+	ImGui::Separator();
 
 	if (ImGui::DragFloat("Near Plane", &frustum.nearPlaneDistance, 0.1f, 0.0f, frustum.farPlaneDistance))
 	{
@@ -115,4 +116,9 @@ void Component_Camera::ChangeFarPlaneDist(float distance)
 {
 	if (distance > frustum.nearPlaneDistance)
 		frustum.farPlaneDistance = distance;
+}
+
+void Component_Camera::SetFrustumPosition(float3 position)
+{
+
 }
