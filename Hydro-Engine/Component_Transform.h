@@ -26,6 +26,7 @@ public:
 	void ShowInfo();
 
 	void LoadTransform(float3 pos, float3 scale, Quat rotation);
+	float4x4 GetGlobalMatrix();
 
 public:
 

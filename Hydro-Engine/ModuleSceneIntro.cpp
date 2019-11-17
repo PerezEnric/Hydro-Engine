@@ -54,6 +54,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 			App->importer->aiParentNode("Assets/BakerHouse.fbx");
 			house_loaded = true;
+			selected->my_mesh.RecalcBoundingBox();
 		}
 		second_cycle = true;
 		

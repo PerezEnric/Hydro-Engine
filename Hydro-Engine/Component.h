@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Geometry/OBB.h"
 
 class GameObject;
 
@@ -53,6 +54,11 @@ public:
 	virtual AABB CreateAABB()
 	{
 		return AABB();
+	}
+
+	virtual OBB CreateOBB()
+	{
+		return OBB();
 	}
 
 	virtual void CleanUp() {}

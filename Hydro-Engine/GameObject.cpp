@@ -25,6 +25,7 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, i
 	CreateComponent(TRANSFORM);
 	CreateComponent(MESH);
 	CreateComponent(CAMERA);
+	CreateOBB();
 }
 
 GameObject::GameObject(const std::string & name, PrimitiveTypes type)
@@ -34,6 +35,7 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 	CreateComponent(TRANSFORM);
 	CreateComponent(MESH);
 	CreateComponent(CAMERA);
+	CreateOBB();
 }
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, bool root)
@@ -45,7 +47,8 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, b
 
 	if (root)
 		App->importer->CreateGO(Filename, this);
-	
+
+	CreateOBB();
 }
 
 GameObject::~GameObject()
@@ -217,4 +220,18 @@ AABB GameObject::CreateAABB()
 		}
 	}
 	return bbox;
+}
+
+OBB GameObject::CreateOBB()
+{
+	OBB obbox;
+
+	for (uint i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == MESH)
+		{
+			obbox = components[i]->CreateOBB();
+		}
+	}
+	return obbox;
 }

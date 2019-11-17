@@ -114,3 +114,30 @@ void Component_Transform::LoadTransform(float3 pos, float3 scale, Quat rotation)
 	this->l_scale = scale;
 	this->l_rotation = rotation;
 }
+
+float4x4 Component_Transform::GetGlobalMatrix()
+{
+	my_current_matrix = float4x4::FromTRS(l_position, l_rotation, l_scale);
+	future_rotation = l_rotation.ToEulerXYZ(); // we set the quaternion into a float3 so we can use it in SetRotation()
+	future_rotation *= RADTODEG; // the previous function returns the rotation in radians so we put in degrees
+
+	if (GO->parent != nullptr) // Same as last time :D
+	{
+		if (GO->DoIhave(TRANSFORM))
+			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
+		else
+			my_global_matrix = my_current_matrix;
+	}
+
+	if (GO->childrens.size() > 0) // all the GO childrens need to know that we are transforming :D
+	{
+		for (uint i = 0; i < GO->childrens.size(); i++)
+		{
+			if (GO->childrens[i]->DoIhave(TRANSFORM))
+				GO->childrens[i]->transform->NewTransform(); // methods?
+		}
+	}
+
+
+	return my_global_matrix;
+}

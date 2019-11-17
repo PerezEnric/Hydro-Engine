@@ -41,6 +41,7 @@ public:
 	void CreateEmptyChild(const std::string & name, const std::string& Filename);
 
 	AABB CreateAABB();
+	OBB CreateOBB();
 
 public:
 
