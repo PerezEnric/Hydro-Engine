@@ -30,6 +30,7 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
+	GO->my_mesh = this;
 }
 
 bool Component_Mesh::Update()
