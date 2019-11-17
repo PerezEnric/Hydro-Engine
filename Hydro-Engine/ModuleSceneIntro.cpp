@@ -54,7 +54,11 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 			App->importer->aiParentNode("Assets/BakerHouse.fbx");
 			house_loaded = true;
-			selected->my_mesh.RecalcBoundingBox();
+			if (selected != nullptr && selected->transform->bbox_changed)
+			{
+				selected->my_mesh.RecalcBoundingBox();
+				selected->transform->bbox_changed = false;
+			}
 		}
 		second_cycle = true;
 		
@@ -79,7 +83,10 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 		
-
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		OBB b = selected->my_mesh.CreateOBB();
+	}
 
 	
 	return UPDATE_CONTINUE;

@@ -35,8 +35,6 @@ public:
 	AABB mesh_bbox;
 	AABB obb_box;
 
-	AABB local_bbox;
-	OBB global_bbox;
 public:
 
 	uint id_index = 0; // index in VRAM

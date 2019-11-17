@@ -209,7 +209,7 @@ AABB Component_Mesh::CreateAABB()
 OBB Component_Mesh::CreateOBB()
 {
 	OBB obb = CreateAABB();
-	obb.Transform(GO->transform->my_global_matrix);
+	obb.Transform(GO->transform->GetGlobalMatrix());
 
 	obb_box.SetNegativeInfinity();
 	obb_box.Enclose(obb);
@@ -218,11 +218,11 @@ OBB Component_Mesh::CreateOBB()
 
 void Component_Mesh::RecalcBoundingBox()
 {
-	//GO->transform->my_current_matrix = float4x4::FromTRS(GO->transform->l_position, GO->transform->l_rotation, GO->transform->l_scale);
-	global_bbox = local_bbox;
+	OBB obb = CreateAABB();
+	obb.Transform(App->scene_intro->selected->transform->GetGlobalMatrix());
 
-	if (global_bbox.IsFinite() == true)
-		global_bbox.Transform(GO->transform->my_global_matrix);
+	obb_box.SetNegativeInfinity();
+	obb_box.Enclose(obb);
 }
 
 void Component_Mesh::DrawBBox()

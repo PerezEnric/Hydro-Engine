@@ -46,6 +46,7 @@ void Component_Transform::SetPosition(float3 position)
 	l_position = position;
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
+	bbox_changed = true;
 }
 
 void Component_Transform::SetRotation(float3 rot)
@@ -55,6 +56,7 @@ void Component_Transform::SetRotation(float3 rot)
 
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
+	bbox_changed = true;
 }
 
 void Component_Transform::SetScale(float3 sca)
@@ -62,6 +64,7 @@ void Component_Transform::SetScale(float3 sca)
 	l_scale = sca;
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
+	bbox_changed = true;
 }
 
 void Component_Transform::NewTransform()
