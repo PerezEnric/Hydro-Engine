@@ -45,6 +45,8 @@ public:
 
 public:
 
+	bool _static = true;
+
 
 	std::string name;
 	std::vector<Component*> components;

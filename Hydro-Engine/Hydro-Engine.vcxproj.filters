@@ -3,23 +3,38 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Color.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="glmath.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_demo.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>mmgr</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Modules</Filter>
@@ -54,77 +69,77 @@
     <ClCompile Include="PanelConsole.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PanelShapes.cpp">
-      <Filter>Modules\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="log.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="glmath.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="par_shapes.cpp">
-      <Filter>par_shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Primitives</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Texture.cpp">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Mesh.cpp">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="PanelHierarchy.cpp">
       <Filter>Modules\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Transform.cpp">
-      <Filter>Modules\Game\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="mmgr\mmgr.cpp">
-      <Filter>mmgr</Filter>
+    <ClCompile Include="PanelShapes.cpp">
+      <Filter>Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="par_shapes.cpp">
+      <Filter>ParShapes</Filter>
     </ClCompile>
     <ClCompile Include="Component_Camera.cpp">
-      <Filter>Modules\Game\GameObjects</Filter>
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Mesh.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Texture.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Transform.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Color.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="glmath.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_sdl.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+    <ClInclude Include="ImGui\imgui_internal.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiConsole.h">
       <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imstb_rectpack.h">
       <Filter>ImGui</Filter>
@@ -134,6 +149,18 @@
     </ClInclude>
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
+      <Filter>MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
+      <Filter>MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>mmgr</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
       <Filter>Modules</Filter>
@@ -156,6 +183,9 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="Panel.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
@@ -168,112 +198,93 @@
     <ClInclude Include="PanelConsole.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PanelShapes.h">
-      <Filter>Modules\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Modules\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
-      <Filter>MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
-      <Filter>MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="glmath.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="ParShapes\par_shapes.h">
-      <Filter>par_shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Texture.h">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Mesh.h">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Modules\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Module.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="PanelHierarchy.h">
       <Filter>Modules\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Transform.h">
-      <Filter>Modules\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="PanelInspector.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="mmgr\mmgr.h">
-      <Filter>mmgr</Filter>
+    <ClInclude Include="PanelShapes.h">
+      <Filter>Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ParShapes\par_shapes.h">
+      <Filter>ParShapes</Filter>
     </ClInclude>
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>mmgr</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
     <ClInclude Include="Component_Camera.h">
-      <Filter>Modules\Game\GameObjects</Filter>
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Mesh.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Texture.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Transform.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneIntro.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config.json" />
     <None Include="Game\About.json">
-      <Filter>Tools</Filter>
+      <Filter>Tools\Json</Filter>
+    </None>
+    <None Include="Config.json">
+      <Filter>Tools\Json</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
-      <UniqueIdentifier>{ec02e741-4593-4cc0-83ec-9f9d541d5024}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{3581a82c-5680-4acb-9a40-86ba44cc036a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\UI">
-      <UniqueIdentifier>{6677352a-2fdf-41e6-9293-5e65dcc6f017}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Game">
-      <UniqueIdentifier>{931de09f-6d2a-4b77-b864-5e43bd0fb2ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MathGeoLib">
-      <UniqueIdentifier>{afd2d65c-7ac7-40b9-ade6-8610eda431a6}</UniqueIdentifier>
+      <UniqueIdentifier>{314fa1ff-ac3f-4e74-aa35-6155dd6f56a0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tools">
-      <UniqueIdentifier>{a48b8947-8007-403b-9e06-45cb8479e16c}</UniqueIdentifier>
+      <UniqueIdentifier>{29349ddb-5e2c-4492-8af9-486f42695ef2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="par_shapes">
-      <UniqueIdentifier>{dc263125-86b7-4278-93a5-1af7cb27ad16}</UniqueIdentifier>
+    <Filter Include="MathGeoLib">
+      <UniqueIdentifier>{aaeb5234-833b-436d-9d79-3ba27e0f6aab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Primitives">
-      <UniqueIdentifier>{0779bee4-5fa7-417b-8067-6320ec7c325b}</UniqueIdentifier>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{5cd68963-70be-4c1c-87dd-079c2b298a11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Game\GameObjects">
-      <UniqueIdentifier>{287c39eb-bb1c-42af-b33f-fab53f60440f}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c681d4db-2990-4be2-a894-15997323d8b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="mmgr">
-      <UniqueIdentifier>{d5468040-2afd-409f-8874-ec024470c5a9}</UniqueIdentifier>
+      <UniqueIdentifier>{0c222162-f6e1-47ee-b4b6-a37536c16341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\UI">
+      <UniqueIdentifier>{cef33be8-1458-4feb-b8b6-4c39eb5fce4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParShapes">
+      <UniqueIdentifier>{61135772-26d1-4889-b7cf-64e7a211cd3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Json">
+      <UniqueIdentifier>{45b98744-370b-4416-8f25-2021041e19db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{8af97184-a69e-47fd-84f2-e785565927a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects">
+      <UniqueIdentifier>{d6ac8bf7-3323-4068-8666-852f4b75d62d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

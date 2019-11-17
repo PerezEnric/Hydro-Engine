@@ -43,24 +43,28 @@ float3 Component_Transform::GetScale()
 
 void Component_Transform::SetPosition(float3 position)
 {
+
 	l_position = position;
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
 	bbox_changed = true;
+
 }
 
 void Component_Transform::SetRotation(float3 rot)
 {
-	// we will use euler to get the quaternion of rotation.
 	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
+
 
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
 	bbox_changed = true;
+
 }
 
 void Component_Transform::SetScale(float3 sca)
 {
+
 	l_scale = sca;
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
@@ -100,7 +104,7 @@ Component_Transform * Component_Transform::GetThis()
 
 void Component_Transform::ShowInfo()
 {
-	//gtodo: make that we can swap from 
+	
 	if (ImGui::DragFloat3("Position", &l_position[3], 0.1f))
 		SetPosition(l_position);
 

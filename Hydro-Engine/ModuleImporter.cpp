@@ -185,6 +185,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		if (sMesh->HasNormals())
 		{
+			Ret->Has_normals = true;
 			Ret->normal = new float[sMesh->mNumVertices * 3];
 			memcpy(Ret->normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
 		}
@@ -193,6 +194,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 
 		if (sMesh->HasTextureCoords(0))
 		{
+			Ret->Has_tex_coords = true;
 			LOG("Loading Texture UVS from ASSIMP");
 			Ret->size = sMesh->mNumVertices * 3;
 			Ret->text_uvs = new float[Ret->size];
@@ -278,6 +280,9 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		LOG("Texture correctly loaded %s", R_Filename.c_str());
+
+		ImportTextureOwnFile(Filename.c_str());
+
 	}
 
 	ilDeleteImages(1, &text_nm);
@@ -310,6 +315,212 @@ std::string ModuleImporter::CutTheDoc(const std::string & Filename, Component_Te
 
 	return doc;
 }
+
+void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
+{
+	// here we create data
+	uint header[4];
+	uint vert_num = 0, ind_num = 0;
+	bool has_normals = false, has_texcoords = false;
+	// ....
+
+	// we load all the data
+	if (Mesh->Has_normals)
+		has_normals = true;
+
+	if (Mesh->Has_tex_coords)
+		has_texcoords = true;
+
+	vert_num = Mesh->num_vertex;
+	ind_num = Mesh->num_index;
+	
+
+	header[0] = vert_num;
+	header[1] = ind_num;
+	header[2] = has_normals;
+	header[3] = has_texcoords;
+
+	// Knowing the size of the file, we can create the buffer in which it all will be stored
+	uint size = sizeof(header);					// header.
+	size += sizeof(uint) * ind_num;				// index.
+	size += sizeof(float) * (vert_num * 3);		// vertices.
+	
+	if (has_normals)
+		size += sizeof(float) * (vert_num * 3); //normals.
+
+	if (has_texcoords)
+		size += sizeof(float) * (vert_num * 3); //texture coords.
+
+	// ....
+
+	char* data = new char[size];
+	char* cursor = data;
+
+	// First we store the header
+	uint bytes = sizeof(header);
+	memcpy(cursor, header, bytes);
+	cursor += bytes;
+
+	// Vertices
+	const float* verti = Mesh->vertex;
+	bytes = sizeof(float) * (vert_num * 3);
+	memcpy(cursor, verti, bytes);
+	cursor += bytes;
+
+	// Index
+	const uint* ind = Mesh->index;
+	bytes = sizeof(uint) * Mesh->num_index;
+	memcpy(cursor, ind, bytes);
+	cursor += bytes;
+
+	// Normals
+	if (has_normals)
+	{
+		const float* normals = Mesh->normal;
+		bytes = sizeof(float) * (vert_num * 3);
+		memcpy(cursor, normals, bytes);
+		cursor += bytes;
+	}
+
+	// Tex coords
+	if (has_texcoords)
+	{
+		const float* tex_coords = Mesh->text_uvs;
+		bytes = sizeof(float) * (vert_num * 3);
+		memcpy(cursor, tex_coords, bytes);
+	}
+
+	std::string filename = name;
+
+	std::string output_file; //gtodo con esto podemos hacer varias cosas.
+
+	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
+
+	delete[] data;
+}
+
+void ModuleImporter::ImportTextureOwnFile(const char * name)
+{
+
+	ILuint size;
+	char *data;
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+	if (size > 0) {
+		data = new char[size]; // allocate data buffer
+		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+		{
+			std::string filename = name;
+
+			std::string output_file; //gtodo con esto podemos hacer varias cosas.
+
+			App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+			App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, filename.c_str(), "dds");
+		}
+			
+		delete[] data;
+	}
+}
+
+void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * Mesh)
+{
+
+	//this needs to be tested.
+
+
+	//mesh data ---------------------
+
+
+	uint* index = nullptr;
+	float* vertex = nullptr;
+	float* normal = nullptr;
+	float* text_uvs = nullptr;
+
+	//mesh data ---------------------
+
+	//checks
+	//// Import buffer from file
+	//if (!App->fs.ExistisFile(file)) {
+	//	app_log->AddLog("Couldn't load mesh, not found in library");
+	//	return nullptr;
+	//}
+
+	char* buffer; //here we need to import the buffer gtodo
+	char* cursor = buffer;
+
+	// Read the header
+	uint header[4];
+	uint bytes = sizeof(header);
+	memcpy(header, cursor, bytes);
+	cursor += bytes;
+
+	//Header info -------------------
+
+	Mesh->num_vertex = header[0];
+	Mesh->num_index = header[1];
+	Mesh->Has_normals = header[2];
+	Mesh->Has_tex_coords = header[3];
+
+	//Header info -------------------
+
+
+	// Vertices
+	bytes = sizeof(float) * (header[0] * 3);
+	memcpy(vertex, cursor, bytes);
+	cursor += bytes;
+	Mesh->vertex = vertex;
+
+
+	glGenBuffers(1, &Mesh->id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->num_vertex * 3, Mesh->vertex, GL_STATIC_DRAW);
+
+	// Index
+	bytes = sizeof(uint) * Mesh->num_index;
+	memcpy(index, cursor, bytes);
+	cursor += bytes;
+	Mesh->index = index;
+
+	glGenBuffers(1, &Mesh->id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Mesh->num_index), Mesh->index, GL_STATIC_DRAW);
+
+
+
+	// Normals
+	if (Mesh->Has_normals)
+	{
+		bytes = sizeof(float) * (header[0] * 3);
+		memcpy(normal, cursor, bytes);
+		cursor += bytes;
+		Mesh->normal = normal;
+
+	}
+
+	// Tex coords
+	if (Mesh->Has_tex_coords)
+	{
+		bytes = sizeof(float) * (header[0] * 3);
+		memcpy(text_uvs, cursor, bytes);
+		Mesh->text_uvs = text_uvs;
+
+		glGenBuffers(1, (GLuint*) & (Mesh->id_uvs));
+		glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
+	}
+
+	delete[] buffer;
+
+	//binds
+
+
+	//gtodo tendras que ligar esto a los indices creo?
+
+}
+
+
+
 
 bool ModuleImporter::CleanUp()
 {

@@ -64,6 +64,12 @@ public:
 
 	GLuint texName;
 
+	bool Has_tex_coords = false;
+
+	bool Has_normals = false;
+
+
+
 	bool show_bbox = false;
 
 private:
