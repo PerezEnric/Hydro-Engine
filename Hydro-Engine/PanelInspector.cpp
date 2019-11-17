@@ -41,6 +41,12 @@ bool PanelInspector::Update()
 			{
 				TextureWindow();
 			}
+
+			if (ImGui::CollapsingHeader("Frustum Camera"))
+			{
+				FrustumWindow();
+			}
+			
 			if (ImGui::Button("DeleteGameObject"))
 			{
 				App->scene_intro->DeleteGameObject();
@@ -55,10 +61,7 @@ bool PanelInspector::Update()
 
 void PanelInspector::TransformWindow()
 {
-	//App->scene_intro->root[App->scene_intro->selected]->ShowInfo(TRANSFORM);
 	App->scene_intro->selected->ShowInfo(TRANSFORM);
-	/*if (ImGui::DragFloat3("Position", &App->scene_intro->root[App->scene_intro->selected]->GO_position[3], 0.1f, -10.0f, 10.0f))
-		App->scene_intro->root[App->scene_intro->selected]->transform.SetPosition(App->scene_intro->root[App->scene_intro->selected]->GO_position);*/
 }
 
 void PanelInspector::MeshWindow()
@@ -69,4 +72,9 @@ void PanelInspector::MeshWindow()
 void PanelInspector::TextureWindow()
 {
 	App->scene_intro->selected->ShowInfo(TEXTURE);
+}
+
+void PanelInspector::FrustumWindow()
+{
+	App->scene_intro->selected->ShowInfo(CAMERA);
 }

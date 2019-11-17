@@ -25,7 +25,4 @@ public:
 	uint id_texture = 0;
 	uint widht = 0;
 	uint height = 0;
-
-
-
 };

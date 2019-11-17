@@ -56,8 +56,14 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 			house_loaded = true;
 		}
 		second_cycle = true;
-		
 	}
+
+	if (selected != nullptr && selected->transform->bbox_changed)
+	{
+		selected->my_mesh->RecalcBoundingBox();
+		selected->transform->bbox_changed = false;
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -78,7 +84,10 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 		
-
+	//if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	//{
+	//	OBB b = selected->my_meshCreateOBB();
+	//}
 
 	
 	return UPDATE_CONTINUE;
@@ -90,11 +99,6 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	if (!root.empty()) {
 		for (uint i = 0; i < root.size(); i++)
 			root[i]->Update();
-	}
-
-	if (selected != nullptr)
-	{
-		selected->my_mesh.DrawBBox();
 	}
 
 	return UPDATE_CONTINUE;
