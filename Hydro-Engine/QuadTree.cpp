@@ -1,4 +1,6 @@
 #include "QuadTree.h"
+#include "GameObject.h"
+#include "Component_Mesh.h"
 
 QTN::QTN(AABB bound_limits)
 {
@@ -14,15 +16,72 @@ QTN::~QTN()
 
 bool QTN::InsertGO(GameObject * obj)
 {
-	return false;
+	bool ret = false;
+	AABB obj_box = obj->my_mesh->mesh_bbox;
+	
+	if (!my_box.Intersects(obj_box)) 	// If the gameobject is not in this node we do nothing
+		return ret;
+
+	if (im_leaf && (my_gos.size() < my_bucketsize)) // Here we check if first we are a leaf and if we are full or not
+		my_gos.push_back(obj);
+	else {
+		if (im_leaf) {						
+			im_leaf = false; // first of all we will not be anymore a leaf D:
+
+			CutTo4();// then we cut ourself in 4 parts
+
+			for (int i = 0; i < my_gos.size(); i++)
+				for (int j = 0; j < 4; j++)
+					child[j]->InsertGO(my_gos[i]);	// If a child can already hold the object break the loop
+
+			my_gos.clear();
+		}
+
+		for (int i = 0; i < 4; i++)									
+			child[i]->InsertGO(obj); 	//if we aint a leaf we will pass the gameobject to our childs		
+		
+		ret = true;
+	}
+
+	return ret;
 }
 
 void QTN::CutTo4()
 {
+	
+	float3 center = my_box.CenterPoint();
+
+
+	AABB split_box;
+	float3 new_centre;
+	float3 size(my_box.Size());
+	float3 new_box_size = float3(my_box.HalfSize().x, size.y, my_box.HalfSize().z);
+
+	// Top left
+	new_centre = center + float3(-my_box.HalfSize().x / 2, 0, my_box.HalfSize().z / 2);
+	split_box.SetFromCenterAndSize(new_centre, new_box_size);
+	child[0] = new QTN(split_box);
+
+	// Top right
+	new_centre = center + float3(my_box.HalfSize().x / 2, 0, my_box.HalfSize().z / 2);
+	split_box.SetFromCenterAndSize(new_centre, new_box_size);
+	child[1] = new QTN(split_box);
+
+	//Bottom left
+	new_centre = center + float3(-my_box.HalfSize().x / 2, 0, -my_box.HalfSize().z / 2);
+	split_box.SetFromCenterAndSize(new_centre, new_box_size);
+	child[2] = new QTN(split_box);
+
+	//Bottom right
+	new_centre = center + float3(my_box.HalfSize().x / 2, 0, -my_box.HalfSize().z / 2);
+	split_box.SetFromCenterAndSize(new_centre, new_box_size);
+	child[3] = new QTN(split_box);
 }
 
 void QTN::Draw()
 {
+	// gtodo
+
 }
 
 void QTN::CleanUp()
@@ -87,5 +146,5 @@ void QT::CleanUp()
 
 void QT::DebugDraw()
 {
-	
+	root->Draw();
 }
