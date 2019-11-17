@@ -102,15 +102,6 @@
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>mmgr</Filter>
     </ClCompile>
-    <ClCompile Include="Importer.cpp">
-      <Filter>Modules\Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshImporter.cpp">
-      <Filter>Modules\Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialImporter.cpp">
-      <Filter>Modules\Importers</Filter>
-    </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
@@ -243,15 +234,6 @@
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>mmgr</Filter>
     </ClInclude>
-    <ClInclude Include="Importer.h">
-      <Filter>Modules\Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshImporter.h">
-      <Filter>Modules\Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialImporter.h">
-      <Filter>Modules\Importers</Filter>
-    </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -292,9 +274,6 @@
     </Filter>
     <Filter Include="mmgr">
       <UniqueIdentifier>{d5468040-2afd-409f-8874-ec024470c5a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Importers">
-      <UniqueIdentifier>{bba5b39f-dbf2-4b27-97e2-ce181c2b848c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

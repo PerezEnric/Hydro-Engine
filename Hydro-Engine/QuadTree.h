@@ -19,10 +19,12 @@ struct QTN
 	// With this function we cut the current QTN to 4.
 	void CutTo4();
 	void Draw();
+	void CleanUp();
 
 	// Recursivity D:
 	QTN* child[4];
 	AABB my_box;
+	int my_bucketsize;
 
 	//This is important cause the leaf will be the last depth of QTN we have (where we really allocate the childs)
 	bool im_leaf = false;
@@ -35,6 +37,7 @@ class QT
 {
 public:
 	QT(AABB bound_limits, int bucketsize = 1);
+	~QT();
 
 	// We create a new QTN
 	void Create(AABB limits, int bucket_size = 1);
