@@ -119,6 +119,7 @@
     <ClInclude Include="PanelShapes.h" />
     <ClInclude Include="ParShapes\par_shapes.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <ClCompile Include="PanelShapes.cpp" />
     <ClCompile Include="par_shapes.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

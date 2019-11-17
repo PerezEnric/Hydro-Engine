@@ -48,7 +48,7 @@ public:
 
 	void ImportTextureOwnFile(const char* name); 
 
-	void ExportMeshOwnFile(const char* pathname, Component_Mesh* Mesh); //gtodo
+	void ExportMeshOwnFile(const char* pathname, Component_Mesh* Mesh); 
 
 	void ExportTextureOwnFile(); //gtodo no se muy bien como hacerlo xd
 
