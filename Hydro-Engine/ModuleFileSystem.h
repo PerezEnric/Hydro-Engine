@@ -49,6 +49,10 @@ public:
 	bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);
 	bool Remove(const char* file);
 
+	// Function to save json things.
+	void SaveFile(const char* path, const nlohmann::json & to_save);
+
+
 	const char* GetBasePath() const;
 	const char* GetWritePath() const;
 	const char* GetReadPaths() const;

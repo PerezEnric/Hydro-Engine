@@ -7,6 +7,7 @@
 #include <string>
 
 
+
 #define MAX_SNAKE 8
 class GameObject;
 struct PhysBody3D;
@@ -33,6 +34,8 @@ public:
 	void CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape);
 
 	void DeleteGameObject();
+
+	void ChangeJson(nlohmann::json & to_change);
 
 
 

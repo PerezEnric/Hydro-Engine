@@ -30,6 +30,7 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
+	//App->importer->ImportMeshOwnFile("lol", this); gtodo Aqui es donde creariamos nuestras propias meshes. xd
 	GO->my_mesh = this;
 }
 

@@ -5,6 +5,7 @@
 #include "Json/json.hpp"
 #include "GameObject.h"
 #include "ModuleImporter.h"
+#include "ModuleFileSystem.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -59,6 +60,16 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		selected->my_mesh->RecalcBoundingBox();
 		selected->transform->bbox_changed = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		nlohmann::json t;
+		t["colera"] = 2;
+		
+		ChangeJson(t);
+		App->file_system->SaveFile("Assets/Scene.json", t);
+		
 	}
 
 	return UPDATE_CONTINUE;
@@ -156,6 +167,12 @@ void ModuleSceneIntro::DeleteGameObject()
 {
 	selected->Cleanup();//todo aqui me falta eliminarlo de la array del padre.
 	selected = nullptr;
+}
+
+void ModuleSceneIntro::ChangeJson(nlohmann::json & to_change)
+{
+	
+
 }
 
 void ModuleSceneIntro::MakeChecker()
