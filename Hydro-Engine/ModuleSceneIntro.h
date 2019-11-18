@@ -62,4 +62,5 @@ public:
 
 	bool house_loaded = false;
 	bool second_cycle = false;
+	int check_frus = 0;
 };

@@ -8,7 +8,7 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 {
 	frustum.type = FrustumType::PerspectiveFrustum;
 
-	frustum.pos = float3::zero;
+	frustum.pos = float3(0.0f, 0.0f, -10.0f);
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 
@@ -162,7 +162,7 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 	SetFrustumTransform();
 }
 
-int Component_Camera::ContainsAABBox(const AABB& refbox)
+int Component_Camera::ContainsAABBox(const AABB& refbox) const
 {
 	float3 vCorner[8];
 	int iTotalIn = 0;
@@ -175,7 +175,7 @@ int Component_Camera::ContainsAABBox(const AABB& refbox)
 		int iInCount = 8;
 		int iPtIn = 1;
 		for (int i = 0; i < 8; ++i) {
-			if (m_plane[p].IsOnPositiveSide(vCorner[i])) {
+			if (!m_plane[p].IsOnPositiveSide(vCorner[i])) {
 				iPtIn = 0;
 				--iInCount;
 			}
@@ -195,10 +195,26 @@ int Component_Camera::ContainsAABBox(const AABB& refbox)
 
 	else
 	{
-		LOG("INTERSECT");
+		LOG("THIS SHIT IS SO STRANGE")
 		return(INTERSECT);
 	}
 
+	//float3 b_corners[8];
+	//refbox.GetCornerPoints(b_corners);
+
+	//for (uint plane_sides = 0; plane_sides < 6; ++plane_sides)
+	//{
+	//	int inside_corners = 8;
+	//	for (uint point = 0; point < 8; ++point)
+	//	{
+	//		if (frustum.GetPlane(plane_sides).IsOnPositiveSide(b_corners[point]))
+	//			--inside_corners;
+	//	}
+	//	// We dont need to know (at the moment) the exact number of corners that are in
+	//	if (inside_corners == 0) //We just look if some corner is inside to cull or not
+	//		return OUTSIDE;
+	//}
+	//return INSIDE;
 }
 
 float4x4 Component_Camera::GetViewMatrix() const

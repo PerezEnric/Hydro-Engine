@@ -13,7 +13,7 @@ enum Intersection_Type
 	BEHIND,
 	OUTSIDE,
 	INSIDE,
-	INTERSECT,
+	INTERSECT
 };
 
 class Component_Camera : public Component
@@ -33,7 +33,7 @@ public:
 	void SetFrustumPosition(float3 position);
 	void SetFrustumTransform();
 	void SetFrustumRotation(float3 rot);
-	int ContainsAABBox(const AABB& refbox);
+	int ContainsAABBox(const AABB& refbox) const;
 	float4x4 GetViewMatrix() const;
 	float4x4 GetProjectionMatrix() const;
 
