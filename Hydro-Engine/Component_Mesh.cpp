@@ -228,42 +228,6 @@ void Component_Mesh::RecalcBoundingBox()
 
 void Component_Mesh::DrawBBox()
 {
-	//glBegin(GL_LINES);
-
-	//glLineWidth(30.0f);
-
-	//for (uint i = 0; i <= 7; i++)
-	//{
-	//	glVertex3f(mesh_bbox.CornerPoint(i).x, mesh_bbox.CornerPoint(i).y, mesh_bbox.CornerPoint(i).z);
-	//}
-
-	//glVertex3f(mesh_bbox.CornerPoint(1).x, mesh_bbox.CornerPoint(1).y, mesh_bbox.CornerPoint(1).z);
-	//glVertex3f(mesh_bbox.CornerPoint(3).x, mesh_bbox.CornerPoint(3).y, mesh_bbox.CornerPoint(3).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(3).x, mesh_bbox.CornerPoint(3).y, mesh_bbox.CornerPoint(3).z);
-	//glVertex3f(mesh_bbox.CornerPoint(7).x, mesh_bbox.CornerPoint(7).y, mesh_bbox.CornerPoint(7).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(7).x, mesh_bbox.CornerPoint(7).y, mesh_bbox.CornerPoint(7).z);
-	//glVertex3f(mesh_bbox.CornerPoint(5).x, mesh_bbox.CornerPoint(5).y, mesh_bbox.CornerPoint(5).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(5).x, mesh_bbox.CornerPoint(5).y, mesh_bbox.CornerPoint(5).z);
-	//glVertex3f(mesh_bbox.CornerPoint(1).x, mesh_bbox.CornerPoint(1).y, mesh_bbox.CornerPoint(1).z);
-
-
-	//glVertex3f(mesh_bbox.CornerPoint(2).x, mesh_bbox.CornerPoint(2).y, mesh_bbox.CornerPoint(2).z);
-	//glVertex3f(mesh_bbox.CornerPoint(6).x, mesh_bbox.CornerPoint(6).y, mesh_bbox.CornerPoint(6).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(6).x, mesh_bbox.CornerPoint(6).y, mesh_bbox.CornerPoint(6).z);
-	//glVertex3f(mesh_bbox.CornerPoint(4).x, mesh_bbox.CornerPoint(4).y, mesh_bbox.CornerPoint(4).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(4).x, mesh_bbox.CornerPoint(4).y, mesh_bbox.CornerPoint(4).z);
-	//glVertex3f(mesh_bbox.CornerPoint(0).x, mesh_bbox.CornerPoint(0).y, mesh_bbox.CornerPoint(0).z);
-
-	//glVertex3f(mesh_bbox.CornerPoint(0).x, mesh_bbox.CornerPoint(0).y, mesh_bbox.CornerPoint(0).z);
-	//glVertex3f(mesh_bbox.CornerPoint(2).x, mesh_bbox.CornerPoint(2).y, mesh_bbox.CornerPoint(2).z);
-
-	//glEnd();
-
 	glBegin(GL_LINES);
 
 	glLineWidth(30.0f);
@@ -299,7 +263,6 @@ void Component_Mesh::DrawBBox()
 	glVertex3f(obb_box.CornerPoint(2).x, obb_box.CornerPoint(2).y, obb_box.CornerPoint(2).z);
 
 	glEnd();
-
 }
 
 void Component_Mesh::ShowInfo()

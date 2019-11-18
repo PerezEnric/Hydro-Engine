@@ -8,6 +8,14 @@
 class GameObject;
 class Component_Transform;
 
+enum Intersection_Type
+{
+	BEHIND,
+	OUTSIDE,
+	INSIDE,
+	INTERSECT,
+};
+
 class Component_Camera : public Component
 {
 public:
@@ -25,6 +33,9 @@ public:
 	void SetFrustumPosition(float3 position);
 	void SetFrustumTransform();
 	void SetFrustumRotation(float3 rot);
+	int ContainsAABBox(const AABB& refbox);
+	float4x4 GetViewMatrix() const;
+	float4x4 GetProjectionMatrix() const;
 
 public:
 	Frustum		frustum;

@@ -80,13 +80,11 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-		
-	//if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	//{
-	//	OBB b = selected->my_meshCreateOBB();
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		selected->cam->ContainsAABBox(selected->my_mesh->obb_box);
+	}
 
-	
 	return UPDATE_CONTINUE;
 }
 

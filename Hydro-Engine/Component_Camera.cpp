@@ -1,3 +1,5 @@
+#include "Application.h"
+#include "ModuleSceneIntro.h"
 #include "Component_Camera.h"
 #include "GameObject.h"
 #include "ImGui/imgui.h"
@@ -158,4 +160,55 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 {
 	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
 	SetFrustumTransform();
+}
+
+int Component_Camera::ContainsAABBox(const AABB& refbox)
+{
+	float3 vCorner[8];
+	int iTotalIn = 0;
+	refbox.GetCornerPoints(vCorner);
+
+	Plane m_plane[6];
+	frustum.GetPlanes(m_plane); //we need to match the m_plane array with frustum planes 
+
+	for (int p = 0; p < 6; ++p) {
+		int iInCount = 8;
+		int iPtIn = 1;
+		for (int i = 0; i < 8; ++i) {
+			if (m_plane[p].IsOnPositiveSide(vCorner[i])) {
+				iPtIn = 0;
+				--iInCount;
+			}
+		}
+		if (iInCount == 0)
+		{
+			LOG("IS OUTSIDEEEE");
+			return(OUTSIDE);
+		}
+		iTotalIn += iPtIn;
+	}
+	if (iTotalIn == 6)
+	{
+		LOG("IS INSIDE!!!!!!");
+		return(INSIDE);
+	}
+
+	else
+	{
+		LOG("INTERSECT");
+		return(INTERSECT);
+	}
+
+}
+
+float4x4 Component_Camera::GetViewMatrix() const
+{
+	float4x4 view_matrix = frustum.ViewMatrix();
+	return view_matrix.Transposed();
+}
+
+float4x4 Component_Camera::GetProjectionMatrix() const
+{
+	float4x4 projection_matrix = frustum.ProjectionMatrix();
+	return projection_matrix.Transposed();
 }
