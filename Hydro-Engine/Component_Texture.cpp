@@ -48,6 +48,12 @@ nlohmann::json Component_Texture::SaveComponent()
 
 	compo["Own Texture name"] = own_format.c_str();
 
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	compo["My parent UUID"] = uuid_str;
+
 	return compo;
 }
 

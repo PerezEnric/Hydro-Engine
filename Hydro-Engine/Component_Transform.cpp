@@ -187,5 +187,11 @@ nlohmann::json Component_Transform::SaveComponent()
 	ret["future_rotation"] = float_helper;
 
 	float_helper.clear();
+
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	ret["My parent UUID"] = uuid_str;
 	return ret;
 }

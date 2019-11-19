@@ -18,6 +18,7 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
+	GO = gameObject;
 	gameObject->cam = this;
 	this->type = type;
 }
@@ -163,5 +164,89 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 
 nlohmann::json Component_Camera::SaveComponent()
 {
-	return nlohmann::json();
+	nlohmann::json ret;
+
+	std::vector<float> float_helper;
+
+
+	float_helper.push_back(l_scale.x);
+	float_helper.push_back(l_scale.y);
+	float_helper.push_back(l_scale.z);
+
+	ret["l_scale"] = float_helper;
+	float_helper.clear();
+
+	float_helper.push_back(l_rotation.x);
+	float_helper.push_back(l_rotation.y);
+	float_helper.push_back(l_rotation.z);
+	float_helper.push_back(l_rotation.w);
+
+	ret["l_rotation"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(future_rotation.x);
+	float_helper.push_back(future_rotation.y);
+	float_helper.push_back(future_rotation.z);
+
+
+	ret["future_rotation"] = float_helper;
+
+	float_helper.clear();
+
+	ret["angle fov"] = angle_fov;
+
+	//frustum so i dont know if this is optimal or not.
+
+	float_helper.push_back(frustum.front.x);
+	float_helper.push_back(frustum.front.y);
+	float_helper.push_back(frustum.front.z);
+
+	ret["Frustrum front"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(frustum.up.x);
+	float_helper.push_back(frustum.up.y);
+	float_helper.push_back(frustum.up.z);
+
+	ret["Frustrum up"] = float_helper;
+
+	float_helper.clear();
+
+
+	// frustrum distances
+
+	ret["frustrum near plane distance"] = frustum.nearPlaneDistance;
+
+	ret["frustrum far plane distance"] = frustum.farPlaneDistance;
+
+
+	// frustrum position
+
+	float_helper.push_back(frustum.pos.x);
+	float_helper.push_back(frustum.pos.y);
+	float_helper.push_back(frustum.pos.z);
+
+	ret["Frustrum pos"] = float_helper;
+
+	float_helper.clear();
+
+	// frustrum Fov.
+
+	ret["Frustrum vertical fov"] = frustum.verticalFov;
+	ret["Frustrum horizontal fov"] = frustum.horizontalFov;
+
+	
+
+	if (GO != nullptr)
+	{
+		char* uuid_str = new char[80];
+		sprintf(uuid_str, "%d", GO->my_uuid);
+
+		ret["My parent UUID"] = uuid_str;
+	}
+	
+
+	return ret;
 }

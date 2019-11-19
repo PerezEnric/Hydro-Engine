@@ -257,6 +257,12 @@ nlohmann::json Component_Mesh::SaveComponent()
 	ret["show BBox"] = show_bbox;
 
 
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	ret["My parent UUID"] = uuid_str;
+
 	return ret;
 }
 
