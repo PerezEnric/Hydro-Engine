@@ -36,6 +36,35 @@ bool ModuleSceneIntro::Start()
 		i >> j;
 	}
 
+
+	
+	nlohmann::json descarga;
+	std::ifstream k("Assets/Scene.json");
+	if (!k) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		k >> descarga;
+	}
+
+	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	{
+		nlohmann::json hola = it.value();
+		int que = 30;
+		que = hola["actual mesh"].get<int>();
+		if (hola.is_object())
+		{
+			LOG("%d", que);
+		}
+		// Esto funciona asi que tira por aqui gollim del futuro :D
+
+
+	}
+
+
+
+
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());

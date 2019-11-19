@@ -240,14 +240,14 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	char* uuid_str = new char[80];
 
 	sprintf(uuid_str, "%d", my_uuid);
-	nlohmann::json this_compo;
+	/*nlohmann::json this_compo;
 
 	for (uint i = 0; i < components.size(); i++)
 	{
 		this_compo[components[i]->comp_type_str.c_str()] = components[i]->SaveComponent();
 	}
 	this_GO["Components"] = this_compo;
-
+*/
 
 
 
