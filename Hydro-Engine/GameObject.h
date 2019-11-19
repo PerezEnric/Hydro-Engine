@@ -6,6 +6,8 @@
 #include "Component_Mesh.h"
 #include "Component_Transform.h"
 #include "Component_Camera.h"
+#include "ModuleSceneIntro.h"
+#include "Json/json.hpp"
 
 #include <string>
 #include <vector>
@@ -40,6 +42,8 @@ public:
 
 	void CreateEmptyChild(const std::string & name, const std::string& Filename);
 
+	void SaveGameObject(nlohmann::json & to_save);
+
 	AABB CreateAABB();
 	OBB CreateOBB();
 
@@ -65,4 +69,5 @@ public:
 	Component_Mesh* my_mesh;
 	Component_Transform* transform;
 	Component_Camera* cam;
+	uint my_uuid = 0;
 };

@@ -35,6 +35,10 @@ public:
 	AABB mesh_bbox;
 	AABB obb_box;
 
+	nlohmann::json SaveComponent();
+
+	std::string own_file;
+
 public:
 
 	uint id_index = 0; // index in VRAM
@@ -67,8 +71,6 @@ public:
 	bool Has_tex_coords = false;
 
 	bool Has_normals = false;
-
-
 
 	bool show_bbox = false;
 

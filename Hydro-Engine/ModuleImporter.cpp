@@ -281,7 +281,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glBindTexture(GL_TEXTURE_2D, 0);
 		LOG("Texture correctly loaded %s", R_Filename.c_str());
 
-		ImportTextureOwnFile(Filename.c_str());
+		tex->own_format = ImportTextureOwnFile(Filename.c_str());
 
 	}
 
@@ -316,7 +316,7 @@ std::string ModuleImporter::CutTheDoc(const std::string & Filename, Component_Te
 	return doc;
 }
 
-void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
+std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
 {
 	// here we create data
 	uint header[4];
@@ -395,14 +395,16 @@ void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
 	std::string output_file; //gtodo con esto podemos hacer varias cosas.
 
 	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
-	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "json");
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
 
 	delete[] data;
+
+	return output_file;
 }
 
-void ModuleImporter::ImportTextureOwnFile(const char * name)
+std::string ModuleImporter::ImportTextureOwnFile(const char * name)
 {
-
+	std::string ret;
 	ILuint size;
 	char *data;
 	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
@@ -417,10 +419,12 @@ void ModuleImporter::ImportTextureOwnFile(const char * name)
 
 			App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
 			App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, filename.c_str(), "dds");
+			ret = output_file;
 		}
 			
 		delete[] data;
 	}
+	return ret;
 }
 
 void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * Mesh)

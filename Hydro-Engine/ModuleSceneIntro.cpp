@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -65,9 +66,10 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		nlohmann::json t;
-		t["colera"] = 2;
-		
-		ChangeJson(t);
+		for (uint i = 0; i < root.size(); i++)
+		{
+			root[i]->SaveGameObject(t);
+		}
 		App->file_system->SaveFile("Assets/Scene.json", t);
 		
 	}
@@ -173,6 +175,17 @@ void ModuleSceneIntro::ChangeJson(nlohmann::json & to_change)
 {
 	
 
+}
+
+nlohmann::json ModuleSceneIntro::cancer()
+{
+	nlohmann::json ret;
+
+	ret["1"] = 1;
+	ret["2"] = 2;
+
+
+	return ret;
 }
 
 void ModuleSceneIntro::MakeChecker()

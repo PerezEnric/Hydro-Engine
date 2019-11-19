@@ -7,12 +7,14 @@
 #include "Primitive.h"
 #include "ImGui/imgui.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include <vector>
 
 
 
 
 Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(GO, type)
 {
+	comp_type_str = "mesh";
 	if (GO->p_type == PrimitiveTypes::P_NONE) {
 		Load_Mesh();
 	}
@@ -30,7 +32,7 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
-	//App->importer->ImportMeshOwnFile("lol", this); gtodo Aqui es donde creariamos nuestras propias meshes. xd
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); //gtodo Aqui es donde creariamos nuestras propias meshes. xd
 	GO->my_mesh = this;
 }
 
@@ -225,6 +227,37 @@ void Component_Mesh::RecalcBoundingBox()
 
 	obb_box.SetNegativeInfinity();
 	obb_box.Enclose(obb);
+}
+
+nlohmann::json Component_Mesh::SaveComponent()
+{
+	nlohmann::json ret;
+
+	/// Method 1.
+	/*std::vector<float> helper_floats;
+	for (uint i = 0; i < num_vertex * 3; i++)
+	{
+		helper_floats.push_back(vertex[i]);
+	}
+
+	ret["Vertex num"] = num_vertex;
+	ret["Vertex info"] = helper_floats;*/
+
+	/// Method 2.
+	ret["Mesh file"] = own_file.c_str();
+
+	ret["show face normals"] = show_face_normals;
+
+	ret["show vertex normals"] = show_vertex_normals;
+
+	ret["has tex coords"] = Has_tex_coords;
+
+	ret["has normlas"] = Has_normals;
+
+	ret["show BBox"] = show_bbox;
+
+
+	return ret;
 }
 
 void Component_Mesh::DrawBBox()

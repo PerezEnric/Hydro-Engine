@@ -6,6 +6,7 @@
 
 Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): Component(GO, type)
 {
+	comp_type_str = "transform";
 	// first of all we calculate our matrix
 	my_current_matrix = float4x4::FromTRS(l_position, l_rotation, l_scale);
 
@@ -147,4 +148,44 @@ float4x4 Component_Transform::GetGlobalMatrix()
 
 
 	return my_global_matrix;
+}
+
+nlohmann::json Component_Transform::SaveComponent()
+{
+	nlohmann::json ret;
+
+	std::vector<float> float_helper;
+	float_helper.push_back(l_position.x);
+	float_helper.push_back(l_position.y);
+	float_helper.push_back(l_position.z);
+
+	ret["l_position"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(l_scale.x);
+	float_helper.push_back(l_scale.y);
+	float_helper.push_back(l_scale.z);
+
+	ret["l_scale"] = float_helper;
+	float_helper.clear();
+
+	float_helper.push_back(l_rotation.x);
+	float_helper.push_back(l_rotation.y);
+	float_helper.push_back(l_rotation.z);
+	float_helper.push_back(l_rotation.w);
+
+	ret["l_rotation"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(future_rotation.x);
+	float_helper.push_back(future_rotation.y);
+	float_helper.push_back(future_rotation.z);
+	
+
+	ret["future_rotation"] = float_helper;
+
+	float_helper.clear();
+	return ret;
 }

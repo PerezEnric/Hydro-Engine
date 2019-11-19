@@ -6,11 +6,13 @@
 #include "ModuleImporter.h"
 #include "Application.h"
 #include "ImGui/imgui.h""
+#include "PCGRandom/pcg_basic.h"
 
 
 
 GameObject::GameObject(const std::string & name)
 {
+	my_uuid = pcg32_random();
 	this->name = name;
 	CreateComponent(TRANSFORM);
 	CreateComponent(CAMERA);
@@ -18,6 +20,7 @@ GameObject::GameObject(const std::string & name)
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, int index)
 {
+	my_uuid = pcg32_random();
 	// Mesh CX.
 	this->name = name;
 	this->path = Filename;
@@ -26,10 +29,12 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, i
 	CreateComponent(MESH);
 	CreateComponent(CAMERA);
 	CreateOBB();
+
 }
 
 GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 {
+	my_uuid = pcg32_random();
 	this->name = name;
 	this->p_type = type;
 	CreateComponent(TRANSFORM);
@@ -40,6 +45,7 @@ GameObject::GameObject(const std::string & name, PrimitiveTypes type)
 
 GameObject::GameObject(const std::string & name, const std::string & Filename, bool root)
 {
+	my_uuid = pcg32_random();
 	this->name = name;
 	this->path = Filename;
 	CreateComponent(TRANSFORM);
@@ -207,6 +213,57 @@ void GameObject::CreateEmptyChild(const std::string & name, const std::string & 
 
 	childrens.push_back(Go);
 }
+
+void GameObject::SaveGameObject(nlohmann::json & to_save)
+{
+	nlohmann::json this_GO;
+
+
+	// Tendre que poner el nombre del gameObject luego cuando ponga la uuia ghoy
+	this_GO["name"] = name.c_str();
+	this_GO["static"] = _static;
+	this_GO["mesh array"] = mesh_array;
+	this_GO["actual mesh"] = actual_mesh;
+	this_GO["I have texture"] = texture;
+
+	if (path.c_str() != "")
+		this_GO["Path"] = path.c_str();
+
+	if (texture_path.c_str() != "")
+		this_GO["Texture path"] = texture_path.c_str();
+
+	// We should look at primitive types to see what we done to serialize directly this var.
+	this_GO["P_type"] = p_type;
+
+
+	//tambien las UUIs del padre xd.
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", my_uuid);
+	nlohmann::json this_compo;
+
+	for (uint i = 0; i < components.size(); i++)
+	{
+		this_compo[components[i]->comp_type_str.c_str()] = components[i]->SaveComponent();
+	}
+	this_GO["Components"] = this_compo;
+
+
+
+
+	//Lastly we wanna make a instance in the document with 
+	to_save[uuid_str] = this_GO; // deberia cambiar esto por la uuia al final de esta parte. ghoy.
+	
+	
+	
+	// Vamos ha hacer esto al final para que queden con orden.
+	for (uint i = 0; i < childrens.size(); i++)
+	{
+		childrens[i]->SaveGameObject(to_save);
+	}
+}
+
+
 
 AABB GameObject::CreateAABB()
 {

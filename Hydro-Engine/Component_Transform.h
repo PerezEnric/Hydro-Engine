@@ -28,10 +28,14 @@ public:
 	void LoadTransform(float3 pos, float3 scale, Quat rotation);
 	float4x4 GetGlobalMatrix();
 
+	nlohmann::json SaveComponent();
+
 public:
 
 	float4x4 my_current_matrix;
 	float4x4 my_global_matrix;
+
+	// cargar todo esto al json cuando guardes.
 	float3 l_position = float3( 0,0,0 );
 	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.

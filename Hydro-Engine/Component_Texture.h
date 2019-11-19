@@ -20,9 +20,13 @@ public:
 	void ShowInfo();
 	
 	void CleanUp();
+
+	nlohmann::json SaveComponent();
+
 public:
 
 	uint id_texture = 0;
 	uint widht = 0;
 	uint height = 0;
+	std::string own_format;
 };

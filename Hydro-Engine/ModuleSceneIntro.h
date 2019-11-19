@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "Glew/include/glew.h"
+#include "Json/json.hpp"
 #include <queue>
 #include <string>
 
@@ -36,6 +37,8 @@ public:
 	void DeleteGameObject();
 
 	void ChangeJson(nlohmann::json & to_change);
+
+	nlohmann::json cancer();
 
 
 

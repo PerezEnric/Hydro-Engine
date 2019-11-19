@@ -19,6 +19,14 @@ enum PrimitiveTypes
 	P_NONE
 };
 
+NLOHMANN_JSON_SERIALIZE_ENUM(PrimitiveTypes, {
+	{P_PLANE, "p_plane"},
+	{P_CUBE, "p_cube"},
+	{P_SPHERE, "p_sphere"},
+	{P_CYLINDER, "p_cylinder"},
+	{P_NONE, "p_none"},
+	})
+
 class Primitive
 {
 public:

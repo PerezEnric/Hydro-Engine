@@ -4,6 +4,7 @@
 
 Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 {
+	comp_type_str = "camera";
 	frustum.type = FrustumType::PerspectiveFrustum;
 
 	frustum.pos = float3::zero;
@@ -158,4 +159,9 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 {
 	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
 	SetFrustumTransform();
+}
+
+nlohmann::json Component_Camera::SaveComponent()
+{
+	return nlohmann::json();
 }

@@ -7,6 +7,7 @@
 
 Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type) : Component(GO, type)
 {
+	comp_type_str = "texture";
 	if (!GO->texture)
 		Load_Texture();
 	else
@@ -39,6 +40,15 @@ void Component_Texture::CleanUp()
 	GO->texture_path.clear();
 	GO->texture = false;
 	GO->my_tex = nullptr;
+}
+
+nlohmann::json Component_Texture::SaveComponent()
+{
+	nlohmann::json compo;
+
+	compo["Own Texture name"] = own_format.c_str();
+
+	return compo;
 }
 
 void Component_Texture::ShowInfo()
