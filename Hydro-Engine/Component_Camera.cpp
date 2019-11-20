@@ -2,6 +2,7 @@
 #include "ModuleSceneIntro.h"
 #include "Component_Camera.h"
 #include "GameObject.h"
+#include "ModuleCamera3D.h"
 #include "ImGui/imgui.h"
 
 Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
@@ -19,7 +20,7 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
-	gameObject->cam = this;
+	//gameObject->cam = this;
 	this->type = type;
 }
 
@@ -167,7 +168,8 @@ int Component_Camera::ContainsAABBox(const AABB& refbox) const
 	float3 vCorner[8];
 	refbox.GetCornerPoints(vCorner);
 	Plane m_plane[6];
-	frustum.GetPlanes(m_plane);
+	
+	App->camera->main_cam->frustum.GetPlanes(m_plane);
 
 	for (uint planes = 0; planes < 6; ++planes) {
 		int corners_count = 8;
@@ -185,10 +187,11 @@ int Component_Camera::ContainsAABBox(const AABB& refbox) const
 	return INSIDE;
 }
 
-float4x4 Component_Camera::GetViewMatrix() const
+// Based on GetViewMatrix of ModuleCamera3D
+float* Component_Camera::GetViewMatrix() const
 {
 	float4x4 view_matrix = frustum.ViewMatrix();
-	return view_matrix.Transposed();
+	return (float*)view_matrix.Transposed().v;
 }
 
 float4x4 Component_Camera::GetProjectionMatrix() const
