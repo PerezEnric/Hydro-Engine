@@ -38,30 +38,6 @@ bool ModuleSceneIntro::Start()
 
 
 	
-	nlohmann::json descarga;
-	std::ifstream k("Assets/Scene.json");
-	if (!k) {
-		LOG("Could not open config_file");
-	}
-	else {
-		LOG("Config_file succesfully loaded");
-		k >> descarga;
-	}
-
-	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
-	{
-		nlohmann::json hola = it.value();
-		int que = 30;
-		que = hola["actual mesh"].get<int>();
-		if (hola.is_object())
-		{
-			LOG("%d", que);
-		}
-		// Esto funciona asi que tira por aqui gollim del futuro :D
-
-
-	}
-
 
 
 
@@ -102,6 +78,13 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		App->file_system->SaveFile("Assets/Scene.json", t);
 		
 	}
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+	{
+		LoadScene();
+	}
+
+	
+
 
 	return UPDATE_CONTINUE;
 }
@@ -202,8 +185,81 @@ void ModuleSceneIntro::DeleteGameObject()
 
 void ModuleSceneIntro::ChangeJson(nlohmann::json & to_change)
 {
-	
 
+
+}
+
+void ModuleSceneIntro::LoadScene()
+{
+	//first we wanna delete our current scene cleaning all the gameobjects.
+
+	if (!root.empty()) {
+		for (uint i = 0; i < root.size(); i++)
+			root[i]->Cleanup();
+	}
+	root.clear();
+
+
+	nlohmann::json descarga;
+	std::ifstream k("Assets/Scene.json");
+	if (!k) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		k >> descarga;
+	}
+
+	/// Test:
+	//for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	//{
+	//	nlohmann::json hola = it.value();
+	//	int que = 30;
+	//	que = hola["actual mesh"].get<int>();
+	//	if (hola.is_object())
+	//	{
+	//		LOG("%d", que);
+	//	}
+	//	// Esto funciona asi que tira por aqui gollim del futuro :D
+	//}
+	/// Project vs 1:
+
+	// usefull vars: 
+	int num_gameobjects = 0; // Here we will store the number of gameobjects that we wanna load
+	int iterator = 0; //when we run around the document we wanna know the actual iterator of the root we are working on.
+
+	// First we want to know how many gameobjects do we have.
+	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	{
+		num_gameobjects++;
+	}
+
+	LOG("%i", num_gameobjects);
+
+	// Then we want to create empty carcases and push it to root by now. (in the future we will make them have the relation of father children)
+	for (int i = 0; i < num_gameobjects; i++)
+	{
+		CreateEmptyGameObject();
+	}
+
+	//Then we want to send them their info to complet their data.
+	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	{
+		nlohmann::json GamObj = it.value();
+		root[iterator]->LoadGameObject(GamObj);
+		iterator++;
+	}
+
+
+}
+
+void ModuleSceneIntro::CreateEmptyGameObject()
+{
+	GameObject* empty = nullptr;
+
+	empty = new GameObject();
+
+	root.push_back(empty);
 }
 
 nlohmann::json ModuleSceneIntro::cancer()

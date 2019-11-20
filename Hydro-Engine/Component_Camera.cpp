@@ -21,6 +21,8 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	GO = gameObject;
 	gameObject->cam = this;
 	this->type = type;
+
+	GO->b_camera = true;
 }
 
 Component_Camera::Component_Camera()

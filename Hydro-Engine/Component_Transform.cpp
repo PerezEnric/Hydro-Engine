@@ -19,6 +19,8 @@ Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): C
 
 	//test
 	GO->transform = this;
+
+	GO->b_transform = true;
 	
 
 }

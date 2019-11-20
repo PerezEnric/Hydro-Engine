@@ -5,6 +5,9 @@
         "Path": "Assets/BakerHouse.fbx",
         "Texture path": "Baker_house.png",
         "actual mesh": 1,
+        "b_camera": true,
+        "b_mesh": true,
+        "b_transform": true,
         "mesh array": 0,
         "name": "Baker_house",
         "static": true
@@ -15,6 +18,9 @@
         "Path": "Assets/BakerHouse.fbx",
         "Texture path": "",
         "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
         "mesh array": 0,
         "name": "RootNode",
         "static": true
@@ -25,6 +31,9 @@
         "Path": "Assets/BakerHouse.fbx",
         "Texture path": "Baker_house.png",
         "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": true,
+        "b_transform": true,
         "mesh array": 0,
         "name": "Chimney",
         "static": true

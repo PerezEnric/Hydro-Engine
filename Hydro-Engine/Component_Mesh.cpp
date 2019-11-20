@@ -34,6 +34,7 @@ void Component_Mesh::Load_Mesh()
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
 	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); //gtodo Aqui es donde creariamos nuestras propias meshes. xd
 	GO->my_mesh = this;
+	GO->b_mesh = true;
 }
 
 bool Component_Mesh::Update()
@@ -192,6 +193,10 @@ void Component_Mesh::CleanUp()
 	GO->actual_mesh = 0;
 	GO->p_type = P_NONE;
 	GO->path.clear();
+
+	GO->my_mesh = nullptr;
+
+	GO->b_mesh = false;
 
 
 }

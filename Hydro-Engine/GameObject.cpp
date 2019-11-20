@@ -57,6 +57,10 @@ GameObject::GameObject(const std::string & name, const std::string & Filename, b
 	CreateOBB();
 }
 
+GameObject::GameObject()
+{
+}
+
 GameObject::~GameObject()
 {
 }
@@ -219,21 +223,33 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	nlohmann::json this_GO;
 
 
-	// Tendre que poner el nombre del gameObject luego cuando ponga la uuia ghoy
+	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 	this_GO["name"] = name.c_str();
 	this_GO["static"] = _static;
 	this_GO["mesh array"] = mesh_array;
 	this_GO["actual mesh"] = actual_mesh;
 	this_GO["I have texture"] = texture;
 
-	if (path.c_str() != "")
-		this_GO["Path"] = path.c_str();
+	this_GO["Path"] = path.c_str();
 
-	if (texture_path.c_str() != "")
-		this_GO["Texture path"] = texture_path.c_str();
+	this_GO["Texture path"] = texture_path.c_str();
 
 	// We should look at primitive types to see what we done to serialize directly this var.
 	this_GO["P_type"] = p_type;
+	
+	//We wanna know if we have mesh tex...
+
+	//mesh
+
+	this_GO["b_mesh"] = b_mesh;
+
+	//transform
+	
+	this_GO["b_transform"] = b_transform;
+
+	//Camera
+
+	this_GO["b_camera"] = b_camera;
 
 
 	//tambien las UUIs del padre xd.
@@ -248,19 +264,43 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	}
 	this_GO["Components"] = this_compo;
 */
-
-
-
 	//Lastly we wanna make a instance in the document with 
-	to_save[uuid_str] = this_GO; // deberia cambiar esto por la uuia al final de esta parte. ghoy.
+	to_save[uuid_str] = this_GO; 
 	
-	
-	
-	// Vamos ha hacer esto al final para que queden con orden.
+	// to make order.
 	for (uint i = 0; i < childrens.size(); i++)
 	{
 		childrens[i]->SaveGameObject(to_save);
 	}
+}
+
+void GameObject::LoadGameObject(nlohmann::json & to_load)
+{
+	// load ints
+
+	this->mesh_array = to_load["mesh array"].get<int>();
+	this->actual_mesh = to_load["actual mesh"].get<int>();
+
+	// load bools
+
+	this->_static = to_load["static"].get<bool>();
+	this->texture = to_load["I have texture"].get<bool>();
+	this->b_camera = to_load["b_camera"].get<bool>();
+	this->b_mesh = to_load["b_mesh"].get<bool>();
+	this->b_transform = to_load["b_transform"].get<bool>();
+
+	// Load Strings
+
+	this->name = to_load["name"].get<std::string>();
+	this->path = to_load["Path"].get<std::string>();
+	this->texture_path = to_load["Texture path"].get<std::string>();
+
+	// Load Ptype
+
+	this->p_type = to_load["P_type"].get<PrimitiveTypes>();
+	
+	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
+
 }
 
 
