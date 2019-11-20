@@ -38,12 +38,12 @@ public:
 
 	void ChangeJson(nlohmann::json & to_change);
 
-	void LoadScene(); //ghoy debes cambiar esto luego para que digan que scene quieren loguear
+	void LoadScene(std::string path); //ghoy debes cambiar esto luego para que digan que scene quieren loguear
 
 	//this funct creates an empty gameobject.
 	void CreateEmptyGameObject();
 
-	/*void SaveScene();*/ //ghoy debes cambiar esto luego para que digan que nombre le ponen a la escena.
+	void SaveScene(std::string path); //ghoy debes cambiar esto luego para que digan que nombre le ponen a la escena.
 
 	nlohmann::json cancer();
 

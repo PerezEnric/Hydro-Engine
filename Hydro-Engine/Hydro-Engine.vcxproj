@@ -114,6 +114,7 @@
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelSaveAndLoad.h" />
     <ClInclude Include="PanelShapes.h" />
     <ClInclude Include="ParShapes\par_shapes.h" />
     <ClInclude Include="PCGRandom\pcg_basic.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelSaveAndLoad.cpp" />
     <ClCompile Include="PanelShapes.cpp" />
     <ClCompile Include="par_shapes.cpp" />
     <ClCompile Include="PCGRandom\pcg_basic.c" />

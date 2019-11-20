@@ -76,24 +76,6 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	}
 		
 
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		nlohmann::json t;
-		for (uint i = 0; i < root.size(); i++)
-		{
-			root[i]->SaveGameObject(t);
-		}
-		App->file_system->SaveFile("Assets/Scene.json", t);
-		
-	}
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-	{
-		LoadScene();
-	}
-
-	
-
-
 	return UPDATE_CONTINUE;
 }
 
@@ -197,7 +179,7 @@ void ModuleSceneIntro::ChangeJson(nlohmann::json & to_change)
 
 }
 
-void ModuleSceneIntro::LoadScene()
+void ModuleSceneIntro::LoadScene(std::string path)
 {
 	//first we wanna delete our current scene cleaning all the gameobjects.
 
@@ -296,6 +278,11 @@ void ModuleSceneIntro::CreateEmptyGameObject()
 	empty = new GameObject();
 
 	root.push_back(empty);
+}
+
+void ModuleSceneIntro::SaveScene(std::string path)
+{
+	
 }
 
 nlohmann::json ModuleSceneIntro::cancer()

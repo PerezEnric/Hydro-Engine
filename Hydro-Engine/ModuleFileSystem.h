@@ -4,6 +4,8 @@
 #include "Module.h"
 #include <vector>
 #include <string>
+#include "Json/json.hpp"
+#include "Globals.h"
 
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops* rw);
