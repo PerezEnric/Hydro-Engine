@@ -10,10 +10,8 @@ class Component_Transform;
 
 enum Intersection_Type
 {
-	BEHIND,
 	OUTSIDE,
-	INSIDE,
-	INTERSECT
+	INSIDE
 };
 
 class Component_Camera : public Component
@@ -37,7 +35,7 @@ public:
 	float4x4 GetViewMatrix() const;
 	float4x4 GetProjectionMatrix() const;
 
-	bool DoCulling();
+	bool DoCulling(GameObject* go);
 public:
 	Frustum		frustum;
 	bool show_frustum = false;

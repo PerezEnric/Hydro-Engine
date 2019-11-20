@@ -35,7 +35,9 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	Draw();
+	if(GO->cam->DoCulling(GO))
+		Draw();
+
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
 

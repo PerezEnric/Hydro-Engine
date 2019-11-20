@@ -197,7 +197,11 @@ float4x4 Component_Camera::GetProjectionMatrix() const
 	return projection_matrix.Transposed();
 }
 
-bool Component_Camera::DoCulling()
+bool Component_Camera::DoCulling(GameObject* go)
 {
-	return false;
+	if (ContainsAABBox(go->my_mesh->obb_box))
+		return true;
+
+	else
+		return false;
 }
