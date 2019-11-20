@@ -7,7 +7,7 @@ class Component_Transform : public Component
 {
 public:
 
-	Component_Transform(GameObject* GO, COMPONENT_TYPE type);
+	Component_Transform(GameObject* GO, COMPONENT_TYPE type, bool _empty);
 	Component_Transform();
 
 	float3 GetPosition();

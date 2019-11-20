@@ -5,13 +5,22 @@
 #include "ModuleImporter.h"
 #include "Globals.h"
 
-Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type) : Component(GO, type)
+Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type, bool _empty) : Component(GO, type, _empty)
 {
+
 	comp_type_str = "texture";
-	if (!GO->texture)
-		Load_Texture();
+	if (!_empty)
+	{
+		if (!GO->texture)
+			Load_Texture();
+		else
+			LOG("Error: this gameobject alredy have a texture");
+	}
 	else
-		LOG("Error: this gameobject alredy have a texture");
+	{
+		GO->texture = true;
+		GO->my_tex = this;
+	}
 }
 
 Component_Texture::Component_Texture()

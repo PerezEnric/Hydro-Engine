@@ -11,7 +11,7 @@ class Component_Texture : public Component
 {
 public:
 
-	Component_Texture(GameObject* GO, COMPONENT_TYPE type);
+	Component_Texture(GameObject* GO, COMPONENT_TYPE type, bool _empty);
 	Component_Texture();
 	void Load_Texture();
 

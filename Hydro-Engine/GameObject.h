@@ -28,7 +28,7 @@ public:
 	~GameObject();
 
 	void Update();
-	Component* CreateComponent(COMPONENT_TYPE type);
+	Component* CreateComponent(COMPONENT_TYPE type, bool _empty = false);
 	void Cleanup();
 
 	void CreateChildren(const std::string& name, const std::string& Filename, int index);

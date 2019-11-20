@@ -4,7 +4,7 @@
 #include "ModuleSceneIntro.h"
 #include "ImGui/imgui.h"
 
-Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): Component(GO, type)
+Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type, bool _empty): Component(GO, type, _empty)
 {
 	comp_type_str = "transform";
 	// first of all we calculate our matrix

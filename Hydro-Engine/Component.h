@@ -29,7 +29,7 @@ class Component
 {
 public:
 
-	Component(GameObject* GO, COMPONENT_TYPE type) :
+	Component(GameObject* GO, COMPONENT_TYPE type, bool _empty) :
 		type(type),
 		GO(GO)
 	{};

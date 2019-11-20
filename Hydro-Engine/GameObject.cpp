@@ -81,21 +81,21 @@ void GameObject::Update()
 	}
 }
 
-Component * GameObject::CreateComponent(COMPONENT_TYPE type)
+Component * GameObject::CreateComponent(COMPONENT_TYPE type, bool _empty)
 {
 	Component* my_comp = nullptr;
 
 	switch (type)
 	{
 	case MESH:
-		my_comp = new Component_Mesh(this, type);
+		my_comp = new Component_Mesh(this, type, _empty);
 		break;
 	case TEXTURE:
 		if (!texture)
-			my_comp = new Component_Texture(this, type);
+			my_comp = new Component_Texture(this, type, _empty);
 		break;
 	case TRANSFORM:
-		my_comp = new Component_Transform(this, type);
+		my_comp = new Component_Transform(this, type, _empty);
 		break;
 	case CAMERA:
 		my_comp = new Component_Camera(this, type);
@@ -298,6 +298,11 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	// Load Ptype
 
 	this->p_type = to_load["P_type"].get<PrimitiveTypes>();
+
+
+	// Load All the components that we had :D
+
+
 	
 	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 

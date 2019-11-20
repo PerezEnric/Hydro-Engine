@@ -12,16 +12,23 @@
 
 
 
-Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(GO, type)
+Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty) : Component(GO, type, _empty)
 {
 	comp_type_str = "mesh";
-	if (GO->p_type == PrimitiveTypes::P_NONE) {
-		Load_Mesh();
+	if (!_empty)
+	{
+		if (GO->p_type == PrimitiveTypes::P_NONE) {
+			Load_Mesh();
+		}
+		else
+			Load_P_Shape();
+
 	}
 	else
-		Load_P_Shape();
-
-	
+	{
+		GO->my_mesh = this;
+		GO->b_mesh = true;
+	}
 	MakeChecker();
 }
 
@@ -172,6 +179,8 @@ void Component_Mesh::Load_P_Shape()
 {
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
+	//Esto me lo tengo que mirar luego ghoy gtest.
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); //gtodo Aqui es donde creariamos nuestras propias meshes. xd
 }
 
 void Component_Mesh::CleanUp()
