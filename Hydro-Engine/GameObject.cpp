@@ -256,14 +256,14 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	char* uuid_str = new char[80];
 
 	sprintf(uuid_str, "%d", my_uuid);
-	/*nlohmann::json this_compo;
+	nlohmann::json this_compo;
 
 	for (uint i = 0; i < components.size(); i++)
 	{
 		this_compo[components[i]->comp_type_str.c_str()] = components[i]->SaveComponent();
 	}
 	this_GO["Components"] = this_compo;
-*/
+
 	//Lastly we wanna make a instance in the document with 
 	to_save[uuid_str] = this_GO; 
 	
@@ -276,6 +276,24 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 
 void GameObject::LoadGameObject(nlohmann::json & to_load)
 {
+	// usefull variables
+	std::string comp = "Components"; // with this variable we will go to the component section.
+	std::string me = "mesh";
+	std::string te = "texture";
+	std::string tr = "transform";
+	std::string ca = "camera";
+	nlohmann::json g_comp;
+
+	for (nlohmann::json::iterator it = to_load.begin(); it != to_load.end(); it++)
+	{
+		std::string helper = it.key();
+		if (helper == comp)
+		{
+			g_comp = it.value(); // here we are asigning g_comp to object components in the json archive
+			break;
+		}	
+	}
+
 	// load ints
 
 	this->mesh_array = to_load["mesh array"].get<int>();
@@ -302,10 +320,40 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 
 	// Load All the components that we had :D
 
+	//First we look if the gameobject have a mesh
+	if (b_mesh)
+	{
+		//if so we create an empty mesh.
+		CreateComponent(MESH, true);
+		// We search for the mesh data
+		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
+		{
+			std::string helr = it.key();
+			if (helr == me)
+			{
+				nlohmann::json tl = it.value();
+				my_mesh->LoadComponent(tl);
+				break;
+			}
+		}
+	}
 
 	
 	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 
+
+	///Esto funciona 
+
+	//int helper = 0;
+	////then we want to send to this mesh his info
+	//for (nlohmann::json::iterator it = to_load.begin(); it != to_load.end(); it++)
+	//{
+	//	std::string helper_2 = it.key();
+	//	std::string helper_3 = "Components";
+	//	if (helper_2 == helper_3)
+	//		helper++;
+	//}
+	//LOG("%i objects", helper);
 }
 
 

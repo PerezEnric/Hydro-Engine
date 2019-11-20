@@ -76,6 +76,8 @@ public:
 		return nlohmann::json();
 	}
 
+	virtual void LoadComponent(nlohmann::json & to_load){}
+
 	GameObject* GO;
 	bool active;
 	COMPONENT_TYPE type = NONE;

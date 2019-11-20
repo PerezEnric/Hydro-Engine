@@ -266,7 +266,7 @@ nlohmann::json Component_Mesh::SaveComponent()
 
 	ret["has tex coords"] = Has_tex_coords;
 
-	ret["has normlas"] = Has_normals;
+	ret["has normals"] = Has_normals;
 
 	ret["show BBox"] = show_bbox;
 
@@ -278,6 +278,26 @@ nlohmann::json Component_Mesh::SaveComponent()
 	ret["My parent UUID"] = uuid_str;
 
 	return ret;
+}
+
+void Component_Mesh::LoadComponent(nlohmann::json & to_load)
+{
+	// first we load esential bools and our own file name.
+
+	// Load bools
+
+	show_face_normals = to_load["show face normals"].get<bool>();
+	show_vertex_normals = to_load["show vertex normals"].get<bool>();
+	Has_tex_coords = to_load["has tex coords"].get<bool>();
+	Has_normals = to_load["has normals"].get<bool>(); // Aqui genera error hay que mirar. ghoy
+	show_bbox = to_load["show BBox"].get<bool>();
+
+	// Load Strings
+
+	own_file = to_load["Mesh file"].get<std::string>();
+
+	// then we use our importer function to load all vertex data.
+
 }
 
 void Component_Mesh::DrawBBox()

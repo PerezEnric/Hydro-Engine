@@ -35,7 +35,9 @@ public:
 	AABB mesh_bbox;
 	AABB obb_box;
 
+	// Save and load
 	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
 
 	std::string own_file;
 
