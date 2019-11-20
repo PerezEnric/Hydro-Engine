@@ -26,7 +26,9 @@ public:
 	void SetFrustumTransform();
 	void SetFrustumRotation(float3 rot);
 
+	//Save and Load
 	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
 
 public:
 	Frustum		frustum;

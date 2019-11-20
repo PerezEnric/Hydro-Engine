@@ -252,3 +252,57 @@ nlohmann::json Component_Camera::SaveComponent()
 
 	return ret;
 }
+
+void Component_Camera::LoadComponent(nlohmann::json & to_load)
+{
+
+	std::vector<float> scl = to_load["l_scale"].get<std::vector<float>>();
+
+	std::vector<float> rot = to_load["l_rotation"].get<std::vector<float>>();
+
+	std::vector<float> f_rot = to_load["future_rotation"].get<std::vector<float>>();
+
+
+	l_scale.x = scl[0];
+	l_scale.y = scl[1];
+	l_scale.z = scl[2];
+
+	l_rotation.x = rot[0];
+	l_rotation.y = rot[1];
+	l_rotation.z = rot[2];
+	l_rotation.w = rot[3];
+
+	future_rotation.x = f_rot[0];
+	future_rotation.y = f_rot[1];
+	future_rotation.z = f_rot[2];
+
+	angle_fov = to_load["angle fov"].get<float>();
+
+	//frustrum pure
+
+	frustum.verticalFov = to_load["Frustrum vertical fov"].get<float>();
+	frustum.horizontalFov = to_load["Frustrum horizontal fov"].get<float>();
+	frustum.farPlaneDistance = to_load["frustrum far plane distance"].get<float>();
+	frustum.nearPlaneDistance = to_load["frustrum near plane distance"].get<float>();
+
+	std::vector<float> frs_f = to_load["Frustrum front"].get<std::vector<float>>();
+
+	std::vector<float> frs_pos = to_load["Frustrum pos"].get<std::vector<float>>();
+
+	std::vector<float> frs_up = to_load["Frustrum up"].get<std::vector<float>>();
+
+	frustum.front.x = frs_f[0];
+	frustum.front.y = frs_f[1];
+	frustum.front.z = frs_f[2];
+
+	frustum.pos.x = frs_pos[0];
+	frustum.pos.y = frs_pos[1];
+	frustum.pos.z = frs_pos[2];
+
+	frustum.up.x = frs_up[0];
+	frustum.up.y = frs_up[1];
+	frustum.up.z = frs_up[2];
+
+
+
+}

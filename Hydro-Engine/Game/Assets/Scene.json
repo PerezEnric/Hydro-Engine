@@ -1,6 +1,45 @@
 {
     "-888685581": {
         "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": 2.213428020477295,
+                "Frustrum pos": [
+                    2.9000000953674316,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 1.6859880685806274,
+                "My parent UUID": "-888685581",
+                "angle fov": 96.5999984741211,
+                "frustrum far plane distance": 94.30000305175781,
+                "frustrum near plane distance": 2.5,
+                "future_rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
             "mesh": {
                 "Mesh file": "/Library/Meshes/Baker_house.kr",
                 "My parent UUID": "-888685581",
@@ -12,29 +51,29 @@
             },
             "texture": {
                 "My parent UUID": "-888685581",
-                "Own Texture name": ""
+                "Own Texture name": "/Library/Textures/Baker_house.dds"
             },
             "transform": {
                 "My parent UUID": "-888685581",
                 "future_rotation": [
-                    1.0000033378601074,
-                    22.400001525878906,
-                    1.0000033378601074
+                    -90.00000762939453,
+                    0.0,
+                    0.0
                 ],
                 "l_position": [
-                    -1.5,
+                    0.0,
                     0.0,
                     0.0
                 ],
                 "l_rotation": [
-                    0.010254977270960808,
-                    0.19414487481117249,
-                    0.010254977270960808,
-                    0.9808656573295593
+                    -0.7071068286895752,
+                    0.0,
+                    0.0,
+                    0.7071067094802856
                 ],
                 "l_scale": [
                     1.0,
-                    0.8999999761581421,
+                    1.0,
                     1.0
                 ]
             }
@@ -54,6 +93,45 @@
     },
     "355248013": {
         "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "355248013",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
             "transform": {
                 "My parent UUID": "355248013",
                 "future_rotation": [
@@ -94,6 +172,45 @@
     },
     "41705475": {
         "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "41705475",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
             "mesh": {
                 "Mesh file": "/Library/Meshes/Chimney.kr",
                 "My parent UUID": "41705475",
@@ -116,7 +233,7 @@
                 ],
                 "l_position": [
                     0.0,
-                    0.699999988079071,
+                    0.0,
                     0.0
                 ],
                 "l_rotation": [

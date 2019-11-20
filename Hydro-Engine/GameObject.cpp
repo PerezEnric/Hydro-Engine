@@ -382,6 +382,25 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 		}
 	}
 
+	if (b_camera)
+	{
+		//if so we create an empty mesh.
+		CreateComponent(CAMERA, false);
+		// We search for the mesh data
+		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
+		{
+			std::string helr = it.key();
+			if (helr == ca)
+			{
+				nlohmann::json tl = it.value();
+				cam->LoadComponent(tl);
+				break;
+			}
+		}
+	}
+
+	
+
 	
 	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 
