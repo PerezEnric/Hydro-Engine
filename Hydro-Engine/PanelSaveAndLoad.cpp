@@ -38,9 +38,7 @@ bool PanelSaveAndLoad::Update()
 
 void PanelSaveAndLoad::SaveScene()
 {
-	std::string output;
-	char* buff;
-	App->file_system->SaveUnique(output, "", 1, LIBRARY_SCENE_FOLDER, str1, "json");
+	std::string output = str1;
 	App->scene_intro->SaveScene(output);
 }
 

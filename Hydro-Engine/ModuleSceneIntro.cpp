@@ -282,7 +282,20 @@ void ModuleSceneIntro::CreateEmptyGameObject()
 
 void ModuleSceneIntro::SaveScene(std::string path)
 {
+	nlohmann::json save;
+
+	for (int i = 0; i < root.size(); i++)
+		root[i]->SaveGameObject(save);
 	
+	//App->file_system->SaveFile(path.c_str(), save);
+
+
+	std::string output;
+	std::string buffer;
+	buffer = save.dump();
+	App->file_system->SaveUnique(output, buffer.c_str(), buffer.size()*sizeof(char), LIBRARY_SCENE_FOLDER, path.c_str(), "json");
+
+
 }
 
 nlohmann::json ModuleSceneIntro::cancer()
