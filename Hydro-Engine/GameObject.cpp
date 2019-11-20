@@ -139,6 +139,7 @@ void GameObject::CreateChildren(const std::string & name, const std::string & Fi
 
 	Go = new GameObject(name, Filename, index);
 	Go->parent = this;
+	Go->parent_uuid = my_uuid;
 
 	childrens.push_back(Go);
 }
@@ -214,6 +215,7 @@ void GameObject::CreateEmptyChild(const std::string & name, const std::string & 
 	Go = new GameObject(name, Filename, false);
 
 	Go->parent = this;
+	Go->parent_uuid = my_uuid;
 
 	childrens.push_back(Go);
 }
@@ -252,14 +254,17 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	this_GO["b_camera"] = b_camera;
 
 
-	//tambien las UUIs del padre xd.
-	char* uuid_str = new char[80];
+	char* uuid_str = new char[200];
 
-	sprintf(uuid_str, "%d", my_uuid);
+	sprintf(uuid_str, "%u", my_uuid);
 	nlohmann::json this_compo;
 	
 	this_GO["My uuid"] = my_uuid;
 
+	
+	this_GO["My parent uuid"] = parent_uuid;
+	
+	
 	for (uint i = 0; i < components.size(); i++)
 	{
 		this_compo[components[i]->comp_type_str.c_str()] = components[i]->SaveComponent();
@@ -300,6 +305,8 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 
 	this->mesh_array = to_load["mesh array"].get<int>();
 	this->actual_mesh = to_load["actual mesh"].get<int>();
+	this->my_uuid = to_load["My uuid"].get<uint>();
+	this->parent_uuid = to_load["My parent uuid"].get<uint>();
 
 	// load bools
 
@@ -400,7 +407,7 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	}
 
 	
-
+	CreateOBB();
 	
 	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 

@@ -83,4 +83,5 @@ public:
 	bool just_loading = false;
 
 	uint my_uuid = 0;
+	uint parent_uuid = 0;
 };

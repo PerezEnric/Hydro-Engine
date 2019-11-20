@@ -1,5 +1,5 @@
 {
-    "-888685581": {
+    "3406281715": {
         "Components": {
             "camera": {
                 "Frustrum front": [
@@ -7,9 +7,9 @@
                     0.0,
                     1.0
                 ],
-                "Frustrum horizontal fov": 2.213428020477295,
+                "Frustrum horizontal fov": -2.3592076301574707,
                 "Frustrum pos": [
-                    2.9000000953674316,
+                    0.0,
                     0.0,
                     0.0
                 ],
@@ -18,15 +18,15 @@
                     1.0,
                     0.0
                 ],
-                "Frustrum vertical fov": 1.6859880685806274,
+                "Frustrum vertical fov": 5156.6201171875,
                 "My parent UUID": "-888685581",
-                "angle fov": 96.5999984741211,
-                "frustrum far plane distance": 94.30000305175781,
-                "frustrum near plane distance": 2.5,
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
                 "future_rotation": [
-                    -0.0,
                     0.0,
-                    -0.0
+                    0.0,
+                    0.0
                 ],
                 "l_rotation": [
                     0.0,
@@ -79,6 +79,7 @@
             }
         },
         "I have texture": true,
+        "My parent uuid": 355248013,
         "My uuid": 3406281715,
         "P_type": "p_none",
         "Path": "Assets/BakerHouse.fbx",
@@ -158,6 +159,7 @@
             }
         },
         "I have texture": false,
+        "My parent uuid": 0,
         "My uuid": 355248013,
         "P_type": "p_none",
         "Path": "Assets/BakerHouse.fbx",
@@ -250,6 +252,7 @@
             }
         },
         "I have texture": true,
+        "My parent uuid": 355248013,
         "My uuid": 41705475,
         "P_type": "p_none",
         "Path": "Assets/BakerHouse.fbx",

@@ -258,6 +258,8 @@ void ModuleSceneIntro::LoadScene()
 		iterator++;
 	}
 
+	//when we finished creating our gameobjects we wanna bond them father - child. So...
+
 
 }
 
