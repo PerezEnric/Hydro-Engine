@@ -165,56 +165,24 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 int Component_Camera::ContainsAABBox(const AABB& refbox) const
 {
 	float3 vCorner[8];
-	int iTotalIn = 0;
 	refbox.GetCornerPoints(vCorner);
-
 	Plane m_plane[6];
-	frustum.GetPlanes(m_plane); //we need to match the m_plane array with frustum planes 
+	frustum.GetPlanes(m_plane);
 
-	for (int p = 0; p < 6; ++p) {
-		int iInCount = 8;
-		int iPtIn = 1;
-		for (int i = 0; i < 8; ++i) {
-			if (!m_plane[p].IsOnPositiveSide(vCorner[i])) {
-				iPtIn = 0;
-				--iInCount;
-			}
-		}
-		if (iInCount == 0)
+	for (uint planes = 0; planes < 6; ++planes) {
+		int corners_count = 8;
+
+		for (uint corners = 0; corners < 8; ++corners)
 		{
-			LOG("IS OUTSIDEEEE");
-			return(OUTSIDE);
+			if (m_plane[planes].IsOnPositiveSide(vCorner[corners]))
+				--corners_count;
 		}
-		iTotalIn += iPtIn;
-	}
-	if (iTotalIn == 6)
-	{
-		LOG("IS INSIDE!!!!!!");
-		return(INSIDE);
+
+		if (corners_count == 6)
+			return OUTSIDE;
 	}
 
-	else
-	{
-		LOG("THIS SHIT IS SO STRANGE")
-		return(INTERSECT);
-	}
-
-	//float3 b_corners[8];
-	//refbox.GetCornerPoints(b_corners);
-
-	//for (uint plane_sides = 0; plane_sides < 6; ++plane_sides)
-	//{
-	//	int inside_corners = 8;
-	//	for (uint point = 0; point < 8; ++point)
-	//	{
-	//		if (frustum.GetPlane(plane_sides).IsOnPositiveSide(b_corners[point]))
-	//			--inside_corners;
-	//	}
-	//	// We dont need to know (at the moment) the exact number of corners that are in
-	//	if (inside_corners == 0) //We just look if some corner is inside to cull or not
-	//		return OUTSIDE;
-	//}
-	//return INSIDE;
+	return INSIDE;
 }
 
 float4x4 Component_Camera::GetViewMatrix() const
@@ -227,4 +195,9 @@ float4x4 Component_Camera::GetProjectionMatrix() const
 {
 	float4x4 projection_matrix = frustum.ProjectionMatrix();
 	return projection_matrix.Transposed();
+}
+
+bool Component_Camera::DoCulling()
+{
+	return false;
 }

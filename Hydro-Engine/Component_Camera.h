@@ -37,6 +37,7 @@ public:
 	float4x4 GetViewMatrix() const;
 	float4x4 GetProjectionMatrix() const;
 
+	bool DoCulling();
 public:
 	Frustum		frustum;
 	bool show_frustum = false;
