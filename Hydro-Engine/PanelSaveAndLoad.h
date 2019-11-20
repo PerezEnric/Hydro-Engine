@@ -10,7 +10,7 @@ public:
 
 	bool Update() override;
 	void SaveScene();
-	void LoadScene();
+	void LoadScene(std::string path);
 	char str1[128] = "";
 public:
 	bool saving = false;

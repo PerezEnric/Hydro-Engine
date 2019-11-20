@@ -191,7 +191,7 @@ void ModuleSceneIntro::LoadScene(std::string path)
 
 
 	nlohmann::json descarga;
-	std::ifstream k("Assets/Scene.json");
+	std::ifstream k(path.c_str());
 	if (!k) {
 		LOG("Could not open config_file");
 	}
@@ -201,17 +201,6 @@ void ModuleSceneIntro::LoadScene(std::string path)
 	}
 
 	/// Test:
-	//for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
-	//{
-	//	nlohmann::json hola = it.value();
-	//	int que = 30;
-	//	que = hola["actual mesh"].get<int>();
-	//	if (hola.is_object())
-	//	{
-	//		LOG("%d", que);
-	//	}
-	//	// Esto funciona asi que tira por aqui gollim del futuro :D
-	//}
 	/// Project vs 1:
 
 	// usefull vars: 
@@ -288,25 +277,12 @@ void ModuleSceneIntro::SaveScene(std::string path)
 		root[i]->SaveGameObject(save);
 	
 	//App->file_system->SaveFile(path.c_str(), save);
-
-
 	std::string output;
 	std::string buffer;
 	buffer = save.dump();
 	App->file_system->SaveUnique(output, buffer.c_str(), buffer.size()*sizeof(char), LIBRARY_SCENE_FOLDER, path.c_str(), "json");
 
 
-}
-
-nlohmann::json ModuleSceneIntro::cancer()
-{
-	nlohmann::json ret;
-
-	ret["1"] = 1;
-	ret["2"] = 2;
-
-
-	return ret;
 }
 
 void ModuleSceneIntro::MakeChecker()

@@ -45,7 +45,7 @@ public:
 
 	void SaveScene(std::string path); //ghoy debes cambiar esto luego para que digan que nombre le ponen a la escena.
 
-	nlohmann::json cancer();
+
 
 
 

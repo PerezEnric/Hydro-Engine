@@ -3,6 +3,7 @@
 #include "ImGui/imgui.h"
 #include "ModuleFileSystem.h"
 #include "ModuleSceneIntro.h"
+#include "WindowsItem.h"
 
 
 PanelSaveAndLoad::PanelSaveAndLoad()
@@ -29,7 +30,9 @@ bool PanelSaveAndLoad::Update()
 		
 		if (ImGui::Button("Load"))
 		{
+			std::string file_path = openFileWID();
 			
+			LoadScene(file_path);
 		}
 		ImGui::End();
 	}
@@ -42,7 +45,9 @@ void PanelSaveAndLoad::SaveScene()
 	App->scene_intro->SaveScene(output);
 }
 
-void PanelSaveAndLoad::LoadScene()
+void PanelSaveAndLoad::LoadScene(std::string path)
 {
 
+	App->scene_intro->LoadScene(path);
 }
+

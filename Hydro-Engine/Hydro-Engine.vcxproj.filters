@@ -255,6 +255,9 @@
     <ClInclude Include="PanelSaveAndLoad.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="WindowsItem.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\About.json">
