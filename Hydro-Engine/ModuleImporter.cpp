@@ -544,10 +544,7 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 void ModuleImporter::ExportTextureOwnFile(const char * pathname, Component_Texture * Tex)
 {
 
-	char* buffer;
-	App->file_system->Load(pathname, &buffer);//here we need to import the buffer
-
-	Tex->id_texture = ilutGLLoadImage(buffer);
+	Tex->id_texture = ilutGLLoadImage((char*)pathname);
 
 	glBindTexture(GL_TEXTURE_2D, Tex->id_texture);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, (GLint*)&Tex->widht);
@@ -562,9 +559,6 @@ void ModuleImporter::ExportTextureOwnFile(const char * pathname, Component_Textu
 
 
 }
-
-
-
 
 
 bool ModuleImporter::CleanUp()

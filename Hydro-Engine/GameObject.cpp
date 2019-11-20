@@ -257,6 +257,8 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 
 	sprintf(uuid_str, "%d", my_uuid);
 	nlohmann::json this_compo;
+	
+	this_GO["My uuid"] = my_uuid;
 
 	for (uint i = 0; i < components.size(); i++)
 	{
@@ -312,10 +314,13 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	this->name = to_load["name"].get<std::string>();
 	this->path = to_load["Path"].get<std::string>();
 	this->texture_path = to_load["Texture path"].get<std::string>();
+	this->my_uuid = to_load["My uuid"].get<int>();
 
 	// Load Ptype
 
 	this->p_type = to_load["P_type"].get<PrimitiveTypes>();
+
+	
 
 
 	// Load All the components that we had :D
@@ -354,6 +359,24 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 			{
 				nlohmann::json tl = it.value();
 				my_tex->LoadComponent(tl);
+				break;
+			}
+		}
+	}
+
+
+	if (b_transform)
+	{
+		//if so we create an empty mesh.
+		CreateComponent(TRANSFORM, false);
+		// We search for the mesh data
+		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
+		{
+			std::string helr = it.key();
+			if (helr == tr)
+			{
+				nlohmann::json tl = it.value();
+				transform->LoadComponent(tl);
 				break;
 			}
 		}

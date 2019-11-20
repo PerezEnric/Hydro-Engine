@@ -62,18 +62,18 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		second_cycle = true;
 	}
 
-	//if (selected != nullptr)
-	//{
-	//	if (selected->b_transform)
-	//	{
-	//		if (selected->transform->bbox_changed)
-	//		{
-	//			selected->my_mesh->RecalcBoundingBox();
-	//			selected->transform->bbox_changed = false;
-	//		}
-	//	}
-	//		
-	//}
+	if (selected != nullptr)
+	{
+		if (selected->b_transform)
+		{
+			if (selected->transform->bbox_changed)
+			{
+				selected->my_mesh->RecalcBoundingBox();
+				selected->transform->bbox_changed = false;
+			}
+		}
+			
+	}
 		
 
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)

@@ -84,9 +84,10 @@ void Component_Transform::NewTransform()
 	{
 		if (GO->DoIhave(TRANSFORM))
 			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
-		else
-			my_global_matrix = my_current_matrix;
+		
 	}
+	else
+		my_global_matrix = my_current_matrix;
 	
 	
 	if (GO->childrens.size() > 0) // all the GO childrens need to know that we are transforming :D
@@ -196,4 +197,37 @@ nlohmann::json Component_Transform::SaveComponent()
 
 	ret["My parent UUID"] = uuid_str;
 	return ret;
+}
+
+void Component_Transform::LoadComponent(nlohmann::json & to_load)
+{
+	//Usefull vars
+
+	std::vector<float> pos = to_load["l_position"].get<std::vector<float>>();
+
+	std::vector<float> scl = to_load["l_scale"].get<std::vector<float>>();
+
+	std::vector<float> rot = to_load["l_rotation"].get<std::vector<float>>();
+
+	std::vector<float> f_rot = to_load["future_rotation"].get<std::vector<float>>();
+
+	// we were pushing back so the order is inverse;
+	l_position.x = pos[0];
+	l_position.y = pos[1];
+	l_position.z = pos[2];
+
+	l_scale.x = scl[0];
+	l_scale.y = scl[1];
+	l_scale.z = scl[2];
+
+	l_rotation.x = rot[0];
+	l_rotation.y = rot[1];
+	l_rotation.z = rot[2];
+	l_rotation.w = rot[3];
+
+	future_rotation.x = f_rot[0];
+	future_rotation.y = f_rot[1];
+	future_rotation.z = f_rot[2];
+
+	NewTransform();
 }
