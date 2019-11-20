@@ -20,7 +20,9 @@ Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type, bool 
 	{
 		GO->texture = true;
 		GO->my_tex = this;
+		GO->just_loading = false;
 	}
+	
 }
 
 Component_Texture::Component_Texture()
@@ -64,6 +66,16 @@ nlohmann::json Component_Texture::SaveComponent()
 	compo["My parent UUID"] = uuid_str;
 
 	return compo;
+}
+
+void Component_Texture::LoadComponent(nlohmann::json & to_load)
+{
+	//Load strings
+
+	own_format = to_load["Own Texture name"].get<std::string>();
+
+	//App->importer->ExportTextureOwnFile(own_format.c_str(), this);
+	App->importer->LoadTexture(GO->texture_path, this);
 }
 
 void Component_Texture::ShowInfo()

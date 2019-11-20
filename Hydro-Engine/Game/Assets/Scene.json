@@ -1,4 +1,251 @@
 {
+    "-108269586": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "-108269586",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "transform": {
+                "My parent UUID": "-108269586",
+                "future_rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "l_position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        "I have texture": false,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "RootNode",
+        "static": true
+    },
+    "-1209432803": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "-1209432803",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "mesh": {
+                "Mesh file": "/Library/Meshes/Shark_01SG1.kr",
+                "My parent UUID": "-1209432803",
+                "has normals": true,
+                "has tex coords": true,
+                "show BBox": false,
+                "show face normals": false,
+                "show vertex normals": false
+            },
+            "texture": {
+                "My parent UUID": "-1209432803",
+                "Own Texture name": "/Library/Textures/megalodon.dds"
+            },
+            "transform": {
+                "My parent UUID": "-1209432803",
+                "future_rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "l_position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        "I have texture": true,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "..\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megalodon.dds",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": true,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "Shark_01SG1",
+        "static": true
+    },
+    "-1528654448": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "-1528654448",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "transform": {
+                "My parent UUID": "-1528654448",
+                "future_rotation": [
+                    -90.0,
+                    0.0,
+                    0.0
+                ],
+                "l_position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    -0.7071067690849304,
+                    0.0,
+                    0.0,
+                    0.7071067690849304
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        "I have texture": false,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "Shark_01SG1_$AssimpFbx$_PreRotation",
+        "static": true
+    },
     "-888685581": {
         "Components": {
             "camera": {
@@ -88,6 +335,162 @@
         "b_transform": true,
         "mesh array": 0,
         "name": "Baker_house",
+        "static": true
+    },
+    "154902030": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "154902030",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "transform": {
+                "My parent UUID": "154902030",
+                "future_rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "l_position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "l_scale": [
+                    1.0160000324249268,
+                    1.0160000324249268,
+                    1.0160000324249268
+                ]
+            }
+        },
+        "I have texture": false,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "Shark_01SG1_$AssimpFbx$_Scaling",
+        "static": true
+    },
+    "1713261421": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "1713261421",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "transform": {
+                "My parent UUID": "1713261421",
+                "future_rotation": [
+                    90.00000762939453,
+                    0.0,
+                    -0.0
+                ],
+                "l_position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.7071068286895752,
+                    0.0,
+                    0.0,
+                    0.7071067094802856
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        "I have texture": false,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "Shark_01SG1_$AssimpFbx$_Rotation",
         "static": true
     },
     "355248013": {
@@ -257,6 +660,84 @@
         "b_transform": true,
         "mesh array": 0,
         "name": "Chimney",
+        "static": true
+    },
+    "483882979": {
+        "Components": {
+            "camera": {
+                "Frustrum front": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "Frustrum horizontal fov": -2.3592076301574707,
+                "Frustrum pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Frustrum up": [
+                    0.0,
+                    1.0,
+                    0.0
+                ],
+                "Frustrum vertical fov": 5156.6201171875,
+                "My parent UUID": "483882979",
+                "angle fov": 90.0,
+                "frustrum far plane distance": 100.0,
+                "frustrum near plane distance": 0.10000000149011612,
+                "future_rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "transform": {
+                "My parent UUID": "483882979",
+                "future_rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "l_position": [
+                    1008.7861328125,
+                    0.0,
+                    -1816.9569091796875
+                ],
+                "l_rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "l_scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        "I have texture": false,
+        "P_type": "p_none",
+        "Path": "C:\\Users\\gollim\\Documents\\GitHub\\Hydro-Engine\\Hydro-Engine\\Game\\Assets\\megadolon.FBX",
+        "Texture path": "",
+        "actual mesh": 0,
+        "b_camera": true,
+        "b_mesh": false,
+        "b_transform": true,
+        "mesh array": 0,
+        "name": "Shark_01SG1_$AssimpFbx$_Translation",
         "static": true
     }
 }

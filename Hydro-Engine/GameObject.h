@@ -80,5 +80,7 @@ public:
 	bool b_transform = false;
 	bool b_camera = false;
 
+	bool just_loading = false;
+
 	uint my_uuid = 0;
 };

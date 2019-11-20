@@ -180,7 +180,7 @@ void Component_Mesh::Load_P_Shape()
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
 	//Esto me lo tengo que mirar luego ghoy gtest.
-	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); //gtodo Aqui es donde creariamos nuestras propias meshes. xd
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
 }
 
 void Component_Mesh::CleanUp()
@@ -299,6 +299,10 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	// then we use our importer function to load all vertex data.
 
 	App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+
+	//then we create the ABB and the Obb.
+	/*if (vertex != nullptr)
+		CreateOBB();*/
 
 }
 

@@ -91,7 +91,7 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type, bool _empty)
 		my_comp = new Component_Mesh(this, type, _empty);
 		break;
 	case TEXTURE:
-		if (!texture)
+		if (!texture  || just_loading)
 			my_comp = new Component_Texture(this, type, _empty);
 		break;
 	case TRANSFORM:
@@ -333,6 +333,27 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 			{
 				nlohmann::json tl = it.value();
 				my_mesh->LoadComponent(tl);
+				break;
+			}
+		}
+	}
+
+
+	just_loading = true;
+
+	//texture
+	if (texture)
+	{
+		//if so we create an empty mesh.
+		CreateComponent(TEXTURE, true);
+		// We search for the mesh data
+		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
+		{
+			std::string helr = it.key();
+			if (helr == te)
+			{
+				nlohmann::json tl = it.value();
+				my_tex->LoadComponent(tl);
 				break;
 			}
 		}

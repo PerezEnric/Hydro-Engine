@@ -50,7 +50,7 @@ public:
 
 	void ExportMeshOwnFile(const char* pathname, Component_Mesh* Mesh); 
 
-	void ExportTextureOwnFile(); //gtodo no se muy bien como hacerlo xd
+	void ExportTextureOwnFile(const char* pathname, Component_Texture* Tex);
 
 	bool CleanUp();
 private:
