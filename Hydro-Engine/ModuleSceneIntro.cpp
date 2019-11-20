@@ -261,9 +261,6 @@ void ModuleSceneIntro::LoadScene()
 	//when we finished creating our gameobjects we wanna bond them father - child. So...
 	for (int i = 0; i < root.size(); i++)
 	{
-		if (root[i]->parent_uuid == 0)
-			continue;
-
 		for (int j = 0; j < root.size(); j++)
 		{
 			if (root[j]->my_uuid == root[i]->parent_uuid)
@@ -279,9 +276,12 @@ void ModuleSceneIntro::LoadScene()
 	for (int i = 0; i < root.size(); i++)
 	{
 		if (root[i]->parent_uuid == 0)
-			continue;
-
-		root.erase(root.begin() + i);
+		{ }
+		else
+		{
+			root.erase(root.begin() + i);
+			i = -1;
+		}	
 	}
 
 	//and we did a new load of scene :D I wanna dieeeeee
