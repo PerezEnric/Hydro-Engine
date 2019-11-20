@@ -430,8 +430,6 @@ std::string ModuleImporter::ImportTextureOwnFile(const char * name)
 void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * Mesh)
 {
 
-	//this needs to be tested.
-
 
 	//mesh data ---------------------
 
@@ -450,7 +448,10 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 	//	return nullptr;
 	//}
 
-	char* buffer; //here we need to import the buffer gtodo
+	char* buffer;
+
+	App->file_system->Load(pathname, &buffer);//here we need to import the buffer gtodo
+
 	char* cursor = buffer;
 
 	// Read the header
@@ -471,31 +472,27 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 
 	// Vertices
 	bytes = sizeof(float) * (header[0] * 3);
+	vertex = new float[(header[0] * 3)];
 	memcpy(vertex, cursor, bytes);
 	cursor += bytes;
 	Mesh->vertex = vertex;
 
 
-	glGenBuffers(1, &Mesh->id_vertex);
-	glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->num_vertex * 3, Mesh->vertex, GL_STATIC_DRAW);
-
 	// Index
 	bytes = sizeof(uint) * Mesh->num_index;
+	index = new uint[Mesh->num_index];
 	memcpy(index, cursor, bytes);
 	cursor += bytes;
 	Mesh->index = index;
 
-	glGenBuffers(1, &Mesh->id_index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh->id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Mesh->num_index), Mesh->index, GL_STATIC_DRAW);
-
+	
 
 
 	// Normals
 	if (Mesh->Has_normals)
 	{
 		bytes = sizeof(float) * (header[0] * 3);
+		normal = new float[(header[0] * 3)];
 		memcpy(normal, cursor, bytes);
 		cursor += bytes;
 		Mesh->normal = normal;
@@ -506,6 +503,7 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 	if (Mesh->Has_tex_coords)
 	{
 		bytes = sizeof(float) * (header[0] * 3);
+		text_uvs = new float[(header[0] * 3)];
 		memcpy(text_uvs, cursor, bytes);
 		Mesh->text_uvs = text_uvs;
 
@@ -513,6 +511,14 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 		glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
 	}
+
+	glGenBuffers(1, &Mesh->id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->num_vertex * 3, Mesh->vertex, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &Mesh->id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Mesh->num_index), Mesh->index, GL_STATIC_DRAW);
 
 	delete[] buffer;
 

@@ -39,7 +39,7 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
-	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); //gtodo Aqui es donde creariamos nuestras propias meshes. xd
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); 
 	GO->my_mesh = this;
 	GO->b_mesh = true;
 }
@@ -289,7 +289,7 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	show_face_normals = to_load["show face normals"].get<bool>();
 	show_vertex_normals = to_load["show vertex normals"].get<bool>();
 	Has_tex_coords = to_load["has tex coords"].get<bool>();
-	Has_normals = to_load["has normals"].get<bool>(); // Aqui genera error hay que mirar. ghoy
+	Has_normals = to_load["has normals"].get<bool>(); 
 	show_bbox = to_load["show BBox"].get<bool>();
 
 	// Load Strings
@@ -297,6 +297,8 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	own_file = to_load["Mesh file"].get<std::string>();
 
 	// then we use our importer function to load all vertex data.
+
+	App->importer->ExportMeshOwnFile(own_file.c_str(), this);
 
 }
 
