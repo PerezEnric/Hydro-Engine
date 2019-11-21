@@ -295,6 +295,9 @@ void ModuleSceneIntro::LoadScene(std::string path)
 
 void ModuleSceneIntro::FrustrumQuad()
 {
+	std::vector<GameObject*> helper;
+
+	//quadtree->Intersect(helper, )// Me falta poner la primitiva aqui gtodo.
 
 
 
@@ -345,12 +348,12 @@ void ModuleSceneIntro::MakeChecker()
 bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 {
 
-	for (uint i = 0; i < root.size(); i++)
-	{
-		if (ray.Intersects(root[i]->CreateAABB()))
-			LOG("HITTED!!");
+	//for (uint i = 0; i < root.size(); i++)
+	//{
+	//	if (ray.Intersects(root[i]->CreateAABB()))
+	//		//LOG("HITTED!!");
 
-	}
+	//}
 	
 
 	return true;

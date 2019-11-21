@@ -31,6 +31,7 @@ public:
 	
 	float3 X, Y, Z, Position, Reference;
 	Component_Camera* main_cam = nullptr;
+	Component_Camera* Test = nullptr;
 
 private:
 

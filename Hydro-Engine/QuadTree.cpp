@@ -81,7 +81,7 @@ bool QTN::InsertGO(GameObject * obj)
 	bool ret = false;
 	if (obj->b_mesh)
 	{
-		AABB obj_box = obj->my_mesh->mesh_bbox;
+		AABB obj_box = obj->my_mesh->obb_box;
 	
 		if (!my_box.Intersects(obj_box)) 	// If the gameobject is not in this node we do nothing
 			return ret;
@@ -115,7 +115,6 @@ void QTN::CutTo4()
 {
 	
 	float3 center = my_box.CenterPoint();
-
 
 	AABB split_box;
 	float3 new_centre;

@@ -27,8 +27,9 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA, true);
+	//Test = new Component_Camera(nullptr, CAMERA, true);
 	main_cam->FrustrumLook(float3::zero);
-
+	//Test->FrustrumLook(float3::zero);
 	return ret;
 }
 
@@ -53,13 +54,17 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		CentreGOView();
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.front * speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos += main_cam->frustum.front * speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.front * speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos -= main_cam->frustum.front * speed;
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.WorldRight() * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.WorldRight() * speed;
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos -= main_cam->frustum.WorldRight() * speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos += main_cam->frustum.WorldRight() * speed;
 
 	Position += newPos;
 	Reference += newPos;
@@ -125,8 +130,33 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT))
 		CastRay();
 
-	// Recalculate matrix -------------
+	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
+
+
+/*
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		Test->frustum.pos.z += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		Test->frustum.pos.x += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		Test->frustum.pos.z -= 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		Test->frustum.pos.x -= 1;
+	}
+
+	Test->DrawFrustrum();
+
+	main_cam->show_frustum = true;
+
+	main_cam->Update();*/
 
 	return UPDATE_CONTINUE;
 }

@@ -295,12 +295,14 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	show_bbox = to_load["show BBox"].get<bool>();
 
 	// Load Strings
-
+	
 	own_file = to_load["Mesh file"].get<std::string>();
 
 	// then we use our importer function to load all vertex data.
-
-	App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+	if (GO->p_type == P_NONE)
+		App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+	else
+		Load_P_Shape();
 
 	//then we create the ABB and the Obb.
 	/*if (vertex != nullptr)
