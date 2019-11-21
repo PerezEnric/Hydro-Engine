@@ -12,6 +12,7 @@
 #define MAX_SNAKE 8
 class GameObject;
 struct PhysBody3D;
+class QT;
 
 
 class ModuleSceneIntro : public Module
@@ -39,6 +40,8 @@ public:
 	void ChangeJson(nlohmann::json & to_change);
 
 	void LoadScene(std::string path); 
+
+	void FrustrumQuad();
 
 	//this funct creates an empty gameobject.
 	void CreateEmptyGameObject();
@@ -73,4 +76,10 @@ public:
 
 	bool house_loaded = false;
 	bool second_cycle = false;
+
+
+	//QuadTree
+
+	QT * quadtree = nullptr;
+	int last_time_go = 0;
 };

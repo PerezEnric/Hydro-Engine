@@ -7,6 +7,7 @@
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
+#include "QuadTree.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -46,7 +47,7 @@ bool ModuleSceneIntro::Start()
 	App->window->SetTitle(name.c_str());
 
 	
-
+	//quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)));
 	return ret;
 }
 
@@ -249,6 +250,15 @@ void ModuleSceneIntro::LoadScene(std::string path)
 	}
 
 	//and we did a new load of scene :D I wanna dieeeeee
+
+
+}
+
+void ModuleSceneIntro::FrustrumQuad()
+{
+
+
+
 
 
 }

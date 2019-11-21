@@ -97,6 +97,28 @@ void QTN::CleanUp()
 	}
 }
 
+void QTN::Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive)
+{
+	if (my_box.Intersects(primitive)) {
+		if (!im_leaf) {	// As always we only wanna test it on leafs.												
+			for (int i = 0; i < 4; i++)
+				child[i]->Intersect(did_i_found_intersects, primitive);
+		}
+		else {
+			for (int i = 0; i < my_gos.size(); i++) {
+				bool alredy = false;
+				for (int j = 0; j < did_i_found_intersects.size(); j++)
+				{
+					if (did_i_found_intersects[j]->my_uuid == my_gos[i]->my_uuid)
+						alredy = true;
+				}
+				if (!alredy)
+					did_i_found_intersects.push_back(my_gos[i]);
+			}
+		}
+	}
+}
+
 QT::QT(AABB bound_limits, int bucketsize)
 {
 	Create(bound_limits, bucketsize);
@@ -147,4 +169,9 @@ void QT::CleanUp()
 void QT::DebugDraw()
 {
 	root->Draw();
+}
+
+void QT::Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive) // gtodo i should swap this to a type var to be more generic
+{
+	root->Intersect(did_i_found_intersects, primitive);
 }

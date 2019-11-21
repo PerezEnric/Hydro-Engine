@@ -30,7 +30,7 @@ struct QTN
 	bool im_leaf = false;
 	std::vector<GameObject*> my_gos;
 
-	/*void Intersections()*/
+	void Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive);
 };
 
 class QT
@@ -54,6 +54,8 @@ public:
 
 	QTN* root; // Root of the quadtree
 	int bucketsize;	// How much items can be held in a QuadTreeNode
+
+	void Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive);
 
 	/*void intersects();*/
 };

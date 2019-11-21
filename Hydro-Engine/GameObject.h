@@ -47,6 +47,9 @@ public:
 
 	void LoadGameObject(nlohmann::json& to_load); 
 
+	//a function to put all gameobjects in a array.
+	void FrustrumQuad(std::vector<GameObject*>& frust);
+
 
 	AABB CreateAABB();
 	OBB CreateOBB();
@@ -56,7 +59,7 @@ public:
 
 	bool _static = true;
 
-
+	bool inside_culling;
 	std::string name;
 	std::vector<Component*> components;
 	std::vector<GameObject*> childrens;
