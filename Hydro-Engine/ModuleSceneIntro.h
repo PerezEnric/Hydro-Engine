@@ -3,8 +3,10 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "Glew/include/glew.h"
+#include "Json/json.hpp"
 #include <queue>
 #include <string>
+
 
 
 #define MAX_SNAKE 8
@@ -33,6 +35,17 @@ public:
 	void CreateGameObjectPS(const std::string & name, PrimitiveTypes p_shape);
 
 	void DeleteGameObject();
+
+	void ChangeJson(nlohmann::json & to_change);
+
+	void LoadScene(std::string path); //ghoy debes cambiar esto luego para que digan que scene quieren loguear
+
+	//this funct creates an empty gameobject.
+	void CreateEmptyGameObject();
+
+	void SaveScene(std::string path); //ghoy debes cambiar esto luego para que digan que nombre le ponen a la escena.
+
+
 
 
 

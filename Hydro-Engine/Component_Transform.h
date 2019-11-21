@@ -7,7 +7,7 @@ class Component_Transform : public Component
 {
 public:
 
-	Component_Transform(GameObject* GO, COMPONENT_TYPE type);
+	Component_Transform(GameObject* GO, COMPONENT_TYPE type, bool _empty);
 	Component_Transform();
 
 	float3 GetPosition();
@@ -28,10 +28,15 @@ public:
 	void LoadTransform(float3 pos, float3 scale, Quat rotation);
 	float4x4 GetGlobalMatrix();
 
+	//save and load
+	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
+
 public:
 
 	float4x4 my_current_matrix;
 	float4x4 my_global_matrix;
+
 	float3 l_position = float3( 0,0,0 );
 	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.

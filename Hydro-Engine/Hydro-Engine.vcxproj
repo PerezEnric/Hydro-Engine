@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -114,11 +114,14 @@
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelSaveAndLoad.h" />
     <ClInclude Include="PanelShapes.h" />
     <ClInclude Include="ParShapes\par_shapes.h" />
+    <ClInclude Include="PCGRandom\pcg_basic.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowsItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -153,8 +156,10 @@
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelSaveAndLoad.cpp" />
     <ClCompile Include="PanelShapes.cpp" />
     <ClCompile Include="par_shapes.cpp" />
+    <ClCompile Include="PCGRandom\pcg_basic.c" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Timer.cpp" />

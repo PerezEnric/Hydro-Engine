@@ -4,6 +4,8 @@
 #include "Module.h"
 #include <vector>
 #include <string>
+#include "Json/json.hpp"
+#include "Globals.h"
 
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops* rw);
@@ -48,6 +50,10 @@ public:
 	unsigned int Save(const char* file, const void* buffer, unsigned int size, bool append = false) const;
 	bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);
 	bool Remove(const char* file);
+
+	// Function to save json things.
+	void SaveFile(const char* path, const nlohmann::json & to_save);
+
 
 	const char* GetBasePath() const;
 	const char* GetWritePath() const;

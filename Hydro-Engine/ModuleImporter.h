@@ -44,13 +44,13 @@ public:
 	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
 	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
 
-	void ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);
+	std::string ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);
 
-	void ImportTextureOwnFile(const char* name); 
+	std::string ImportTextureOwnFile(const char* name); 
 
 	void ExportMeshOwnFile(const char* pathname, Component_Mesh* Mesh); 
 
-	void ExportTextureOwnFile(); //gtodo no se muy bien como hacerlo xd
+	void ExportTextureOwnFile(const char* pathname, Component_Texture* Tex);
 
 	bool CleanUp();
 private:

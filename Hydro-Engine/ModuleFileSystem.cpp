@@ -5,6 +5,7 @@
 #include "PhysFS/include/physfs.h"
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/types.h"
+#include <iomanip>
 
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
@@ -401,6 +402,14 @@ bool ModuleFileSystem::Remove(const char* file)
 	}
 
 	return ret;
+}
+
+void ModuleFileSystem::SaveFile(const char * path, const nlohmann::json & to_save)
+{
+	// La cosa serà llamar a la funcion de Save unique y primero crear el archivo y luego modificarlo con esta función.
+	std::ofstream o(path);
+	o << std::setw(4) << to_save << std::endl;
+	o.close();
 }
 
 const char* ModuleFileSystem::GetBasePath() const

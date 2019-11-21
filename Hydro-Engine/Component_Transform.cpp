@@ -4,8 +4,9 @@
 #include "ModuleSceneIntro.h"
 #include "ImGui/imgui.h"
 
-Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): Component(GO, type)
+Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type, bool _empty): Component(GO, type, _empty)
 {
+	comp_type_str = "transform";
 	// first of all we calculate our matrix
 	my_current_matrix = float4x4::FromTRS(l_position, l_rotation, l_scale);
 
@@ -18,6 +19,8 @@ Component_Transform::Component_Transform(GameObject* GO, COMPONENT_TYPE type): C
 
 	//test
 	GO->transform = this;
+
+	GO->b_transform = true;
 	
 
 }
@@ -81,9 +84,10 @@ void Component_Transform::NewTransform()
 	{
 		if (GO->DoIhave(TRANSFORM))
 			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
-		else
-			my_global_matrix = my_current_matrix;
+		
 	}
+	else
+		my_global_matrix = my_current_matrix;
 	
 	
 	if (GO->childrens.size() > 0) // all the GO childrens need to know that we are transforming :D
@@ -147,4 +151,83 @@ float4x4 Component_Transform::GetGlobalMatrix()
 
 
 	return my_global_matrix;
+}
+
+nlohmann::json Component_Transform::SaveComponent()
+{
+	nlohmann::json ret;
+
+	std::vector<float> float_helper;
+	float_helper.push_back(l_position.x);
+	float_helper.push_back(l_position.y);
+	float_helper.push_back(l_position.z);
+
+	ret["l_position"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(l_scale.x);
+	float_helper.push_back(l_scale.y);
+	float_helper.push_back(l_scale.z);
+
+	ret["l_scale"] = float_helper;
+	float_helper.clear();
+
+	float_helper.push_back(l_rotation.x);
+	float_helper.push_back(l_rotation.y);
+	float_helper.push_back(l_rotation.z);
+	float_helper.push_back(l_rotation.w);
+
+	ret["l_rotation"] = float_helper;
+
+	float_helper.clear();
+
+	float_helper.push_back(future_rotation.x);
+	float_helper.push_back(future_rotation.y);
+	float_helper.push_back(future_rotation.z);
+	
+
+	ret["future_rotation"] = float_helper;
+
+	float_helper.clear();
+
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	ret["My parent UUID"] = uuid_str;
+	return ret;
+}
+
+void Component_Transform::LoadComponent(nlohmann::json & to_load)
+{
+	//Usefull vars
+
+	std::vector<float> pos = to_load["l_position"].get<std::vector<float>>();
+
+	std::vector<float> scl = to_load["l_scale"].get<std::vector<float>>();
+
+	std::vector<float> rot = to_load["l_rotation"].get<std::vector<float>>();
+
+	std::vector<float> f_rot = to_load["future_rotation"].get<std::vector<float>>();
+
+	// we were pushing back so the order is inverse;
+	l_position.x = pos[0];
+	l_position.y = pos[1];
+	l_position.z = pos[2];
+
+	l_scale.x = scl[0];
+	l_scale.y = scl[1];
+	l_scale.z = scl[2];
+
+	l_rotation.x = rot[0];
+	l_rotation.y = rot[1];
+	l_rotation.z = rot[2];
+	l_rotation.w = rot[3];
+
+	future_rotation.x = f_rot[0];
+	future_rotation.y = f_rot[1];
+	future_rotation.z = f_rot[2];
+
+	NewTransform();
 }

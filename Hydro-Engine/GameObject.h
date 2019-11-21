@@ -6,6 +6,8 @@
 #include "Component_Mesh.h"
 #include "Component_Transform.h"
 #include "Component_Camera.h"
+#include "ModuleSceneIntro.h"
+#include "Json/json.hpp"
 
 #include <string>
 #include <vector>
@@ -22,10 +24,11 @@ public:
 	GameObject(const std::string& name, const std::string& Filename, int index);
 	GameObject(const std::string& name, PrimitiveTypes type);
 	GameObject(const std::string& name, const std::string& Filename, bool root);
+	GameObject();
 	~GameObject();
 
 	void Update();
-	Component* CreateComponent(COMPONENT_TYPE type);
+	Component* CreateComponent(COMPONENT_TYPE type, bool _empty = false);
 	void Cleanup();
 
 	void CreateChildren(const std::string& name, const std::string& Filename, int index);
@@ -39,6 +42,11 @@ public:
 	void QuadTree(int n);
 
 	void CreateEmptyChild(const std::string & name, const std::string& Filename);
+
+	void SaveGameObject(nlohmann::json & to_save);
+
+	void LoadGameObject(nlohmann::json& to_load); 
+
 
 	AABB CreateAABB();
 	OBB CreateOBB();
@@ -55,7 +63,7 @@ public:
 
 	int mesh_array = 0;
 	int actual_mesh = 0;
-	bool texture = false;
+	
 	std::string path;
 	std::string texture_path;
 
@@ -65,4 +73,15 @@ public:
 	Component_Mesh* my_mesh;
 	Component_Transform* transform;
 	Component_Camera* cam;
+
+	//nice booleans:
+	bool b_mesh = false;
+	bool texture = false;
+	bool b_transform = false;
+	bool b_camera = false;
+
+	bool just_loading = false;
+
+	uint my_uuid = 0;
+	uint parent_uuid = 0;
 };

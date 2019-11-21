@@ -5,6 +5,8 @@
 #include "Json/json.hpp"
 #include "GameObject.h"
 #include "ModuleImporter.h"
+#include "ModuleFileSystem.h"
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include <fstream>
 #include <istream>
 #include <string>
@@ -34,6 +36,11 @@ bool ModuleSceneIntro::Start()
 		i >> j;
 	}
 
+
+	
+
+
+
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
@@ -55,11 +62,19 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		second_cycle = true;
 	}
 
-	if (selected != nullptr && selected->transform->bbox_changed)
+	if (selected != nullptr)
 	{
-		selected->my_mesh->RecalcBoundingBox();
-		selected->transform->bbox_changed = false;
+		if (selected->b_transform)
+		{
+			if (selected->transform->bbox_changed)
+			{
+				selected->my_mesh->RecalcBoundingBox();
+				selected->transform->bbox_changed = false;
+			}
+		}
+			
 	}
+		
 
 	return UPDATE_CONTINUE;
 }
@@ -149,6 +164,118 @@ void ModuleSceneIntro::DeleteGameObject()
 {
 	selected->Cleanup();//todo aqui me falta eliminarlo de la array del padre.
 	selected = nullptr;
+}
+
+void ModuleSceneIntro::ChangeJson(nlohmann::json & to_change)
+{
+
+
+}
+
+void ModuleSceneIntro::LoadScene(std::string path)
+{
+	//first we wanna delete our current scene cleaning all the gameobjects.
+
+	if (!root.empty()) {
+		for (uint i = 0; i < root.size(); i++)
+			root[i]->Cleanup();
+	}
+	root.clear();
+
+
+	nlohmann::json descarga;
+	std::ifstream k(path.c_str());
+	if (!k) {
+		LOG("Could not open config_file");
+	}
+	else {
+		LOG("Config_file succesfully loaded");
+		k >> descarga;
+	}
+
+	/// Test:
+	/// Project vs 1:
+
+	// usefull vars: 
+	int num_gameobjects = 0; // Here we will store the number of gameobjects that we wanna load
+	int iterator = 0; //when we run around the document we wanna know the actual iterator of the root we are working on.
+
+	// First we want to know how many gameobjects do we have.
+	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	{
+		num_gameobjects++;
+	}
+
+	LOG("%i", num_gameobjects);
+
+	// Then we want to create empty carcases and push it to root by now. (in the future we will make them have the relation of father children)
+	for (int i = 0; i < num_gameobjects; i++)
+	{
+		CreateEmptyGameObject();
+	}
+
+	//Then we want to send them their info to complet their data.
+	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	{
+		nlohmann::json GamObj = it.value();
+		root[iterator]->LoadGameObject(GamObj);
+		iterator++;
+	}
+
+	//when we finished creating our gameobjects we wanna bond them father - child. So...
+	for (int i = 0; i < root.size(); i++)
+	{
+		for (int j = 0; j < root.size(); j++)
+		{
+			if (root[j]->my_uuid == root[i]->parent_uuid)
+			{
+				root[i]->parent = root[j];
+				root[j]->childrens.push_back(root[i]); // double conection.
+				break;
+			}
+		}
+	}
+	
+	//once we finished we wanna delete the pointer in root.
+	for (int i = 0; i < root.size(); i++)
+	{
+		if (root[i]->parent_uuid == 0)
+		{ }
+		else
+		{
+			root.erase(root.begin() + i);
+			i = -1;
+		}	
+	}
+
+	//and we did a new load of scene :D I wanna dieeeeee
+
+
+}
+
+void ModuleSceneIntro::CreateEmptyGameObject()
+{
+	GameObject* empty = nullptr;
+
+	empty = new GameObject();
+
+	root.push_back(empty);
+}
+
+void ModuleSceneIntro::SaveScene(std::string path)
+{
+	nlohmann::json save;
+
+	for (int i = 0; i < root.size(); i++)
+		root[i]->SaveGameObject(save);
+	
+	//App->file_system->SaveFile(path.c_str(), save);
+	std::string output;
+	std::string buffer;
+	buffer = save.dump();
+	App->file_system->SaveUnique(output, buffer.c_str(), buffer.size()*sizeof(char), LIBRARY_SCENE_FOLDER, path.c_str(), "json");
+
+
 }
 
 void ModuleSceneIntro::MakeChecker()

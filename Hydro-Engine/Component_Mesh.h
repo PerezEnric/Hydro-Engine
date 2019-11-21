@@ -14,7 +14,7 @@ class Component_Mesh : public Component
 {
 public:
 
-	Component_Mesh(GameObject* GO,COMPONENT_TYPE type);
+	Component_Mesh(GameObject* GO,COMPONENT_TYPE type, bool _empty);
 	Component_Mesh();
 	void Load_Mesh();
 	bool Update();
@@ -34,6 +34,12 @@ public:
 	void RecalcBoundingBox();
 	AABB mesh_bbox;
 	AABB obb_box;
+
+	// Save and load
+	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
+
+	std::string own_file;
 
 public:
 
@@ -67,8 +73,6 @@ public:
 	bool Has_tex_coords = false;
 
 	bool Has_normals = false;
-
-
 
 	bool show_bbox = false;
 

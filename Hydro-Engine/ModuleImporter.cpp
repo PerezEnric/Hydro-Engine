@@ -281,7 +281,7 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		glBindTexture(GL_TEXTURE_2D, 0);
 		LOG("Texture correctly loaded %s", R_Filename.c_str());
 
-		ImportTextureOwnFile(Filename.c_str());
+		tex->own_format = ImportTextureOwnFile(Filename.c_str());
 
 	}
 
@@ -316,7 +316,7 @@ std::string ModuleImporter::CutTheDoc(const std::string & Filename, Component_Te
 	return doc;
 }
 
-void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
+std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
 {
 	// here we create data
 	uint header[4];
@@ -398,11 +398,13 @@ void ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh * Mesh)
 	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
 
 	delete[] data;
+
+	return output_file;
 }
 
-void ModuleImporter::ImportTextureOwnFile(const char * name)
+std::string ModuleImporter::ImportTextureOwnFile(const char * name)
 {
-
+	std::string ret;
 	ILuint size;
 	char *data;
 	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
@@ -413,113 +415,150 @@ void ModuleImporter::ImportTextureOwnFile(const char * name)
 		{
 			std::string filename = name;
 
-			std::string output_file; //gtodo con esto podemos hacer varias cosas.
+			std::string output_file; 
 
-			App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+			App->file_system->GetActualName(filename); 
 			App->file_system->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, filename.c_str(), "dds");
+			ret = output_file;
 		}
 			
 		delete[] data;
 	}
+	return ret;
 }
 
 void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * Mesh)
 {
 
-	//this needs to be tested.
-
 
 	//mesh data ---------------------
-
 
 	uint* index = nullptr;
 	float* vertex = nullptr;
 	float* normal = nullptr;
 	float* text_uvs = nullptr;
 
-	//mesh data ---------------------
 
-	//checks
-	//// Import buffer from file
-	//if (!App->fs.ExistisFile(file)) {
-	//	app_log->AddLog("Couldn't load mesh, not found in library");
-	//	return nullptr;
-	//}
+	char* buffer;
+	uint we_load;
 
-	char* buffer; //here we need to import the buffer gtodo
-	char* cursor = buffer;
+	uint cleanup = 0;
 
-	// Read the header
-	uint header[4];
-	uint bytes = sizeof(header);
-	memcpy(header, cursor, bytes);
-	cursor += bytes;
+	// i have errors with some GLgebuffers and i dont know but this seems to repair this error so... gtodo
+	glGenBuffers(1, &cleanup);
+	glBindBuffer(GL_ARRAY_BUFFER, cleanup);
 
-	//Header info -------------------
+	we_load = App->file_system->Load(pathname, &buffer);//here we need to import the buffer
+	// if we load = 0 we have some type of error loading the mesh.
 
-	Mesh->num_vertex = header[0];
-	Mesh->num_index = header[1];
-	Mesh->Has_normals = header[2];
-	Mesh->Has_tex_coords = header[3];
-
-	//Header info -------------------
-
-
-	// Vertices
-	bytes = sizeof(float) * (header[0] * 3);
-	memcpy(vertex, cursor, bytes);
-	cursor += bytes;
-	Mesh->vertex = vertex;
-
-
-	glGenBuffers(1, &Mesh->id_vertex);
-	glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->num_vertex * 3, Mesh->vertex, GL_STATIC_DRAW);
-
-	// Index
-	bytes = sizeof(uint) * Mesh->num_index;
-	memcpy(index, cursor, bytes);
-	cursor += bytes;
-	Mesh->index = index;
-
-	glGenBuffers(1, &Mesh->id_index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh->id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Mesh->num_index), Mesh->index, GL_STATIC_DRAW);
-
-
-
-	// Normals
-	if (Mesh->Has_normals)
+	if (we_load != 0)
 	{
-		bytes = sizeof(float) * (header[0] * 3);
-		memcpy(normal, cursor, bytes);
+		char* cursor = buffer;
+
+		// Read the header
+		uint header[4];
+		uint bytes = sizeof(header);
+		memcpy(header, cursor, bytes);
 		cursor += bytes;
-		Mesh->normal = normal;
 
-	}
+		//Header info -------------------
 
-	// Tex coords
-	if (Mesh->Has_tex_coords)
-	{
+		Mesh->num_vertex = header[0];
+		Mesh->num_index = header[1];
+		Mesh->Has_normals = header[2];
+		Mesh->Has_tex_coords = header[3];
+
+		//Header info -------------------
+
+	
+
+		// Vertices
 		bytes = sizeof(float) * (header[0] * 3);
-		memcpy(text_uvs, cursor, bytes);
-		Mesh->text_uvs = text_uvs;
+		vertex = new float[(header[0] * 3)];
+		memcpy(vertex, cursor, bytes);
+		cursor += bytes;
+		Mesh->vertex = vertex;
 
-		glGenBuffers(1, (GLuint*) & (Mesh->id_uvs));
-		glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
+		glGenBuffers(1, &Mesh->id_vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_vertex);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->num_vertex * 3, Mesh->vertex, GL_STATIC_DRAW);
+
+		// Index
+		bytes = sizeof(uint) * Mesh->num_index;
+		index = new uint[Mesh->num_index];
+		memcpy(index, cursor, bytes);
+		cursor += bytes;
+		Mesh->index = index;
+
+		
+		glGenBuffers(1, &Mesh->id_index);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh->id_index);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Mesh->num_index), Mesh->index, GL_STATIC_DRAW);
+
+		// Normals
+		if (Mesh->Has_normals)
+		{
+			bytes = sizeof(float) * (header[0] * 3);
+			normal = new float[(header[0] * 3)];
+			memcpy(normal, cursor, bytes);
+			cursor += bytes;
+			Mesh->normal = normal;
+
+		}
+
+		// Tex coords
+		if (Mesh->Has_tex_coords)
+		{
+			bytes = sizeof(float) * (header[0] * 3);
+			text_uvs = new float[(header[0] * 3)];
+			memcpy(text_uvs, cursor, bytes);
+			Mesh->text_uvs = text_uvs;
+			Mesh->size = (header[0] * 3);
+
+			glGenBuffers(1, (GLuint*) & (Mesh->id_uvs));
+			glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
+		}
+
+
+
+		
+
+		
+
+		
+
+		
 	}
+	else
+	{
+		LOG("The mesh you are trying to load is not found");
+	}
+
+	glDeleteBuffers(1, &cleanup);
 
 	delete[] buffer;
 
-	//binds
-
-
-	//gtodo tendras que ligar esto a los indices creo?
-
 }
 
+void ModuleImporter::ExportTextureOwnFile(const char * pathname, Component_Texture * Tex)
+{
 
+	Tex->id_texture = ilutGLLoadImage((char*)pathname);
+
+	glBindTexture(GL_TEXTURE_2D, Tex->id_texture);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, (GLint*)&Tex->widht);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, (GLint*)&Tex->height);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+}
 
 
 bool ModuleImporter::CleanUp()

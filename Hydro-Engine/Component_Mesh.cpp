@@ -7,19 +7,28 @@
 #include "Primitive.h"
 #include "ImGui/imgui.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include <vector>
 
 
 
 
-Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type) : Component(GO, type)
+Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty) : Component(GO, type, _empty)
 {
-	if (GO->p_type == PrimitiveTypes::P_NONE) {
-		Load_Mesh();
+	comp_type_str = "mesh";
+	if (!_empty)
+	{
+		if (GO->p_type == PrimitiveTypes::P_NONE) {
+			Load_Mesh();
+		}
+		else
+			Load_P_Shape();
+
 	}
 	else
-		Load_P_Shape();
-
-	
+	{
+		GO->my_mesh = this;
+		GO->b_mesh = true;
+	}
 	MakeChecker();
 }
 
@@ -30,7 +39,9 @@ Component_Mesh::Component_Mesh()
 void Component_Mesh::Load_Mesh()
 {
 	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); 
 	GO->my_mesh = this;
+	GO->b_mesh = true;
 }
 
 bool Component_Mesh::Update()
@@ -170,6 +181,8 @@ void Component_Mesh::Load_P_Shape()
 {
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
+	//Esto me lo tengo que mirar luego ghoy gtest.
+	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
 }
 
 void Component_Mesh::CleanUp()
@@ -191,6 +204,10 @@ void Component_Mesh::CleanUp()
 	GO->actual_mesh = 0;
 	GO->p_type = P_NONE;
 	GO->path.clear();
+
+	GO->my_mesh = nullptr;
+
+	GO->b_mesh = false;
 
 
 }
@@ -226,6 +243,69 @@ void Component_Mesh::RecalcBoundingBox()
 
 	obb_box.SetNegativeInfinity();
 	obb_box.Enclose(obb);
+}
+
+nlohmann::json Component_Mesh::SaveComponent()
+{
+	nlohmann::json ret;
+
+	/// Method 1.
+	/*std::vector<float> helper_floats;
+	for (uint i = 0; i < num_vertex * 3; i++)
+	{
+		helper_floats.push_back(vertex[i]);
+	}
+
+	ret["Vertex num"] = num_vertex;
+	ret["Vertex info"] = helper_floats;*/
+
+	/// Method 2.
+	ret["Mesh file"] = own_file.c_str();
+
+	ret["show face normals"] = show_face_normals;
+
+	ret["show vertex normals"] = show_vertex_normals;
+
+	ret["has tex coords"] = Has_tex_coords;
+
+	ret["has normals"] = Has_normals;
+
+	ret["show BBox"] = show_bbox;
+
+
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	ret["My parent UUID"] = uuid_str;
+
+	return ret;
+}
+
+void Component_Mesh::LoadComponent(nlohmann::json & to_load)
+{
+	// first we load esential bools and our own file name.
+
+	// Load bools
+
+	show_face_normals = to_load["show face normals"].get<bool>();
+	show_vertex_normals = to_load["show vertex normals"].get<bool>();
+	Has_tex_coords = to_load["has tex coords"].get<bool>();
+	Has_normals = to_load["has normals"].get<bool>(); 
+	show_bbox = to_load["show BBox"].get<bool>();
+
+	// Load Strings
+
+	own_file = to_load["Mesh file"].get<std::string>();
+
+	// then we use our importer function to load all vertex data.
+
+	App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+
+	//then we create the ABB and the Obb.
+	/*if (vertex != nullptr)
+		CreateOBB();*/
+
 }
 
 void Component_Mesh::DrawBBox()

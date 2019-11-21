@@ -5,12 +5,24 @@
 #include "ModuleImporter.h"
 #include "Globals.h"
 
-Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type) : Component(GO, type)
+Component_Texture::Component_Texture(GameObject * GO, COMPONENT_TYPE type, bool _empty) : Component(GO, type, _empty)
 {
-	if (!GO->texture)
-		Load_Texture();
+
+	comp_type_str = "texture";
+	if (!_empty)
+	{
+		if (!GO->texture)
+			Load_Texture();
+		else
+			LOG("Error: this gameobject alredy have a texture");
+	}
 	else
-		LOG("Error: this gameobject alredy have a texture");
+	{
+		GO->texture = true;
+		GO->my_tex = this;
+		GO->just_loading = false;
+	}
+	
 }
 
 Component_Texture::Component_Texture()
@@ -39,6 +51,31 @@ void Component_Texture::CleanUp()
 	GO->texture_path.clear();
 	GO->texture = false;
 	GO->my_tex = nullptr;
+}
+
+nlohmann::json Component_Texture::SaveComponent()
+{
+	nlohmann::json compo;
+
+	compo["Own Texture name"] = own_format.c_str();
+
+	char* uuid_str = new char[80];
+
+	sprintf(uuid_str, "%d", GO->my_uuid);
+
+	compo["My parent UUID"] = uuid_str;
+
+	return compo;
+}
+
+void Component_Texture::LoadComponent(nlohmann::json & to_load)
+{
+	//Load strings
+
+	own_format = to_load["Own Texture name"].get<std::string>();
+
+	//App->importer->ExportTextureOwnFile(own_format.c_str(), this);
+	App->importer->LoadTexture(GO->texture_path, this);
 }
 
 void Component_Texture::ShowInfo()

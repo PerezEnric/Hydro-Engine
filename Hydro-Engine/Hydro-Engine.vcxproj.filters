@@ -108,6 +108,12 @@
     <ClCompile Include="ModuleSceneIntro.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="PCGRandom\pcg_basic.c">
+      <Filter>Tools\pgc_random</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelSaveAndLoad.cpp">
+      <Filter>Modules\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -243,6 +249,15 @@
     <ClInclude Include="ModuleSceneIntro.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="PCGRandom\pcg_basic.h">
+      <Filter>Tools\pgc_random</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelSaveAndLoad.h">
+      <Filter>Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsItem.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\About.json">
@@ -285,6 +300,9 @@
     </Filter>
     <Filter Include="Game\GameObjects">
       <UniqueIdentifier>{d6ac8bf7-3323-4068-8666-852f4b75d62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\pgc_random">
+      <UniqueIdentifier>{410cbf54-64ab-486b-a17e-c0c77af19380}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

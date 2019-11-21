@@ -35,7 +35,14 @@ public:
 	float* GetViewMatrix() const;
 	float4x4 GetProjectionMatrix() const;
 
+
 	bool DoCulling(GameObject* go);
+
+	//Save and Load
+	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
+
+
 public:
 	Frustum		frustum;
 	bool show_frustum = false;
@@ -43,6 +50,8 @@ public:
 private: 
 	float4x4 my_current_matrix;
 	float4x4 my_global_matrix;
+
+	// Cargar todo esto al json cuando savees
 	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.
 	Quat l_rotation = Quat(0, 0, 0, 0);

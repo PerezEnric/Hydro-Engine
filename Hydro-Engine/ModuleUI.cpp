@@ -52,6 +52,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_shapes = new PanelShapes());
 	vector_panels.push_back(p_hierarchy = new PanelHierarchy());
 	vector_panels.push_back(p_inspector = new PanelInspector());
+	vector_panels.push_back(p_saveload = new PanelSaveAndLoad());
 	p_console->is_active = true;
 	p_inspector->is_active = true;
 	
@@ -138,6 +139,11 @@ void ModuleUI::CreateMainMenuBar()
 			ImGui::MenuItem("Hierarchy", NULL, &p_hierarchy->is_active);
 			ImGui::MenuItem("Inspector", NULL, &p_inspector->is_active);
 
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Scene"))
+		{
+			ImGui::MenuItem("Save & Load", NULL, &p_saveload->is_active);
 			ImGui::EndMenu();
 		}
 

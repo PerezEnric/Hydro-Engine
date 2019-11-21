@@ -11,7 +11,7 @@ class Component_Texture : public Component
 {
 public:
 
-	Component_Texture(GameObject* GO, COMPONENT_TYPE type);
+	Component_Texture(GameObject* GO, COMPONENT_TYPE type, bool _empty);
 	Component_Texture();
 	void Load_Texture();
 
@@ -20,9 +20,16 @@ public:
 	void ShowInfo();
 	
 	void CleanUp();
+
+
+	//Save and Load
+	nlohmann::json SaveComponent();
+	void LoadComponent(nlohmann::json & to_load);
+
 public:
 
 	uint id_texture = 0;
 	uint widht = 0;
 	uint height = 0;
+	std::string own_format;
 };
