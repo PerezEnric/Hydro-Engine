@@ -15,7 +15,7 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type, 
 	frustum.up = float3::unitY;
 
 	//Common distance between near and far planes
-	frustum.nearPlaneDistance = 0.1f; 
+	frustum.nearPlaneDistance = 10.0f; 
 	frustum.farPlaneDistance = 100.0f;
 	angle_fov = 90.0f;
 	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)

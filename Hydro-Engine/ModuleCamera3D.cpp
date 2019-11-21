@@ -102,6 +102,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
+	//Zoom
+
 	if (App->input->GetMouseZ() < 0)
 	{
 		newPos -= main_cam->frustum.front * wheelSpeed;
@@ -117,6 +119,12 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference -= newPos;
 		main_cam->frustum.Translate(newPos);
 	}
+
+	//Mouse picking
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT))
+		CastRay();
+
 	// Recalculate matrix -------------
 	//CalculateViewMatrix();
 
@@ -188,6 +196,31 @@ void ModuleCamera3D::CentreGOView()
 
 		main_cam->FrustrumLook(Reference); //Finally look at the reference with all the new values
 	}
+}
+
+void ModuleCamera3D::CastRay()
+{
+	//float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
+	//float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
+
+	//LineSegment picking = main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y);
+
+	//GameObject* go = nullptr;
+	//go->RayTestAABB(picking);
+
+	float width = (float)App->window->width;
+	float height = (float)App->window->height;
+
+	int mouse_x, mouse_y;
+	mouse_x = App->input->GetMouseX();
+	mouse_y = App->input->GetMouseY();
+
+	float normalized_x = -(1.0f - (float(mouse_x) * 2.0f) / width);
+	float normalized_y = 1.0f - (float(mouse_y) * 2.0f) / height;
+
+	LineSegment picking = main_cam->frustum.UnProjectLineSegment(normalized_x, normalized_y);
+
+	App->scene_intro->RayTestAABB(picking);
 }
 
 // -----------------------------------------------------------------

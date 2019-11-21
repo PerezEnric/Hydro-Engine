@@ -51,6 +51,7 @@ public:
 	AABB CreateAABB();
 	OBB CreateOBB();
 
+
 public:
 
 	bool _static = true;

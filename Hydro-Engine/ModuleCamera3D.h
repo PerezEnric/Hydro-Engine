@@ -21,6 +21,7 @@ public:
 	//void Move(const float3 &Movement);
 	float* GetViewMatrix();
 	void CentreGOView();
+	void CastRay();
 
 private:
 

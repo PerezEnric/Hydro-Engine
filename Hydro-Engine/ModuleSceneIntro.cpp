@@ -293,3 +293,17 @@ void ModuleSceneIntro::MakeChecker()
 	}
 }
 
+bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
+{
+
+	for (uint i = 0; i < root.size(); i++)
+	{
+		if (ray.Intersects(root[i]->CreateAABB()))
+			LOG("HITTED!!");
+
+	}
+	
+
+	return true;
+}
+
