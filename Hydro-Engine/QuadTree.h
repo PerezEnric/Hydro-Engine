@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Math/float3.h"
 
 
 class GameObject;
@@ -25,6 +26,10 @@ struct QTN
 	QTN* child[4];
 	AABB my_box;
 	int my_bucketsize;
+
+
+	int my_number_of_QTN = 0;
+	int max_number_of_QTN = 7;
 
 	//This is important cause the leaf will be the last depth of QTN we have (where we really allocate the childs)
 	bool im_leaf = false;
@@ -50,9 +55,9 @@ public:
 
 	// We cleanUp the quadTree
 	void CleanUp();
-	void DebugDraw();
+	void Draw();
 
-	QTN* root; // Root of the quadtree
+	QTN* root = nullptr; // Root of the quadtree
 	int bucketsize;	// How much items can be held in a QuadTreeNode
 
 	void Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive);

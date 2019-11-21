@@ -130,6 +130,7 @@ void GameObject::Cleanup()
 			}
 		}
 	}
+	App->scene_intro->re_quadtree = true;
 	name.clear();
 }
 

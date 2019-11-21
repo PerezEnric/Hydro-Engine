@@ -6,8 +6,11 @@
 #include "GameObject.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
-#include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include "QuadTree.h"
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Math/float3.h"
+
 #include <fstream>
 #include <istream>
 #include <string>
@@ -47,7 +50,9 @@ bool ModuleSceneIntro::Start()
 	App->window->SetTitle(name.c_str());
 
 	
-	//quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)));
+	quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+
+
 	return ret;
 }
 
@@ -88,6 +93,10 @@ bool ModuleSceneIntro::CleanUp()
 	}
 	root.clear();
 
+	if (quadtree)
+		quadtree->CleanUp();
+
+
 	c_mesh = nullptr;
 
 	return true;
@@ -106,6 +115,36 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 		for (uint i = 0; i < root.size(); i++)
 			root[i]->Update();
 	}
+
+	if (last_time_go != root.size())
+	{
+		re_quadtree = true;
+	}
+
+	quadtree->Draw();
+
+	if (re_quadtree)
+	{
+		quadtree->CleanUp();
+		quadtree->Create(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+		// then we charge all the _statics objects.
+		std::vector<GameObject*> frustum_load;
+		for (uint i = 0; i < root.size(); i++)
+		{
+			root[i]->FrustrumQuad(frustum_load);
+		}
+		for (uint i = 0; i < frustum_load.size(); i++)
+		{
+			if (!frustum_load[i]->_static)
+			{
+				frustum_load.erase(frustum_load.begin() + i);
+				i = -1; // to reset the for.
+			}
+		}
+		quadtree->Fill(frustum_load);
+		re_quadtree = false;
+	}
+	last_time_go = root.size();
 
 	return UPDATE_CONTINUE;
 }
