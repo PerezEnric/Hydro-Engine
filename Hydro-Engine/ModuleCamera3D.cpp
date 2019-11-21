@@ -52,12 +52,9 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		CentreGOView();
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		LOG("IS MOVIING");
-		newPos -= main_cam->frustum.front * speed;
-	}
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.front * speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.front * speed;
+
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.front * speed;
 
 
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.WorldRight() * speed;
@@ -65,6 +62,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
+
+	if (!newPos.Equals(float3::zero)) //if it is zero at starting the scene it crashes
+		main_cam->frustum.Translate(newPos);
 
 	// Mouse motion ----------------
 
