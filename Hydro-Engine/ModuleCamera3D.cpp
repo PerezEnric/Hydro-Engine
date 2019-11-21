@@ -105,9 +105,10 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseZ() < 0)
 	{
-		newPos += main_cam->frustum.front * wheelSpeed;
+		newPos -= main_cam->frustum.front * wheelSpeed;
 		Position += newPos;
 		Reference += newPos;
+		main_cam->frustum.Translate(newPos);
 	}
 
 	if (App->input->GetMouseZ() > 0)
@@ -115,6 +116,7 @@ update_status ModuleCamera3D::Update(float dt)
 		newPos += main_cam->frustum.front * wheelSpeed;
 		Position -= newPos;
 		Reference -= newPos;
+		main_cam->frustum.Translate(newPos);
 	}
 	// Recalculate matrix -------------
 	//CalculateViewMatrix();
