@@ -50,7 +50,7 @@ update_status ModuleCamera3D::Update(float dt)
 		speed = 8.0f * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-		main_cam->FrustrumLook({1, 1, 1});
+		CentreGOView();
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
@@ -185,7 +185,7 @@ void ModuleCamera3D::CentreGOView()
 		Reference.y = new_reference.y;
 		Reference.z = new_reference.z; //we assign all the new values to previous position and reference
 
-		//App->camera->LookAt(Reference); //Finally look at the reference with all the new values
+		main_cam->FrustrumLook(Reference); //Finally look at the reference with all the new values
 	}
 }
 
