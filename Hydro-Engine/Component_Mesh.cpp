@@ -46,7 +46,7 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	if(GO->cam->DoCulling(GO))
+	if(inside_frustum)
 		Draw();
 
 	if (show_vertex_normals  && GO->p_type == P_NONE)
@@ -58,6 +58,7 @@ bool Component_Mesh::Update()
 	if(show_bbox)
 		DrawBBox();
 	
+	inside_frustum = false;
 	return true;
 }
 

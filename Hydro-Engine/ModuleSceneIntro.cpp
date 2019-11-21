@@ -111,10 +111,7 @@ update_status ModuleSceneIntro::Update(float dt)
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
 			
-	if (!root.empty()) {
-		for (uint i = 0; i < root.size(); i++)
-			root[i]->Update();
-	}
+	
 
 	if (last_time_go != root.size())
 	{
@@ -145,6 +142,17 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 		re_quadtree = false;
 	}
 	last_time_go = root.size();
+
+
+	FrustrumQuad();
+
+
+	if (!root.empty()) {
+		for (uint i = 0; i < root.size(); i++)
+			root[i]->Update();
+	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -297,9 +305,16 @@ void ModuleSceneIntro::FrustrumQuad()
 {
 	std::vector<GameObject*> helper;
 
-	//quadtree->Intersect(helper, )// Me falta poner la primitiva aqui gtodo.
+	quadtree->Intersect(helper, App->camera->main_cam->frustum);// Me falta poner la primitiva aqui gtodo.
 
-
+	for (uint i = 0; i < helper.size(); i++)
+	{
+		if (helper[i]->b_mesh)
+		{
+			if (helper[i]->cam->DoCulling(helper[i]))
+				helper[i]->my_mesh->inside_frustum = true;
+		}
+	}
 
 
 
