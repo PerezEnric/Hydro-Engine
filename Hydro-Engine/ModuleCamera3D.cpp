@@ -26,7 +26,7 @@ bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
 	bool ret = true;
-	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA);
+	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA, true);
 	main_cam->FrustrumLook(float3::zero);
 
 	return ret;

@@ -5,7 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ImGui/imgui.h"
 
-Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
+Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type, bool _empty)
 {
 	comp_type_str = "camera";
 	frustum.type = FrustumType::PerspectiveFrustum;
@@ -23,13 +23,17 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 
 
 	//gameObject->cam = this;
+	if (!_empty)
+	{
+		GO = gameObject;
 
-	GO = gameObject;
-	gameObject->cam = this;
+		gameObject->cam = this;
 
-	this->type = type;
+		this->type = type;
 
-	GO->b_camera = true;
+		GO->b_camera = true;
+	}
+	
 }
 
 Component_Camera::Component_Camera()
@@ -216,6 +220,7 @@ bool Component_Camera::DoCulling(GameObject* go)
 
 	else
 		return false;
+}
 
 nlohmann::json Component_Camera::SaveComponent()
 {

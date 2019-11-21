@@ -1,0 +1,142 @@
+{
+  "3406281715": {
+    "Components": {
+      "camera": {
+        "Frustrum front": [ 0.0, 0.0, 1.0 ],
+        "Frustrum horizontal fov": -2.3592076301574707,
+        "Frustrum pos": [ -1.899999976158142, 0.0, -10.0 ],
+        "Frustrum up": [ 0.0, 1.0, 0.0 ],
+        "Frustrum vertical fov": 5156.6201171875,
+        "My parent UUID": "-888685581",
+        "angle fov": 90.0,
+        "frustrum far plane distance": 100.0,
+        "frustrum near plane distance": 0.10000000149011612,
+        "future_rotation": [ -1.2000020742416382, 25.399999618530273, -1.7721278311455535e-07 ],
+        "l_rotation": [ -0.01021560374647379, 0.21983414888381958, -0.002302187029272318, 0.9754810929298401 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      },
+      "mesh": {
+        "Mesh file": "/Library/Meshes/Baker_house.kr",
+        "My parent UUID": "-888685581",
+        "has normals": true,
+        "has tex coords": true,
+        "show BBox": true,
+        "show face normals": false,
+        "show vertex normals": false
+      },
+      "texture": {
+        "My parent UUID": "-888685581",
+        "Own Texture name": "/Library/Textures/Baker_house.dds"
+      },
+      "transform": {
+        "My parent UUID": "-888685581",
+        "future_rotation": [ 1.000010371208191, 26.399995803833008, 1.0000101327896118 ],
+        "l_position": [ -3.299999952316284, 0.0, 0.0 ],
+        "l_rotation": [ 0.010488391853868961, 0.22825931012630463, 0.010488389991223812, 0.973487377166748 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      }
+    },
+    "I have texture": true,
+    "My parent uuid": 355248013,
+    "My uuid": 3406281715,
+    "P_type": "p_none",
+    "Path": "Assets/BakerHouse.fbx",
+    "Texture path": "Baker_house.png",
+    "actual mesh": 1,
+    "b_camera": true,
+    "b_mesh": true,
+    "b_transform": true,
+    "mesh array": 0,
+    "name": "Baker_house",
+    "static": true
+  },
+  "355248013": {
+    "Components": {
+      "camera": {
+        "Frustrum front": [ 0.0, 0.0, 1.0 ],
+        "Frustrum horizontal fov": -2.3592076301574707,
+        "Frustrum pos": [ 0.0, 0.0, -10.0 ],
+        "Frustrum up": [ 0.0, 1.0, 0.0 ],
+        "Frustrum vertical fov": 5156.6201171875,
+        "My parent UUID": "355248013",
+        "angle fov": 90.0,
+        "frustrum far plane distance": 100.0,
+        "frustrum near plane distance": 0.10000000149011612,
+        "future_rotation": [ 0.0, 0.0, 0.0 ],
+        "l_rotation": [ 0.0, 0.0, 0.0, 0.0 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      },
+      "transform": {
+        "My parent UUID": "355248013",
+        "future_rotation": [ -0.0, 0.0, -0.0 ],
+        "l_position": [ 0.0, 0.0, 0.0 ],
+        "l_rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      }
+    },
+    "I have texture": false,
+    "My parent uuid": 0,
+    "My uuid": 355248013,
+    "P_type": "p_none",
+    "Path": "Assets/BakerHouse.fbx",
+    "Texture path": "",
+    "actual mesh": 0,
+    "b_camera": true,
+    "b_mesh": false,
+    "b_transform": true,
+    "mesh array": 0,
+    "name": "RootNode",
+    "static": true
+  },
+  "41705475": {
+    "Components": {
+      "camera": {
+        "Frustrum front": [ 0.0, 0.0, 1.0 ],
+        "Frustrum horizontal fov": -2.3592076301574707,
+        "Frustrum pos": [ 0.0, 0.0, -10.0 ],
+        "Frustrum up": [ 0.0, 1.0, 0.0 ],
+        "Frustrum vertical fov": 5156.6201171875,
+        "My parent UUID": "41705475",
+        "angle fov": 90.0,
+        "frustrum far plane distance": 100.0,
+        "frustrum near plane distance": 0.10000000149011612,
+        "future_rotation": [ 0.0, 0.0, 0.0 ],
+        "l_rotation": [ 0.0, 0.0, 0.0, 0.0 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      },
+      "mesh": {
+        "Mesh file": "/Library/Meshes/Chimney.kr",
+        "My parent UUID": "41705475",
+        "has normals": true,
+        "has tex coords": true,
+        "show BBox": false,
+        "show face normals": false,
+        "show vertex normals": false
+      },
+      "texture": {
+        "My parent UUID": "41705475",
+        "Own Texture name": "/Library/Textures/Baker_house.dds"
+      },
+      "transform": {
+        "My parent UUID": "41705475",
+        "future_rotation": [ -90.00000762939453, 0.0, 0.0 ],
+        "l_position": [ 0.0, 0.0, 0.0 ],
+        "l_rotation": [ -0.7071068286895752, 0.0, 0.0, 0.7071067094802856 ],
+        "l_scale": [ 1.0, 1.0, 1.0 ]
+      }
+    },
+    "I have texture": true,
+    "My parent uuid": 355248013,
+    "My uuid": 41705475,
+    "P_type": "p_none",
+    "Path": "Assets/BakerHouse.fbx",
+    "Texture path": "Baker_house.png",
+    "actual mesh": 0,
+    "b_camera": true,
+    "b_mesh": true,
+    "b_transform": true,
+    "mesh array": 0,
+    "name": "Chimney",
+    "static": true
+  }
+}

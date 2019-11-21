@@ -17,7 +17,7 @@ enum Intersection_Type
 class Component_Camera : public Component
 {
 public:
-	Component_Camera(GameObject* gameObject, COMPONENT_TYPE type);
+	Component_Camera(GameObject* gameObject, COMPONENT_TYPE type, bool _empty);
 	Component_Camera();
 	~Component_Camera();
 

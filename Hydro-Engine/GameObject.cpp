@@ -98,7 +98,7 @@ Component * GameObject::CreateComponent(COMPONENT_TYPE type, bool _empty)
 		my_comp = new Component_Transform(this, type, _empty);
 		break;
 	case CAMERA:
-		my_comp = new Component_Camera(this, type);
+		my_comp = new Component_Camera(this, type, _empty);
 		break;
 	}
 	if (my_comp != nullptr)
@@ -225,7 +225,7 @@ void GameObject::SaveGameObject(nlohmann::json & to_save)
 	nlohmann::json this_GO;
 
 
-	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
+
 	this_GO["name"] = name.c_str();
 	this_GO["static"] = _static;
 	this_GO["mesh array"] = mesh_array;
@@ -409,7 +409,6 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	
 	CreateOBB();
 	
-	// he de poner la uuid del padre y tambien la propia otra vez. ghoy
 
 
 	///Esto funciona 
