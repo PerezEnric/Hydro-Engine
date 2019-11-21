@@ -1,5 +1,8 @@
+#include "Application.h"
+#include "ModuleSceneIntro.h"
 #include "Component_Camera.h"
 #include "GameObject.h"
+#include "ModuleCamera3D.h"
 #include "ImGui/imgui.h"
 
 Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
@@ -7,7 +10,7 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	comp_type_str = "camera";
 	frustum.type = FrustumType::PerspectiveFrustum;
 
-	frustum.pos = float3::zero;
+	frustum.pos = float3(0.0f, 0.0f, -10.0f);
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 
@@ -18,8 +21,12 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type)
 	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
+
+	//gameObject->cam = this;
+
 	GO = gameObject;
 	gameObject->cam = this;
+
 	this->type = type;
 
 	GO->b_camera = true;
@@ -164,6 +171,52 @@ void Component_Camera::SetFrustumRotation(float3 rot)
 	SetFrustumTransform();
 }
 
+
+int Component_Camera::ContainsAABBox(const AABB& refbox) const
+{
+	float3 vCorner[8];
+	refbox.GetCornerPoints(vCorner);
+	Plane m_plane[6];
+	
+	App->camera->main_cam->frustum.GetPlanes(m_plane);
+
+	for (uint planes = 0; planes < 6; ++planes) {
+		int corners_count = 8;
+
+		for (uint corners = 0; corners < 8; ++corners)
+		{
+			if (m_plane[planes].IsOnPositiveSide(vCorner[corners]))
+				--corners_count;
+		}
+
+		if (corners_count == 6)
+			return OUTSIDE;
+	}
+
+	return INSIDE;
+}
+
+// Based on GetViewMatrix of ModuleCamera3D
+float* Component_Camera::GetViewMatrix() const
+{
+	float4x4 view_matrix = frustum.ViewMatrix();
+	return (float*)view_matrix.Transposed().v;
+}
+
+float4x4 Component_Camera::GetProjectionMatrix() const
+{
+	float4x4 projection_matrix = frustum.ProjectionMatrix();
+	return projection_matrix.Transposed();
+}
+
+bool Component_Camera::DoCulling(GameObject* go)
+{
+	if (ContainsAABBox(go->my_mesh->obb_box))
+		return true;
+
+	else
+		return false;
+
 nlohmann::json Component_Camera::SaveComponent()
 {
 	nlohmann::json ret;
@@ -302,6 +355,7 @@ void Component_Camera::LoadComponent(nlohmann::json & to_load)
 	frustum.up.x = frs_up[0];
 	frustum.up.y = frs_up[1];
 	frustum.up.z = frs_up[2];
+
 
 
 

@@ -8,6 +8,12 @@
 class GameObject;
 class Component_Transform;
 
+enum Intersection_Type
+{
+	OUTSIDE,
+	INSIDE
+};
+
 class Component_Camera : public Component
 {
 public:
@@ -25,10 +31,17 @@ public:
 	void SetFrustumPosition(float3 position);
 	void SetFrustumTransform();
 	void SetFrustumRotation(float3 rot);
+	int ContainsAABBox(const AABB& refbox) const;
+	float* GetViewMatrix() const;
+	float4x4 GetProjectionMatrix() const;
+
+
+	bool DoCulling(GameObject* go);
 
 	//Save and Load
 	nlohmann::json SaveComponent();
 	void LoadComponent(nlohmann::json & to_load);
+
 
 public:
 	Frustum		frustum;

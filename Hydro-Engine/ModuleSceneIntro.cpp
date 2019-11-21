@@ -95,13 +95,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-		
-	//if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	//{
-	//	OBB b = selected->my_meshCreateOBB();
-	//}
-
-	
 	return UPDATE_CONTINUE;
 }
 
