@@ -3,6 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "Component_Mesh.h"
 #include "GameObject.h"
+#include "MathGeoLib/include/Math/Quat.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -68,40 +69,38 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 
-	/*if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
+		float3 rot = main_cam->frustum.pos;
+		float Sensitivity = 0.25f * dt;
 
-		float Sensitivity = 0.25f;
+		//Position -= Reference;
 
-		Position -= Reference;
-
-		if(dx != 0)
+		if (dx)
 		{
-			float DeltaX = (float)dx * Sensitivity;
+			Quat rot_quat = Quat::RotateY(dx * Sensitivity);
 
-			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			main_cam->frustum.front = rot_quat.Mul(main_cam->frustum.front).Normalized();
+			main_cam->frustum.up = rot_quat.Mul(main_cam->frustum.up).Normalized();
 		}
 
-		if(dy != 0)
+		if (dy)
 		{
-			float DeltaY = (float)dy * Sensitivity;
+			Quat rot_quat = Quat::RotateAxisAngle(main_cam->frustum.WorldRight(), dy * Sensitivity);
 
-			Y = rotate(Y, DeltaY, X);
-			Z = rotate(Z, DeltaY, X);
+			float3 this_up = rot_quat.Mul(main_cam->frustum.up).Normalized();
 
-			if(Y.y < 0.0f)
+			if (this_up.y > 0.0f)
 			{
-				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = cross(Z, X);
+				main_cam->frustum.up = this_up;
+				main_cam->frustum.front = rot_quat.Mul(main_cam->frustum.front).Normalized();
 			}
+
 		}
 
-		Position = Reference + Z * length(Position);
-	}*/
+	}
 
 	if (App->input->GetMouseZ() < 0)
 	{
