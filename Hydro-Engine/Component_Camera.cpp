@@ -224,7 +224,7 @@ int Component_Camera::ContainsAABBox(const AABB& refbox) const
 		if (truly_inside == 6)
 		{
 			w_are_ins = 1;
-			LOG("IS IN");
+			//LOG("IS IN");
 			break;
 		}
 		truly_inside = 0;

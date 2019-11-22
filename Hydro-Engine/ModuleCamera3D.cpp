@@ -74,7 +74,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 
-	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -127,8 +127,14 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//Mouse picking
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT))
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
 		CastRay();
+	}
+
+	if (draw_ray)
+		DrawRay();
+
 
 	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
@@ -230,27 +236,26 @@ void ModuleCamera3D::CentreGOView()
 
 void ModuleCamera3D::CastRay()
 {
-	//float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
-	//float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
+	float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
+	float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
 
-	//LineSegment picking = main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y);
-
-	//GameObject* go = nullptr;
-	//go->RayTestAABB(picking);
-
-	float width = (float)App->window->width;
-	float height = (float)App->window->height;
-
-	int mouse_x, mouse_y;
-	mouse_x = App->input->GetMouseX();
-	mouse_y = App->input->GetMouseY();
-
-	float normalized_x = -(1.0f - (float(mouse_x) * 2.0f) / width);
-	float normalized_y = 1.0f - (float(mouse_y) * 2.0f) / height;
-
-	LineSegment picking = main_cam->frustum.UnProjectLineSegment(normalized_x, normalized_y);
+	picking = LineSegment(main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y));
 
 	App->scene_intro->RayTestAABB(picking);
+	draw_ray = true;
+}
+
+void ModuleCamera3D::DrawRay()
+{
+	glColor3f(200, 255, 0.0f);
+	glLineWidth(0.2);
+	GLfloat pointA[3] = { picking.a.x, picking.a.y, picking.a.z };
+	GLfloat pointB[3] = { picking.b.x, picking.b.y, picking.b.z };
+
+	glBegin(GL_LINES);
+	glVertex3fv(pointA);
+	glVertex3fv(pointB);
+	glEnd();
 }
 
 // -----------------------------------------------------------------
