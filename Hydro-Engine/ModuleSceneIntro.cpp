@@ -364,15 +364,17 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 {
 	std::vector<GameObject*> intersected_go;
 	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
+		(*it)->FrustrumQuad(intersected_go);
+
+
+	std::vector<GameObject*> intersected_go2;
+	for (std::vector<GameObject*>::iterator it1 = intersected_go.begin(); it1 != intersected_go.end(); it1++)
 	{
-		for (uint i = 0; i < (*it)->childrens.size(); i++)
+		if (ray.Intersects((*it1)->CreateOBB()))
 		{
-			if (ray.Intersects((*it)->childrens[i]->CreateOBB()))
-			{
-				LOG("COLLISIOOON");
-				intersected_go.push_back(*it);
-				RayTestTriangles(ray, intersected_go);
-			}
+			LOG("COLLISIOOON");
+			intersected_go2.push_back(*it1);
+			RayTestTriangles(ray, intersected_go);
 		}
 	}
 
@@ -381,19 +383,30 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 
 bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected)
 {
-	Component_Mesh* this_mesh = nullptr;
 
 	for (std::vector<GameObject*>::iterator it = intersected.begin(); it != intersected.end(); it++)
 	{
-		//this_mesh->GetThis();
-		//(*it)->my_mesh->GetThis();
 		LOG("THIS IS ROLLING");
-		std::list<Component_Mesh*> meshes_list;
-		(*it)->my_mesh->FillMeshList(meshes_list);
 
-		for (std::list<Component_Mesh*>::iterator it2 = meshes_list.begin(); it2 != meshes_list.end(); it2++)
+		if ((*it)->b_mesh)
 		{
-			LOG("HELLO");
+			for (uint i = 0; i < (*it)->my_mesh->num_index; i += 3)
+			{
+				LineSegment local_ray = last_ray;
+				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted());
+
+				float3 v1((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
+				float3 v2((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
+				float3 v3((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
+
+				Triangle tri(v1, v2, v3);
+
+				if (local_ray.Intersects(tri, nullptr, nullptr))
+				{
+					LOG("TRINGLE INTERSECTED");
+				}
+			}
+
 		}
 	}
 	return false;

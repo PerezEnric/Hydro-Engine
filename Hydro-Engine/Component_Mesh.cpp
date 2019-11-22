@@ -186,14 +186,6 @@ void Component_Mesh::Load_P_Shape()
 	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
 }
 
-void Component_Mesh::FillMeshList(std::list<Component_Mesh*> list_meshes)
-{
-	for (std::list<Component_Mesh*>::iterator it = list_meshes.begin(); it != list_meshes.end(); it++)
-	{
-		list_meshes.push_back(*it);
-	}
-}
-
 void Component_Mesh::CleanUp()
 {
 	glDeleteBuffers(1, &(id_index));

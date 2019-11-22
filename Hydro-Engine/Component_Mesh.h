@@ -22,7 +22,6 @@ public:
 	void DrawVertexNormals();
 	void DrawFaceNormals();
 	void Load_P_Shape();
-	void FillMeshList(std::list<Component_Mesh*> list_meshes);
 
 	void CleanUp();
 
