@@ -395,11 +395,14 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 				LineSegment local_ray = last_ray;
 				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted());
 
-				float3 v1((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
-				float3 v2((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
-				float3 v3((*it)->my_mesh->vertex[i], (*it)->my_mesh->vertex[i + 1], (*it)->my_mesh->vertex[i + 2]);
+				uint c_i = (*it)->my_mesh->index[i] * 3;
+				float3 a((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->index[i + 1] * 3; 
+				float3 b((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->index[i + 2] * 3;
+				float3 c((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
 
-				Triangle tri(v1, v2, v3);
+				Triangle tri(a, b, c);
 
 				if (local_ray.Intersects(tri, nullptr, nullptr))
 				{
