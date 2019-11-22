@@ -2,6 +2,7 @@
 #include "ModuleImporter.h"
 #include "Globals.h"
 #include "ModuleInput.h"
+#include "ModuleResourceManager.h"
 
 #include "DevIL/include/IL/il.h"
 #include "DevIL/include/IL/ilu.h"
@@ -130,9 +131,15 @@ void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
 	}
 }
 
-bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component_Mesh* Ret)
+std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, GameObject* object)
 {
-	
+	Component_Mesh* Ret = new Component_Mesh();
+
+
+	if (Ret == nullptr)
+	{
+		Ret = new Component_Mesh();
+	}
 	
 	Assimp::Importer Importer;
 
@@ -215,11 +222,11 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 			aiString path;
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
 
-			Ret->GO->texture_path = path.C_Str();
+			object->texture_path = path.C_Str();
 
-			Ret->GO->CreateComponent(TEXTURE);
+			object->CreateComponent(TEXTURE);
 
-			LOG("Mesh texture with path: %s", Ret->GO->texture_path.c_str());
+			LOG("Mesh texture with path: %s", object->texture_path.c_str());
 
 		}
 
@@ -229,7 +236,7 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
 	}
 
-	return true;
+	return ImportMeshOwnFile(object->name.c_str(), Ret);
 }
 
 
@@ -395,7 +402,7 @@ std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh 
 	std::string output_file; //gtodo con esto podemos hacer varias cosas.
 
 	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
-	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "guen");
 
 	delete[] data;
 
@@ -432,6 +439,10 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 
 
 	//mesh data ---------------------
+	if (Mesh == nullptr)
+	{
+		Mesh = new Component_Mesh();
+	}
 
 	uint* index = nullptr;
 	float* vertex = nullptr;
@@ -519,16 +530,6 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 			glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
 		}
-
-
-
-		
-
-		
-
-		
-
-		
 	}
 	else
 	{

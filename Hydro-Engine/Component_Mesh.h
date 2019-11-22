@@ -8,7 +8,8 @@
 #include "MathGeoLib/include/Geometry/AABB.h"
 
 
-
+class Resource;
+class ResourceMesh;
 
 class Component_Mesh : public Component
 {
@@ -34,6 +35,8 @@ public:
 	void RecalcBoundingBox();
 	AABB mesh_bbox;
 	AABB obb_box;
+
+	void CleanResUp();
 
 	// Save and load
 	nlohmann::json SaveComponent();
@@ -75,6 +78,11 @@ public:
 	bool Has_normals = false;
 
 	bool show_bbox = false;
+
+	uint UUID_resource;
+	ResourceMesh* my_reference;
+
+	
 
 private:
 	

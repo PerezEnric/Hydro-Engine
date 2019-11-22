@@ -2,6 +2,8 @@
 
 Resource::Resource(uint uuid, RESOURCE_TYPE type)
 {
+	my_uuid = uuid;
+	my_type = type;
 }
 
 Resource::~Resource()
@@ -10,35 +12,20 @@ Resource::~Resource()
 
 RESOURCE_TYPE Resource::GetType()
 {
-	return RESOURCE_TYPE();
+	return my_type;
 }
 
 uint Resource::GetUUID()
 {
-	return uint();
-}
-
-std::string Resource::GetOriginalPath()
-{
-	return std::string();
-}
-
-std::string Resource::GetOwnPath()
-{
-	return std::string();
+	return my_uuid;
 }
 
 bool Resource::IsLoadedInMemory()
 {
-	return false;
-}
-
-virtual bool Resource::LoadToMemory()
-{
-	return false;
+	return loaded;
 }
 
 uint Resource::CountReferences()
 {
-	return uint();
+	return loaded;
 }

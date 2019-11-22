@@ -26,32 +26,25 @@ public:
 	//The same but with the uuid.
 	uint GetUUID();
 
-
-	std::string GetOriginalPath();
-	std::string GetOwnPath();
-
 	//bools
 
 	bool IsLoadedInMemory();
-	virtual bool LoadToMemory();
+	virtual bool LoadToMemory() { return false; }
+	virtual bool UnLoadFromMemory() { return false; }
 	uint CountReferences();
 
+	virtual void CleanUp() {}
 
-
-
-	
+	std::string path_to_original;
+	std::string path_to_own;
+	std::string original_name;
 
 
 
 protected:
+
 	uint my_uuid = 0;
-
-	std::string path_to_original;
-	std::string path_to_own;
-
 	RESOURCE_TYPE my_type;
 	uint loaded = 0;
-
-
 
 };
