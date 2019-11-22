@@ -114,6 +114,15 @@
     <ClCompile Include="PanelSaveAndLoad.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Tools\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleResourceManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Tools\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -258,6 +267,15 @@
     <ClInclude Include="WindowsItem.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Tools\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleResourceManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Tools\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\About.json">
@@ -303,6 +321,9 @@
     </Filter>
     <Filter Include="Tools\pgc_random">
       <UniqueIdentifier>{410cbf54-64ab-486b-a17e-c0c77af19380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Resources">
+      <UniqueIdentifier>{7618ae13-127a-4846-987f-1a7d0f1c89b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
