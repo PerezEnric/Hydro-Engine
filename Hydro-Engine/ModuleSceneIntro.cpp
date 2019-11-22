@@ -363,6 +363,7 @@ void ModuleSceneIntro::MakeChecker()
 bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 {
 	std::vector<GameObject*> intersected_go;
+
 	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
 		(*it)->FrustrumQuad(intersected_go);
 
@@ -383,7 +384,6 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 
 bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected)
 {
-
 	for (std::vector<GameObject*>::iterator it = intersected.begin(); it != intersected.end(); it++)
 	{
 		LOG("THIS IS ROLLING");
@@ -403,15 +403,14 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 				float3 c((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
 
 				Triangle tri(a, b, c);
-
 				if (local_ray.Intersects(tri, nullptr, nullptr))
 				{
-					LOG("TRINGLE INTERSECTED");
+					selected = (*it);
 				}
 			}
 
 		}
 	}
-	return false;
+	return true;
 }
 
