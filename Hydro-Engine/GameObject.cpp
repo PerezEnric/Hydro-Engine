@@ -433,8 +433,6 @@ void GameObject::FrustrumQuad(std::vector<GameObject*>& frust)
 		childrens[i]->FrustrumQuad(frust);
 }
 
-
-
 AABB GameObject::CreateAABB()
 {
 	AABB bbox;

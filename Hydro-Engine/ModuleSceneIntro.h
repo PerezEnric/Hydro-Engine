@@ -54,7 +54,7 @@ public:
 	// Game Objects.
 	std::vector<GameObject*> root;
 	GameObject* selected = nullptr;
-	
+	GameObject* aux = nullptr;
 
 	bool show_demo_window = false;
 

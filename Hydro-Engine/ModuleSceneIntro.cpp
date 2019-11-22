@@ -362,20 +362,17 @@ void ModuleSceneIntro::MakeChecker()
 
 bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 {
-	std::vector<GameObject*> it;
-
-	for (uint i = 0; i < root.size(); i++)
+	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
 	{
-		root[i]->FrustrumQuad(it);
-	}
-
-	for (uint j = 0; j < root.size(); j++)
-	{
-		if (ray.Intersects(it[j]->CreateAABB()))
-			LOG("HITTED!!");
+		for (uint i = 0; i < (*it)->childrens.size(); i++)
+		{
+			if (ray.Intersects((*it)->childrens[i]->CreateOBB()))
+			{
+				LOG("COLLISIOOON");
+			}
+		}
 	}
 	
-
 	return true;
 }
 
