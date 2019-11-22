@@ -23,7 +23,8 @@ uint ResourceManager::GenerateNewUID()
 
 uint ResourceManager::Find(const char * original_name)
 {
-		return uint();
+	
+	return uint();
 }
 
 uint ResourceManager::ImportFile(const char * path, RESOURCE_TYPE type, GameObject* GO)

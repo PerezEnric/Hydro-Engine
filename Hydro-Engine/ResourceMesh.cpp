@@ -16,19 +16,35 @@ ResourceMesh::~ResourceMesh()
 bool ResourceMesh::LoadToMemory()
 {
 	bool ret = false;
-	my_mesh = new Component_Mesh();
-	App->importer->ExportMeshOwnFile(path_to_own.c_str(), my_mesh);
-	if (my_mesh != nullptr)
+	if (loaded == 0)
 	{
-		LOG("Error parsing the mesh");
+		my_mesh = new Component_Mesh();
+		App->importer->ExportMeshOwnFile(path_to_own.c_str(), my_mesh);
+		if (my_mesh != nullptr)
+		{
+			LOG("Error parsing the mesh");
+		}
+		else
+		{
+			ret = true;
+			// Tengo que mirar como hacer lo de loaded ghoy.
+			loaded += 1;
+		}
 	}
 	else
 	{
-		ret = true;
-		// Tengo que mirar como hacer lo de loaded ghoy.
+		loaded += 1;
 	}
 		
 	return ret;
+}
+
+void ResourceMesh::NotReference()
+{
+	if (loaded > 0)
+		loaded -= 1;
+	if (loaded == 0)
+		UnLoadFromMemory();
 }
 
 bool ResourceMesh::UnLoadFromMemory()

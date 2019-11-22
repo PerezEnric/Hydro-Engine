@@ -18,7 +18,7 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 	comp_type_str = "mesh";
 	if (!_empty)
 	{
-		uint uuid = App->res_man->Find(GO->path.c_str());
+		uint uuid = App->res_man->Find(GO->path.c_str()); // Aqui tendria que pasar el nombre, no la path. Creo que tendre que crear tambien varios finds, para cada uno de los resources.
 		if (0 == 0)
 		{
 			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
@@ -218,6 +218,9 @@ void Component_Mesh::CleanUp()
 
 	GO->b_mesh = false;
 
+	my_reference->NotReference();
+	my_reference = nullptr;
+
 
 }
 
@@ -230,7 +233,7 @@ Component_Mesh * Component_Mesh::GetThis()
 AABB Component_Mesh::CreateAABB()
 {
 	mesh_bbox.SetNegativeInfinity();
-	mesh_bbox.Enclose((float3*)vertex, num_vertex);
+	mesh_bbox.Enclose((float3*)my_reference->my_mesh->vertex, my_reference->my_mesh->num_vertex);
 
 	return mesh_bbox;
 }
@@ -259,6 +262,7 @@ void Component_Mesh::CleanResUp()
 	glDeleteBuffers(1, &(id_index));
 	glDeleteBuffers(1, &(id_vertex));
 	glDeleteBuffers(1, &(id_uvs));
+
 
 	num_index = 0;
 	num_vertex = 0;
@@ -297,11 +301,11 @@ nlohmann::json Component_Mesh::SaveComponent()
 	ret["show BBox"] = show_bbox;
 
 
-	char* uuid_str = new char[80];
+	//char* uuid_str = new char[80];
 
-	sprintf(uuid_str, "%d", GO->my_uuid);
+	//sprintf(uuid_str, "%d", UUID_resource);
 
-	ret["My parent UUID"] = uuid_str;
+	ret["My Resource UUID"] = UUID_resource;
 
 	return ret;
 }
@@ -324,12 +328,33 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 
 	// then we use our importer function to load all vertex data.
 
-	App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+	UUID_resource = to_load["My Resource UUID"].get<uint>();
+
+	my_reference = App->res_man->GetM(UUID_resource);
+	
+	if (my_reference == nullptr)
+	{
+		uint uuid = App->res_man->Find(GO->path.c_str());
+		if (0 == 0)
+		{
+			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
+		}
+		else
+			UUID_resource = uuid;
+
+		my_reference = App->res_man->GetM(UUID_resource);
+	}
+
+	my_reference->LoadToMemory();
+
+
+	
+
+	//App->importer->ExportMeshOwnFile(own_file.c_str(), this);
 
 	//then we create the ABB and the Obb.
 	/*if (vertex != nullptr)
 		CreateOBB();*/
-
 }
 
 void Component_Mesh::DrawBBox()

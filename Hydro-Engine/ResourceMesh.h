@@ -11,8 +11,11 @@ public:
 	ResourceMesh(uint uuid, RESOURCE_TYPE type);
 	~ResourceMesh();
 	bool LoadToMemory();
+	void NotReference();
 	bool UnLoadFromMemory();
 	void CleanUp();
+
 public:
+
 	Component_Mesh* my_mesh = nullptr;
 };

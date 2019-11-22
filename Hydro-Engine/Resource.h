@@ -8,7 +8,6 @@ enum RESOURCE_TYPE
 {
 	R_MESH,
 	R_TEXTURE,
-	R_SCENE,
 
 	R_ERROR
 };
