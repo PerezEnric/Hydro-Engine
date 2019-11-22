@@ -362,6 +362,7 @@ void ModuleSceneIntro::MakeChecker()
 
 bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 {
+	std::vector<GameObject*> intersected_go;
 	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
 	{
 		for (uint i = 0; i < (*it)->childrens.size(); i++)
@@ -369,6 +370,8 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 			if (ray.Intersects((*it)->childrens[i]->CreateOBB()))
 			{
 				LOG("COLLISIOOON");
+				intersected_go.push_back(*it);
+				RayTestTriangles(ray, intersected_go);
 			}
 		}
 	}
@@ -376,24 +379,21 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 	return true;
 }
 
-bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray)
+bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected)
 {
 	Component_Mesh* this_mesh = nullptr;
 
-	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
+	for (std::vector<GameObject*>::iterator it = intersected.begin(); it != intersected.end(); it++)
 	{
-		this_mesh->num_index = (*it)->my_mesh->num_index;
-		this_mesh->num_vertex = (*it)->my_mesh->num_vertex;
-		this_mesh->vertex = (*it)->my_mesh->vertex;
-		
-		for (uint i = 0; i < this_mesh->num_index; i += 3)
-		{
-			LineSegment local_ray = last_ray;
-			local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted());
+		//this_mesh->GetThis();
+		//(*it)->my_mesh->GetThis();
+		LOG("THIS IS ROLLING");
+		std::list<Component_Mesh*> meshes_list;
+		(*it)->my_mesh->FillMeshList(meshes_list);
 
-			float3 v1(this_mesh->vertex[i], this_mesh->vertex[i+1], this_mesh->vertex[i+2]);
-			float3 v2(this_mesh->vertex[i], this_mesh->vertex[i + 1], this_mesh->vertex[i + 2]);
-			float3 v3(this_mesh->vertex[i], this_mesh->vertex[i + 1], this_mesh->vertex[i + 2]);
+		for (std::list<Component_Mesh*>::iterator it2 = meshes_list.begin(); it2 != meshes_list.end(); it2++)
+		{
+			LOG("HELLO");
 		}
 	}
 	return false;
