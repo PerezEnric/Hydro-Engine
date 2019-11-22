@@ -49,6 +49,7 @@ public:
 	void SaveScene(std::string path); 
 
 	bool RayTestAABB(LineSegment ray);
+	bool RayTestTriangles(LineSegment last_ray);
 
 public:
 	// Game Objects.
