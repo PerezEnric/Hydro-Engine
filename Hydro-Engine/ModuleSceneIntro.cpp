@@ -7,6 +7,7 @@
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
 #include "QuadTree.h"
+#include "ResourceMesh.h"
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Math/float3.h"
@@ -381,17 +382,17 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 	{
 		if ((*it)->b_mesh)
 		{
-			for (uint i = 0; i < (*it)->my_mesh->num_index; i += 3)
+			for (uint i = 0; i < (*it)->my_mesh->my_reference->my_mesh->num_index; i += 3)
 			{
 				LineSegment local_ray = last_ray;
 				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted()); //We make the transform of the ray to be local for the triangles
 
-				uint c_i = (*it)->my_mesh->index[i] * 3;
-				float3 a((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
-				c_i = (*it)->my_mesh->index[i + 1] * 3; 
-				float3 b((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
-				c_i = (*it)->my_mesh->index[i + 2] * 3;
-				float3 c((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				uint c_i = (*it)->my_mesh->my_reference->my_mesh->index[i] * 3;
+				float3 a((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 1] * 3; 
+				float3 b((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 2] * 3;
+				float3 c((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
 				Triangle tri(a, b, c); //We build the triangles
 				LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
 				float hit_distance = 0.0f; //As it says, the distance of the hit
