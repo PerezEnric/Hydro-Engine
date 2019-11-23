@@ -70,7 +70,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 			if (selected->transform->bbox_changed)
 			{
-				selected->my_mesh->RecalcBoundingBox();
+				/*selected->my_mesh->RecalcBoundingBox();*/
 				selected->transform->bbox_changed = false;
 			}
 		}
@@ -287,6 +287,16 @@ void ModuleSceneIntro::LoadScene(std::string path)
 			i = -1;
 		}	
 	}
+
+
+
+	for (int i = 0; i < root.size(); i++)
+	{
+		root[i]->transform->NewTransform();
+	}
+
+	
+	
 
 	//and we did a new load of scene :D I wanna dieeeeee
 

@@ -473,6 +473,15 @@ void ModuleFileSystem::CutPath(std::string & path_name_extension)
 	}
 }
 
+void ModuleFileSystem::NormalizeString(std::string & path_name_extension)
+{
+	for (string::iterator it = path_name_extension.begin(); it != path_name_extension.end(); ++it)
+	{
+		if (*it == '\\')
+			* it = '/';
+	}
+}
+
 // -----------------------------------------------------
 // ASSIMP IO
 // -----------------------------------------------------

@@ -74,7 +74,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 
-	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -236,13 +236,13 @@ void ModuleCamera3D::CentreGOView()
 
 void ModuleCamera3D::CastRay()
 {
-	float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
-	float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
+	//float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
+	//float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
 
-	picking = LineSegment(main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y));
+	//picking = LineSegment(main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y));
 
-	App->scene_intro->RayTestAABB(picking);
-	draw_ray = true;
+	//App->scene_intro->RayTestAABB(picking);
+	//draw_ray = true;
 }
 
 void ModuleCamera3D::DrawRay()
