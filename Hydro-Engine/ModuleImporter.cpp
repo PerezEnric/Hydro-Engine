@@ -224,6 +224,9 @@ std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, Ga
 
 			object->texture_path = path.C_Str();
 
+			if (object->path != "" && object->texture_path.size() <= 25)
+				object->texture_path = SearchTheDoc(object->texture_path, object);
+
 			object->CreateComponent(TEXTURE);
 
 			LOG("Mesh texture with path: %s", object->texture_path.c_str());
@@ -251,22 +254,16 @@ std::string ModuleImporter::LoadTexture(const std::string & Filename, Component_
 	std::string R_Filename;
 
 
-	if (tex->GO->path != "" && Filename.size() <= 25)
-		R_Filename = SearchTheDoc(Filename, tex);
-	else
-	{
-		R_Filename = CutTheDoc(Filename, tex);
-	}
-		
+	
 	
 
-	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
+	LOG("Loading texture with the actual filename %s", Filename.c_str());
 	ILuint text_nm = 0;
 
 	ilGenImages(1, &text_nm);
 	ilBindImage(text_nm);
 
-	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
+	if (ilLoadImage(Filename.c_str()) == IL_FALSE)
 	{
 		ILenum er = ilGetError();
 		tex->GO->texture = false;
@@ -293,7 +290,7 @@ std::string ModuleImporter::LoadTexture(const std::string & Filename, Component_
 
 	}
 
-	tex->GO->texture_path = R_Filename;
+	//tex->GO->texture_path = R_Filename;
 
 	ilDeleteImages(1, &text_nm);
 	return helper->own_format;
@@ -341,11 +338,11 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 }
 
 
-std::string ModuleImporter::SearchTheDoc(const std::string & Filename, Component_Texture* tex)
+std::string ModuleImporter::SearchTheDoc(const std::string & Filename, GameObject* tex)
 {
 	std::string doc;
-	std::size_t found = tex->GO->path.find_last_of("/\\");
-	doc = tex->GO->path.substr(0,found+1) + Filename;
+	std::size_t found = tex->path.find_last_of("/\\");
+	doc = tex->path.substr(0,found+1) + Filename;
 	LOG("%s", doc.c_str());
 	return doc;
 }

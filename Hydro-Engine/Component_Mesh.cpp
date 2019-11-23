@@ -18,7 +18,7 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 	comp_type_str = "mesh";
 	if (!_empty)
 	{
-		uint uuid = App->res_man->FindM(GO->path.c_str()); // 
+		uint uuid = App->res_man->FindM(GO->name.c_str()); // 
 		if (uuid == 0) // there is nothing like this so it should create a new resource.
 		{
 			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
@@ -338,15 +338,19 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	
 	if (my_reference == nullptr)
 	{
-		uint uuid = App->res_man->FindM(GO->path.c_str());
-		if (0 == 0)
+		uint uuid = App->res_man->FindM(GO->name.c_str()); // 
+		if (uuid == 0) // there is nothing like this so it should create a new resource.
 		{
 			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
 		}
 		else
+		{
 			UUID_resource = uuid;
+			App->importer->LoadFBX(GO->path.c_str(), GO->actual_mesh, GO);
+		}
 
 		my_reference = App->res_man->GetM(UUID_resource);
+		my_reference->LoadToMemory();
 	}
 
 	my_reference->LoadToMemory();
@@ -402,9 +406,11 @@ void Component_Mesh::DrawBBox()
 
 void Component_Mesh::ShowInfo()
 {
-	ImGui::Text("Mesh Vertices: %i", num_vertex);
-	ImGui::Text("Mesh Indices: %i", num_index);
-	ImGui::Text("Mesh Triangles: %i", num_index / 3);
+	ImGui::Text("Current Reference: %u", UUID_resource);
+	ImGui::Text("Reference Counts: %i", my_reference->loaded);
+	ImGui::Text("Mesh Vertices: %i", my_reference->my_mesh->num_vertex);
+	ImGui::Text("Mesh Indices: %i", my_reference->my_mesh->num_index);
+	ImGui::Text("Mesh Triangles: %i", my_reference->my_mesh->num_index / 3);
 
 	if (ImGui::Checkbox("Face Normals", &show_face_normals))
 	{

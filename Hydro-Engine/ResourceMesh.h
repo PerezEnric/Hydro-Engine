@@ -16,7 +16,6 @@ public:
 	void CleanUp();
 
 public:
-
 	Component_Mesh* my_mesh = nullptr;
 	
 };

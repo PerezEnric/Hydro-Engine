@@ -27,13 +27,19 @@ uint ResourceManager::GenerateNewUID()
 uint ResourceManager::FindT(const char * original_name)
 {
 	uint ret = 0;
+	std::string helper = original_name;
+
 
 	for (std::map<uint, ResourceTexture*>::iterator it = res_textures.begin(); it != res_textures.end(); it++)
 	{
-		if (it->second->original_name.c_str() == original_name)
+		if (it->second != nullptr)  	// SomeTimes when we are loading a new archive is generated and it corrupts the code with this we can jump this error
 		{
-			ret = it->first;
+			if (it->second->path_to_original == original_name)
+			{
+				ret = it->first;
+			}
 		}
+		
 	}
 
 	return ret;
@@ -44,11 +50,9 @@ uint ResourceManager::FindM(const char * original_name)
 	uint ret = 0;
 	std::string helper = original_name;
 
-
-
 	for (std::map<uint, ResourceMesh*>::iterator it = res_meshes.begin(); it != res_meshes.end(); it++)
 	{
-		if (it->second->path_to_original == helper)
+		if (it->second->original_name == helper)
 		{
 			ret = it->first;
 		}

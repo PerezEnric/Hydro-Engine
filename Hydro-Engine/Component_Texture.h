@@ -21,6 +21,8 @@ public:
 	
 	void CleanUp();
 
+	void CleanResUp();
+
 	uint PointerToText();
 
 	//Save and Load

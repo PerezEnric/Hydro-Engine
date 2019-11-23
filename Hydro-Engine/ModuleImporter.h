@@ -45,7 +45,7 @@ public:
 
 
 
-	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
+	std::string SearchTheDoc(const std::string & Filename, GameObject* tex);
 	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
 
 	std::string ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);

@@ -49,14 +49,14 @@ void ResourceTexture::NotReference()
 
 bool ResourceTexture::UnLoadFromMemory()
 {
-	my_tex->CleanUp();
+	my_tex->CleanResUp();
 	loaded = 0;
 	return true;
 }
 
 void ResourceTexture::CleanUp()
 {
-	my_tex->CleanUp();
+	my_tex->CleanResUp();
 	loaded = 0;
 	my_tex = nullptr;
 }

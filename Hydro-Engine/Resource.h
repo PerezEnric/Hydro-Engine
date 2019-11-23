@@ -38,12 +38,12 @@ public:
 	std::string path_to_own;
 	std::string original_name;
 
-
+	int loaded = 0;
 
 protected:
 
 	uint my_uuid = 0;
 	RESOURCE_TYPE my_type;
-	uint loaded = 0;
+	
 
 };
