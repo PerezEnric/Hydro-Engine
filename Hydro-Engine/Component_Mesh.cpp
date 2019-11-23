@@ -59,8 +59,12 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	/*if(GO->cam->DoCulling(GO))*/
-	Draw();
+
+	if(inside_frustum)
+		Draw();
+
+
+
 
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
@@ -71,6 +75,7 @@ bool Component_Mesh::Update()
 	if(show_bbox)
 		DrawBBox();
 	
+	inside_frustum = false;
 	return true;
 }
 
@@ -327,10 +332,11 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	show_bbox = to_load["show BBox"].get<bool>();
 
 	// Load Strings
-
+	
 	own_file = to_load["Mesh file"].get<std::string>();
 
 	// then we use our importer function to load all vertex data.
+
 
 	UUID_resource = to_load["My Resource UUID"].get<uint>();
 
@@ -359,6 +365,7 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	
 
 	//App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+
 
 	//then we create the ABB and the Obb.
 	/*if (vertex != nullptr)

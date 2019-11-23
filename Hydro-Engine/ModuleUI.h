@@ -10,6 +10,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelSaveAndLoad.h"
+#include "ImGuizmo/ImGuizmo.h"
 #include <string>
 #include <vector>
 #include "Json/json.hpp"
@@ -36,6 +37,7 @@ public:
 	update_status PostUpdate(float dt);
 
 	void CreateMainMenuBar();
+	void DrawGuizmos(GameObject* selected);
 
 	bool CleanUp();
 
@@ -56,6 +58,8 @@ private:
 
 	par_shapes_mesh* _mesh = nullptr;
 	Primitive c;
+	ImGuizmo::OPERATION guizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE guizmo_mode = ImGuizmo::MODE::WORLD;
 };
 
 #endif

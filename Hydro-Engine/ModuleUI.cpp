@@ -6,6 +6,9 @@
 #include "Json/json.hpp"
 #include <fstream>
 #include <string>
+#include "ImGuizmo/ImGuizmo.h"
+#include "GameObject.h"
+#include "ModuleCamera3D.h"
 
 #include "ImGui/imconfig.h"
 #include "ImGui/imgui.h"
@@ -66,7 +69,7 @@ update_status ModuleUI::PreUpdate(float dt)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
-
+	ImGuizmo::BeginFrame();
 	CreateMainMenuBar();
 
 	ImGui::ShowDemoWindow();
@@ -107,6 +110,11 @@ update_status ModuleUI::Update(float dt)
 		if ((*i)->IsActive()) {
 			(*i)->Update();
 		}
+	}
+
+	if (App->scene_intro->selected)
+	{
+		DrawGuizmos(App->scene_intro->selected);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -210,4 +218,58 @@ bool ModuleUI::CleanUp()
 
 	SDL_Quit();
 	return true;
+}
+
+void ModuleUI::DrawGuizmos(GameObject* selected)
+{
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+		guizmo_op = ImGuizmo::TRANSLATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		guizmo_op = ImGuizmo::ROTATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		guizmo_op = ImGuizmo::SCALE;
+	}
+
+	float* view_matrix = App->camera->main_cam->GetViewMatrix();
+	float4x4 projection_matrix = App->camera->main_cam->GetProjectionMatrix();
+
+	float4x4 model = selected->transform->GetGlobalMatrix().Transposed();
+
+	//ImGuizmo::SetDrawlist();
+	ImGuizmo::Manipulate(view_matrix, (float*)& projection_matrix, guizmo_op, guizmo_mode, (float*)& model);
+
+
+	if (ImGuizmo::IsUsing)
+	{
+		model.Transpose();
+		float3 current_pos = selected->transform->GetPosition();
+		Quat current_rot = selected->transform->GetRotation();
+		float3 current_scale = selected->transform->GetScale();
+		model.Decompose(current_pos, current_rot, current_scale);
+
+
+		switch (guizmo_op)
+		{
+		case ImGuizmo::TRANSLATE:
+			selected->transform->SetPosition(current_pos);
+			break;
+
+		case ImGuizmo::ROTATE:
+			selected->transform->SetRotationWithQuat(current_rot);
+			break;
+
+		case ImGuizmo::SCALE:
+			if (current_scale.x > 0.3f && current_scale.y > 0.3f && current_scale.z > 0.3f)
+			{
+				selected->transform->SetScale(current_scale);
+			}
+			break;
+		}
+	}
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+
 }

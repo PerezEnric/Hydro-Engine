@@ -130,6 +130,7 @@ void GameObject::Cleanup()
 			}
 		}
 	}
+	App->scene_intro->re_quadtree = true;
 	name.clear();
 }
 
@@ -425,7 +426,12 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	//LOG("%i objects", helper);
 }
 
-
+void GameObject::FrustrumQuad(std::vector<GameObject*>& frust)
+{
+	frust.push_back(this);
+	for (int i = 0; i < childrens.size(); i++)
+		childrens[i]->FrustrumQuad(frust);
+}
 
 AABB GameObject::CreateAABB()
 {
@@ -454,3 +460,5 @@ OBB GameObject::CreateOBB()
 	}
 	return obbox;
 }
+
+

@@ -21,6 +21,8 @@ public:
 	//void Move(const float3 &Movement);
 	float* GetViewMatrix();
 	void CentreGOView();
+	void CastRay();
+	void DrawRay();
 
 private:
 
@@ -30,7 +32,10 @@ public:
 	
 	float3 X, Y, Z, Position, Reference;
 	Component_Camera* main_cam = nullptr;
+	Component_Camera* Test = nullptr;
+	LineSegment picking;
 
+	bool draw_ray = false;
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;

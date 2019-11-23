@@ -46,6 +46,8 @@ public:
 
 public:
 
+	bool inside_frustum = false; 
+
 	uint id_index = 0; // index in VRAM
 	uint num_index = 0;
 	uint* index = nullptr;

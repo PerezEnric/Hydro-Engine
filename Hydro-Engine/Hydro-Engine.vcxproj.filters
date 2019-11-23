@@ -114,6 +114,19 @@
     <ClCompile Include="PanelSaveAndLoad.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+
+    <ClCompile Include="ImGuizmo\ImCurveEdit.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGradient.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImSequencer.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
+
     <ClCompile Include="Resource.cpp">
       <Filter>Tools\Resources</Filter>
     </ClCompile>
@@ -125,6 +138,7 @@
     </ClCompile>
     <ClCompile Include="ResourceTexture.cpp">
       <Filter>Tools\Resources</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +284,19 @@
     <ClInclude Include="WindowsItem.h">
       <Filter>Tools</Filter>
     </ClInclude>
+
+    <ClInclude Include="ImGuizmo\ImCurveEdit.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGradient.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGuizmo.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImSequencer.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+
     <ClInclude Include="Resource.h">
       <Filter>Tools\Resources</Filter>
     </ClInclude>
@@ -281,6 +308,7 @@
     </ClInclude>
     <ClInclude Include="ResourceTexture.h">
       <Filter>Tools\Resources</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -328,8 +356,13 @@
     <Filter Include="Tools\pgc_random">
       <UniqueIdentifier>{410cbf54-64ab-486b-a17e-c0c77af19380}</UniqueIdentifier>
     </Filter>
+
+    <Filter Include="ImGui\ImGuizmo">
+      <UniqueIdentifier>{f53edff1-8738-45b9-87a9-00481bd33d02}</UniqueIdentifier>
+
     <Filter Include="Tools\Resources">
       <UniqueIdentifier>{7618ae13-127a-4846-987f-1a7d0f1c89b8}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
 </Project>

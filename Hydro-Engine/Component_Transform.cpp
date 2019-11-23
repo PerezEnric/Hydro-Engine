@@ -31,17 +31,17 @@ Component_Transform::Component_Transform()
 
 float3 Component_Transform::GetPosition()
 {
-
+	return l_position;
 }
 
-float3 Component_Transform::GetRotation()
+Quat Component_Transform::GetRotation()
 {
-	
+	return l_rotation;
 }
 
 float3 Component_Transform::GetScale()
 {
-
+	return l_scale;
 }
 
 void Component_Transform::SetPosition(float3 position)
@@ -57,12 +57,18 @@ void Component_Transform::SetPosition(float3 position)
 void Component_Transform::SetRotation(float3 rot)
 {
 	l_rotation = Quat::FromEulerXYZ(rot.x * DEGTORAD, rot.y * DEGTORAD, rot.z * DEGTORAD);
-
-
 	//we calculate The new global matrix after we transform (we will call our childrens matrix)
 	NewTransform();
 	bbox_changed = true;
 
+}
+
+void Component_Transform::SetRotationWithQuat(Quat quat)
+{
+	l_rotation = quat;
+
+	NewTransform();
+	bbox_changed = true;
 }
 
 void Component_Transform::SetScale(float3 sca)
@@ -115,8 +121,8 @@ void Component_Transform::ShowInfo()
 	if (ImGui::DragFloat3("Rotation", &future_rotation[3], 0.1f))
 		SetRotation(future_rotation);
 
-	if (ImGui::DragFloat3("Scale", &l_scale[3], 0.1f))
-		SetRotation(l_scale);
+	if (ImGui::DragFloat3("Scale", &l_scale[3], 0.1f, 0.3f, 5.0f))
+		SetScale(l_scale);
 }
 
 void Component_Transform::LoadTransform(float3 pos, float3 scale, Quat rotation)

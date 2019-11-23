@@ -11,11 +11,12 @@ public:
 	Component_Transform();
 
 	float3 GetPosition();
-	float3 GetRotation();
+	Quat GetRotation();
 	float3 GetScale();
 
 	void SetPosition(float3 pos);
 	void SetRotation(float3 rot);
+	void SetRotationWithQuat(Quat quat);
 	void SetScale(float3 sca);
 
 

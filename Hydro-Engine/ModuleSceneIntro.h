@@ -12,6 +12,7 @@
 #define MAX_SNAKE 8
 class GameObject;
 struct PhysBody3D;
+class QT;
 
 
 class ModuleSceneIntro : public Module
@@ -40,20 +41,21 @@ public:
 
 	void LoadScene(std::string path); 
 
+	void FrustrumQuad();
+
 	//this funct creates an empty gameobject.
 	void CreateEmptyGameObject();
 
 	void SaveScene(std::string path); 
 
-
-
-
+	bool RayTestAABB(LineSegment ray);
+	bool RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected);
 
 public:
 	// Game Objects.
 	std::vector<GameObject*> root;
 	GameObject* selected = nullptr;
-	
+	GameObject* aux = nullptr;
 
 	bool show_demo_window = false;
 
@@ -75,4 +77,11 @@ public:
 
 	bool house_loaded = false;
 	bool second_cycle = false;
+
+
+	//QuadTree
+
+	QT* quadtree = nullptr;
+	int last_time_go = 0;
+	bool re_quadtree = false;
 };

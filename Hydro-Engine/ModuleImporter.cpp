@@ -438,10 +438,13 @@ std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh 
 
 	std::string filename = name;
 
-	std::string output_file; //gtodo con esto podemos hacer varias cosas.
+	std::string output_file; 
+
+
 
 	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
 	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "guen");
+
 
 	delete[] data;
 

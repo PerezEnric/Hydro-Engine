@@ -10,14 +10,24 @@ Component_Camera::Component_Camera(GameObject* gameObject, COMPONENT_TYPE type, 
 	comp_type_str = "camera";
 	frustum.type = FrustumType::PerspectiveFrustum;
 
-	frustum.pos = float3(0.0f, 0.0f, -10.0f);
-	frustum.front = float3::unitZ;
-	frustum.up = float3::unitY;
+	if (_empty)
+	{
+		frustum.pos = float3(0.0f, 0.0f, -20.0f);
+		frustum.front = float3::unitZ;
+		frustum.up = float3::unitY;
+	}
+	else
+	{
+		frustum.pos = float3(0.0f, 0.0f, 0.0f);
+		frustum.front = float3::unitZ;
+		frustum.up = float3::unitY;
+	}
+	
 
 	//Common distance between near and far planes
-	frustum.nearPlaneDistance = 0.1f; 
-	frustum.farPlaneDistance = 100.0f;
-	angle_fov = 90.0f;
+	frustum.nearPlaneDistance = 10.0f; 
+	frustum.farPlaneDistance = 200.0f;
+	angle_fov = 60.0f; // Care we cant put 90 cause some calc generates a error and doesnt work.
 	frustum.verticalFov = angle_fov * RADTODEG; //We have to depen on a certain FOV. Normally is the vertical FoV. We assign 90 degrees because is normally used in PC games (Wikipedia rules)
 	frustum.horizontalFov = 2 * atanf(tan(frustum.verticalFov * 0.5) * 1.78f); //1.78 is the aspect ratio for 16:9 => 1920x1080p
 
@@ -184,7 +194,7 @@ int Component_Camera::ContainsAABBox(const AABB& refbox) const
 	
 	App->camera->main_cam->frustum.GetPlanes(m_plane);
 
-	for (uint planes = 0; planes < 6; ++planes) {
+	/*for (uint planes = 0; planes < 6; ++planes) {
 		int corners_count = 8;
 
 		for (uint corners = 0; corners < 8; ++corners)
@@ -195,9 +205,32 @@ int Component_Camera::ContainsAABBox(const AABB& refbox) const
 
 		if (corners_count == 6)
 			return OUTSIDE;
+	}*/
+	/*return INSIDE;*/
+
+	
+
+
+	int w_are_ins = 0;
+	int truly_inside = 0;
+
+	for (uint corners = 0; corners < 8; corners++)
+	{
+		for (uint planes = 0; planes < 6; planes++)
+		{
+			if (!m_plane[planes].IsOnPositiveSide(vCorner[corners]))
+				truly_inside++;
+		}
+		if (truly_inside == 6)
+		{
+			w_are_ins = 1;
+			//LOG("IS IN");
+			break;
+		}
+		truly_inside = 0;
 	}
 
-	return INSIDE;
+	return w_are_ins;
 }
 
 // Based on GetViewMatrix of ModuleCamera3D

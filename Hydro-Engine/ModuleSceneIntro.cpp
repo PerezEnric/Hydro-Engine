@@ -6,7 +6,11 @@
 #include "GameObject.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "QuadTree.h"
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Math/float3.h"
+
 #include <fstream>
 #include <istream>
 #include <string>
@@ -36,16 +40,13 @@ bool ModuleSceneIntro::Start()
 		i >> j;
 	}
 
-
-	
-
-
-
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
 
 	
+	quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+
 
 	return ret;
 }
@@ -74,7 +75,6 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		}
 			
 	}
-		
 
 	return UPDATE_CONTINUE;
 }
@@ -86,6 +86,10 @@ bool ModuleSceneIntro::CleanUp()
 			root[i]->Cleanup();
 	}
 	root.clear();
+
+	if (quadtree)
+		quadtree->CleanUp();
+
 
 	c_mesh = nullptr;
 
@@ -100,11 +104,46 @@ update_status ModuleSceneIntro::Update(float dt)
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
-			
+	if (last_time_go != root.size())
+	{
+		re_quadtree = true;
+	}
+
+	quadtree->Draw();
+
+	if (re_quadtree)
+	{
+		quadtree->CleanUp();
+		quadtree->Create(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+		// then we charge all the _statics objects.
+		std::vector<GameObject*> frustum_load;
+		for (uint i = 0; i < root.size(); i++)
+		{
+			root[i]->FrustrumQuad(frustum_load);
+		}
+		for (uint i = 0; i < frustum_load.size(); i++)
+		{
+			if (!frustum_load[i]->_static)
+			{
+				frustum_load.erase(frustum_load.begin() + i);
+				i = -1; // to reset the for.
+			}
+		}
+		quadtree->Fill(frustum_load);
+		re_quadtree = false;
+	}
+	last_time_go = root.size();
+
+
+	FrustrumQuad();
+
+
 	if (!root.empty()) {
 		for (uint i = 0; i < root.size(); i++)
 			root[i]->Update();
 	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -253,6 +292,25 @@ void ModuleSceneIntro::LoadScene(std::string path)
 
 }
 
+void ModuleSceneIntro::FrustrumQuad()
+{
+	std::vector<GameObject*> helper;
+
+	quadtree->Intersect(helper, App->camera->main_cam->frustum);// Me falta poner la primitiva aqui gtodo.
+
+	for (uint i = 0; i < helper.size(); i++)
+	{
+		if (helper[i]->b_mesh)
+		{
+			if (helper[i]->cam->DoCulling(helper[i]))
+				helper[i]->my_mesh->inside_frustum = true;
+		}
+	}
+
+
+
+}
+
 void ModuleSceneIntro::CreateEmptyGameObject()
 {
 	GameObject* empty = nullptr;
@@ -291,5 +349,64 @@ void ModuleSceneIntro::MakeChecker()
 			checkImage[i][j][3] = (GLubyte)255;
 		}
 	}
+}
+
+bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
+{
+	std::vector<GameObject*> intersected_go;
+
+	for (std::vector<GameObject*>::iterator it = root.begin(); it != root.end(); it++)
+		(*it)->FrustrumQuad(intersected_go);
+
+
+	std::vector<GameObject*> intersected_go2; //We create this list to use it later to check for the triangles of the intersected GameObjects
+	for (std::vector<GameObject*>::iterator it1 = intersected_go.begin(); it1 != intersected_go.end(); it1++)
+	{
+		if (ray.Intersects((*it1)->CreateOBB()))
+		{
+			LOG("COLLISIOOON");
+			intersected_go2.push_back(*it1);
+			RayTestTriangles(ray, intersected_go);
+		}
+	}
+
+	return true;
+}
+
+bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected)
+{
+	float far_hit_distance = App->camera->main_cam->frustum.farPlaneDistance; // the furthest distance the ray can have
+	LOG("FIRST FAR DIST: %f", far_hit_distance);
+	for (std::vector<GameObject*>::iterator it = intersected.begin(); it != intersected.end(); it++)
+	{
+		if ((*it)->b_mesh)
+		{
+			for (uint i = 0; i < (*it)->my_mesh->num_index; i += 3)
+			{
+				LineSegment local_ray = last_ray;
+				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted()); //We make the transform of the ray to be local for the triangles
+
+				uint c_i = (*it)->my_mesh->index[i] * 3;
+				float3 a((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->index[i + 1] * 3; 
+				float3 b((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				c_i = (*it)->my_mesh->index[i + 2] * 3;
+				float3 c((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
+				Triangle tri(a, b, c); //We build the triangles
+				LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
+				float hit_distance = 0.0f; //As it says, the distance of the hit
+				if (local_ray.Intersects(tri, &hit_distance, nullptr)) //if the local ray intersects with a triangle we also get the hit distance
+				{
+					LOG("HIT POINT DISTANCE: %f", hit_distance);
+					if (hit_distance < far_hit_distance) {
+						far_hit_distance = hit_distance; //We get the closest distance to the hit point so we get the closest GameObject
+						selected = (*it);
+					}
+				}
+			}
+
+		}
+	}
+	return true;
 }
 

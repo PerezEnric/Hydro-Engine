@@ -27,8 +27,9 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA, true);
+	//Test = new Component_Camera(nullptr, CAMERA, true);
 	main_cam->FrustrumLook(float3::zero);
-
+	//Test->FrustrumLook(float3::zero);
 	return ret;
 }
 
@@ -53,13 +54,17 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		CentreGOView();
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.front * speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos += main_cam->frustum.front * speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.front * speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos -= main_cam->frustum.front * speed;
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos -= main_cam->frustum.WorldRight() * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos += main_cam->frustum.WorldRight() * speed;
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos -= main_cam->frustum.WorldRight() * speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+		newPos += main_cam->frustum.WorldRight() * speed;
 
 	Position += newPos;
 	Reference += newPos;
@@ -69,7 +74,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 
-	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -102,6 +107,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
+	//Zoom
+
 	if (App->input->GetMouseZ() < 0)
 	{
 		newPos -= main_cam->frustum.front * wheelSpeed;
@@ -117,8 +124,45 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference -= newPos;
 		main_cam->frustum.Translate(newPos);
 	}
-	// Recalculate matrix -------------
+
+	//Mouse picking
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		CastRay();
+	}
+
+	if (draw_ray)
+		DrawRay();
+
+
+	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
+
+
+/*
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		Test->frustum.pos.z += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		Test->frustum.pos.x += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		Test->frustum.pos.z -= 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		Test->frustum.pos.x -= 1;
+	}
+
+	Test->DrawFrustrum();
+
+	main_cam->show_frustum = true;
+
+	main_cam->Update();*/
 
 	return UPDATE_CONTINUE;
 }
@@ -188,6 +232,30 @@ void ModuleCamera3D::CentreGOView()
 
 		main_cam->FrustrumLook(Reference); //Finally look at the reference with all the new values
 	}
+}
+
+void ModuleCamera3D::CastRay()
+{
+	float mouseNorm_x = -1.0f + 2.0f * App->input->GetMouseX() / App->window->width;
+	float mouseNorm_y = 1.0f - 2.0f * App->input->GetMouseY() / App->window->height;
+
+	picking = LineSegment(main_cam->frustum.UnProjectLineSegment(mouseNorm_x, mouseNorm_y));
+
+	App->scene_intro->RayTestAABB(picking);
+	draw_ray = true;
+}
+
+void ModuleCamera3D::DrawRay()
+{
+	glColor3f(200, 255, 0.0f);
+	glLineWidth(0.2);
+	GLfloat pointA[3] = { picking.a.x, picking.a.y, picking.a.z };
+	GLfloat pointB[3] = { picking.b.x, picking.b.y, picking.b.z };
+
+	glBegin(GL_LINES);
+	glVertex3fv(pointA);
+	glVertex3fv(pointB);
+	glEnd();
 }
 
 // -----------------------------------------------------------------
