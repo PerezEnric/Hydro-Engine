@@ -141,6 +141,9 @@
     <ClCompile Include="PanelGame.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -311,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="PanelGame.h">
       <Filter>Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

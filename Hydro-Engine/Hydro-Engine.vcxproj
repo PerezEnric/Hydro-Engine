@@ -82,6 +82,7 @@
     <ClInclude Include="Component_Texture.h" />
     <ClInclude Include="Component_Transform.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ImGuiConsole.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Component_Texture.cpp" />
     <ClCompile Include="Component_Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ImGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="ImGuizmo\ImGradient.cpp" />

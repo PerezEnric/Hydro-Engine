@@ -25,6 +25,15 @@ void Timer::Stop()
 	stopped_at = SDL_GetTicks();
 }
 
+void Timer::Resume()
+{
+	if (running = false) //So time is stopped
+	{
+		running = true; //We make time running again
+		started_at = SDL_GetTicks() - (stopped_at - started_at); //We resume at last time
+	}
+}
+
 // ---------------------------------------------
 Uint32 Timer::Read()
 {
