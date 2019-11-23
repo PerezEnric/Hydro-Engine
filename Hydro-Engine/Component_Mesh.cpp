@@ -3,6 +3,9 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "ModuleResourceManager.h"
+#include "ResourceMesh.h"
+#include "Resource.h"
 #include "Globals.h"
 #include "Primitive.h"
 #include "ImGui/imgui.h"
@@ -10,18 +13,28 @@
 #include <vector>
 
 
-
-
 Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty) : Component(GO, type, _empty)
 {
 	comp_type_str = "mesh";
 	if (!_empty)
 	{
-		if (GO->p_type == PrimitiveTypes::P_NONE) {
-			Load_Mesh();
+		uint uuid = App->res_man->FindM(GO->name.c_str()); // 
+		if (uuid == 0) // there is nothing like this so it should create a new resource.
+		{
+			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
 		}
 		else
-			Load_P_Shape();
+		{
+			UUID_resource = uuid;
+			App->importer->LoadFBX(GO->path.c_str(), GO->actual_mesh, GO);
+		}
+			
+
+		GO->my_mesh = this;
+		GO->b_mesh = true;
+
+		my_reference = App->res_man->GetM(UUID_resource);
+		my_reference->LoadToMemory();
 
 	}
 	else
@@ -29,7 +42,7 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 		GO->my_mesh = this;
 		GO->b_mesh = true;
 	}
-	MakeChecker();
+	
 }
 
 Component_Mesh::Component_Mesh()
@@ -38,16 +51,20 @@ Component_Mesh::Component_Mesh()
 
 void Component_Mesh::Load_Mesh()
 {
-	App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
+	/*App->importer->LoadFBX(GO->path, GO->actual_mesh, this);
 	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this); 
 	GO->my_mesh = this;
-	GO->b_mesh = true;
+	GO->b_mesh = true;*/
 }
 
 bool Component_Mesh::Update()
 {
+
 	if(inside_frustum)
 		Draw();
+
+
+
 
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
@@ -77,29 +94,29 @@ void Component_Mesh::Draw()
 		if (cheker_tex)
 			glBindTexture(GL_TEXTURE_2D, texName);
 		if (!cheker_tex && GO->my_tex != nullptr)
-			glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+			glBindTexture(GL_TEXTURE_2D, GO->my_tex->PointerToText());
 	}
 		
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	if (GO->p_type == PrimitiveTypes::P_NONE && size != 0) {
-		glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
+	if (GO->p_type == PrimitiveTypes::P_NONE && my_reference->my_mesh->size != 0) {
+		glBindBuffer(GL_ARRAY_BUFFER, my_reference->my_mesh->id_uvs);
 		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 	}
 	
 
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, my_reference->my_mesh->id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_reference->my_mesh->id_index);
 
 	if (GO->p_type == PrimitiveTypes::P_NONE)
-		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, my_reference->my_mesh->num_index, GL_UNSIGNED_INT, NULL);
 	else
-		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, my_reference->my_mesh->num_index, GL_UNSIGNED_SHORT, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
@@ -119,12 +136,12 @@ void Component_Mesh::DrawVertexNormals()
 	uint j = 0;
 
 
-	for (uint i = 0; i < num_vertex * 3; i += 3)
+	for (uint i = 0; i < my_reference->my_mesh->num_vertex * 3; i += 3)
 	{
 
 		glBegin(GL_LINES);
-		glVertex3f(vertex[i], vertex[i + 1], vertex[i + 2]);
-		glVertex3f(vertex[i] + normal[i], vertex[i + 1] + normal[i+1]*lenght, vertex[i + 2] + normal[i + 2]*lenght);
+		glVertex3f(my_reference->my_mesh->vertex[i], my_reference->my_mesh->vertex[i + 1], my_reference->my_mesh->vertex[i + 2]);
+		glVertex3f(my_reference->my_mesh->vertex[i] + my_reference->my_mesh->normal[i], my_reference->my_mesh->vertex[i + 1] + my_reference->my_mesh->normal[i+1]*lenght, my_reference->my_mesh->vertex[i + 2] + my_reference->my_mesh->normal[i + 2]*lenght);
 		++j;
 		glEnd();
 	}
@@ -136,19 +153,19 @@ void Component_Mesh::DrawFaceNormals()
 {
 	int l = 2;
 	
-	for (uint i = 0; i < num_index; i += 3) {
+	for (uint i = 0; i < my_reference->my_mesh->num_index; i += 3) {
 		// Vectors ----------------------------------------------------------------------------------
-		uint c_i = index[i]*3; 		//Inside the mesh and inside the square we are, we get the first index from the square
+		uint c_i = my_reference->my_mesh->index[i]*3; 		//Inside the mesh and inside the square we are, we get the first index from the square
 		// First vector coodrinates
-		float3 a(vertex[c_i], vertex[c_i+1], vertex[c_i+2]);
+		float3 a(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i+1], my_reference->my_mesh->vertex[c_i+2]);
 			
-		c_i = index[i + 1]*3; // current index points to the second index from the square 
+		c_i = my_reference->my_mesh->index[i + 1]*3; // current index points to the second index from the square 
 
-		float3 b(vertex[c_i], vertex[c_i + 1], vertex[c_i + 2]);
+		float3 b(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i + 1], my_reference->my_mesh->vertex[c_i + 2]);
 
-		c_i = index[i + 2]*3; // current index points to the third index from the square
+		c_i = my_reference->my_mesh->index[i + 2]*3; // current index points to the third index from the square
 
-		float3 c(vertex[c_i], vertex[c_i + 1], vertex[c_i + 2]);
+		float3 c(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i + 1], my_reference->my_mesh->vertex[c_i + 2]);
 		//	Vectors ----------------------------------------------------------------------------------
 			
 		// Center of the triangle -------------------------------------------------------
@@ -182,8 +199,8 @@ void Component_Mesh::Load_P_Shape()
 {
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
-	//Esto me lo tengo que mirar luego ghoy gtest.
-	own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
+	// Esto lo tendre que eliminar. gtodo.
+	//own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
 }
 
 void Component_Mesh::CleanUp()
@@ -210,6 +227,9 @@ void Component_Mesh::CleanUp()
 
 	GO->b_mesh = false;
 
+	my_reference->NotReference();
+	my_reference = nullptr;
+
 
 }
 
@@ -222,7 +242,7 @@ Component_Mesh * Component_Mesh::GetThis()
 AABB Component_Mesh::CreateAABB()
 {
 	mesh_bbox.SetNegativeInfinity();
-	mesh_bbox.Enclose((float3*)vertex, num_vertex);
+	mesh_bbox.Enclose((float3*)my_reference->my_mesh->vertex, my_reference->my_mesh->num_vertex);
 
 	return mesh_bbox;
 }
@@ -244,6 +264,22 @@ void Component_Mesh::RecalcBoundingBox()
 
 	obb_box.SetNegativeInfinity();
 	obb_box.Enclose(obb);
+}
+
+void Component_Mesh::CleanResUp()
+{
+	glDeleteBuffers(1, &(id_index));
+	glDeleteBuffers(1, &(id_vertex));
+	glDeleteBuffers(1, &(id_uvs));
+
+
+	num_index = 0;
+	num_vertex = 0;
+	size = 0;
+	index = nullptr;
+	vertex = nullptr;
+	text_uvs = nullptr;
+	normal = nullptr;
 }
 
 nlohmann::json Component_Mesh::SaveComponent()
@@ -274,11 +310,11 @@ nlohmann::json Component_Mesh::SaveComponent()
 	ret["show BBox"] = show_bbox;
 
 
-	char* uuid_str = new char[80];
+	//char* uuid_str = new char[80];
 
-	sprintf(uuid_str, "%d", GO->my_uuid);
+	//sprintf(uuid_str, "%d", UUID_resource);
 
-	ret["My parent UUID"] = uuid_str;
+	ret["My Resource UUID"] = UUID_resource;
 
 	return ret;
 }
@@ -300,15 +336,40 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	own_file = to_load["Mesh file"].get<std::string>();
 
 	// then we use our importer function to load all vertex data.
-	if (GO->p_type == P_NONE)
-		App->importer->ExportMeshOwnFile(own_file.c_str(), this);
-	else
-		Load_P_Shape();
+
+
+	UUID_resource = to_load["My Resource UUID"].get<uint>();
+
+	my_reference = App->res_man->GetM(UUID_resource);
+	
+	if (my_reference == nullptr)
+	{
+		uint uuid = App->res_man->FindM(GO->name.c_str()); // 
+		if (uuid == 0) // there is nothing like this so it should create a new resource.
+		{
+			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
+		}
+		else
+		{
+			UUID_resource = uuid;
+			App->importer->LoadFBX(GO->path.c_str(), GO->actual_mesh, GO);
+		}
+
+		my_reference = App->res_man->GetM(UUID_resource);
+		my_reference->LoadToMemory();
+	}
+
+	my_reference->LoadToMemory();
+
+
+	
+
+	//App->importer->ExportMeshOwnFile(own_file.c_str(), this);
+
 
 	//then we create the ABB and the Obb.
 	/*if (vertex != nullptr)
 		CreateOBB();*/
-
 }
 
 void Component_Mesh::DrawBBox()
@@ -352,9 +413,11 @@ void Component_Mesh::DrawBBox()
 
 void Component_Mesh::ShowInfo()
 {
-	ImGui::Text("Mesh Vertices: %i", num_vertex);
-	ImGui::Text("Mesh Indices: %i", num_index);
-	ImGui::Text("Mesh Triangles: %i", num_index / 3);
+	ImGui::Text("Current Reference: %u", UUID_resource);
+	ImGui::Text("Reference Counts: %i", my_reference->loaded);
+	ImGui::Text("Mesh Vertices: %i", my_reference->my_mesh->num_vertex);
+	ImGui::Text("Mesh Indices: %i", my_reference->my_mesh->num_index);
+	ImGui::Text("Mesh Triangles: %i", my_reference->my_mesh->num_index / 3);
 
 	if (ImGui::Checkbox("Face Normals", &show_face_normals))
 	{

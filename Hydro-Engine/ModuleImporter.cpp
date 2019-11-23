@@ -2,6 +2,7 @@
 #include "ModuleImporter.h"
 #include "Globals.h"
 #include "ModuleInput.h"
+#include "ModuleResourceManager.h"
 
 #include "DevIL/include/IL/il.h"
 #include "DevIL/include/IL/ilu.h"
@@ -130,9 +131,15 @@ void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
 	}
 }
 
-bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component_Mesh* Ret)
+std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, GameObject* object)
 {
-	
+	Component_Mesh* Ret = new Component_Mesh();
+
+
+	if (Ret == nullptr)
+	{
+		Ret = new Component_Mesh();
+	}
 	
 	Assimp::Importer Importer;
 
@@ -215,11 +222,14 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 			aiString path;
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
 
-			Ret->GO->texture_path = path.C_Str();
+			object->texture_path = path.C_Str();
 
-			Ret->GO->CreateComponent(TEXTURE);
+			if (object->path != "" && object->texture_path.size() <= 25)
+				object->texture_path = SearchTheDoc(object->texture_path, object);
 
-			LOG("Mesh texture with path: %s", Ret->GO->texture_path.c_str());
+			object->CreateComponent(TEXTURE);
+
+			LOG("Mesh texture with path: %s", object->texture_path.c_str());
 
 		}
 
@@ -229,27 +239,67 @@ bool ModuleImporter::LoadFBX(const std::string & Filename, uint index, Component
 		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
 	}
 
-	return true;
+	return ImportMeshOwnFile(object->name.c_str(), Ret);
 }
 
 
 
 
-void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex)
+std::string ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex, bool _generating)
 {
+	Component_Texture* helper;
+	helper = new Component_Texture();
+
 	ilutRenderer(ILUT_OPENGL);
 	std::string R_Filename;
 
 
-	if (tex->GO->path != "" && Filename.size() <= 25)
-		R_Filename = SearchTheDoc(Filename, tex);
+	
+	
+
+	LOG("Loading texture with the actual filename %s", Filename.c_str());
+	ILuint text_nm = 0;
+
+	ilGenImages(1, &text_nm);
+	ilBindImage(text_nm);
+
+	if (ilLoadImage(Filename.c_str()) == IL_FALSE)
+	{
+		ILenum er = ilGetError();
+		tex->GO->texture = false;
+		LOG("Error in the parsing of the string of the texture");
+		/*LOG("ERROR: %s", iluErrorString(er));*/
+	}
+
 	else
 	{
+		helper->id_texture = ilutGLBindTexImage();
+		helper->height = ilGetInteger(IL_IMAGE_WIDTH);
+		helper->widht = ilGetInteger(IL_IMAGE_HEIGHT);
 
-		R_Filename = CutTheDoc(Filename, tex);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		LOG("Texture correctly loaded %s", R_Filename.c_str());
+
+		helper->own_format = ImportTextureOwnFile(Filename.c_str());
+
 	}
-		
 
+	//tex->GO->texture_path = R_Filename;
+
+	ilDeleteImages(1, &text_nm);
+	return helper->own_format;
+}
+
+void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture * tex)
+{
+	ilutRenderer(ILUT_OPENGL);
+	std::string R_Filename = Filename;
 
 	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
 	ILuint text_nm = 0;
@@ -260,14 +310,13 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
 	{
 		ILenum er = ilGetError();
-		tex->GO->texture = false;
+
 		LOG("Error in the parsing of the string of the texture");
 		/*LOG("ERROR: %s", iluErrorString(er));*/
 	}
 
 	else
 	{
-
 		tex->id_texture = ilutGLBindTexImage();
 		tex->height = ilGetInteger(IL_IMAGE_WIDTH);
 		tex->widht = ilGetInteger(IL_IMAGE_HEIGHT);
@@ -286,18 +335,15 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	}
 
 	ilDeleteImages(1, &text_nm);
-
 }
 
 
-std::string ModuleImporter::SearchTheDoc(const std::string & Filename, Component_Texture* tex)
+std::string ModuleImporter::SearchTheDoc(const std::string & Filename, GameObject* tex)
 {
 	std::string doc;
-	std::size_t found = tex->GO->path.find_last_of("/\\");
-	doc = tex->GO->path.substr(0,found+1) + Filename;
-
-
-
+	std::size_t found = tex->path.find_last_of("/\\");
+	doc = tex->path.substr(0,found+1) + Filename;
+	LOG("%s", doc.c_str());
 	return doc;
 }
 
@@ -394,8 +440,11 @@ std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh 
 
 	std::string output_file; 
 
-	App->file_system->GetActualName(filename); 
-	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "kr");
+
+
+	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "guen");
+
 
 	delete[] data;
 
@@ -432,6 +481,10 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 
 
 	//mesh data ---------------------
+	if (Mesh == nullptr)
+	{
+		Mesh = new Component_Mesh();
+	}
 
 	uint* index = nullptr;
 	float* vertex = nullptr;
@@ -519,16 +572,6 @@ void ModuleImporter::ExportMeshOwnFile(const char * pathname, Component_Mesh * M
 			glBindBuffer(GL_ARRAY_BUFFER, Mesh->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Mesh->size, Mesh->text_uvs, GL_STATIC_DRAW);
 		}
-
-
-
-		
-
-		
-
-		
-
-		
 	}
 	else
 	{

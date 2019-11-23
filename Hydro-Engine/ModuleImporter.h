@@ -15,6 +15,7 @@
 
 class Component_Mesh;
 class Component_Texture;
+class GameObject;
 
 
 
@@ -36,12 +37,15 @@ public:
 	void CreateGO(const std::string & Filename, GameObject* act); // we will call this function in the second assigment.
 
 	
-	bool LoadFBX(const std::string& Filename, uint index, Component_Mesh* Ret);
+	std::string LoadFBX(const std::string& Filename, uint index, GameObject* object);
+
+	std::string LoadTexture(const std::string& Filename, Component_Texture* tex, bool _generating);
 
 	void LoadTexture(const std::string& Filename, Component_Texture* tex);
 
 
-	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);
+
+	std::string SearchTheDoc(const std::string & Filename, GameObject* tex);
 	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
 
 	std::string ImportMeshOwnFile(const char* name, Component_Mesh* Mesh);

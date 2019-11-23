@@ -11,6 +11,7 @@
 #include "ModuleUI.h"
 #include "ModuleFileSystem.h"
 #include "ModuleImporter.h"
+#include "ModuleResourceManager.h"
 #include "Glew/include/glew.h"
 #include <list>
 #include <shellapi.h>
@@ -50,6 +51,7 @@ public:
 	ModuleUI* ui;
 	ModuleImporter* importer;
 	ModuleFileSystem* file_system;
+	ResourceManager* res_man;
 	
 
 private:

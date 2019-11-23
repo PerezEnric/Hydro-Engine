@@ -50,6 +50,8 @@ public:
 	//a function to put all gameobjects in a array.
 	void FrustrumQuad(std::vector<GameObject*>& frust);
 
+
+
 	AABB CreateAABB();
 	OBB CreateOBB();
 
