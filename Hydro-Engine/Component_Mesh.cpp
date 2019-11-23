@@ -26,6 +26,7 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 		else
 		{
 			UUID_resource = uuid;
+			App->importer->LoadFBX(GO->path.c_str(), GO->actual_mesh, GO);
 		}
 			
 
