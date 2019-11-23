@@ -368,7 +368,7 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 		(*it)->FrustrumQuad(intersected_go);
 
 
-	std::vector<GameObject*> intersected_go2;
+	std::vector<GameObject*> intersected_go2; //We create this list to use it later to check for the triangles of the intersected GameObjects
 	for (std::vector<GameObject*>::iterator it1 = intersected_go.begin(); it1 != intersected_go.end(); it1++)
 	{
 		if (ray.Intersects((*it1)->CreateOBB()))
@@ -384,16 +384,16 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 
 bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected)
 {
+	float far_hit_distance = App->camera->main_cam->frustum.farPlaneDistance; // the furthest distance the ray can have
+	LOG("FIRST FAR DIST: %f", far_hit_distance);
 	for (std::vector<GameObject*>::iterator it = intersected.begin(); it != intersected.end(); it++)
 	{
-		LOG("THIS IS ROLLING");
-
 		if ((*it)->b_mesh)
 		{
 			for (uint i = 0; i < (*it)->my_mesh->num_index; i += 3)
 			{
 				LineSegment local_ray = last_ray;
-				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted());
+				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted()); //We make the transform of the ray to be local for the triangles
 
 				uint c_i = (*it)->my_mesh->index[i] * 3;
 				float3 a((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
@@ -401,11 +401,16 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 				float3 b((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
 				c_i = (*it)->my_mesh->index[i + 2] * 3;
 				float3 c((*it)->my_mesh->vertex[c_i], (*it)->my_mesh->vertex[c_i + 1], (*it)->my_mesh->vertex[c_i + 2]);
-
-				Triangle tri(a, b, c);
-				if (local_ray.Intersects(tri, nullptr, nullptr))
+				Triangle tri(a, b, c); //We build the triangles
+				LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
+				float hit_distance = 0.0f; //As it says, the distance of the hit
+				if (local_ray.Intersects(tri, &hit_distance, nullptr)) //if the local ray intersects with a triangle we also get the hit distance
 				{
-					selected = (*it);
+					LOG("HIT POINT DISTANCE: %f", hit_distance);
+					if (hit_distance < far_hit_distance) {
+						far_hit_distance = hit_distance; //We get the closest distance to the hit point so we get the closest GameObject
+						selected = (*it);
+					}
 				}
 			}
 
