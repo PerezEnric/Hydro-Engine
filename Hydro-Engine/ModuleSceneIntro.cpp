@@ -40,11 +40,6 @@ bool ModuleSceneIntro::Start()
 		i >> j;
 	}
 
-
-	
-
-
-
 	std::string name;
 	name = j["Config"]["App"]["Name"].get<std::string>();
 	App->window->SetTitle(name.c_str());
@@ -80,7 +75,6 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		}
 			
 	}
-		
 
 	return UPDATE_CONTINUE;
 }
@@ -110,9 +104,6 @@ update_status ModuleSceneIntro::Update(float dt)
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
-			
-	
-
 	if (last_time_go != root.size())
 	{
 		re_quadtree = true;
