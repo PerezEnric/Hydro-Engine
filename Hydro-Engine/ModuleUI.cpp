@@ -56,9 +56,11 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_hierarchy = new PanelHierarchy());
 	vector_panels.push_back(p_inspector = new PanelInspector());
 	vector_panels.push_back(p_saveload = new PanelSaveAndLoad());
+	vector_panels.push_back(p_game = new PanelGame());
+
 	p_console->is_active = true;
 	p_inspector->is_active = true;
-	
+	p_game->is_active = true;
 	
 
 	return true;

@@ -3,11 +3,32 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Color.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="Component_Camera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Mesh.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Texture.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Transform.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="glmath.cpp">
       <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImCurveEdit.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGradient.cpp">
+      <Filter>ImGui\ImGuizmo</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -27,8 +48,11 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImSequencer.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="log.cpp">
       <Filter>Tools</Filter>
@@ -51,11 +75,20 @@
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleResourceManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Panel.cpp">
       <Filter>Modules\UI</Filter>
@@ -75,82 +108,77 @@
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PanelShapes.cpp">
+    <ClCompile Include="PanelSaveAndLoad.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="PanelShapes.cpp">
+      <Filter>Modules\UI</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="par_shapes.cpp">
-      <Filter>ParShapes</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Camera.cpp">
-      <Filter>Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Mesh.cpp">
-      <Filter>Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Texture.cpp">
-      <Filter>Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Transform.cpp">
-      <Filter>Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="PCGRandom\pcg_basic.c">
-      <Filter>Tools\pgc_random</Filter>
-    </ClCompile>
-    <ClCompile Include="PanelSaveAndLoad.cpp">
-      <Filter>Modules\UI</Filter>
-    </ClCompile>
-
-    <ClCompile Include="ImGuizmo\ImCurveEdit.cpp">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuizmo\ImGradient.cpp">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuizmo\ImSequencer.cpp">
-      <Filter>ImGui\ImGuizmo</Filter>
-
     <ClCompile Include="Resource.cpp">
       <Filter>Tools\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleResourceManager.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Tools\Resources</Filter>
     </ClCompile>
     <ClCompile Include="ResourceTexture.cpp">
       <Filter>Tools\Resources</Filter>
-
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="par_shapes.cpp">
+      <Filter>par_shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="PCGRandom\pcg_basic.c">
+      <Filter>par_shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>par_shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelGame.cpp">
+      <Filter>Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Color.h">
-      <Filter>Tools</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Camera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Mesh.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Texture.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Transform.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="glmath.h">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGradient.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImCurveEdit.h">
+      <Filter>ImGui\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>ImGui</Filter>
@@ -170,8 +198,11 @@
     <ClInclude Include="ImGuiConsole.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Tools</Filter>
+    <ClInclude Include="ImGuizmo\ImGuizmo.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImSequencer.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imstb_rectpack.h">
       <Filter>ImGui</Filter>
@@ -179,8 +210,8 @@
     <ClInclude Include="ImGui\imstb_textedit.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
       <Filter>MathGeoLib</Filter>
@@ -188,11 +219,17 @@
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
       <Filter>MathGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>MathGeoLib</Filter>
-    </ClInclude>
     <ClInclude Include="mmgr\mmgr.h">
       <Filter>mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
       <Filter>Modules</Filter>
@@ -209,14 +246,17 @@
     <ClInclude Include="ModuleRenderer3D.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleResourceManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneIntro.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleUI.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Module.h">
-      <Filter>Modules</Filter>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Panel.h">
       <Filter>Modules\UI</Filter>
@@ -236,133 +276,77 @@
     <ClInclude Include="PanelInspector.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PanelSaveAndLoad.h">
+      <Filter>Modules\UI</Filter>
+    </ClInclude>
     <ClInclude Include="PanelShapes.h">
       <Filter>Modules\UI</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="ParShapes\par_shapes.h">
-      <Filter>ParShapes</Filter>
-    </ClInclude>
-    <ClInclude Include="mmgr\nommgr.h">
-      <Filter>mmgr</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Camera.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Mesh.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Texture.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Transform.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="PCGRandom\pcg_basic.h">
-      <Filter>Tools\pgc_random</Filter>
-    </ClInclude>
-    <ClInclude Include="PanelSaveAndLoad.h">
-      <Filter>Modules\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowsItem.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-
-    <ClInclude Include="ImGuizmo\ImCurveEdit.h">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGuizmo\ImGradient.h">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGuizmo\ImGuizmo.h">
-      <Filter>ImGui\ImGuizmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGuizmo\ImSequencer.h">
-      <Filter>ImGui\ImGuizmo</Filter>
-
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="ResourceTexture.h">
       <Filter>Tools\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleResourceManager.h">
-      <Filter>Modules</Filter>
+    <ClInclude Include="Resource.h">
+      <Filter>Tools\Resources</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMesh.h">
       <Filter>Tools\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceTexture.h">
-      <Filter>Tools\Resources</Filter>
-
+    <ClInclude Include="Light.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>par_shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ParShapes\par_shapes.h">
+      <Filter>par_shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="PCGRandom\pcg_basic.h">
+      <Filter>par_shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsItem.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelGame.h">
+      <Filter>Modules\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Game\About.json">
-      <Filter>Tools\Json</Filter>
-    </None>
-    <None Include="Config.json">
-      <Filter>Tools\Json</Filter>
-    </None>
+    <None Include="Config.json" />
+    <None Include="Game\About.json" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
-      <UniqueIdentifier>{314fa1ff-ac3f-4e74-aa35-6155dd6f56a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tools">
-      <UniqueIdentifier>{29349ddb-5e2c-4492-8af9-486f42695ef2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MathGeoLib">
-      <UniqueIdentifier>{aaeb5234-833b-436d-9d79-3ba27e0f6aab}</UniqueIdentifier>
+      <UniqueIdentifier>{f11d423d-ca6f-445c-9815-0d614fd46037}</UniqueIdentifier>
     </Filter>
     <Filter Include="ImGui">
-      <UniqueIdentifier>{5cd68963-70be-4c1c-87dd-079c2b298a11}</UniqueIdentifier>
+      <UniqueIdentifier>{633f0fb9-eb67-4b51-a386-25f70f6fadd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MathGeoLib">
+      <UniqueIdentifier>{c1182061-3cbc-458c-a324-e4f226790a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{bce3edd5-5973-4cb0-a42f-d8e5ba9eaabf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
-      <UniqueIdentifier>{c681d4db-2990-4be2-a894-15997323d8b0}</UniqueIdentifier>
+      <UniqueIdentifier>{845afac4-cf62-41cb-a311-4b6a45768e1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\ImGuizmo">
+      <UniqueIdentifier>{cfc2c323-88b6-4d50-953a-a83c494c0060}</UniqueIdentifier>
     </Filter>
     <Filter Include="mmgr">
-      <UniqueIdentifier>{0c222162-f6e1-47ee-b4b6-a37536c16341}</UniqueIdentifier>
+      <UniqueIdentifier>{1ef1572a-7b8e-4bdb-9fac-e2e4baa044aa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\UI">
-      <UniqueIdentifier>{cef33be8-1458-4feb-b8b6-4c39eb5fce4f}</UniqueIdentifier>
+      <UniqueIdentifier>{22dfa47b-c6f8-47b8-b680-a0f59df01b53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ParShapes">
-      <UniqueIdentifier>{61135772-26d1-4889-b7cf-64e7a211cd3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tools\Json">
-      <UniqueIdentifier>{45b98744-370b-4416-8f25-2021041e19db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene">
-      <UniqueIdentifier>{8af97184-a69e-47fd-84f2-e785565927a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObjects">
-      <UniqueIdentifier>{d6ac8bf7-3323-4068-8666-852f4b75d62d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tools\pgc_random">
-      <UniqueIdentifier>{410cbf54-64ab-486b-a17e-c0c77af19380}</UniqueIdentifier>
-    </Filter>
-
-    <Filter Include="ImGui\ImGuizmo">
-      <UniqueIdentifier>{f53edff1-8738-45b9-87a9-00481bd33d02}</UniqueIdentifier>
-
     <Filter Include="Tools\Resources">
-      <UniqueIdentifier>{7618ae13-127a-4846-987f-1a7d0f1c89b8}</UniqueIdentifier>
-
+      <UniqueIdentifier>{eadf196f-f082-4089-a958-c68742ce239c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="par_shapes">
+      <UniqueIdentifier>{21bb7018-636e-4892-83ca-828fa8a79041}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
