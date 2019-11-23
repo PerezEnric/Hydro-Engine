@@ -242,8 +242,11 @@ std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, Ga
 
 
 
-void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex)
+std::string ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture* tex, bool _generating)
 {
+	Component_Texture* helper;
+	helper = new Component_Texture();
+
 	ilutRenderer(ILUT_OPENGL);
 	std::string R_Filename;
 
@@ -252,11 +255,10 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 		R_Filename = SearchTheDoc(Filename, tex);
 	else
 	{
-
 		R_Filename = CutTheDoc(Filename, tex);
 	}
 		
-
+	
 
 	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
 	ILuint text_nm = 0;
@@ -274,7 +276,50 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 
 	else
 	{
+		helper->id_texture = ilutGLBindTexImage();
+		helper->height = ilGetInteger(IL_IMAGE_WIDTH);
+		helper->widht = ilGetInteger(IL_IMAGE_HEIGHT);
 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		LOG("Texture correctly loaded %s", R_Filename.c_str());
+
+		helper->own_format = ImportTextureOwnFile(Filename.c_str());
+
+	}
+
+	tex->GO->texture_path = R_Filename;
+
+	ilDeleteImages(1, &text_nm);
+	return helper->own_format;
+}
+
+void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture * tex)
+{
+	ilutRenderer(ILUT_OPENGL);
+	std::string R_Filename = Filename;
+
+	LOG("Loading texture with the actual filename %s", R_Filename.c_str());
+	ILuint text_nm = 0;
+
+	ilGenImages(1, &text_nm);
+	ilBindImage(text_nm);
+
+	if (ilLoadImage(R_Filename.c_str()) == IL_FALSE)
+	{
+		ILenum er = ilGetError();
+
+		LOG("Error in the parsing of the string of the texture");
+		/*LOG("ERROR: %s", iluErrorString(er));*/
+	}
+
+	else
+	{
 		tex->id_texture = ilutGLBindTexImage();
 		tex->height = ilGetInteger(IL_IMAGE_WIDTH);
 		tex->widht = ilGetInteger(IL_IMAGE_HEIGHT);
@@ -293,7 +338,6 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	}
 
 	ilDeleteImages(1, &text_nm);
-
 }
 
 
@@ -302,9 +346,7 @@ std::string ModuleImporter::SearchTheDoc(const std::string & Filename, Component
 	std::string doc;
 	std::size_t found = tex->GO->path.find_last_of("/\\");
 	doc = tex->GO->path.substr(0,found+1) + Filename;
-
-
-
+	LOG("%s", doc.c_str());
 	return doc;
 }
 

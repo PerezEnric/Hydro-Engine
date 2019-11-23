@@ -79,8 +79,8 @@ public:
 
 	bool show_bbox = false;
 
-	uint UUID_resource;
-	ResourceMesh* my_reference;
+	uint UUID_resource = 0;
+	ResourceMesh* my_reference = nullptr;
 
 	
 

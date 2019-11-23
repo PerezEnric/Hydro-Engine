@@ -39,7 +39,10 @@ public:
 	
 	std::string LoadFBX(const std::string& Filename, uint index, GameObject* object);
 
+	std::string LoadTexture(const std::string& Filename, Component_Texture* tex, bool _generating);
+
 	void LoadTexture(const std::string& Filename, Component_Texture* tex);
+
 
 
 	std::string SearchTheDoc(const std::string & Filename, Component_Texture* tex);

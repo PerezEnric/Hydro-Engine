@@ -18,4 +18,5 @@ public:
 public:
 
 	Component_Mesh* my_mesh = nullptr;
+	
 };

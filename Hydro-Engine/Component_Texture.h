@@ -5,7 +5,7 @@
 #include <string>
 
 
-
+class ResourceTexture;
 
 class Component_Texture : public Component
 {
@@ -21,6 +21,7 @@ public:
 	
 	void CleanUp();
 
+	uint PointerToText();
 
 	//Save and Load
 	nlohmann::json SaveComponent();
@@ -32,4 +33,7 @@ public:
 	uint widht = 0;
 	uint height = 0;
 	std::string own_format;
+
+	uint UUID_resource;
+	ResourceTexture* my_reference = nullptr;
 };

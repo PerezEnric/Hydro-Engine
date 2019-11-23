@@ -20,14 +20,14 @@ bool ResourceMesh::LoadToMemory()
 	{
 		my_mesh = new Component_Mesh();
 		App->importer->ExportMeshOwnFile(path_to_own.c_str(), my_mesh);
-		if (my_mesh != nullptr)
+		if (my_mesh == nullptr)
 		{
-			LOG("Error parsing the mesh");
+			LOG("Error parsing the Resource mesh %s", path_to_own.c_str());
 		}
 		else
 		{
+			LOG("Resource Mesh currently up %s", path_to_own.c_str());
 			ret = true;
-			// Tengo que mirar como hacer lo de loaded ghoy.
 			loaded += 1;
 		}
 	}

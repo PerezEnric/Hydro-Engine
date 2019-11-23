@@ -10,6 +10,7 @@
 class Application;
 class GameObject;
 class ResourceMesh;
+class ResourceTexture;
 
 class ResourceManager : public Module
 {
@@ -19,7 +20,8 @@ public:
 	~ResourceManager();
 	uint GenerateNewUID();
 	// This function return the uuid of the resource that we want. < -----------
-	uint Find(const char* original_name);									// -
+	uint FindM(const char* original_name);
+	uint FindT(const char* original_name);// -
 																			// -
 	// This function is the first phase to generate a new resource.         // -
 	uint ImportFile(const char* path, RESOURCE_TYPE type, GameObject* object);   // -
@@ -33,16 +35,20 @@ public:
 
 	ResourceMesh* GetM(uint uuid);
 
+	ResourceTexture* GetT(uint uuid);
+
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
 
 private:
-
+	// obsolet
 	std::map<uint, Resource*> resources;
 
 	std::map<uint, ResourceMesh*> res_meshes;
+
+	std::map<uint, ResourceTexture*> res_textures;
 };
 
 

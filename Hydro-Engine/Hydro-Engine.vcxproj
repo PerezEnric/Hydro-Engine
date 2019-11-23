@@ -123,6 +123,7 @@
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
+    <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowsItem.h" />
   </ItemGroup>
@@ -168,6 +169,7 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
+    <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

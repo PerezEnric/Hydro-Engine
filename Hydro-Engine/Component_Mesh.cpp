@@ -18,13 +18,16 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 	comp_type_str = "mesh";
 	if (!_empty)
 	{
-		uint uuid = App->res_man->Find(GO->path.c_str()); // Aqui tendria que pasar el nombre, no la path. Creo que tendre que crear tambien varios finds, para cada uno de los resources.
-		if (0 == 0)
+		uint uuid = App->res_man->FindM(GO->path.c_str()); // 
+		if (uuid == 0) // there is nothing like this so it should create a new resource.
 		{
 			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
 		}
 		else
+		{
 			UUID_resource = uuid;
+		}
+			
 
 		GO->my_mesh = this;
 		GO->b_mesh = true;
@@ -85,7 +88,7 @@ void Component_Mesh::Draw()
 		if (cheker_tex)
 			glBindTexture(GL_TEXTURE_2D, texName);
 		if (!cheker_tex && GO->my_tex != nullptr)
-			glBindTexture(GL_TEXTURE_2D, GO->my_tex->id_texture);
+			glBindTexture(GL_TEXTURE_2D, GO->my_tex->PointerToText());
 	}
 		
 
@@ -146,7 +149,7 @@ void Component_Mesh::DrawFaceNormals()
 	
 	for (uint i = 0; i < my_reference->my_mesh->num_index; i += 3) {
 		// Vectors ----------------------------------------------------------------------------------
-		uint c_i = index[i]*3; 		//Inside the mesh and inside the square we are, we get the first index from the square
+		uint c_i = my_reference->my_mesh->index[i]*3; 		//Inside the mesh and inside the square we are, we get the first index from the square
 		// First vector coodrinates
 		float3 a(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i+1], my_reference->my_mesh->vertex[c_i+2]);
 			
@@ -154,7 +157,7 @@ void Component_Mesh::DrawFaceNormals()
 
 		float3 b(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i + 1], my_reference->my_mesh->vertex[c_i + 2]);
 
-		c_i = index[i + 2]*3; // current index points to the third index from the square
+		c_i = my_reference->my_mesh->index[i + 2]*3; // current index points to the third index from the square
 
 		float3 c(my_reference->my_mesh->vertex[c_i], my_reference->my_mesh->vertex[c_i + 1], my_reference->my_mesh->vertex[c_i + 2]);
 		//	Vectors ----------------------------------------------------------------------------------
@@ -334,7 +337,7 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	
 	if (my_reference == nullptr)
 	{
-		uint uuid = App->res_man->Find(GO->path.c_str());
+		uint uuid = App->res_man->FindM(GO->path.c_str());
 		if (0 == 0)
 		{
 			UUID_resource = App->res_man->ImportFile(GO->path.c_str(), RESOURCE_TYPE::R_MESH, GO);
