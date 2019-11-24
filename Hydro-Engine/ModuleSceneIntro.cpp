@@ -58,7 +58,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			App->importer->aiParentNode("Assets/BakerHouse.fbx");
+			App->importer->aiParentNode("Assets/Street environment_V01.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;
