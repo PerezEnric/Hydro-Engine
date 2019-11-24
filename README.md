@@ -13,12 +13,37 @@ Hi everyone, this is Hydro Engine, a game engine that we are developing for a su
 
 - https://github.com/PerezEnric/Hydro-Engine
 
+## Work done by members:
+
+- Guillem:
+
+-Component transfor 1/2.
+
+-Own file formats.
+
+-Space Partioning.
+
+-Serialitzation
+
+-Resource Managment.
+
+- Enric:
+
+-Component transfor 1/2.
+
+-Frustum culling.
+
+-Mouse Picking.
+
+-time Managment.
+
+
 
 ## License:
 
 MIT License
 
-Copyright (c) 2019 Enric
+Copyright (c) 2019 Enric & Guillem
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
