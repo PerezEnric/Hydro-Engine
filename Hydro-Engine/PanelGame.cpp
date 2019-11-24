@@ -17,7 +17,7 @@ bool PanelGame::Update()
 	ImGui::Begin("Game", &is_active, flags);
 	
 	ImGui::SetWindowPos({ 200, 20.0f });
-	ImGui::SetWindowSize(ImVec2(200, 70), ImGuiCond_Always);
+	ImGui::SetWindowSize(ImVec2(200, 100), ImGuiCond_Always);
 
 
 
@@ -49,15 +49,18 @@ bool PanelGame::Update()
 	if (ImGui::Button("Stop"))
 	{
 		App->scene_intro->game_t.is_paused = false;
-		App->scene_intro->LoadScene("auto_play_save");
+		App->scene_intro->LoadScene("Library/Scenes/auto_play_save.json");
 		App->scene_intro->game_t.StopGame();
 	}
 
 
-	char t[10];
-	sprintf_s(t, 10, "%.2f", App->scene_intro->game_t.ReadSecGame());
+	char t[25];
+	sprintf_s(t, 25, "GameSeconds %.2f", App->scene_intro->game_t.ReadSecGame());
 	ImGui::Text(t);
 
+	char r_t[25];
+	sprintf_s(r_t, 25, "RealTime %.2f", App->startup_time.ReadSec());
+	ImGui::Text(r_t);
 
 	ImGui::End();
 
