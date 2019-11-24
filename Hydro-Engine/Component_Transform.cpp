@@ -89,7 +89,7 @@ void Component_Transform::NewTransform()
 	if (GO->parent != nullptr) // Same as last time :D
 	{
 		if (GO->DoIhave(TRANSFORM))
-			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
+			my_global_matrix = /*GO->parent->transform->my_global_matrix * */ my_current_matrix;
 		
 	}
 	else
@@ -128,7 +128,14 @@ void Component_Transform::ShowInfo()
 void Component_Transform::LoadTransform(float3 pos, float3 scale, Quat rotation)
 {
 	this->l_position = pos;
-	this->l_scale = scale;
+	if (scale.x == inf || scale.y == inf || scale.z == inf)
+	{
+		l_scale.x = 1000;
+		l_scale.y = 1000;
+		l_scale.z = 1000;
+	}
+	else
+		this->l_scale = scale;
 	this->l_rotation = rotation;
 }
 
@@ -234,6 +241,6 @@ void Component_Transform::LoadComponent(nlohmann::json & to_load)
 	future_rotation.x = f_rot[0];
 	future_rotation.y = f_rot[1];
 	future_rotation.z = f_rot[2];
-
-	NewTransform();
+/*
+	NewTransform();*/
 }

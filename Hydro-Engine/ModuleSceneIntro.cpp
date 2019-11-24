@@ -70,7 +70,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 			if (selected->transform->bbox_changed)
 			{
-				selected->my_mesh->RecalcBoundingBox();
+				/*selected->my_mesh->RecalcBoundingBox();*/
 				selected->transform->bbox_changed = false;
 			}
 		}
@@ -288,6 +288,16 @@ void ModuleSceneIntro::LoadScene(std::string path)
 		}	
 	}
 
+
+
+	for (int i = 0; i < root.size(); i++)
+	{
+		root[i]->transform->NewTransform();
+	}
+
+	
+	
+
 	//and we did a new load of scene :D I wanna dieeeeee
 
 
@@ -382,26 +392,30 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 	{
 		if ((*it)->b_mesh)
 		{
-			for (uint i = 0; i < (*it)->my_mesh->my_reference->my_mesh->num_index; i += 3)
+			if ((*it)->my_mesh->my_reference->my_mesh->num_index > 7)
 			{
-				LineSegment local_ray = last_ray;
-				local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted()); //We make the transform of the ray to be local for the triangles
-
-				uint c_i = (*it)->my_mesh->my_reference->my_mesh->index[i] * 3;
-				float3 a((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
-				c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 1] * 3; 
-				float3 b((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
-				c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 2] * 3;
-				float3 c((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
-				Triangle tri(a, b, c); //We build the triangles
-				LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
-				float hit_distance = 0.0f; //As it says, the distance of the hit
-				if (local_ray.Intersects(tri, &hit_distance, nullptr)) //if the local ray intersects with a triangle we also get the hit distance
+				for (uint i = 0; i < (*it)->my_mesh->my_reference->my_mesh->num_index; i += 3)
 				{
-					LOG("HIT POINT DISTANCE: %f", hit_distance);
-					if (hit_distance < far_hit_distance) {
-						far_hit_distance = hit_distance; //We get the closest distance to the hit point so we get the closest GameObject
-						selected = (*it);
+
+					LineSegment local_ray = last_ray;
+					local_ray.Transform((*it)->transform->GetGlobalMatrix().Inverted()); //We make the transform of the ray to be local for the triangles
+
+					uint c_i = (*it)->my_mesh->my_reference->my_mesh->index[i] * 3;
+					float3 a((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
+					c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 1] * 3;
+					float3 b((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
+					c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 2] * 3;
+					float3 c((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
+					Triangle tri(a, b, c); //We build the triangles
+					LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
+						float hit_distance = 0.0f; //As it says, the distance of the hit
+					if (local_ray.Intersects(tri, &hit_distance, nullptr)) //if the local ray intersects with a triangle we also get the hit distance
+					{
+						LOG("HIT POINT DISTANCE: %f", hit_distance);
+						if (hit_distance < far_hit_distance) {
+							far_hit_distance = hit_distance; //We get the closest distance to the hit point so we get the closest GameObject
+							selected = (*it);
+						}
 					}
 				}
 			}

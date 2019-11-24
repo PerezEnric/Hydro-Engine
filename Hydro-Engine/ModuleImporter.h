@@ -32,7 +32,9 @@ public:
 
 	void aiParentNode(const std::string& Filename);
 
-	void NodeIterations(aiNode* parentNod, GameObject* act); //recursive function be carefull
+	void NodeIterations(aiNode* parentNod, GameObject* act, bool again = false); //recursive function be carefull
+
+	void ChargeTransform(aiNode* parentNod, GameObject* act); //recursive function be carefull
 
 	void CreateGO(const std::string & Filename, GameObject* act); // we will call this function in the second assigment.
 
@@ -43,7 +45,7 @@ public:
 
 	void LoadTexture(const std::string& Filename, Component_Texture* tex);
 
-
+	void AssetsCarpet(std::string & to_retoc);
 
 	std::string SearchTheDoc(const std::string & Filename, GameObject* tex);
 	std::string CutTheDoc(const std::string & Filename, Component_Texture* tex);
@@ -59,7 +61,7 @@ public:
 	bool CleanUp();
 private:
 	std::string local_doc;
-	int act_number_meshes;
+
 };
 
 

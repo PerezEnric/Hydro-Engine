@@ -52,9 +52,12 @@ uint ResourceManager::FindM(const char * original_name)
 
 	for (std::map<uint, ResourceMesh*>::iterator it = res_meshes.begin(); it != res_meshes.end(); it++)
 	{
-		if (it->second->original_name == helper)
+		if (it->second != nullptr)
 		{
-			ret = it->first;
+			if (it->second->original_name == helper)
+			{
+				ret = it->first;
+			}
 		}
 	}
 

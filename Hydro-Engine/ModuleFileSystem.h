@@ -69,6 +69,8 @@ public:
 	//this function cuts the path of the filename
 	void CutPath(std::string& path_name_extension);
 
+	void NormalizeString(std::string& path_name_extension);
+
 private:
 
 	void CreateAssimpIO();

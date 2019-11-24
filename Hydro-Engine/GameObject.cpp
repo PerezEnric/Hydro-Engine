@@ -373,22 +373,6 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	}
 
 
-	if (b_transform)
-	{
-		//if so we create an empty mesh.
-		CreateComponent(TRANSFORM, false);
-		// We search for the mesh data
-		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
-		{
-			std::string helr = it.key();
-			if (helr == tr)
-			{
-				nlohmann::json tl = it.value();
-				transform->LoadComponent(tl);
-				break;
-			}
-		}
-	}
 
 	if (b_camera)
 	{
@@ -402,6 +386,25 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 			{
 				nlohmann::json tl = it.value();
 				cam->LoadComponent(tl);
+				break;
+			}
+		}
+	}
+
+
+
+	if (b_transform)
+	{
+		//if so we create an empty mesh.
+		CreateComponent(TRANSFORM, false);
+		// We search for the mesh data
+		for (nlohmann::json::iterator it = g_comp.begin(); it != g_comp.end(); it++)
+		{
+			std::string helr = it.key();
+			if (helr == tr)
+			{
+				nlohmann::json tl = it.value();
+				transform->LoadComponent(tl);
 				break;
 			}
 		}

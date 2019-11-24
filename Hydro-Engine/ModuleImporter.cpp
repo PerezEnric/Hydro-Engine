@@ -59,10 +59,10 @@ int ModuleImporter::HowManyMeshes(const std::string & Filename)
 
 void ModuleImporter::aiParentNode(const std::string & Filename)
 {
-	act_number_meshes = 0;
+
 	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); 
+	const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	if (pScene) {
 		aiNode* root = pScene->mRootNode;
 		App->scene_intro->CreateRootGameObject(root->mName.C_Str(), Filename);
@@ -73,7 +73,7 @@ void ModuleImporter::aiParentNode(const std::string & Filename)
 
 }
 
-void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
+void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act, bool again)
 {
 	aiVector3D translation, scaling;
 	aiQuaternion rotation;
@@ -95,33 +95,68 @@ void ModuleImporter::NodeIterations(aiNode * parentNod, GameObject* act)
 	}
 	// Transformation --------------
 	
-
+	int helpper = 0;
 	for (uint i = 0; i < parentNod->mNumChildren; i++)
 	{
 		aiNode* child = parentNod->mChildren[i];
-		for (uint i = 0; i < child->mNumMeshes; i++)
+		for (uint j = 0; j < child->mNumMeshes; j++)
 		{
 			std::string name;
-			name = child->mName.C_Str() + i;
-			act->CreateChildren(name, act->path, act_number_meshes + i); //gtodo: si crea multiples meshes no aplicara la correspondiente transformacion.
+			name = child->mName.C_Str();
+			char* naa = new char[200];
+
+			sprintf(naa, "%s %u",name.c_str(), j);
+			
+			act->CreateChildren(naa, act->path, child->mMeshes[j]);
+			if (j > 0)
+			{
+				ChargeTransform(child, act->childrens[j]);
+			}
+		}
+		if (child->mNumMeshes > 1)
+		{
+			helpper += (child->mNumMeshes - 1);
 		}
 		if (child->mNumMeshes == 0)
 		{
 			std::string name;
 			name = child->mName.C_Str() + i;
 			act->CreateEmptyChild(name, act->path);
-
 		}
-		act_number_meshes += child->mNumMeshes;
-		NodeIterations(child, act->childrens[i]);
+		NodeIterations(child, act->childrens[i + helpper]);
 	}
+	
+
+}
+
+void ModuleImporter::ChargeTransform(aiNode * parentNod, GameObject * act)
+{
+	aiVector3D translation, scaling;
+	aiQuaternion rotation;
+	// Transformation ------------
+	parentNod->mTransformation.Decompose(scaling, rotation, translation);
+
+
+	int _max = max(scaling.x, scaling.y);
+	_max = max(_max, scaling.z);
+
+	float3 pos(translation.x, translation.y, translation.z);
+	float3 scale(scaling.x / _max, scaling.y / _max, scaling.z / _max);
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+	if (act->DoIhave(TRANSFORM))
+	{
+		act->transform->LoadTransform(pos, scale, rot);
+		act->transform->NewTransform();
+	}
+	// Transformation --------------
 }
 
 void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
 {
 	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	if (pScene) {
 		aiNode* root = pScene->mRootNode;
 		NodeIterations(root, act);
@@ -134,105 +169,109 @@ void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
 std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, GameObject* object)
 {
 	Component_Mesh* Ret = new Component_Mesh();
-
+	Assimp::Importer Importer;
 
 	if (Ret == nullptr)
 	{
 		Ret = new Component_Mesh();
 	}
-	
-	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
+	const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+	// el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
 	if (pScene) {
 		const aiMesh* sMesh = pScene->mMeshes[index];
-		
-		
-
 
 		// First lets load
-
-		LOG("Loading vertex from ASSIMP:")
-		Ret->num_vertex = sMesh->mNumVertices;
-		Ret->vertex = new float[Ret->num_vertex * 3]; 
-		memcpy(Ret->vertex, sMesh->mVertices, sizeof(float) * Ret->num_vertex * 3); 
-
-
-		glGenBuffers(1, &Ret->id_vertex);
-		glBindBuffer(GL_ARRAY_BUFFER, Ret->id_vertex);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->num_vertex * 3, Ret->vertex, GL_STATIC_DRAW);
-		
-		LOG("New mesh with %d vertex", Ret->num_vertex);
-
-
-
-		// copy faces
-		if (sMesh->HasFaces())
+		if (sMesh != nullptr)
 		{
-			LOG("Loading Mesh index from ASSIMP");
-			Ret->num_index = sMesh->mNumFaces * 3;
-			Ret->index = new uint[Ret->num_index]; 
-			for (uint i = 0; i < sMesh->mNumFaces; ++i)
+			LOG("Loading vertex from ASSIMP:")
+			Ret->num_vertex = sMesh->mNumVertices;
+			Ret->vertex = new float[Ret->num_vertex * 3];
+			memcpy(Ret->vertex, sMesh->mVertices, sizeof(float) * Ret->num_vertex * 3);
+
+
+			glGenBuffers(1, &Ret->id_vertex);
+			glBindBuffer(GL_ARRAY_BUFFER, Ret->id_vertex);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->num_vertex * 3, Ret->vertex, GL_STATIC_DRAW);
+
+			LOG("New mesh with %d vertex", Ret->num_vertex);
+
+
+
+			// copy faces
+			if (sMesh->HasFaces())
 			{
-				if (sMesh->mFaces[i].mNumIndices != 3)
+				LOG("Loading Mesh index from ASSIMP");
+				Ret->num_index = sMesh->mNumFaces * 3;
+				Ret->index = new uint[Ret->num_index];
+				for (uint i = 0; i < sMesh->mNumFaces; ++i)
 				{
-					LOG("WARNING, geometry face with != 3 indices!");
-				}
-				else
-				{
-					memcpy(&Ret->index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
-					glGenBuffers(1, &Ret->id_index);
-					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Ret->id_index);
-					glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Ret->num_index), Ret->index, GL_STATIC_DRAW);
-				}
+					if (sMesh->mFaces[i].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+					}
+					else
+					{
+						memcpy(&Ret->index[i * 3], sMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+						glGenBuffers(1, &Ret->id_index);
+						glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Ret->id_index);
+						glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * (Ret->num_index), Ret->index, GL_STATIC_DRAW);
+					}
 
+				}
+				LOG("New mesh with %d index", Ret->num_index);
 			}
-			LOG("New mesh with %d index", Ret->num_index);
+
+			if (sMesh->HasNormals())
+			{
+				Ret->Has_normals = true;
+				Ret->normal = new float[sMesh->mNumVertices * 3];
+				memcpy(Ret->normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
+			}
+
+
+
+			if (sMesh->HasTextureCoords(0))
+			{
+				Ret->Has_tex_coords = true;
+				LOG("Loading Texture UVS from ASSIMP");
+				Ret->size = sMesh->mNumVertices * 3;
+				Ret->text_uvs = new float[Ret->size];
+				memcpy(Ret->text_uvs, sMesh->mTextureCoords[0], Ret->size * sizeof(float));
+				glGenBuffers(1, (GLuint*) & (Ret->id_uvs));
+				glBindBuffer(GL_ARRAY_BUFFER, Ret->id_uvs);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->size, Ret->text_uvs, GL_STATIC_DRAW);
+
+				LOG("New mesh with %d texture uvs", Ret->size);
+			}
+
+			if (pScene->HasMaterials())
+			{
+				LOG("Loading Materials from ASSIMP")
+					aiMaterial* material = pScene->mMaterials[sMesh->mMaterialIndex];
+				uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
+
+				aiString path;
+				material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+
+				object->texture_path = path.C_Str();
+
+				if (object->path != "" && object->texture_path.size() <= 25)
+					object->texture_path = SearchTheDoc(object->texture_path, object);
+
+				App->file_system->NormalizeString(object->texture_path);
+
+				if (object->texture_path.size() <= 30)
+				{
+					App->file_system->CutPath(object->texture_path);
+					AssetsCarpet(object->texture_path);
+				}
+				object->CreateComponent(TEXTURE);
+
+				LOG("Mesh texture with path: %s", object->texture_path.c_str());
+			}
 		}
-
-		if (sMesh->HasNormals())
-		{
-			Ret->Has_normals = true;
-			Ret->normal = new float[sMesh->mNumVertices * 3];
-			memcpy(Ret->normal, sMesh->mNormals, sizeof(aiVector3D) * sMesh->mNumVertices);
-		}
-
-
-
-		if (sMesh->HasTextureCoords(0))
-		{
-			Ret->Has_tex_coords = true;
-			LOG("Loading Texture UVS from ASSIMP");
-			Ret->size = sMesh->mNumVertices * 3;
-			Ret->text_uvs = new float[Ret->size];
-			memcpy(Ret->text_uvs, sMesh->mTextureCoords[0], Ret->size * sizeof(float));
-			glGenBuffers(1, (GLuint*) & (Ret->id_uvs));
-			glBindBuffer(GL_ARRAY_BUFFER, Ret->id_uvs);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Ret->size, Ret->text_uvs, GL_STATIC_DRAW);
-
-			LOG("New mesh with %d texture uvs", Ret->size);
-		}
-
-		if (pScene->HasMaterials())
-		{
-			LOG("Loading Materials from ASSIMP")
-			aiMaterial* material = pScene->mMaterials[sMesh->mMaterialIndex];
-			uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
-
-			aiString path;
-			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-
-			object->texture_path = path.C_Str();
-
-			if (object->path != "" && object->texture_path.size() <= 25)
-				object->texture_path = SearchTheDoc(object->texture_path, object);
-
-			object->CreateComponent(TEXTURE);
-
-			LOG("Mesh texture with path: %s", object->texture_path.c_str());
-
-		}
-
+		
 
 	}
 	else {
@@ -335,6 +374,11 @@ void ModuleImporter::LoadTexture(const std::string & Filename, Component_Texture
 	}
 
 	ilDeleteImages(1, &text_nm);
+}
+
+void ModuleImporter::AssetsCarpet(std::string & to_retoc)
+{
+	to_retoc = local_doc + to_retoc;
 }
 
 
