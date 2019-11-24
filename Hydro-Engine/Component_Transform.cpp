@@ -89,7 +89,7 @@ void Component_Transform::NewTransform()
 	if (GO->parent != nullptr) // Same as last time :D
 	{
 		if (GO->DoIhave(TRANSFORM))
-			my_global_matrix = /*GO->parent->transform->my_global_matrix * */ my_current_matrix;
+			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
 		
 	}
 	else
@@ -148,7 +148,7 @@ float4x4 Component_Transform::GetGlobalMatrix()
 	if (GO->parent != nullptr) // Same as last time :D
 	{
 		if (GO->DoIhave(TRANSFORM))
-			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
+			my_global_matrix = /*GO->parent->transform->my_global_matrix **/ my_current_matrix;
 		else
 			my_global_matrix = my_current_matrix;
 	}
