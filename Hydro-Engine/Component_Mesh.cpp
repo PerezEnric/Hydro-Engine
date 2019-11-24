@@ -199,8 +199,6 @@ void Component_Mesh::Load_P_Shape()
 {
 	Primitive P;
 	P.CreatePrimitive(GO->p_type,this);
-	// Esto lo tendre que eliminar. gtodo.
-	//own_file = App->importer->ImportMeshOwnFile(GO->name.c_str(), this);
 }
 
 void Component_Mesh::CleanUp()

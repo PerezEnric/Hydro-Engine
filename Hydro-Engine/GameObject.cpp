@@ -413,20 +413,6 @@ void GameObject::LoadGameObject(nlohmann::json & to_load)
 	
 	CreateOBB();
 	
-
-
-	///Esto funciona 
-
-	//int helper = 0;
-	////then we want to send to this mesh his info
-	//for (nlohmann::json::iterator it = to_load.begin(); it != to_load.end(); it++)
-	//{
-	//	std::string helper_2 = it.key();
-	//	std::string helper_3 = "Components";
-	//	if (helper_2 == helper_3)
-	//		helper++;
-	//}
-	//LOG("%i objects", helper);
 }
 
 void GameObject::FrustrumQuad(std::vector<GameObject*>& frust)

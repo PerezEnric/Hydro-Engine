@@ -206,7 +206,15 @@ void ModuleSceneIntro::CreateGameObjectPS(const std::string & name, PrimitiveTyp
 
 void ModuleSceneIntro::DeleteGameObject()
 {
-	selected->Cleanup();//todo aqui me falta eliminarlo de la array del padre.
+	selected->Cleanup();
+	for (uint i = 0; i < root.size(); i++)
+	{
+		if (selected == root[i])
+		{
+			root.erase(root.begin() + i);
+		}
+	}
+
 	selected = nullptr;
 }
 
@@ -311,7 +319,7 @@ void ModuleSceneIntro::FrustrumQuad()
 {
 	std::vector<GameObject*> helper;
 
-	quadtree->Intersect(helper, App->camera->main_cam->frustum);// Me falta poner la primitiva aqui gtodo.
+	quadtree->Intersect(helper, App->camera->main_cam->frustum);
 
 	for (uint i = 0; i < helper.size(); i++)
 	{

@@ -47,7 +47,7 @@ int ModuleImporter::HowManyMeshes(const std::string & Filename)
 	int ret = 0;
 	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); // el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
+	const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcessPreset_TargetRealtime_MaxQuality); 
 	if (pScene) {
 		ret = pScene->mNumMeshes;
 	}
@@ -177,7 +177,6 @@ std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, Ga
 	}
 
 	const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
-	// el aiProcess_Triangulate sirve para transformar las caras cuadras en triangulos
 	if (pScene) {
 		const aiMesh* sMesh = pScene->mMeshes[index];
 
@@ -486,7 +485,7 @@ std::string ModuleImporter::ImportMeshOwnFile(const char * name, Component_Mesh 
 
 
 
-	App->file_system->GetActualName(filename); //gtodo el nombre lo has de cambiar, pero funciona bastante bien por ahora xd.
+	App->file_system->GetActualName(filename); 
 	App->file_system->SaveUnique(output_file, data, size, LIBRARY_MESH_FOLDER, filename.c_str(), "guen");
 
 
