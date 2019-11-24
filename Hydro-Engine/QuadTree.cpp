@@ -203,6 +203,7 @@ void QTN::CleanUp()
 
 void QTN::Intersect(std::vector<GameObject*>& did_i_found_intersects, Frustum primitive)
 {
+
 	if (my_box.Intersects(primitive)) {
 		if (!im_leaf) {	// As always we only wanna test it on leafs.												
 			for (int i = 0; i < 4; i++)

@@ -60,7 +60,7 @@ void Component_Mesh::Load_Mesh()
 bool Component_Mesh::Update()
 {
 
-	if(inside_frustum)
+	if(inside_frustum || !GO->_static)
 		Draw();
 
 
@@ -423,6 +423,11 @@ void Component_Mesh::DrawBBox()
 
 void Component_Mesh::ShowInfo()
 {
+	if (ImGui::Checkbox("Static", &GO->_static))
+	{
+		App->scene_intro->re_quadtree = true;
+	}
+
 	ImGui::Text("Current Reference: %u", UUID_resource);
 	ImGui::Text("Reference Counts: %i", my_reference->loaded);
 	ImGui::Text("Mesh Vertices: %i", my_reference->my_mesh->num_vertex);
@@ -444,6 +449,8 @@ void Component_Mesh::ShowInfo()
 	if (ImGui::Checkbox("Bounding Box", &show_bbox))
 	{
 	}
+
+
 }
 
 void Component_Mesh::MakeChecker()
