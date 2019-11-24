@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "PanelCamera.h"
+#include "ModuleSceneIntro.h"
 #include "ModuleCamera3D.h"
 #include "Component_Camera.h"
 #include "ImGui/imgui.h"
@@ -18,7 +19,7 @@ bool PanelCamera::Update()
 	ImGui::Begin("Camera Settings", &is_active, flags);
 
 	ImGui::SetWindowPos({ 200, 120.0f });
-	ImGui::SetWindowSize(ImVec2(250, 100));
+	ImGui::SetWindowSize(ImVec2(250, 150));
 
 	if (ImGui::DragFloat("Near Plane", &App->camera->main_cam->frustum.nearPlaneDistance, 0.1f, 0.1f, App->camera->main_cam->frustum.farPlaneDistance))
 	{
@@ -34,6 +35,8 @@ bool PanelCamera::Update()
 	{
 		App->camera->main_cam->ChangeFOV(App->camera->main_cam->angle_fov);
 	}
+
+	ImGui::Checkbox("Draw QuadTree", &App->scene_intro->dr_quadtree);
 
 	ImGui::End();
 	

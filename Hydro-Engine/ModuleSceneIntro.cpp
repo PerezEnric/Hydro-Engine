@@ -113,8 +113,8 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	{
 		re_quadtree = true;
 	}
-
-	quadtree->Draw();
+	if (dr_quadtree)
+		quadtree->Draw();
 
 	if (re_quadtree)
 	{

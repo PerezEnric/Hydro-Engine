@@ -132,9 +132,9 @@ update_status ModuleCamera3D::Update(float dt)
 		CastRay();
 	}
 
-	if (draw_ray)
+	/*if (draw_ray)
 		DrawRay();
-
+*/
 
 	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
