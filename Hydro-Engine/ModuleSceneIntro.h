@@ -85,6 +85,7 @@ public:
 	QT* quadtree = nullptr;
 	int last_time_go = 0;
 	bool re_quadtree = false;
+	bool dr_quadtree = false;
 
 	// Timer
 
