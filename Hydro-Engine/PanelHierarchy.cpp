@@ -33,24 +33,7 @@ bool PanelHierarchy::Update()
 
 void PanelHierarchy::CreateNode()
 {
-	//if (ImGui::TreeNode("GameObjects:"))
-	//{
-	//	for (int n = 0; n < App->scene_intro->root.size(); n++)
-	//	{
-	//		
-	//		if (ImGui::Selectable(App->scene_intro->root[n]->name.c_str(), App->scene_intro->selected == n))
-	//		{
-	//			App->scene_intro->selected = n;
-	//			for (int i = 0; i < App->scene_intro->root[n]->childrens.size(); i++)
-	//			{
-	//				if (ImGui::Selectable(App->scene_intro->root[n]->childrens[i]->name.c_str(), App->scene_intro->selected == n));
-	//			}
-	//		}
-	//			
-	//	}
-	//	ImGui::TreePop();
-	//}
-//
+	
 	if (ImGui::TreeNode("GameObjects:"))
 	{
 		int i = 0;

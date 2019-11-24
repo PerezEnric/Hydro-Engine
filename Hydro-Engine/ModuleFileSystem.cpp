@@ -406,7 +406,6 @@ bool ModuleFileSystem::Remove(const char* file)
 
 void ModuleFileSystem::SaveFile(const char * path, const nlohmann::json & to_save)
 {
-	// La cosa serà llamar a la funcion de Save unique y primero crear el archivo y luego modificarlo con esta función.
 	std::ofstream o(path);
 	o << std::setw(4) << to_save << std::endl;
 	o.close();

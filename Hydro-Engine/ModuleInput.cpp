@@ -115,7 +115,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				dropped_filedir = e.drop.file; //Todo Guillem: Tocar todo esto.
+				dropped_filedir = e.drop.file; 
 				char name[32];
 
 				sprintf(name, "GO-%d", currentGO);

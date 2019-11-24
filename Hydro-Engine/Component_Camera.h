@@ -52,7 +52,7 @@ private:
 	float4x4 my_current_matrix;
 	float4x4 my_global_matrix;
 
-	// Cargar todo esto al json cuando savees
+
 	float3 l_scale = float3(1.0f, 1.0f, 1.0f);
 	//rotation is a quat because they are cool.
 	Quat l_rotation = Quat(0, 0, 0, 0);
