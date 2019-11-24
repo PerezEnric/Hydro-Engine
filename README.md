@@ -37,6 +37,11 @@ Hi everyone, this is Hydro Engine, a game engine that we are developing for a su
 
 -time Managment.
 
+## Things to know
+
+ - When you open the engine it will load a street scene. It will take a little time to load all game objects.
+
+ - If you want to see quadtrees, you should go: view -> camera settings
 
 
 ## License:
