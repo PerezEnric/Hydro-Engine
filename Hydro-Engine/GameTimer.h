@@ -12,6 +12,7 @@ public:
 	void PauseGame();
 	void ResumeGame();
 	void StopGame();
+	float ReadSecGame();
 
 public:
 	Timer game_timer;
@@ -21,6 +22,6 @@ public:
 	float real_time_delta_time;
 	float time; // seconds since game start
 
-	bool is_running;
+	bool is_running = false;
 	bool is_paused = false;
 };
