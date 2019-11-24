@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "GameTimer.h"
 #include "Glew/include/glew.h"
 #include "Json/json.hpp"
 #include <queue>
@@ -84,4 +85,8 @@ public:
 	QT* quadtree = nullptr;
 	int last_time_go = 0;
 	bool re_quadtree = false;
+
+	// Timer
+
+	GameTimer game_t;
 };

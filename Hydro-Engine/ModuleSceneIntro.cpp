@@ -47,7 +47,7 @@ bool ModuleSceneIntro::Start()
 
 	
 	quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
-
+	game_t.Start();
 
 	return ret;
 }

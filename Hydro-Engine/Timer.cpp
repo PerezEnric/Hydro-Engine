@@ -27,7 +27,7 @@ void Timer::Stop()
 
 void Timer::Resume()
 {
-	if (running = false) //So time is stopped
+	if (running == false) //So time is stopped
 	{
 		running = true; //We make time running again
 		started_at = SDL_GetTicks() - (stopped_at - started_at); //We resume at last time

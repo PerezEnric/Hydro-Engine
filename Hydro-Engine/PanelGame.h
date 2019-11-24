@@ -11,4 +11,7 @@ public:
 
 	bool Update() override;
 
+public:
+	//bool is_active = true;
+
 };

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "PanelGame.h"
+#include "PanelSaveAndLoad.h"
 #include "ImGui/imgui.h"
 
 PanelGame::PanelGame()
@@ -12,28 +13,41 @@ PanelGame::~PanelGame()
 
 bool PanelGame::Update()
 {
-	if(ImGui::Begin("Game"))
+	ImGuiWindowFlags flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+	ImGui::Begin("Game", &is_active, flags);
+	
+	ImGui::SetWindowPos({ 200, 20.0f });
+	ImGui::SetWindowSize(ImVec2(200, 70), ImGuiCond_Always);
+
+	if (ImGui::Button("Play"))
 	{
-		ImGui::SetWindowPos({ 200, 20.0f });
-		ImGui::SetWindowSize(ImVec2(200, 70), ImGuiCond_Always);
-
-		if (ImGui::Button("Play"))
-		{
-
-		}
-		ImGui::SameLine();
+		App->scene_intro->game_t.is_running = true;
+		App->scene_intro->SaveScene("auto_play_save");
+		App->scene_intro->game_t.Start();
+	}
+	ImGui::SameLine();
+	if (!App->scene_intro->game_t.is_paused)
+	{
 		if (ImGui::Button("Pause"))
 		{
-
+			App->scene_intro->game_t.PauseGame();
 		}
-		ImGui::SameLine();
-		if (ImGui::Button("Tick"))
-		{
-
-		}
-		ImGui::End();
 	}
-
+	else
+	{
+		if (ImGui::Button("Resume"))
+		{
+			App->scene_intro->game_t.ResumeGame();
+		}
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Stop"))
+	{
+		App->scene_intro->LoadScene("auto_play_save");
+		App->scene_intro->game_t.StopGame();
+	}
+	ImGui::End();
 	
+
 	return true;
 }

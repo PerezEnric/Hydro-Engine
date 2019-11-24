@@ -22,5 +22,5 @@ public:
 	float time; // seconds since game start
 
 	bool is_running;
-	bool is_paused;
+	bool is_paused = false;
 };
