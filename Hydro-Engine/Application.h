@@ -56,7 +56,6 @@ public:
 
 private:
 
-	Timer	ms_timer;
 	float	dt;
 	std::list<Module*> list_modules;
 
@@ -72,7 +71,6 @@ private:
 
 	Timer frame_time;
 	Timer last_sec_frame_time;
-	Timer startup_time;
 
 	nlohmann::json json_frames;
 
@@ -98,6 +96,8 @@ public:
 
 	// HARDWARE
 	HardwareInfo system_info;
+	Timer	ms_timer;
+	Timer startup_time;
 
 private:
 

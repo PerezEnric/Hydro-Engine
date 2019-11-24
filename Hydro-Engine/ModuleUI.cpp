@@ -94,6 +94,9 @@ update_status ModuleUI::PreUpdate(float dt)
 	if (p_inspector->show_inspector)
 		p_inspector->is_active;
 
+	if (p_game->show_panelgame)
+		p_game->is_active;
+
 	if (logs_to_do.size() > 0)
 	{
 		for (uint i = 0; i < logs_to_do.size(); i++) {
@@ -148,6 +151,7 @@ void ModuleUI::CreateMainMenuBar()
 			ImGui::MenuItem("Configuration", NULL, &p_config->is_active);
 			ImGui::MenuItem("Hierarchy", NULL, &p_hierarchy->is_active);
 			ImGui::MenuItem("Inspector", NULL, &p_inspector->is_active);
+			ImGui::MenuItem("Time Manager", NULL, &p_game->is_active);
 
 			ImGui::EndMenu();
 		}

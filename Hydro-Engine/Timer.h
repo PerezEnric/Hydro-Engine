@@ -21,6 +21,10 @@ public:
 private:
 
 	bool	running;
+	//Uint32	started_at;
+	//Uint32	stopped_at;
+
+public:
 	Uint32	started_at;
 	Uint32	stopped_at;
 };

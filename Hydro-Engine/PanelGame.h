@@ -13,5 +13,5 @@ public:
 
 public:
 	//bool is_active = true;
-
+	bool show_panelgame = false;
 };
