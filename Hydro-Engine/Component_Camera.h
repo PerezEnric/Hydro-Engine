@@ -46,6 +46,7 @@ public:
 public:
 	Frustum		frustum;
 	bool show_frustum = false;
+	float angle_fov;
 
 private: 
 	float4x4 my_current_matrix;
@@ -56,5 +57,5 @@ private:
 	//rotation is a quat because they are cool.
 	Quat l_rotation = Quat(0, 0, 0, 0);
 	float3 future_rotation = float3(0, 0, 0);
-	float angle_fov;
+	
 };

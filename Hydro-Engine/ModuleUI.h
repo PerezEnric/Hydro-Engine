@@ -11,6 +11,7 @@
 #include "PanelInspector.h"
 #include "PanelSaveAndLoad.h"
 #include "PanelGame.h"
+#include "PanelCamera.h"
 #include "ImGuizmo/ImGuizmo.h"
 #include <string>
 #include <vector>
@@ -26,6 +27,7 @@ class PanelHierarchy;
 class PanelInspector;
 class PanelSaveAndLoad;
 class PanelGame;
+class PanelCamera;
 
 class ModuleUI : public Module
 {
@@ -52,6 +54,7 @@ public:
 	PanelInspector* p_inspector = nullptr;
 	PanelSaveAndLoad* p_saveload = nullptr;
 	PanelGame* p_game = nullptr;
+	PanelCamera* p_camera = nullptr;
 	
 	std::vector<Panel*> vector_panels;
 

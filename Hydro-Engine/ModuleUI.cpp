@@ -57,6 +57,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_inspector = new PanelInspector());
 	vector_panels.push_back(p_saveload = new PanelSaveAndLoad());
 	vector_panels.push_back(p_game = new PanelGame());
+	vector_panels.push_back(p_camera = new PanelCamera());
 
 	p_console->is_active = true;
 	p_inspector->is_active = true;
@@ -96,6 +97,9 @@ update_status ModuleUI::PreUpdate(float dt)
 
 	if (p_game->show_panelgame)
 		p_game->is_active;
+
+	if (p_camera->show_panelcam)
+		p_camera->is_active;
 
 	if (logs_to_do.size() > 0)
 	{
@@ -151,6 +155,7 @@ void ModuleUI::CreateMainMenuBar()
 			ImGui::MenuItem("Configuration", NULL, &p_config->is_active);
 			ImGui::MenuItem("Hierarchy", NULL, &p_hierarchy->is_active);
 			ImGui::MenuItem("Inspector", NULL, &p_inspector->is_active);
+			ImGui::MenuItem("Camera Settings", NULL, &p_camera->is_active);
 			ImGui::MenuItem("Time Manager", NULL, &p_game->is_active);
 
 			ImGui::EndMenu();

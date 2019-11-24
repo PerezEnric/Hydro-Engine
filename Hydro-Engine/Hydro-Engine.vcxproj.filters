@@ -144,6 +144,9 @@
     <ClCompile Include="GameTimer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="PanelCamera.cpp">
+      <Filter>Modules\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -317,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="GameTimer.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelCamera.h">
+      <Filter>Modules\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
