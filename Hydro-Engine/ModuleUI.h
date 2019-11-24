@@ -61,8 +61,11 @@ private:
 
 	par_shapes_mesh* _mesh = nullptr;
 	Primitive c;
-	ImGuizmo::OPERATION guizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::OPERATION guizmo_op;
 	ImGuizmo::MODE guizmo_mode = ImGuizmo::MODE::WORLD;
+
+	float4x4 Last_model;
+	std::string Last_mod;
 };
 
 #endif

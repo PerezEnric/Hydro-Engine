@@ -228,6 +228,8 @@ bool ModuleUI::CleanUp()
 
 void ModuleUI::DrawGuizmos(GameObject* selected)
 {
+	
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 		guizmo_op = ImGuizmo::TRANSLATE;
 	}
@@ -241,12 +243,13 @@ void ModuleUI::DrawGuizmos(GameObject* selected)
 	float* view_matrix = App->camera->main_cam->GetViewMatrix();
 	float4x4 projection_matrix = App->camera->main_cam->GetProjectionMatrix();
 
-	float4x4 model = selected->transform->GetGlobalMatrix().Transposed();
+	float4x4 model = selected->transform->my_current_matrix.Transposed();
 
 	//ImGuizmo::SetDrawlist();
 	ImGuizmo::Manipulate(view_matrix, (float*)& projection_matrix, guizmo_op, guizmo_mode, (float*)& model);
 
-
+	
+	
 	if (ImGuizmo::IsUsing)
 	{
 		model.Transpose();
@@ -255,27 +258,32 @@ void ModuleUI::DrawGuizmos(GameObject* selected)
 		float3 current_scale = selected->transform->GetScale();
 		model.Decompose(current_pos, current_rot, current_scale);
 
-
-		switch (guizmo_op)
+		if (!model.Equals(Last_model))
 		{
-		case ImGuizmo::TRANSLATE:
-			selected->transform->SetPosition(current_pos);
-			break;
-
-		case ImGuizmo::ROTATE:
-			selected->transform->SetRotationWithQuat(current_rot);
-			break;
-
-		case ImGuizmo::SCALE:
-			if (current_scale.x > 0.3f && current_scale.y > 0.3f && current_scale.z > 0.3f)
+			switch (guizmo_op)
 			{
-				selected->transform->SetScale(current_scale);
+			case ImGuizmo::TRANSLATE:
+				selected->transform->SetPosition(current_pos);
+				break;
+
+			case ImGuizmo::ROTATE:
+				selected->transform->SetRotationWithQuat(current_rot);
+				break;
+
+			case ImGuizmo::SCALE:
+				if (current_scale.x > 0.3f && current_scale.y > 0.3f && current_scale.z > 0.3f)
+				{
+					selected->transform->SetScale(current_scale);
+				}
+				break;
 			}
-			break;
 		}
+
 	}
+	
+	
 
 	ImGuiIO& io = ImGui::GetIO();
 	ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-
+	Last_model = model;
 }
