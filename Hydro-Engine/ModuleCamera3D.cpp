@@ -129,7 +129,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		CastRay();
+		//CastRay();
 	}
 
 	if (draw_ray)

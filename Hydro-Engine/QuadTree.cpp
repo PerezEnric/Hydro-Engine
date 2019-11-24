@@ -81,6 +81,8 @@ bool QTN::InsertGO(GameObject * obj)
 	bool ret = false;
 	if (obj->b_mesh)
 	{
+		obj->my_mesh->recboubox();
+
 		AABB obj_box = obj->my_mesh->obb_box;
 	
 		if (!my_box.Intersects(obj_box)) 	// If the gameobject is not in this node we do nothing

@@ -33,6 +33,7 @@ public:
 	void DrawBBox();
 	void ShowInfo();
 	void RecalcBoundingBox();
+	AABB recboubox();
 	AABB mesh_bbox;
 	AABB obb_box;
 

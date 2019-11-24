@@ -46,7 +46,7 @@ bool ModuleSceneIntro::Start()
 	App->window->SetTitle(name.c_str());
 
 	
-	quadtree = new QT(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+	quadtree = new QT(AABB(float3(-100, -10, -100), float3(100, 10, 100)), 4);
 	//game_t.Start();
 
 	return ret;
@@ -70,8 +70,12 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 			if (selected->transform->bbox_changed)
 			{
-				/*selected->my_mesh->RecalcBoundingBox();*/
-				selected->transform->bbox_changed = false;
+				if (selected->b_mesh)
+				{
+					selected->my_mesh->RecalcBoundingBox();
+					selected->transform->bbox_changed = false;
+				}
+				
 			}
 		}
 			
@@ -115,7 +119,7 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	if (re_quadtree)
 	{
 		quadtree->CleanUp();
-		quadtree->Create(AABB(float3(-30, -10, -30), float3(30, 10, 30)), 4);
+		quadtree->Create(AABB(float3(-100, -10, -100), float3(100, 10, 100)), 4);
 		// then we charge all the _statics objects.
 		std::vector<GameObject*> frustum_load;
 		for (uint i = 0; i < root.size(); i++)

@@ -266,6 +266,16 @@ void Component_Mesh::RecalcBoundingBox()
 	obb_box.Enclose(obb);
 }
 
+AABB Component_Mesh::recboubox()
+{
+	OBB obb = CreateAABB();
+	obb.Transform(GO->transform->GetGlobalMatrix());
+	obb_box.SetNegativeInfinity();
+	obb_box.Enclose(obb);
+
+	return obb_box;
+}
+
 void Component_Mesh::CleanResUp()
 {
 	glDeleteBuffers(1, &(id_index));
