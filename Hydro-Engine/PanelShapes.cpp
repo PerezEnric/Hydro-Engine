@@ -22,34 +22,34 @@ bool PanelShapes::Update()
 
 		if (ImGui::Button("Cube"))
 		{
-			char cube[20];
-			sprintf(cube, "cube %d", current_cube);
-			current_cube++;
-			App->scene_intro->CreateGameObjectPS(cube, PrimitiveTypes::P_CUBE);
+			//char cube[20];
+			//sprintf(cube, "cube %d", current_cube);
+			//current_cube++;
+			//App->scene_intro->CreateGameObjectPS(cube, PrimitiveTypes::P_CUBE);
 			
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Sphere"))
 		{
-			char sphere[20];
-			sprintf(sphere, "sphere %d", current_sphere);
-			current_sphere++;
-			App->scene_intro->CreateGameObjectPS(sphere, PrimitiveTypes::P_SPHERE);
+			//char sphere[20];
+			//sprintf(sphere, "sphere %d", current_sphere);
+			//current_sphere++;
+			//App->scene_intro->CreateGameObjectPS(sphere, PrimitiveTypes::P_SPHERE);
 		}
 		if (ImGui::Button("Cylinder"))
 		{
-			char cylinder[20];
-			sprintf(cylinder, "cylinder %d", current_cylinder);
-			current_cylinder++;
-			App->scene_intro->CreateGameObjectPS(cylinder, PrimitiveTypes::P_CYLINDER);
+			//char cylinder[20];
+			//sprintf(cylinder, "cylinder %d", current_cylinder);
+			//current_cylinder++;
+			//App->scene_intro->CreateGameObjectPS(cylinder, PrimitiveTypes::P_CYLINDER);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Plane"))
 		{
-			char plane[20];
-			sprintf(plane, "plane %d", current_plane);
-			current_plane++;
-			App->scene_intro->CreateGameObjectPS(plane, PrimitiveTypes::P_PLANE);
+			//char plane[20];
+			//sprintf(plane, "plane %d", current_plane);
+			//current_plane++;
+			//App->scene_intro->CreateGameObjectPS(plane, PrimitiveTypes::P_PLANE);
 		}
 
 
