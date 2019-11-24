@@ -381,7 +381,7 @@ bool ModuleSceneIntro::RayTestAABB(LineSegment ray)
 		{
 			LOG("COLLISIOOON");
 			intersected_go2.push_back(*it1);
-			RayTestTriangles(ray, intersected_go);
+			RayTestTriangles(ray, intersected_go2);
 		}
 	}
 
@@ -396,6 +396,10 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 	{
 		if ((*it)->b_mesh)
 		{
+
+
+
+
 			if ((*it)->my_mesh->my_reference->my_mesh->num_index > 7)
 			{
 				for (uint i = 0; i < (*it)->my_mesh->my_reference->my_mesh->num_index; i += 3)
