@@ -153,6 +153,9 @@
     <ClCompile Include="btPrimitive.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="PhysBody.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -334,6 +337,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="btPrimitive.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysBody.h">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
