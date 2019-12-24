@@ -1,7 +1,10 @@
 #include "Globals.h"
 #include <gl/GLU.h>
 #include <gl/GL.h>
+#include "glut/glut.h"
 #include "btPrimitive.h"
+
+#pragma comment (lib, "glut/glut32.lib")
 
 
 btPrimitive::btPrimitive() : transform(transform.identity), color(White), wire(false), axis(false), type(PrimitiveT::PRIM_POINT)
@@ -161,28 +164,7 @@ btSphere::btSphere(float radius) : btPrimitive(), radius(radius)
 
 void btSphere::InnerRender() const
 {
-	//glutSolidSphere(radius, 25, 25);
-	//const float PI = 3.141592f;
-	//GLfloat x, y, z, alpha, beta; // Storage for coordinates and angles        
-	//GLfloat radius = 60.0f;
-	//int gradation = 20;
-
-	//for (alpha = 0.0; alpha < PI; alpha += PI / gradation)
-	//{
-	//	glBegin(GL_TRIANGLE_STRIP);
-	//	for (beta = 0.0; beta < 2.01 * PI; beta += PI / gradation)
-	//	{
-	//		x = radius * cos(beta) * sin(alpha);
-	//		y = radius * sin(beta) * sin(alpha);
-	//		z = radius * cos(alpha);
-	//		glVertex3f(x, y, z);
-	//		x = radius * cos(beta) * sin(alpha + PI / gradation);
-	//		y = radius * sin(beta) * sin(alpha + PI / gradation);
-	//		z = radius * cos(alpha + PI / gradation);
-	//		glVertex3f(x, y, z);
-	//	}
-	//	glEnd();
-	//}
+	glutSolidSphere(radius, 25, 25);
 }
 
 // Cylinder
