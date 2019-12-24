@@ -91,5 +91,146 @@ void btPrimitive::Scale(float x, float y, float z)
 
 // CUBE
 
+btCube::btCube() : btPrimitive(), size(1.0f, 1.0f, 1.0f)
+{
+	type = PrimitiveT::PRIM_CUBE;
+}
+
+btCube::btCube(float sizeX, float sizeY, float sizeZ) : btPrimitive(), size(sizeX, sizeY, sizeZ)
+{
+	type = PrimitiveT::PRIM_CUBE;
+}
+
+void btCube::InnerRender() const
+{
+	float sx = size.x * 0.5f;
+	float sy = size.y * 0.5f;
+	float sz = size.z * 0.5f;
+
+	glBegin(GL_QUADS);
+
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-sx, -sy, sz);
+	glVertex3f(sx, -sy, sz);
+	glVertex3f(sx, sy, sz);
+	glVertex3f(-sx, sy, sz);
+
+	glNormal3f(0.0f, 0.0f, -1.0f);
+	glVertex3f(sx, -sy, -sz);
+	glVertex3f(-sx, -sy, -sz);
+	glVertex3f(-sx, sy, -sz);
+	glVertex3f(sx, sy, -sz);
+
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(sx, -sy, sz);
+	glVertex3f(sx, -sy, -sz);
+	glVertex3f(sx, sy, -sz);
+	glVertex3f(sx, sy, sz);
+
+	glNormal3f(-1.0f, 0.0f, 0.0f);
+	glVertex3f(-sx, -sy, -sz);
+	glVertex3f(-sx, -sy, sz);
+	glVertex3f(-sx, sy, sz);
+	glVertex3f(-sx, sy, -sz);
+
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-sx, sy, sz);
+	glVertex3f(sx, sy, sz);
+	glVertex3f(sx, sy, -sz);
+	glVertex3f(-sx, sy, -sz);
+
+	glNormal3f(0.0f, -1.0f, 0.0f);
+	glVertex3f(-sx, -sy, -sz);
+	glVertex3f(sx, -sy, -sz);
+	glVertex3f(sx, -sy, sz);
+	glVertex3f(-sx, -sy, sz);
+
+	glEnd();
+}
+
+// SPHERE
+btSphere::btSphere() : btPrimitive(), radius(1.0f)
+{
+	type = PrimitiveT::PRIM_SPHERE;
+}
+
+btSphere::btSphere(float radius) : btPrimitive(), radius(radius)
+{
+	type = PrimitiveT::PRIM_SPHERE;
+}
+
+void btSphere::InnerRender() const
+{
+	//glutSolidSphere(radius, 25, 25);
+	//const float PI = 3.141592f;
+	//GLfloat x, y, z, alpha, beta; // Storage for coordinates and angles        
+	//GLfloat radius = 60.0f;
+	//int gradation = 20;
+
+	//for (alpha = 0.0; alpha < PI; alpha += PI / gradation)
+	//{
+	//	glBegin(GL_TRIANGLE_STRIP);
+	//	for (beta = 0.0; beta < 2.01 * PI; beta += PI / gradation)
+	//	{
+	//		x = radius * cos(beta) * sin(alpha);
+	//		y = radius * sin(beta) * sin(alpha);
+	//		z = radius * cos(alpha);
+	//		glVertex3f(x, y, z);
+	//		x = radius * cos(beta) * sin(alpha + PI / gradation);
+	//		y = radius * sin(beta) * sin(alpha + PI / gradation);
+	//		z = radius * cos(alpha + PI / gradation);
+	//		glVertex3f(x, y, z);
+	//	}
+	//	glEnd();
+	//}
+}
+
+// Cylinder
+
+btCylinder::btCylinder() : btPrimitive(), radius(1.0f), height(1.0f)
+{
+	type = PrimitiveT::PRIM_CYLINDER;
+}
+
+btCylinder::btCylinder(float radius, float height) : btPrimitive(), radius(radius), height(height)
+{
+	type = PrimitiveT::PRIM_CYLINDER;
+}
+
+void btCylinder::InnerRender() const
+{
+	int n = 30;
+
+	// Cylinder Bottom
+	glBegin(GL_POLYGON);
+
+	for (int i = 360; i >= 0; i -= (360 / n))
+	{
+		float a = i * PI / 180; // degrees to radians
+		glVertex3f(-height * 0.5f, radius * cos(a), radius * sin(a));
+	}
+	glEnd();
+
+	// Cylinder Top
+	glBegin(GL_POLYGON);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	for (int i = 0; i <= 360; i += (360 / n))
+	{
+		float a = i * PI / 180; // degrees to radians
+		glVertex3f(height * 0.5f, radius * cos(a), radius * sin(a));
+	}
+	glEnd();
+
+	// Cylinder "Cover"
+	glBegin(GL_QUAD_STRIP);
+	for (int i = 0; i < 480; i += (360 / n))
+	{
+		float a = i * PI / 180; // degrees to radians
+
+		glVertex3f(height * 0.5f, radius * cos(a), radius * sin(a));
+		glVertex3f(-height * 0.5f, radius * cos(a), radius * sin(a));
+	}
+	glEnd();
+}
 
 

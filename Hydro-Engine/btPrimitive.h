@@ -30,3 +30,36 @@ public:
 	bool axis, wire;
 	PrimitiveT type;
 };
+
+class btCube : public btPrimitive
+{
+public:
+	btCube();
+	btCube(float sizeX, float sizeY, float sizeZ);
+	void InnerRender() const;
+
+public:
+	float3 size;
+};
+
+class btSphere : public btPrimitive
+{
+public:
+	btSphere();
+	btSphere(float radius);
+	void InnerRender() const;
+
+public:
+	float radius;
+};
+
+class btCylinder :public btPrimitive
+{
+public:
+	btCylinder();
+	btCylinder(float radius, float height);
+	void InnerRender() const;
+
+public:
+	float radius, height;
+};
