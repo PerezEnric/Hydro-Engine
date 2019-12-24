@@ -147,6 +147,12 @@
     <ClCompile Include="PanelCamera.cpp">
       <Filter>Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ModulePhysics.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="btPrimitive.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -323,6 +329,12 @@
     </ClInclude>
     <ClInclude Include="PanelCamera.h">
       <Filter>Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePhysics.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="btPrimitive.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
