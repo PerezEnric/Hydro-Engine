@@ -12,6 +12,7 @@
 #include "ModuleFileSystem.h"
 #include "ModuleImporter.h"
 #include "ModuleResourceManager.h"
+#include "ModulePhysics.h"
 #include "Glew/include/glew.h"
 #include <list>
 #include <shellapi.h>
@@ -52,7 +53,7 @@ public:
 	ModuleImporter* importer;
 	ModuleFileSystem* file_system;
 	ResourceManager* res_man;
-	
+	ModulePhysics* physics;
 
 private:
 

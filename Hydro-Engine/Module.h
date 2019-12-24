@@ -3,7 +3,7 @@
 #include "Globals.h"
 
 class Application;
-struct PhysBody3D;
+struct PhysBody;
 
 class Module
 {
@@ -49,6 +49,6 @@ public:
 		return true; 
 	}
 
-	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+	virtual void OnCollision(PhysBody* body1, PhysBody* body2)
 	{}
 };
