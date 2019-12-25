@@ -215,4 +215,26 @@ void btCylinder::InnerRender() const
 	glEnd();
 }
 
+btLine::btLine() : btPrimitive(), origin(0, 0, 0), destination(1, 1, 1)
+{
+	type = PrimitiveT::PRIM_LINE;
+}
 
+btLine::btLine(float x, float y, float z) : btPrimitive(), origin(0, 0, 0), destination(x, y, z)
+{
+	type = PrimitiveT::PRIM_LINE;
+}
+
+void btLine::InnerRender() const
+{
+	glLineWidth(2.0f);
+
+	glBegin(GL_LINES);
+
+	glVertex3f(origin.x, origin.y, origin.z);
+	glVertex3f(destination.x, destination.y, destination.z);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+}

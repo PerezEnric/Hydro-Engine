@@ -6,6 +6,7 @@
 enum class PrimitiveT
 {
 	PRIM_POINT,
+	PRIM_LINE,
 	PRIM_CUBE,
 	PRIM_SPHERE,
 	PRIM_CYLINDER,
@@ -62,4 +63,15 @@ public:
 
 public:
 	float radius, height;
+};
+
+class btLine : public btPrimitive
+{
+public:
+	btLine();
+	btLine(float x, float y, float z);
+	void InnerRender() const;
+public:
+	float3 origin;
+	float3 destination;
 };
