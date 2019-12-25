@@ -5,6 +5,7 @@
 #include <list>
 #include <iostream>
 
+
 Application::Application()
 {
 	window = new ModuleWindow(this);
@@ -16,6 +17,7 @@ Application::Application()
 	file_system = new ModuleFileSystem(this, ASSETS_FOLDER);
 	importer = new ModuleImporter(this);
 	res_man = new ResourceManager(this);
+	//physics = new ModulePhysics(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -25,6 +27,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	//AddModule(physics);
 	AddModule(file_system);
 	AddModule(importer);
 	AddModule(res_man);

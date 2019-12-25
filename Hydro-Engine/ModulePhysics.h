@@ -7,6 +7,7 @@
 
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
+
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
 
@@ -28,13 +29,13 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	PhysBody3D* AddBody(const btSphere& sphere, float mass = 1.0f);
-	PhysBody3D* AddBody(const btCube& cube, float mass = 1.0f);
-	PhysBody3D* AddBody(const btCylinder& cylinder, float mass = 1.0f);
+	PhysBody* AddBody(const btSphere& sphere, float mass = 1.0f);
+	PhysBody* AddBody(const btCube& cube, float mass = 1.0f);
+	PhysBody* AddBody(const btCylinder& cylinder, float mass = 1.0f);
 	//Vehicle* AddVehicle(const VehicleInfo& info);
 
-	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB);
-	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisS, const float3& axisB, bool disable_collision = false, bool motor = false);
+	//void AddConstraintP2P(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB);
+	//void AddConstraintHinge(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisS, const float3& axisB, bool disable_collision = false, bool motor = false);
 
 
 private:
