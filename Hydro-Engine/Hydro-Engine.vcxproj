@@ -47,7 +47,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -63,7 +63,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -135,6 +135,7 @@
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vehicle.h" />
     <ClInclude Include="WindowsItem.h" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,7 @@
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json" />
