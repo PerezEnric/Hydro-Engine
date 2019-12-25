@@ -156,9 +156,6 @@
     <ClCompile Include="PhysBody.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Vehicle.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -343,9 +340,6 @@
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="PhysBody.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Vehicle.h">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
