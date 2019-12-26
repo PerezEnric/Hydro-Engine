@@ -18,6 +18,10 @@
 #include <shellapi.h>
 
 
+#include "MathGeoLib/include/MathBuildConfig.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+
+
 struct HardwareInfo
 {
 	SDL_version sdl_version;
@@ -53,7 +57,7 @@ public:
 	ModuleImporter* importer;
 	ModuleFileSystem* file_system;
 	ResourceManager* res_man;
-	//ModulePhysics* physics;
+	ModulePhysics* physics;
 	
 
 private:
