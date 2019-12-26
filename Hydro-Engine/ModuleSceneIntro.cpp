@@ -8,6 +8,10 @@
 #include "ModuleFileSystem.h"
 #include "QuadTree.h"
 #include "ResourceMesh.h"
+#include "btPrimitive.h"
+#include "PhysBody.h"
+#include "ModulePhysics.h"
+#include "Vehicle.h"
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Math/float3.h"
@@ -104,11 +108,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	if(App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		CreateCube();
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
+	RenderCubes();
+
 	if (last_time_go != root.size())
 	{
 		re_quadtree = true;
@@ -153,7 +162,7 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+void ModuleSceneIntro::OnCollision(PhysBody* body1, PhysBody* body2)
 {
 }
 
@@ -439,5 +448,30 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 		}
 	}
 	return true;
+}
+
+void ModuleSceneIntro::CreateCube(float3 dim, float3 pos, Color color, float angle, float3 u, float mass)
+{
+	btCube cub(dim.x, dim.y, dim.z);
+	cub.SetPos(pos.x, pos.y, pos.z);
+	cub.color = color;
+
+	if (angle != 0)
+		cub.SetRotation(angle, float3(u.x, u.y, u.z));
+
+
+	App->physics->AddBody(cub, mass);
+	list_cubes.push_back(cub);
+}
+
+void ModuleSceneIntro::RenderCubes()
+{
+	std::list<btCube>::iterator cubes_item = list_cubes.begin();
+
+	while (cubes_item != list_cubes.end()) {
+		(cubes_item)->Render();
+
+		++cubes_item;
+	}
 }
 

@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "btPrimitive.h"
 #include "GameTimer.h"
 #include "Glew/include/glew.h"
 #include "Json/json.hpp"
@@ -12,7 +13,8 @@
 
 #define MAX_SNAKE 8
 class GameObject;
-struct PhysBody3D;
+class btCube;
+struct PhysBody;
 class QT;
 
 
@@ -26,9 +28,10 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
+	void RenderCubes();
 	bool CleanUp();
 
-	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void OnCollision(PhysBody* body1, PhysBody* body2);
 
 	void CreateGameObject(const std::string & name, const std::string & Filename);
 
@@ -52,6 +55,8 @@ public:
 	bool RayTestAABB(LineSegment ray);
 	bool RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected);
 
+	void CreateCube(float3 dimension = { 10.0f, 10.0f, 10.0f }, float3 position = { 0.0f, 0.0f, 0.0f }, Color color = White, float angle = 0.0f, float3 u = { 0.0f, 0.0f, 0.0f }, float mass = 0.0f);
+
 public:
 	// Game Objects.
 	std::vector<GameObject*> root;
@@ -65,7 +70,7 @@ public:
 	uint my_indices = 0;
 
 	Primitive c;
-
+	std::list<btCube> list_cubes;
 	void MakeChecker();
 
 	uint imagewidht = 64;

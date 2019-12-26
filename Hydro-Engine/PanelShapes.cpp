@@ -18,17 +18,23 @@ bool PanelShapes::Update()
 	if (ImGui::Begin("Primitive shapes", &is_active))
 	{
 		ImGui::SetWindowPos(ImVec2{ 600, 20 }, ImGuiCond_FirstUseEver);
-		ImGui::SetWindowSize(ImVec2{ 200, 100 });
+		ImGui::SetWindowSize(ImVec2{ 200, 300 });
 
-		if (ImGui::Button("Cube"))
+		ImGui::Text("Cube");
+		ImGui::Separator();
+		ImGui::DragFloat3("Size", &cube_size[3], 0.1f, 1.0f, 100.0f);
+
+		if (ImGui::Button("Create Cube"))
 		{
 			//char cube[20];
 			//sprintf(cube, "cube %d", current_cube);
 			//current_cube++;
 			//App->scene_intro->CreateGameObjectPS(cube, PrimitiveTypes::P_CUBE);
-			
+			App->scene_intro->CreateCube(cube_size);
 		}
-		ImGui::SameLine();
+		ImGui::Text("Sphere");
+		ImGui::Separator();
+
 		if (ImGui::Button("Sphere"))
 		{
 			//char sphere[20];
@@ -36,6 +42,9 @@ bool PanelShapes::Update()
 			//current_sphere++;
 			//App->scene_intro->CreateGameObjectPS(sphere, PrimitiveTypes::P_SPHERE);
 		}
+		ImGui::Text("Cylinder");
+		ImGui::Separator();
+
 		if (ImGui::Button("Cylinder"))
 		{
 			//char cylinder[20];
@@ -44,13 +53,6 @@ bool PanelShapes::Update()
 			//App->scene_intro->CreateGameObjectPS(cylinder, PrimitiveTypes::P_CYLINDER);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Plane"))
-		{
-			//char plane[20];
-			//sprintf(plane, "plane %d", current_plane);
-			//current_plane++;
-			//App->scene_intro->CreateGameObjectPS(plane, PrimitiveTypes::P_PLANE);
-		}
 
 
 		ImGui::End();
