@@ -117,6 +117,8 @@ update_status ModuleSceneIntro::Update(float dt)
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
 	RenderCubes();
+	RenderSpheres();
+	RenderCylinders();
 
 	if (last_time_go != root.size())
 	{
@@ -472,6 +474,44 @@ void ModuleSceneIntro::RenderCubes()
 		(cubes_item)->Render();
 
 		++cubes_item;
+	}
+}
+
+void ModuleSceneIntro::CreateSphere(float radius, float3 pos, float mass)
+{
+	btSphere sph(radius);
+	sph.SetPos(pos.x, pos.y, pos.z);
+
+	App->physics->AddBody(sph, mass);
+	list_spheres.push_back(sph);
+}
+
+void ModuleSceneIntro::RenderSpheres()
+{
+	std::list<btSphere>::iterator spheres_item = list_spheres.begin();
+
+	while (spheres_item != list_spheres.end()) {
+		(spheres_item)->Render();
+		++spheres_item;
+	}
+}
+
+void ModuleSceneIntro::CreateCylinder(float radius, float height, float3 pos, float mass)
+{
+	btCylinder cylinder(radius, height);
+	cylinder.SetPos(pos.x, pos.y, pos.z);
+
+	App->physics->AddBody(cylinder, mass);
+	list_cylinders.push_back(cylinder);
+}
+
+void ModuleSceneIntro::RenderCylinders()
+{
+	std::list<btCylinder>::iterator cylinders_item = list_cylinders.begin();
+
+	while (cylinders_item != list_cylinders.end()) {
+		(cylinders_item)->Render();
+		++cylinders_item;
 	}
 }
 

@@ -28,7 +28,6 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
-	void RenderCubes();
 	bool CleanUp();
 
 	void OnCollision(PhysBody* body1, PhysBody* body2);
@@ -56,6 +55,13 @@ public:
 	bool RayTestTriangles(LineSegment last_ray, std::vector<GameObject*> intersected);
 
 	void CreateCube(float3 dimension = { 10.0f, 10.0f, 10.0f }, float3 position = { 0.0f, 0.0f, 0.0f }, Color color = White, float angle = 0.0f, float3 u = { 0.0f, 0.0f, 0.0f }, float mass = 0.0f);
+	void RenderCubes();
+
+	void CreateSphere(float radius = 1.0f, float3 pos = { 0.0f, 0.0f, 0.0f }, float mass = 0.0f);
+	void RenderSpheres();
+
+	void CreateCylinder(float radius = 1.0f, float height = 1.0f, float3 pos = { 0.0f, 0.0f, 0.0f }, float mass = 0.0f);
+	void RenderCylinders();
 
 public:
 	// Game Objects.
@@ -71,6 +77,8 @@ public:
 
 	Primitive c;
 	std::list<btCube> list_cubes;
+	std::list<btSphere> list_spheres;
+	std::list<btCylinder> list_cylinders;
 	void MakeChecker();
 
 	uint imagewidht = 64;

@@ -19,7 +19,10 @@ private:
 	int current_sphere = 0;
 	int current_cylinder = 0;
 	int current_plane = 0;
-	float3 cube_size = float3(0, 0, 0);
+	float3 cube_size = float3(1.0f, 1.0f, 1.0f);
+	float sphere_rad = 1.0f;
+	float cylinder_rad = 1.0f;
+	float cylinder_height = 1.0f;
 public:
 	bool show_shapes = false;
 };
