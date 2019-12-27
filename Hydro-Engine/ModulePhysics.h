@@ -13,7 +13,7 @@
 
 class DebugDrawer;
 struct PhysBody;
-//struct Vehicle;
+struct Vehicle;
 struct VehicleInfo;
 
 class ModulePhysics : public Module
@@ -32,7 +32,7 @@ public:
 	PhysBody* AddBody(const btSphere& sphere, float mass = 1.0f);
 	PhysBody* AddBody(const btCube& cube, float mass = 1.0f);
 	PhysBody* AddBody(const btCylinder& cylinder, float mass = 1.0f);
-	//Vehicle* AddVehicle(const VehicleInfo& info);
+	Vehicle* AddVehicle(const VehicleInfo& info);
 
 	//void AddConstraintP2P(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB);
 	//void AddConstraintHinge(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisS, const float3& axisB, bool disable_collision = false, bool motor = false);
@@ -54,7 +54,7 @@ private:
 	std::list<PhysBody*> bodies;
 	std::list<btDefaultMotionState*> motions;
 	std::list<btTypedConstraint*> constraints;
-	//std::list<Vehicle*> vehicles;
+	std::list<Vehicle*> vehicles;
 
 
 };
