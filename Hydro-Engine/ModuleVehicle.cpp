@@ -38,8 +38,6 @@ bool ModuleVehicle::Start()
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
 
-	// Don't change anything below this line ------------------
-
 	float half_width = car.chassis_size.x * 0.5f;
 	float half_length = car.chassis_size.z * 0.5f;
 

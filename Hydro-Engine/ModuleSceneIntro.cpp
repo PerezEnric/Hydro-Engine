@@ -108,8 +108,18 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		CreateCube();
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		//btSphere s(10.0f);
+		//s.SetPos(0.0f, 0.0f, 0.0f);
+		float force = 30.0f;
+		//App->physics->AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
+		btSphere sph(1.0f);
+		sph.SetPos(App->camera->main_cam->frustum.pos.x, App->camera->main_cam->frustum.pos.y, App->camera->main_cam->frustum.pos.z);
+
+		App->physics->AddBody(sph, 0.0f)/*->Push(-(App->camera->main_cam->frustum.WorldRight().x * force), -(App->camera->main_cam->frustum.WorldRight().y * force), -((float)App->camera->main_cam->frustum.WorldRight().z * force))*/;
+		list_spheres.push_back(sph);
+	}
 
 	return UPDATE_CONTINUE;
 }

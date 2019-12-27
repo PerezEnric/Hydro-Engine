@@ -126,10 +126,14 @@ update_status ModulePhysics::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
-			btSphere s(1.0f);
-			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		//	btSphere s(1.0f);
+		//	s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		//	float force = 30.0f;
+		//	AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
+			btSphere s(10.0f);
+			s.SetPos(0.0f, 0.0f, 0.0f);
 			float force = 30.0f;
-			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
+			AddBody(s)/*->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force))*/;
 		}
 	}
 
