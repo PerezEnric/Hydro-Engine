@@ -21,6 +21,7 @@ Application::Application()
 	importer = new ModuleImporter(this);
 	res_man = new ResourceManager(this);
 	physics = new ModulePhysics(this);
+	vehicle = new ModuleVehicle(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -37,6 +38,7 @@ Application::Application()
 	
 	// Scenes
 	AddModule(scene_intro);
+	//AddModule(vehicle);
 
 	//UI
 	AddModule(ui);

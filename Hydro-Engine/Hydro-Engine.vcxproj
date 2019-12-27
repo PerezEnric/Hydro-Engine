@@ -172,6 +172,7 @@
     <ClInclude Include="ModuleResourceManager.h" />
     <ClInclude Include="ModuleSceneIntro.h" />
     <ClInclude Include="ModuleUI.h" />
+    <ClInclude Include="ModuleVehicle.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelAbout.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="ModuleResourceManager.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
+    <ClCompile Include="ModuleVehicle.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PanelAbout.cpp" />
