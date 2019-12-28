@@ -14,6 +14,7 @@
 #define MAX_SNAKE 8
 class GameObject;
 class btCube;
+class btSphere;
 struct PhysBody;
 class QT;
 
@@ -79,6 +80,7 @@ public:
 	std::list<btCube> list_cubes;
 	std::list<btSphere> list_spheres;
 	std::list<btCylinder> list_cylinders;
+	btSphere cam_sphere;
 	void MakeChecker();
 
 	uint imagewidht = 64;

@@ -53,6 +53,12 @@ bool ModuleSceneIntro::Start()
 	quadtree = new QT(AABB(float3(-100, -10, -100), float3(100, 10, 100)), 4);
 	//game_t.Start();
 
+	btSphere aux_sphere(1.0f);
+	cam_sphere = aux_sphere;
+	cam_sphere.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	cam_sphere.my_body = App->physics->AddBody(cam_sphere);
+
+
 	return ret;
 }
 
@@ -111,17 +117,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		btSphere s(10.0f);
-		//btCube c(1, 1, 1);
+		float force = 50.0f;
 		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-		/*btCylinder c(3, 2);
-		c.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
-		/*s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
-		//LOG("%f %f %f", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z)
-		float force = 30.0f;
 		s.my_body = App->physics->AddBody(s, 1);
-		s.my_body->Push(0, force, 0);
+		s.my_body->Push((float&)App->camera->main_cam->frustum.WorldRight() * force, (float&)App->camera->main_cam->frustum.up * force/2, (float&)App->camera->main_cam->frustum.front * force);
 		list_spheres.push_back(s);
 	}
+
+	cam_sphere.my_body->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
 	return UPDATE_CONTINUE;
 }
@@ -483,6 +486,7 @@ void ModuleSceneIntro::RenderCubes()
 	std::list<btCube>::iterator cubes_item = list_cubes.begin();
 
 	while (cubes_item != list_cubes.end()) {
+		(cubes_item)->my_body->GetTransform(*(cubes_item)->transform.v);
 		(cubes_item)->Render();
 
 		++cubes_item;
@@ -523,6 +527,7 @@ void ModuleSceneIntro::RenderCylinders()
 	std::list<btCylinder>::iterator cylinders_item = list_cylinders.begin();
 
 	while (cylinders_item != list_cylinders.end()) {
+		(cylinders_item)->my_body->GetTransform(*(cylinders_item)->transform.v);
 		(cylinders_item)->Render();
 		++cylinders_item;
 	}

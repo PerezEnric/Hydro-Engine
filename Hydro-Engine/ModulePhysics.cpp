@@ -198,7 +198,7 @@ PhysBody* ModulePhysics::AddBody(const btSphere& sphere, float mass)
 */
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	//motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(1, myMotionState, colShape);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody* pbody = new PhysBody(body);
