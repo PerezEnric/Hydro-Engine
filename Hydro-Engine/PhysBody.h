@@ -20,6 +20,7 @@ public:
 	float3 GetPos(float& x, float& y, float& z);
 
 	std::list<Module*> collision_listeners;
-private:
+
 	btRigidBody* body = nullptr;
+private:
 };

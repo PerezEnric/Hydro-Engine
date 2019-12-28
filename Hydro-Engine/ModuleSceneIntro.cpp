@@ -54,10 +54,14 @@ bool ModuleSceneIntro::Start()
 	//game_t.Start();
 
 	btSphere aux_sphere(1.0f);
-	cam_sphere = aux_sphere;
-	cam_sphere.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-	cam_sphere.my_body = App->physics->AddBody(cam_sphere);
+	//cam_sphere = aux_sphere;
+	//cam_sphere.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	//cam_sphere.my_body = App->physics->AddBody(cam_sphere);
 
+	cam_sphere = App->physics->AddBody(aux_sphere, 1);
+
+
+	cam_sphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
 	return ret;
 }
@@ -118,13 +122,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		btSphere s(10.0f);
 		float force = 50.0f;
-		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		s.SetPos(0,2,0);//App->camera->Position.x, App->camera->Position.y, App->camera->Position.z
 		s.my_body = App->physics->AddBody(s, 1);
-		s.my_body->Push((float&)App->camera->main_cam->frustum.WorldRight() * force, (float&)App->camera->main_cam->frustum.up * force/2, (float&)App->camera->main_cam->frustum.front * force);
+		//s.my_body->Push((float&)App->camera->main_cam->frustum.WorldRight() * force, (float&)App->camera->main_cam->frustum.up * force/2, (float&)App->camera->main_cam->frustum.front * force);
 		list_spheres.push_back(s);
 	}
-
-	cam_sphere.my_body->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	cam_sphere->body->activate(true);
+	cam_sphere->body->setGravity({0,0.00001,0});
+	cam_sphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
 	return UPDATE_CONTINUE;
 }
