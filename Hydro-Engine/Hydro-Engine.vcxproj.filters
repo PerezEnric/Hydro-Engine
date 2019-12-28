@@ -258,6 +258,9 @@
     <ClCompile Include="ModuleVehicle.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Component_Collider.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -620,6 +623,9 @@
     </ClInclude>
     <ClInclude Include="ModuleVehicle.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Collider.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

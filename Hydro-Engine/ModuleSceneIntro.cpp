@@ -62,7 +62,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			App->importer->aiParentNode("Assets/Street environment_V01.fbx");
+			//App->importer->aiParentNode("Assets/Street environment_V01.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;
@@ -110,15 +110,17 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		//btSphere s(10.0f);
-		//s.SetPos(0.0f, 0.0f, 0.0f);
+		btSphere s(10.0f);
+		//btCube c(1, 1, 1);
+		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		/*btCylinder c(3, 2);
+		c.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
+		/*s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
+		//LOG("%f %f %f", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z)
 		float force = 30.0f;
-		//App->physics->AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-		btSphere sph(1.0f);
-		sph.SetPos(App->camera->main_cam->frustum.pos.x, App->camera->main_cam->frustum.pos.y, App->camera->main_cam->frustum.pos.z);
-
-		App->physics->AddBody(sph, 0.0f)/*->Push(-(App->camera->main_cam->frustum.WorldRight().x * force), -(App->camera->main_cam->frustum.WorldRight().y * force), -((float)App->camera->main_cam->frustum.WorldRight().z * force))*/;
-		list_spheres.push_back(sph);
+		PhysBody* sphere = App->physics->AddBody(s, 1);
+		sphere->Push(0, force, 0);
+		list_spheres.push_back(s);
 	}
 
 	return UPDATE_CONTINUE;
@@ -444,11 +446,11 @@ bool ModuleSceneIntro::RayTestTriangles(LineSegment last_ray, std::vector<GameOb
 					c_i = (*it)->my_mesh->my_reference->my_mesh->index[i + 2] * 3;
 					float3 c((*it)->my_mesh->my_reference->my_mesh->vertex[c_i], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 1], (*it)->my_mesh->my_reference->my_mesh->vertex[c_i + 2]);
 					Triangle tri(a, b, c); //We build the triangles
-					LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
+				//	LOG("SECOND FAR DISTANCE: %f", far_hit_distance)
 						float hit_distance = 0.0f; //As it says, the distance of the hit
 					if (local_ray.Intersects(tri, &hit_distance, nullptr)) //if the local ray intersects with a triangle we also get the hit distance
 					{
-						LOG("HIT POINT DISTANCE: %f", hit_distance);
+					//	LOG("HIT POINT DISTANCE: %f", hit_distance);
 						if (hit_distance < far_hit_distance) {
 							far_hit_distance = hit_distance; //We get the closest distance to the hit point so we get the closest GameObject
 							selected = (*it);

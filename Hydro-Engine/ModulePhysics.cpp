@@ -26,6 +26,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 	broad_phase = new btDbvtBroadphase();
 	solver = new btSequentialImpulseConstraintSolver();
 	debug_draw = new DebugDrawer();
+
 }
 
 ModulePhysics::~ModulePhysics()
@@ -48,7 +49,7 @@ bool ModulePhysics::Init()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics environment");
-
+	debug_draw->setDebugMode(1);
 	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
 	world->setDebugDrawer(debug_draw);
 	world->setGravity(GRAVITY);
@@ -116,24 +117,16 @@ update_status ModulePhysics::Update(float dt)
 	{
 		world->debugDrawWorld();
 
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+		{
+
+		}
 		// Render vehicles
 		std::list<Vehicle*>::iterator item = vehicles.begin();
 		while (item != vehicles.end())
 		{
 			(*item)->Render();
 			++item;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-		//	btSphere s(1.0f);
-		//	s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-		//	float force = 30.0f;
-		//	AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-			btSphere s(10.0f);
-			s.SetPos(0.0f, 0.0f, 0.0f);
-			float force = 30.0f;
-			AddBody(s)/*->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force))*/;
 		}
 	}
 
@@ -195,18 +188,17 @@ bool ModulePhysics::CleanUp()
 PhysBody* ModulePhysics::AddBody(const btSphere& sphere, float mass)
 {
 	btCollisionShape* colShape = new btSphereShape(sphere.radius);
-	shapes.push_back(colShape);
 
 	btTransform startTransform;
 	startTransform.setFromOpenGLMatrix(*sphere.transform.v);
 
-	btVector3 localInertia(0, 0, 0);
+	/*btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
 		colShape->calculateLocalInertia(mass, localInertia);
-
+*/
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+	//motions.push_back(myMotionState);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(1, myMotionState, colShape);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody* pbody = new PhysBody(body);
@@ -333,6 +325,7 @@ Vehicle* ModulePhysics::AddVehicle(const VehicleInfo& info)
 
 
 
+
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 {
 	line.origin.Set(from.getX(), from.getY(), from.getZ());
@@ -343,7 +336,7 @@ void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btV
 
 void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 {
-	point.transform.SetTranslatePart(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
+	point.transform.Translate(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
 	point.color.Set(color.getX(), color.getY(), color.getZ());
 	point.Render();
 }

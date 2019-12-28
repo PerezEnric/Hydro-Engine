@@ -4,6 +4,7 @@
 #include "glut/glut.h"
 #include "btPrimitive.h"
 
+
 #pragma comment (lib, "glut/glut32.lib")
 
 
@@ -79,7 +80,9 @@ void btPrimitive::InnerRender() const
 
 void btPrimitive::SetPos(float x, float y, float z)
 {
-	transform.SetTranslatePart(x, y, z);
+	transform.At(3, 0) = x;
+	transform.At(3, 1) = y;
+	transform.At(3, 2) = z;
 }
 
 void btPrimitive::SetRotation(float angle, const float3 &u)

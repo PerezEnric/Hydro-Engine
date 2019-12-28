@@ -14,6 +14,7 @@ enum COMPONENT_TYPE
 	TEXTURE,
 	TRANSFORM,
 	CAMERA,
+	COLLIDER,
 
 	NONE
 };
@@ -23,6 +24,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(COMPONENT_TYPE, {
 	{TEXTURE, "c_texture"},
 	{TRANSFORM, "c_transform"},
 	{CAMERA, "c_camera"},
+	{COLLIDER, "c_collider"}
 	})
 
 class Component

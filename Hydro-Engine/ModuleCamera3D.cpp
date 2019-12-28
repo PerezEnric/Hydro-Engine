@@ -29,6 +29,7 @@ bool ModuleCamera3D::Start()
 	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA, true);
 	//Test = new Component_Camera(nullptr, CAMERA, true);
 	main_cam->FrustrumLook(float3::zero);
+	Position = main_cam->frustum.pos;
 	//Test->FrustrumLook(float3::zero);
 	return ret;
 }
@@ -54,23 +55,36 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		CentreGOView();
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{	
 		newPos += main_cam->frustum.front * speed;
+	}
+	
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
 		newPos -= main_cam->frustum.front * speed;
+	}
+		
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
 		newPos -= main_cam->frustum.WorldRight() * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
-		newPos += main_cam->frustum.WorldRight() * speed;
+	}
 
-	Position += newPos;
-	Reference += newPos;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		newPos += main_cam->frustum.WorldRight() * speed;
+	}
 
 	if (!newPos.Equals(float3::zero)) //if it is zero at starting the scene it crashes
+	{
 		main_cam->frustum.Translate(newPos);
+		Position += newPos;
+		Reference += newPos;
+	}
+		
 
 	// Mouse motion ----------------
 
@@ -112,17 +126,16 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseZ() < 0)
 	{
 		newPos -= main_cam->frustum.front * wheelSpeed;
-		Position += newPos;
-		Reference += newPos;
 		main_cam->frustum.Translate(newPos);
 	}
 
 	if (App->input->GetMouseZ() > 0)
 	{
 		newPos += main_cam->frustum.front * wheelSpeed;
-		Position -= newPos;
-		Reference -= newPos;
+
 		main_cam->frustum.Translate(newPos);
+		Position += newPos;
+		Reference += newPos;
 	}
 
 	//Mouse picking
