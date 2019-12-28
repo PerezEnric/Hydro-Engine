@@ -2,6 +2,7 @@
 
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "Color.h"
+#include "PhysBody.h"
 
 enum class PrimitiveT
 {
@@ -30,6 +31,7 @@ public:
 	float4x4 transform;
 	bool axis, wire;
 	PrimitiveT type;
+	PhysBody* my_body;
 };
 
 class btCube : public btPrimitive
@@ -40,6 +42,7 @@ public:
 	void InnerRender() const;
 
 public:
+
 	float3 size;
 };
 

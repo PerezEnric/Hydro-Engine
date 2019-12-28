@@ -118,8 +118,8 @@ update_status ModuleSceneIntro::Update(float dt)
 		/*s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
 		//LOG("%f %f %f", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z)
 		float force = 30.0f;
-		PhysBody* sphere = App->physics->AddBody(s, 1);
-		sphere->Push(0, force, 0);
+		s.my_body = App->physics->AddBody(s, 1);
+		s.my_body->Push(0, force, 0);
 		list_spheres.push_back(s);
 	}
 
@@ -503,6 +503,7 @@ void ModuleSceneIntro::RenderSpheres()
 	std::list<btSphere>::iterator spheres_item = list_spheres.begin();
 
 	while (spheres_item != list_spheres.end()) {
+		(spheres_item)->my_body->GetTransform(*(spheres_item)->transform.v);
 		(spheres_item)->Render();
 		++spheres_item;
 	}
