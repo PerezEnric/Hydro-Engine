@@ -103,7 +103,6 @@ void Component_Transform::NewTransform()
 				GO->childrens[i]->transform->NewTransform(); // methods?
 		}
 	}
-
 }
 
 Component_Transform * Component_Transform::GetThis()

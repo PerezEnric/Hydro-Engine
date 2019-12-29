@@ -148,6 +148,7 @@ void ModuleImporter::ChargeTransform(aiNode * parentNod, GameObject * act)
 	{
 		act->transform->LoadTransform(pos, scale, rot);
 		act->transform->NewTransform();
+		act->transform->transform_done = true;
 	}
 	// Transformation --------------
 }

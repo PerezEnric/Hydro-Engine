@@ -44,6 +44,7 @@ public:
 	Quat l_rotation = Quat( 0,0,0,0 );
 	float3 future_rotation = float3(0, 0, 0);
 	bool bbox_changed = false;
+	bool transform_done = false;
 };
 
 

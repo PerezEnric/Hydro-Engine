@@ -4,12 +4,14 @@
 #include "Globals.h"
 #include <string>
 #include "Component_Texture.h"
+#include "btPrimitive.h"
 #include "Glew/include/glew.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 
 
 class Resource;
 class ResourceMesh;
+class PhysBody;
 
 class Component_Mesh : public Component
 {
@@ -42,6 +44,7 @@ public:
 	// Save and load
 	nlohmann::json SaveComponent();
 	void LoadComponent(nlohmann::json & to_load);
+	void SetColPosition(float3 pos);
 
 	std::string own_file;
 
@@ -85,8 +88,6 @@ public:
 	uint UUID_resource = 0;
 	ResourceMesh* my_reference = nullptr;
 
-	
-
-private:
-	
+	PhysBody* cu;
+	bool cycle = false;
 };

@@ -9,6 +9,8 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "ImGui/imgui.h"
+#include "ModulePhysics.h"
+#include "PhysBody.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include <vector>
 
@@ -28,7 +30,7 @@ Component_Mesh::Component_Mesh(GameObject* GO, COMPONENT_TYPE type, bool _empty)
 			UUID_resource = uuid;
 			App->importer->LoadFBX(GO->path.c_str(), GO->actual_mesh, GO);
 		}
-			
+
 
 		GO->my_mesh = this;
 		GO->b_mesh = true;
@@ -63,9 +65,6 @@ bool Component_Mesh::Update()
 	if(inside_frustum || !GO->_static)
 		Draw();
 
-
-
-
 	if (show_vertex_normals  && GO->p_type == P_NONE)
 		DrawVertexNormals();
 
@@ -74,6 +73,17 @@ bool Component_Mesh::Update()
 
 	if(show_bbox)
 		DrawBBox();
+
+	if (GO->parent != nullptr && cycle == false && GO->transform->transform_done)
+	{
+		btCube c_cube({ obb_box.Size().x, obb_box.Size().y, obb_box.Size().z });
+		cu = App->physics->AddBody(c_cube, 0.0f);
+		cu->SetTransform(*GO->transform->GetGlobalMatrix().v);
+		cu->SetPos(GO->transform->GetPosition().x, GO->transform->GetPosition().y, GO->transform->GetPosition().z);
+		
+		cycle = true;
+	}
+		
 	
 	inside_frustum = false;
 	return true;
@@ -378,6 +388,13 @@ void Component_Mesh::LoadComponent(nlohmann::json & to_load)
 	//then we create the ABB and the Obb.
 	/*if (vertex != nullptr)
 		CreateOBB();*/
+}
+
+void Component_Mesh::SetColPosition(float3 pos)
+{
+	//btTransform t = body->getWorldTransform();
+	//t.setOrigin(btVector3(x, y, z));
+	//body->setWorldTransform(t);
 }
 
 void Component_Mesh::DrawBBox()
