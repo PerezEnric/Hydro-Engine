@@ -15,6 +15,7 @@
 #include "PhysBody.h"
 #include "Vehicle.h"
 #include "btPrimitive.h"
+#include "ModuleSceneIntro.h"
 
 
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -71,7 +72,14 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate(float dt)
 {
-	world->stepSimulation(dt, 15);
+	if (App->scene_intro->game_t.is_running && !App->scene_intro->game_t.is_paused)
+		world->stepSimulation(dt, 15);
+
+	if (App->scene_intro->game_t.we_stoped == true)
+	{
+	}
+
+
 
 	int numManifolds = world->getDispatcher()->getNumManifolds();
 	for (int i = 0; i < numManifolds; i++)
@@ -321,6 +329,15 @@ Vehicle* ModulePhysics::AddVehicle(const VehicleInfo& info)
 	vehicles.push_back(pvehicle);
 
 	return pvehicle;
+}
+
+void ModulePhysics::SupaCleanUp()
+{
+	CleanUp();
+	Start();
+	App->scene_intro->CameraCreating();
+	App->vehicle->Start();
+	App->scene_intro->game_t.we_stoped = false;
 }
 
 

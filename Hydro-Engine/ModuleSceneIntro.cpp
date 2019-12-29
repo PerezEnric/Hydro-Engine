@@ -53,17 +53,23 @@ bool ModuleSceneIntro::Start()
 	quadtree = new QT(AABB(float3(-100, -10, -100), float3(100, 10, 100)), 4);
 	//game_t.Start();
 
-	btSphere aux_sphere(1.0f);
+	
 	//cam_sphere = aux_sphere;
 	//cam_sphere.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 	//cam_sphere.my_body = App->physics->AddBody(cam_sphere);
 
+	CameraCreating();
+
+	return ret;
+}
+
+void ModuleSceneIntro::CameraCreating()
+{
+	btSphere aux_sphere(1.0f);
 	cam_sphere = App->physics->AddBody(aux_sphere, 1);
 
 
 	cam_sphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-
-	return ret;
 }
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
@@ -72,7 +78,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			//App->importer->aiParentNode("Assets/Street environment_V01.fbx");
+			App->importer->aiParentNode("Assets/Street environment_V01.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;

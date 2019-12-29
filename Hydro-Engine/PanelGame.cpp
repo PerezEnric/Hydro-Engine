@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "PanelGame.h"
 #include "PanelSaveAndLoad.h"
+#include "ModulePhysics.h"
 #include "ImGui/imgui.h"
 
 PanelGame::PanelGame()
@@ -49,8 +50,12 @@ bool PanelGame::Update()
 	if (ImGui::Button("Stop"))
 	{
 		App->scene_intro->game_t.is_paused = false;
+		App->scene_intro->game_t.is_running = false;
+		App->scene_intro->game_t.we_stoped = true;
+		App->physics->SupaCleanUp();
 		App->scene_intro->LoadScene("Library/Scenes/auto_play_save.json");
 		App->scene_intro->game_t.StopGame();
+
 	}
 
 

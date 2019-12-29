@@ -61,10 +61,10 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		GO->transform->transform_done = true;
-	}
+	}*/
 	
 	if(inside_frustum || !GO->_static)
 		Draw();
@@ -78,11 +78,11 @@ bool Component_Mesh::Update()
 	if(show_bbox)
 		DrawBBox();
 
-	if (GO->parent != nullptr && cycle == false && GO->transform->transform_done)
+	if (GO->parent != nullptr && cycle == false && App->importer->transforms_done)
 	{
 		AABB helper = CreateAABB();
 		btCube c_cube({ helper.Size().x, helper.Size().y, helper.Size().z });
-		cu = App->physics->AddBody(c_cube, 0.0f);
+		cu = App->physics->AddBody(c_cube, 1.0f);
 		cu->SetTransform(*GO->transform->my_global_matrix.Transposed().v);
 		
 

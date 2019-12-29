@@ -27,7 +27,7 @@ public:
 	float acceleration;
 	float brake;
 	float3 position = { 0.0f, 0.0f, 0.0f };
-	float3 initial_position = { 0.0f, 0.0f, 0.0f };
+	float3 initial_position = { 0.0f, 30.0f, 0.0f };
 	float3 current_position;
 
 	bool over_cam = false;

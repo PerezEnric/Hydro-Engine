@@ -24,4 +24,5 @@ public:
 
 	bool is_running = false;
 	bool is_paused = false;
+	bool we_stoped = false;
 };
