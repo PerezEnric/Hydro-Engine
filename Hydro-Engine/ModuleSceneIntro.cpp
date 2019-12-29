@@ -72,7 +72,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			App->importer->aiParentNode("Assets/Street environment_V01.fbx");
+			//App->importer->aiParentNode("Assets/Street environment_V01.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;
@@ -122,9 +122,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		btSphere s(10.0f);
 		float force = 50.0f;
-		s.SetPos(0,2,0);//App->camera->Position.x, App->camera->Position.y, App->camera->Position.z
+		s.SetPos(App->camera->Position.x + (App->camera->main_cam->frustum.front.x*3), App->camera->Position.y + (App->camera->main_cam->frustum.front.y * 3), App->camera->Position.z + (App->camera->main_cam->frustum.front.z * 3));//App->camera->Position.x, App->camera->Position.y, App->camera->Position.z
 		s.my_body = App->physics->AddBody(s, 1);
-		//s.my_body->Push((float&)App->camera->main_cam->frustum.WorldRight() * force, (float&)App->camera->main_cam->frustum.up * force/2, (float&)App->camera->main_cam->frustum.front * force);
+		s.my_body->Push(App->camera->main_cam->frustum.front.x * force, App->camera->main_cam->frustum.front.y * force, App->camera->main_cam->frustum.front.z * force);
 		list_spheres.push_back(s);
 	}
 	cam_sphere->body->activate(true);
