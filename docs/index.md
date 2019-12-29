@@ -76,9 +76,9 @@ In the editor, a point to point constraint can be created. In this case, one cub
 
 A vehicle is created to test the collision with the environment.
 
-(GIF 1)
+<img src="https://github.com/PerezEnric/Hydro-Engine/blob/master/docs/GifCollision.gif?raw=true">
 
-(GIF 2)
+<img src="https://github.com/PerezEnric/Hydro-Engine/blob/master/docs/GifBalls.gif?raw=true">
 
 # Video
 
