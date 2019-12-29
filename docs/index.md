@@ -86,7 +86,7 @@ A vehicle is created to test the collision with the environment.
 
 [Repository](https://github.com/PerezEnric/Hydro-Engine)
 
-(LAST RELEASE)
+[Last Release](https://github.com/PerezEnric/Hydro-Engine/releases/tag/v1.0)
 
 # License
 
