@@ -36,7 +36,7 @@ Hi everyone, this is Hydro Engine, a game engine that we are developing for a su
 
  - To create a constraint: Create->Constraint
 
- - Vehicle can only be used while in-game
+ - Every physics feature can only be used while in-game
 
 
 ## License:
