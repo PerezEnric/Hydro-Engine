@@ -9,39 +9,34 @@ Hi everyone, this is Hydro Engine, a game engine that we are developing for a su
 - Guillem Sánchez: https://github.com/GuillemSanchez
 
 
-## Repo:
+## Repository:
 
 - https://github.com/PerezEnric/Hydro-Engine
 
-## Work done by members:
+## Controls
 
-- Guillem:
+### Camera
 
--Component transfor 1/2.
+* W/A/S/D  + Left Click to move the camera (hold left shift to move faster)
+* Alt + Right Click to rotate the camera
 
--Own file formats.
+### Vehicle
 
--Space Partioning.
+* Arrows to move
 
--Serialitzation
+### Others
 
--Resource Managment.
-
-- Enric:
-
--Component transfor 1/2.
-
--Frustum culling.
-
--Mouse Picking.
-
--time Managment.
+* F1 to show debug draw from physics
 
 ## Things to know
 
  - When you open the engine it will load a street scene. It will take a little time to load all game objects.
 
  - If you want to see quadtrees, you should go: view -> camera settings
+
+ - To create a constraint: Create->Constraint
+
+ - Vehicle can only be used while in-game
 
 
 ## License:
