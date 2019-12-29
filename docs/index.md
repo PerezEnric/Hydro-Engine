@@ -5,15 +5,21 @@ This is a basic Game Engine made by two students of the 3rd year of Design and D
 # Team
 
 ## Guillem
-(Guillem's photo)
 
-(Guillem's work)
+<img src="https://github.com/PerezEnric/Hydro-Engine/blob/master/docs/Guillem.jpg?raw=true">
+
+* GameObjects
+* Own File
+* Serialization
+* Resource Manager
+* Model Physicalized
+* Shoot spheres
 
 [Profile](https://github.com/Gollim)
 
 ## Enric
 
-(Enric's photo)
+<img src="https://github.com/PerezEnric/Hydro-Engine/blob/master/docs/Enric.jpg?raw=true">
 
 * UI
 * Frustum Culling
@@ -48,7 +54,11 @@ A Raycast is used in order to select a GameObject from the scene. It intersects 
 
 ## Time Management
 
-When the play button is pressed another clock is activated so the game is running. In this case, the physics of the gameobjects work. It can be paused and if stop button is pressed, everything returns to the previous state.
+When the _play_ button is pressed another clock is activated so the game is running. In this case, the physics of the gameobjects work. It can be paused and if _stop_ button is pressed, everything returns to the previous state.
+
+## Resource Manager
+
+Only one GameObject is loaded and the others are references.
 
 # Physics sub-system
 
