@@ -35,11 +35,10 @@ Application::Application()
 	AddModule(file_system);
 	AddModule(importer);
 	AddModule(res_man);
-	
+
 	// Scenes
 	AddModule(scene_intro);
-	//AddModule(vehicle);
-
+	AddModule(vehicle);
 	//UI
 	AddModule(ui);
 

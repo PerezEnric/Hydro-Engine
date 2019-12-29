@@ -150,7 +150,7 @@ update_status ModuleVehicle::Update(float dt)
 	vehicle->Brake(brake);
 
 	vehicle->Render();
-	//vehicle->GetPos(position.x, position.y, position.z);
+	vehicle->GetPos(position.x, position.y, position.z);
 
 
 	return UPDATE_CONTINUE;
