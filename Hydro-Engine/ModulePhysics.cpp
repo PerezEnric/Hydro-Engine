@@ -220,13 +220,13 @@ PhysBody* ModulePhysics::AddBody(const btCube& cube, float mass)
 	btTransform startTransform;
 	startTransform.setFromOpenGLMatrix(*cube.transform.v);
 
-	btVector3 localInertia(0, 0, 0);
-	if (mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
+	//btVector3 localInertia(0, 0, 0);
+	//if (mass != 0.f)
+	//	colShape->calculateLocalInertia(mass, localInertia);
 
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody* pbody = new PhysBody(body);

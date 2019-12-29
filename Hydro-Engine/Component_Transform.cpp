@@ -89,7 +89,10 @@ void Component_Transform::NewTransform()
 	if (GO->parent != nullptr) // Same as last time :D
 	{
 		if (GO->DoIhave(TRANSFORM))
+		{
 			my_global_matrix = GO->parent->transform->my_global_matrix * my_current_matrix;
+			
+		}
 	}
 	else
 		my_global_matrix = my_current_matrix;
@@ -103,6 +106,7 @@ void Component_Transform::NewTransform()
 				GO->childrens[i]->transform->NewTransform(); // methods?
 		}
 	}
+	
 }
 
 Component_Transform * Component_Transform::GetThis()

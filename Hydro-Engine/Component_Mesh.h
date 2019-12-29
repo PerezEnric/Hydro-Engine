@@ -49,7 +49,7 @@ public:
 	std::string own_file;
 
 public:
-
+	float4x4 my_cu_matrix;
 	bool inside_frustum = false; 
 
 	uint id_index = 0; // index in VRAM
