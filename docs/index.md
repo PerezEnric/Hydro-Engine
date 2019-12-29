@@ -84,6 +84,8 @@ A vehicle is created to test the collision with the environment.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/watch?v=yh2Jm9JitnQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+[Link](https://www.youtube.com/watch?v=yh2Jm9JitnQ) to the video
+
 # Links
 
 [Repository](https://github.com/PerezEnric/Hydro-Engine)
