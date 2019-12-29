@@ -1,6 +1,6 @@
 # Introduction
 
-This is a basic Game Engine made by two students of the 3rd year of Design and Development of Videogames in CITM. It is based in Unity Engine so the GameObject sub-system, camera controls are similar and we have a game mode too. One of the features our engine has is a physics engine, implemented using Bullet Library and Opengl.
+This is a basic Game Engine made by two students of the 3rd year of Design and Development of Videogames in [CITM](https://www.citm.upc.edu/). It is based in Unity Engine so the GameObject sub-system, camera controls are similar and we have a game mode too. One of the features our engine has is a physics engine, implemented using Bullet Library and Opengl.
 
 # Team
 
