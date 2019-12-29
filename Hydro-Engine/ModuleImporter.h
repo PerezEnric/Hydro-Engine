@@ -59,6 +59,8 @@ public:
 	void ExportTextureOwnFile(const char* pathname, Component_Texture* Tex);
 
 	bool CleanUp();
+
+	bool transforms_done = false;
 private:
 	std::string local_doc;
 

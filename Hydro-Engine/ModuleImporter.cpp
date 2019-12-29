@@ -59,7 +59,7 @@ int ModuleImporter::HowManyMeshes(const std::string & Filename)
 
 void ModuleImporter::aiParentNode(const std::string & Filename)
 {
-
+	transforms_done = false;
 	Assimp::Importer Importer;
 
 	const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
@@ -148,7 +148,6 @@ void ModuleImporter::ChargeTransform(aiNode * parentNod, GameObject * act)
 	{
 		act->transform->LoadTransform(pos, scale, rot);
 		act->transform->NewTransform();
-		act->transform->transform_done = true;
 	}
 	// Transformation --------------
 }
@@ -165,6 +164,7 @@ void ModuleImporter::CreateGO(const std::string & Filename, GameObject * act)
 	else {
 		printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
 	}
+	transforms_done = true;
 }
 
 std::string ModuleImporter::LoadFBX(const std::string & Filename, uint index, GameObject* object)

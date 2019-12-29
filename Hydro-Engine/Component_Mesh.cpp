@@ -61,7 +61,11 @@ void Component_Mesh::Load_Mesh()
 
 bool Component_Mesh::Update()
 {
-
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		GO->transform->transform_done = true;
+	}
+	
 	if(inside_frustum || !GO->_static)
 		Draw();
 
@@ -76,14 +80,19 @@ bool Component_Mesh::Update()
 
 	if (GO->parent != nullptr && cycle == false && GO->transform->transform_done)
 	{
-		btCube c_cube({ obb_box.Size().x, obb_box.Size().y, obb_box.Size().z });
+		AABB helper = CreateAABB();
+		btCube c_cube({ helper.Size().x, helper.Size().y, helper.Size().z });
 		cu = App->physics->AddBody(c_cube, 0.0f);
-		cu->SetTransform(*GO->transform->GetGlobalMatrix().v);
-		cu->SetPos(GO->transform->GetPosition().x, GO->transform->GetPosition().y, GO->transform->GetPosition().z);
+		cu->SetTransform(*GO->transform->my_global_matrix.Transposed().v);
 		
+
+		// I dont know why this above doesnt work correctly (maybe the origin isnt the same or somethink), i mean is the exact position but somehow doesnt work properlly.
+
+
+
+
 		cycle = true;
 	}
-		
 	
 	inside_frustum = false;
 	return true;
@@ -94,8 +103,17 @@ void Component_Mesh::Draw()
 	
 	if (GO->DoIhave(TRANSFORM))
 	{
-		glPushMatrix();
-		glMultMatrixf((const GLfloat *)&GO->transform->my_global_matrix.Transposed());
+		if (!cycle)
+		{
+			glPushMatrix();
+			glMultMatrixf((const GLfloat *)&GO->transform->my_global_matrix.Transposed());
+		}
+		if (cycle)
+		{
+			cu->GetTransform(*my_cu_matrix.v);
+			glPushMatrix();
+			glMultMatrixf((const GLfloat *)&my_cu_matrix);
+		}
 	}
 	
 	glEnable(GL_TEXTURE_2D);
@@ -251,6 +269,7 @@ AABB Component_Mesh::CreateAABB()
 {
 	mesh_bbox.SetNegativeInfinity();
 	mesh_bbox.Enclose((float3*)my_reference->my_mesh->vertex, my_reference->my_mesh->num_vertex);
+
 
 	return mesh_bbox;
 }
@@ -434,6 +453,9 @@ void Component_Mesh::DrawBBox()
 	glVertex3f(obb_box.CornerPoint(2).x, obb_box.CornerPoint(2).y, obb_box.CornerPoint(2).z);
 
 	glEnd();
+
+
+
 }
 
 void Component_Mesh::ShowInfo()
