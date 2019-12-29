@@ -334,13 +334,24 @@ Vehicle* ModulePhysics::AddVehicle(const VehicleInfo& info)
 void ModulePhysics::SupaCleanUp()
 {
 	CleanUp();
+	App->scene_intro->CleanLists();
 	Start();
 	App->scene_intro->CameraCreating();
 	App->vehicle->Start();
 	App->scene_intro->game_t.we_stoped = false;
 }
 
-
+void ModulePhysics::AddConstraintP2P(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB)
+{
+	btTypedConstraint* p2p = new btPoint2PointConstraint(
+		*(bodyA.body),
+		*(bodyB.body),
+		btVector3(anchorA.x, anchorA.y, anchorA.z),
+		btVector3(anchorB.x, anchorB.y, anchorB.z));
+	world->addConstraint(p2p);
+	constraints.push_back(p2p);
+	p2p->setDbgDrawSize(2.0f);
+}
 
 
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)

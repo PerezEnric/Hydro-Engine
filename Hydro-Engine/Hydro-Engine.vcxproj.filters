@@ -261,6 +261,9 @@
     <ClCompile Include="Component_Collider.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="PanelConstraints.cpp">
+      <Filter>Modules\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -626,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="Component_Collider.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelConstraints.h">
+      <Filter>Modules\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

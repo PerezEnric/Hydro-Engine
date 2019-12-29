@@ -58,6 +58,7 @@ bool ModuleUI::Start()
 	vector_panels.push_back(p_saveload = new PanelSaveAndLoad());
 	vector_panels.push_back(p_game = new PanelGame());
 	vector_panels.push_back(p_camera = new PanelCamera());
+	vector_panels.push_back(p_constraints = new PanelConstraints());
 
 	p_console->is_active = true;
 	p_inspector->is_active = true;
@@ -100,6 +101,9 @@ update_status ModuleUI::PreUpdate(float dt)
 
 	if (p_camera->show_panelcam)
 		p_camera->is_active;
+
+	if (p_constraints->show_panelconstr)
+		p_constraints->is_active;
 
 	if (logs_to_do.size() > 0)
 	{
@@ -169,6 +173,7 @@ void ModuleUI::CreateMainMenuBar()
 		if (ImGui::BeginMenu("Create"))
 		{
 			ImGui::MenuItem("Primitives", NULL, &p_shapes->is_active);
+			ImGui::MenuItem("Constraints", NULL, &p_constraints->is_active);
 			ImGui::EndMenu();
 		}
 

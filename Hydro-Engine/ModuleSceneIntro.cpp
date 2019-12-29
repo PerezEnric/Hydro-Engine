@@ -78,7 +78,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	{
 		if (second_cycle)
 		{
-			App->importer->aiParentNode("Assets/Street environment_V01.fbx");
+			//App->importer->aiParentNode("Assets/Street environment_V01.fbx");
 			house_loaded = true;
 		}
 		second_cycle = true;
@@ -136,6 +136,25 @@ update_status ModuleSceneIntro::Update(float dt)
 	cam_sphere->body->activate(true);
 	cam_sphere->body->setGravity({0,0.00001,0});
 	cam_sphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		btCube c1({ 1.0f, 1.0f, 1.0f });
+
+		c1.SetPos(10.0f, 0.5f, 0.0f);
+		c1.my_body = App->physics->AddBody(c1);
+
+		list_cubes.push_back(c1);
+
+		btCube c2({ 1.0f, 1.0f, 1.0f });
+
+		c2.SetPos(5.0f, 5.0f, 0.0f);
+		c2.my_body = App->physics->AddBody(c2);
+
+		list_cubes.push_back(c2);
+
+		App->physics->AddConstraintP2P(*c1.my_body, *c2.my_body, anchorA, anchorB);
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -542,5 +561,12 @@ void ModuleSceneIntro::RenderCylinders()
 		(cylinders_item)->Render();
 		++cylinders_item;
 	}
+}
+
+void ModuleSceneIntro::CleanLists()
+{
+	list_cubes.clear();
+	list_spheres.clear();
+	list_cylinders.clear();
 }
 

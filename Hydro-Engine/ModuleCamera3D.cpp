@@ -127,6 +127,8 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		newPos -= main_cam->frustum.front * wheelSpeed;
 		main_cam->frustum.Translate(newPos);
+		Position += newPos;
+		Reference += newPos;
 	}
 
 	if (App->input->GetMouseZ() > 0)

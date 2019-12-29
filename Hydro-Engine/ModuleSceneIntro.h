@@ -65,6 +65,8 @@ public:
 	void CreateCylinder(float radius = 1.0f, float height = 1.0f, float3 pos = { 0.0f, 0.0f, 0.0f }, float mass = 0.0f);
 	void RenderCylinders();
 
+	void CleanLists();
+
 public:
 	// Game Objects.
 	std::vector<GameObject*> root;
@@ -81,6 +83,8 @@ public:
 	std::list<btCube> list_cubes;
 	std::list<btSphere> list_spheres;
 	std::list<btCylinder> list_cylinders;
+	float3 anchorA = {5.0f, 0.0f, 0.0f};
+	float3 anchorB = { 5.0f, 5.0f, 0.0f };
 	PhysBody* cam_sphere;
 	void MakeChecker();
 
