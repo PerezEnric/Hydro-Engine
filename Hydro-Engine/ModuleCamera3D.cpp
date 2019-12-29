@@ -7,14 +7,6 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	/*CalculateViewMatrix();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);*/
 
 }
 
@@ -27,10 +19,9 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 	main_cam = new Component_Camera(nullptr, COMPONENT_TYPE::CAMERA, true);
-	//Test = new Component_Camera(nullptr, CAMERA, true);
 	main_cam->FrustrumLook(float3::zero);
 	Position = main_cam->frustum.pos;
-	//Test->FrustrumLook(float3::zero);
+
 	return ret;
 }
 
@@ -59,14 +50,11 @@ update_status ModuleCamera3D::Update(float dt)
 	{	
 		newPos += main_cam->frustum.front * speed;
 	}
-	
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		newPos -= main_cam->frustum.front * speed;
 	}
-		
-
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
@@ -85,7 +73,6 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += newPos;
 	}
 		
-
 	// Mouse motion ----------------
 
 	if(App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
@@ -94,8 +81,6 @@ update_status ModuleCamera3D::Update(float dt)
 		int dy = -App->input->GetMouseYMotion();
 		float3 rot = main_cam->frustum.pos;
 		float Sensitivity = 0.25f * dt;
-
-		//Position -= Reference;
 
 		if (dx)
 		{
@@ -116,9 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 				main_cam->frustum.up = this_up;
 				main_cam->frustum.front = rot_quat.Mul(main_cam->frustum.front).Normalized();
 			}
-
 		}
-
 	}
 
 	//Zoom
@@ -147,86 +130,7 @@ update_status ModuleCamera3D::Update(float dt)
 		CastRay();
 	}
 
-	/*if (draw_ray)
-		DrawRay();
-*/
-
-	//// Recalculate matrix -------------
-	//CalculateViewMatrix();
-
-
-/*
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		Test->frustum.pos.z += 1;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		Test->frustum.pos.x += 1;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		Test->frustum.pos.z -= 1;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		Test->frustum.pos.x -= 1;
-	}
-
-	Test->DrawFrustrum();
-
-	main_cam->show_frustum = true;
-
-	main_cam->Update();*/
-
 	return UPDATE_CONTINUE;
-}
-
-// -----------------------------------------------------------------
-//void ModuleCamera3D::Look(const float3 &Position, const float3&Reference, bool RotateAroundReference)
-//{
-//	this->Position = Position;
-//	this->Reference = Reference;
-//
-//	Z = normalize(Position - Reference);
-//	X = normalize(cross(float3(0.0f, 1.0f, 0.0f), Z));
-//	Y = cross(Z, X);
-//
-//	if(!RotateAroundReference)
-//	{
-//		this->Reference = this->Position;
-//		this->Position += Z * 0.05f;
-//	}
-//
-//	CalculateViewMatrix();
-//}
-
-// -----------------------------------------------------------------
-//void ModuleCamera3D::LookAt( const float3&Spot)
-//{
-//	Reference = Spot;
-//
-//	Z = normalize(Position - Reference);
-//	X = normalize(cross(float3(0.0f, 1.0f, 0.0f), Z));
-//	Y = cross(Z, X);
-//
-//	CalculateViewMatrix();
-//}
-
-
-// -----------------------------------------------------------------
-//void ModuleCamera3D::Move(const float3&Movement)
-//{
-//	Position += Movement;
-//	Reference += Movement;
-//
-//	CalculateViewMatrix();
-//}
-
-// -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return &ViewMatrix;
 }
 
 void ModuleCamera3D::CentreGOView()
@@ -272,10 +176,3 @@ void ModuleCamera3D::DrawRay()
 	glVertex3fv(pointB);
 	glEnd();
 }
-
-// -----------------------------------------------------------------
-//void ModuleCamera3D::CalculateViewMatrix()
-//{
-//	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-//	ViewMatrixInverse = inverse(ViewMatrix);
-//}

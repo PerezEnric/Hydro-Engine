@@ -37,7 +37,6 @@ public:
 	void SupaCleanUp();
 
 	void AddConstraintP2P(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB);
-	//void AddConstraintHinge(PhysBody& bodyA, PhysBody& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisS, const float3& axisB, bool disable_collision = false, bool motor = false);
 
 
 private:

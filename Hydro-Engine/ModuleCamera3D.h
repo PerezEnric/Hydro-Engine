@@ -16,17 +16,9 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	//void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
-	//void LookAt(const float3 &Spot);
-	//void Move(const float3 &Movement);
-	float* GetViewMatrix();
 	void CentreGOView();
 	void CastRay();
 	void DrawRay();
-
-private:
-
-	//void CalculateViewMatrix();
 
 public:
 	
@@ -36,7 +28,5 @@ public:
 	LineSegment picking;
 
 	bool draw_ray = false;
-private:
 
-	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

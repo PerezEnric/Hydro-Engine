@@ -272,14 +272,14 @@ void ModuleSceneIntro::LoadScene(std::string path)
 	root.clear();
 
 
-	nlohmann::json descarga;
+	nlohmann::json download;
 	std::ifstream k(path.c_str());
 	if (!k) {
 		LOG("Could not open config_file");
 	}
 	else {
 		LOG("Config_file succesfully loaded");
-		k >> descarga;
+		k >> download;
 	}
 
 	/// Test:
@@ -290,7 +290,7 @@ void ModuleSceneIntro::LoadScene(std::string path)
 	int iterator = 0; //when we run around the document we wanna know the actual iterator of the root we are working on.
 
 	// First we want to know how many gameobjects do we have.
-	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	for (nlohmann::json::iterator it = download.begin(); it != download.end(); it++)
 	{
 		num_gameobjects++;
 	}
@@ -304,7 +304,7 @@ void ModuleSceneIntro::LoadScene(std::string path)
 	}
 
 	//Then we want to send them their info to complet their data.
-	for (nlohmann::json::iterator it = descarga.begin(); it != descarga.end(); it++)
+	for (nlohmann::json::iterator it = download.begin(); it != download.end(); it++)
 	{
 		nlohmann::json GamObj = it.value();
 		root[iterator]->LoadGameObject(GamObj);

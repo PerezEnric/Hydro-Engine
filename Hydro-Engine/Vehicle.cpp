@@ -57,18 +57,6 @@ void Vehicle::Render()
 
 	cabin.Render();
 
-	// BACK
-	//btCube back(car_info.car_back_size.x, car_info.car_back_size.y, car_info.car_back_size.z);
-	//vehicle->getChassisWorldTransform().getOpenGLMatrix(*back.transform.v);
-	//btQuaternion q_b = vehicle->getChassisWorldTransform().getRotation();
-	//btVector3 offset_b(car_info.car_back_position.x, car_info.car_back_position.y, car_info.car_back_position.z);
-	//offset_b = offset_b.rotate(q_b.getAxis(), q_b.getAngle());
-
-	//back.transform.At(3, 0) = offset_b.getX();
-	//back.transform.At(3, 1) = offset_b.getY();
-	//back.transform.At(3, 2) = offset_b.getZ();
-
-	//back.Render();
 }
 
 void Vehicle::ApplyEngineForce(float force)
