@@ -15,7 +15,7 @@ This is a basic Game Engine made by two students of the 3rd year of Design and D
 * Model Physicalized
 * Shoot spheres
 
-[Profile](https://github.com/Gollim)
+[Github Profile](https://github.com/GuillemSanchez)
 
 ## Enric
 
@@ -28,7 +28,7 @@ This is a basic Game Engine made by two students of the 3rd year of Design and D
 * Vehicle
 * Constraint
 
-[Profile](https://github.com/PerezEnric)
+[Github Profile](https://github.com/PerezEnric)
 
 # Core sub-systems
 
