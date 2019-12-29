@@ -24,6 +24,7 @@ public:
 	void			SetRotation(float angle, const float3& u);
 	void			Scale(float x, float y, float z);
 	PrimitiveT	GetType() const;
+	float3 GetPos();
 
 public:
 
@@ -32,6 +33,7 @@ public:
 	bool axis, wire;
 	PrimitiveT type;
 	PhysBody* my_body;
+	float3 this_pos;
 };
 
 class btCube : public btPrimitive

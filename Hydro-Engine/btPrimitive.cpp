@@ -16,6 +16,11 @@ PrimitiveT btPrimitive::GetType() const
 	return type;
 }
 
+float3 btPrimitive::GetPos()
+{
+	return float3();
+}
+
 void btPrimitive::Render() const
 {
 	glPushMatrix();
@@ -80,9 +85,13 @@ void btPrimitive::InnerRender() const
 
 void btPrimitive::SetPos(float x, float y, float z)
 {
-	transform.At(3, 0) = x;
-	transform.At(3, 1) = y;
-	transform.At(3, 2) = z;
+	this_pos.x = x;
+	this_pos.y = y;
+	this_pos.z = z;
+
+	transform.At(3, 0) = this_pos.x;
+	transform.At(3, 1) = this_pos.y;
+	transform.At(3, 2) = this_pos.z;
 }
 
 void btPrimitive::SetRotation(float angle, const float3 &u)

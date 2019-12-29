@@ -67,4 +67,5 @@ public:
 	btRigidBody* car_body;
 	VehicleInfo car_info;
 	btRaycastVehicle* vehicle;
+	btVector3 ofv;
 };

@@ -22,7 +22,7 @@ bool ModuleVehicle::Start()
 	car.chassis_position.Set(0, 1, 0);
 
 	car.cabin_size.Set(1.98, 1.25, 2);
-	car.chassis_position.Set(-0.001, 2, -0.98);
+	car.cabin_position.Set(-0.001, 2, -0.98);
 
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -117,7 +117,7 @@ update_status ModuleVehicle::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		acceleration = 1.5f * MAX_ACCELERATION;
+		acceleration = 25.0f * MAX_ACCELERATION * dt;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -134,7 +134,7 @@ update_status ModuleVehicle::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		acceleration = -2.5f * MAX_ACCELERATION;
+		acceleration = -27.5f * MAX_ACCELERATION * dt;
 	}
 
 	//--------------------CAMERA DEBUG ON----------------------//
@@ -150,7 +150,7 @@ update_status ModuleVehicle::Update(float dt)
 	vehicle->Brake(brake);
 
 	vehicle->Render();
-	vehicle->GetPos(position.x, position.y, position.z);
+	//vehicle->GetPos(position.x, position.y, position.z);
 
 
 	return UPDATE_CONTINUE;

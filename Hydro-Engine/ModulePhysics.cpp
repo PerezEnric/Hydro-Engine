@@ -122,12 +122,12 @@ update_status ModulePhysics::Update(float dt)
 
 		}
 		// Render vehicles
-		std::list<Vehicle*>::iterator item = vehicles.begin();
+	/*	std::list<Vehicle*>::iterator item = vehicles.begin();
 		while (item != vehicles.end())
 		{
 			(*item)->Render();
 			++item;
-		}
+		}*/
 	}
 
 	return UPDATE_CONTINUE;
